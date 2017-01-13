@@ -12,7 +12,7 @@ namespace UnitTestLibraryDesktop
 		*/
 		TEST_METHOD(TestDefaultConstructor)
 		{
-			Library::SList* list = new Library::SList();
+			Library::SList<int>* list = new Library::SList<int>();
 			Assert::IsNotNull(list);
 			delete list;
 		}
@@ -21,8 +21,8 @@ namespace UnitTestLibraryDesktop
 		*/
 		TEST_METHOD(TestInsert)
 		{
-			Library::SList* list = new Library::SList();
-			list->Insert(2);
+			Library::SList<int>* list = new Library::SList<int>();
+			list->PushFront(2);
 			Assert::IsTrue(true);
 			delete list;
 		}

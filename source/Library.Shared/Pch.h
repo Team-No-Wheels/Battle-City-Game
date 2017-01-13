@@ -4,4 +4,5 @@
 #include <SDKDDKVer.h>
 
 // Standard libraries
+#include <exception>
 #include <cstdint>

@@ -21,8 +21,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)SList.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)SList.inl">
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <FileType>Document</FileType>
     </ClCompile>
   </ItemGroup>
 </Project>
