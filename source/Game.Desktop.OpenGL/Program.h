@@ -6,16 +6,16 @@
 namespace Game
 {
 	/** Program flow control and initalization handler
-	 * Handles the initalization of program window, OpenGL context and game loop
-	 */
+	* Handles the initalization of program window, OpenGL context and game loop
+	*/
 	class Program
 	{
 	public:
 		/** Constructs a program object with the given display attributes
-		 *  @param width The width of the output window
-		 *  @param height The height of the output window
-		 *  @param title The title of the output window
-		 */
+		*  @param width The width of the output window
+		*  @param height The height of the output window
+		*  @param title The title of the output window
+		*/
 		explicit Program(int width, int height, std::string title);
 		/** Destroys the program instance freeing up and allocated resources
 		*/
@@ -38,11 +38,17 @@ namespace Game
 		// Output window title
 		const std::string title;
 		// Output window object
-		GLFWwindow* window;		
-		
+		GLFWwindow* window;
+		// The object id of our shader program
+		GLuint shaderProgram;
+		// Vertex array object which contains the attributes of the stuff to draw
+		GLuint VAO;
+
 		// A single linked list object
 		Library::SList* list;
-				
+
+		// Compiles all the shaders and links them to a program
+		void InitShaders();
 		// Draws the triangles on to screen
 		void Draw();
 		// Keyboard input handler. Sets window close if ESC key is pressed.

@@ -97,7 +97,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include\;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -107,6 +107,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)" /e /r /y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -116,7 +119,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include\;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -126,6 +129,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)" /e /r /y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -137,7 +143,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include\;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -149,6 +155,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)" /e /r /y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -160,7 +169,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include\;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -172,6 +181,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)" /e /r /y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -182,15 +194,24 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="ShaderCompiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
     <ClInclude Include="Program.h" />
+    <ClInclude Include="ShaderCompiler.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\external\glad\glad.vcxproj">
+      <Project>{8a34b3c3-c2a1-4a8d-9701-07327e5cb5ea}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Library.Desktop\Library.Desktop.vcxproj">
       <Project>{b4aeee5c-bd77-4339-887b-3176a57768b3}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\default.frag" />
+    <None Include="shaders\default.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
