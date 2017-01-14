@@ -18,23 +18,42 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestCopyConstructor)
 		{
 			Library::SList<std::uint32_t> list1;
+			list1.PushFront(rand());
+			list1.PushFront(rand());
+			_CrtMemState memStateBeforeAssignment;
+			_CrtMemCheckpoint(&memStateBeforeAssignment);
+
 			Library::SList<std::uint32_t> list2(list1);
+			Assert::IsTrue(DidMemoryStateChange(memStateBeforeAssignment));
 			Assert::IsTrue(list1.Size() == list2.Size());
 		}
 
 		TEST_METHOD(TestAssignmentOperatorSuccess)
 		{
 			Library::SList<std::uint32_t> list1;
-			Library::SList<std::uint32_t> list2 = list1;
+			Library::SList<std::uint32_t> list2;
+
+			list1.PushFront(rand());
+			list1.PushFront(rand());
+			_CrtMemState memStateBeforeAssignment;
+			_CrtMemCheckpoint(&memStateBeforeAssignment);
+
+			list2 = list1;
+			Assert::IsTrue(DidMemoryStateChange(memStateBeforeAssignment));
 			Assert::IsTrue(list1.Size() == list2.Size());
-			//TODO: use memory snapshots to verify that new memory has been allocated
 		}
 
 		TEST_METHOD(TestAssignmentOperatorSelfCopyPrevention)
 		{
 			Library::SList<std::uint32_t> list1;
+
+			list1.PushFront(rand());
+			list1.PushFront(rand());
+			_CrtMemState memStateBeforeAssignment;
+			_CrtMemCheckpoint(&memStateBeforeAssignment);
+
 			list1 = list1;
-			//TODO: use memory snapshots to verify that no new memory has been allocated
+			Assert::IsFalse(DidMemoryStateChange(memStateBeforeAssignment));
 		}
 
 		TEST_METHOD(TestPushFront)
@@ -43,7 +62,6 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(list.Size() == 0);
 			list.PushFront(rand());
 			Assert::IsTrue(list.Size() == 1);
-			list.Clear();
 		}
 
 		TEST_METHOD(TestPopFrontReturnsCorrectValueAndUpdatesSize)
@@ -55,7 +73,6 @@ namespace UnitTestLibraryDesktop
 			list.PushBack(rand());
 			Assert::IsTrue(list.Size() == 3);
 			Assert::IsTrue(list.PopFront() == value);
-			list.Clear();
 		}
 
 		TEST_METHOD(TestPopFrontOnEmptyListThrowsException)
@@ -83,7 +100,6 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(list.Size() == 0);
 			list.PushBack(rand());
 			Assert::IsTrue(list.Size() == 1);
-			list.Clear();
 		}
 
 		TEST_METHOD(TestFrontReturnsItemInTheFront)
@@ -96,7 +112,6 @@ namespace UnitTestLibraryDesktop
 			list.PushBack(rand());
 			Assert::IsTrue(list.Size() == 3);
 			Assert::IsTrue(list.Front() == value);
-			list.Clear();
 		}
 
 		TEST_METHOD(TestFrontThrowsExceptionWhenListIsEmpty)
@@ -129,7 +144,6 @@ namespace UnitTestLibraryDesktop
 			list.PushFront(rand());
 			Assert::IsTrue(list.Size() == 3);
 			Assert::IsTrue(list.Back() == value);
-			list.Clear();
 		}
 
 		TEST_METHOD(TestBackThrowsExceptionWhenListIsEmpty)
@@ -164,7 +178,6 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(list.Size() == 1);
 			list.PopFront();
 			Assert::IsTrue(list.Size() == 0);
-			list.Clear();
 		}
 
 		TEST_METHOD(TestEmptyMethod)
@@ -182,9 +195,27 @@ namespace UnitTestLibraryDesktop
 			Library::SList<std::uint32_t> list;
 			Assert::IsTrue(list.IsEmpty());
 			list.PushBack(rand());
-			//list.PushFront(rand());
+			list.PushFront(rand());
 			Assert::IsFalse(list.IsEmpty());
-			list.PopFront();
+			list.Clear();
+			Assert::IsTrue(list.IsEmpty());
+		}
+
+		TEST_METHOD(TestBasicFunctionalityWithStringObjects)
+		{
+			Library::SList<std::string> list;
+			Assert::IsTrue(list.IsEmpty());
+			Assert::IsTrue(list.Size() == 0);
+			list.PushBack("XYZ999");
+			list.PushFront("ABCD1234");
+			list.PushFront("EFGH5678");
+			Assert::IsTrue(list.Size() == 3);
+			Assert::IsTrue(list.PopFront() == "EFGH5678");
+			Assert::IsTrue(list.Size() == 2);
+			Assert::IsTrue(list.Front() == "ABCD1234");
+			Assert::IsTrue(list.Back() == "XYZ999");
+			list.Clear();
+			Assert::IsTrue(list.Size() == 0);
 			Assert::IsTrue(list.IsEmpty());
 		}
 
@@ -196,23 +227,30 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD_INITIALIZE(Setup)
 		{
 			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
-			_CrtMemCheckpoint(&StartMemState);
+			_CrtMemCheckpoint(&mStartMemState);
 		}
 
 		TEST_METHOD_CLEANUP(Teardown)
 		{
-			_CrtMemState endMemState;
-			_CrtMemState diffMemState;
-			_CrtMemCheckpoint(&endMemState);
-			if (_CrtMemDifference(&diffMemState, &StartMemState, &endMemState))
+			if (DidMemoryStateChange(mStartMemState))
 			{
-				_CrtMemDumpStatistics(&diffMemState);
 				Assert::Fail(L"Memory leak...");
 			}
 		}
 	private:
-		static _CrtMemState StartMemState;
-	};
+		_CrtMemState mStartMemState;
 
-	_CrtMemState SListTest::StartMemState;
+		static bool DidMemoryStateChange(_CrtMemState startState)
+		{
+			_CrtMemState endMemState;
+			_CrtMemState diffMemState;
+			_CrtMemCheckpoint(&endMemState);
+			if (_CrtMemDifference(&diffMemState, &startState, &endMemState))
+			{
+				_CrtMemDumpStatistics(&diffMemState);
+				return true;
+			}
+			return false;
+		}
+	};
 }

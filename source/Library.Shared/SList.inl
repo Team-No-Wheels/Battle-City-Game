@@ -9,7 +9,7 @@ namespace Library
 	{}
 
 	template<typename T>
-	SList<T>::SList(const SList<T>& list) : mFront(nullptr), mBack(nullptr), mSize(list.mSize)
+	SList<T>::SList(const SList<T>& list) : mFront(nullptr), mBack(nullptr), mSize(0)
 	{
 		Copy(list);
 	}
