@@ -9,7 +9,6 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-*.p4ignore
 
 # Build results
 [Dd]ebug/
