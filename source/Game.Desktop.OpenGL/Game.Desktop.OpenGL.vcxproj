@@ -108,7 +108,7 @@
       <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)" /e /r /y</Command>
+      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,7 +130,7 @@
       <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)" /e /r /y</Command>
+      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -156,7 +156,7 @@
       <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)" /e /r /y</Command>
+      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -182,7 +182,7 @@
       <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)" /e /r /y</Command>
+      <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
