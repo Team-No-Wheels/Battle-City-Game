@@ -9,7 +9,7 @@ namespace Game
 		: width(width), height(height), title(title), window(nullptr), shaderProgram(0), VAO(0)
 	{
 		// Using code from Library.Desktop
-		list = new Library::SList();
+		list = new Library::SList<int>();
 	}
 
 	Program::~Program()

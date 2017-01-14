@@ -45,7 +45,7 @@ namespace Game
 		GLuint VAO;
 
 		// A single linked list object
-		Library::SList* list;
+		Library::SList<int>* list;
 
 		// Compiles all the shaders and links them to a program
 		void InitShaders();

@@ -29,9 +29,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
 	// Using library code from DirectX project
-	Library::SList* list = new Library::SList();
-	list->Insert(10);
-	list->Pop();
+	Library::SList<int>* list = new Library::SList<int>();
+	list->PushFront(10);
+	list->PopFront();
 
 	HWND hWnd;
 	WNDCLASSEX wc;
