@@ -6,7 +6,8 @@ namespace Library
 {
 	template<typename T>
 	SList<T>::SList() : mFront(nullptr), mBack(nullptr), mSize(0)
-	{}
+	{
+	}
 
 	template<typename T>
 	SList<T>::SList(const SList<T>& list) : mFront(nullptr), mBack(nullptr), mSize(0)
@@ -25,7 +26,7 @@ namespace Library
 	}
 
 	template<typename T>
-	void SList<T>::PushFront(T data)
+	void SList<T>::PushFront(const T& data)
 	{
 		Node* node = new Node(mFront, data);
 		if (mFront == nullptr)
@@ -37,7 +38,7 @@ namespace Library
 	}
 
 	template<typename T>
-	T SList<T>::PopFront()
+	void SList<T>::PopFront()
 	{
 		if (mSize > 0)
 		{
@@ -48,25 +49,21 @@ namespace Library
 			{
 				mBack = nullptr;
 			}
-
-			T data = node->data;
 			delete node;
-			return data;
 		}
-		throw std::exception("Nothing to pop from front. The list is empty.");
 	}
 
 	template<typename T>
-	void SList<T>::PushBack(T data)
+	void SList<T>::PushBack(const T& data)
 	{
 		Node* node = new Node(nullptr, data);
-		if (mBack == nullptr)
+		if (mBack != nullptr)
 		{
-			mFront = node;
+			mBack->next = node;
 		}
 		else
 		{
-			mBack->next = node;
+			mFront = node;
 		}
 		mBack = node;
 		mSize++;
@@ -127,24 +124,13 @@ namespace Library
 	template<typename T>
 	void SList<T>::Clear()
 	{
-		if (mSize == 1)
+		std::uint32_t initialSize = mSize;
+		for(std::uint32_t i = 0; i < initialSize; i++)
 		{
-			delete mFront;
+			PopFront();
 		}
-		else if (mSize > 1)
-		{
-			Node* node = mFront;
-			for (Node* nextNode = node->next; nextNode != nullptr; nextNode = nextNode->next)
-			{
-				delete node;
-				node = nextNode;
-			}
-			delete node;
-		}
-		mFront = mBack = nullptr;
-		mSize = 0;
 	}
-	
+
 	template<typename T>
 	SList<T>::~SList()
 	{

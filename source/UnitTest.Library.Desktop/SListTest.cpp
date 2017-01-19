@@ -12,20 +12,24 @@ namespace UnitTestLibraryDesktop
 		{
 			Library::SList<std::uint32_t>* list = new Library::SList<std::uint32_t>();
 			Assert::IsNotNull(list);
+			Assert::AreEqual(static_cast<std::uint32_t>(0), list->Size());
 			delete list;
 		}
 
 		TEST_METHOD(TestCopyConstructor)
 		{
 			Library::SList<std::uint32_t> list1;
-			list1.PushFront(rand());
+			list1.PushFront(0);
 			list1.PushFront(rand());
 			_CrtMemState memStateBeforeAssignment;
 			_CrtMemCheckpoint(&memStateBeforeAssignment);
 
+			// Verify that new memory has been allocated and lists are equivalent
 			Library::SList<std::uint32_t> list2(list1);
 			Assert::IsTrue(DidMemoryStateChange(memStateBeforeAssignment));
-			Assert::IsTrue(list1.Size() == list2.Size());
+			Assert::AreEqual(list1.Size(), list2.Size());
+			Assert::AreEqual(list1.Front(), list2.Front());
+			Assert::AreEqual(list1.Back(), list2.Back());
 		}
 
 		TEST_METHOD(TestAssignmentOperatorSuccess)
@@ -38,9 +42,12 @@ namespace UnitTestLibraryDesktop
 			_CrtMemState memStateBeforeAssignment;
 			_CrtMemCheckpoint(&memStateBeforeAssignment);
 
+			// Verify that new memory has been allocated and lists are equivalent
 			list2 = list1;
 			Assert::IsTrue(DidMemoryStateChange(memStateBeforeAssignment));
-			Assert::IsTrue(list1.Size() == list2.Size());
+			Assert::AreEqual(list1.Size(), list2.Size());
+			Assert::AreEqual(list1.Front(), list2.Front());
+			Assert::AreEqual(list1.Back(), list2.Back());
 		}
 
 		TEST_METHOD(TestAssignmentOperatorSelfCopyPrevention)
@@ -52,6 +59,7 @@ namespace UnitTestLibraryDesktop
 			_CrtMemState memStateBeforeAssignment;
 			_CrtMemCheckpoint(&memStateBeforeAssignment);
 
+			// Verify that no new memory has been allocated
 			list1 = list1;
 			Assert::IsFalse(DidMemoryStateChange(memStateBeforeAssignment));
 		}
@@ -59,125 +67,112 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestPushFront)
 		{
 			Library::SList<std::uint32_t> list;
-			Assert::IsTrue(list.Size() == 0);
-			list.PushFront(rand());
-			Assert::IsTrue(list.Size() == 1);
-		}
-
-		TEST_METHOD(TestPopFrontReturnsCorrectValueAndUpdatesSize)
-		{
-			Library::SList<std::uint32_t> list;
+			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
 			std::uint32_t value = rand();
 			list.PushFront(rand());
 			list.PushFront(value);
-			list.PushBack(rand());
-			Assert::IsTrue(list.Size() == 3);
-			Assert::IsTrue(list.PopFront() == value);
+			Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+			Assert::AreEqual(value, list.Front());
 		}
 
-		TEST_METHOD(TestPopFrontOnEmptyListThrowsException)
+		TEST_METHOD(TestPopFrontRemovesItemAndUpdatesSize)
 		{
 			Library::SList<std::uint32_t> list;
-			bool didThrowException = false;
-			try
-			{
-				list.PopFront();
-			}
-			catch (std::exception)
-			{
-				didThrowException = true;
-			}
-
-			if (!didThrowException)
-			{
-				Assert::Fail(L"PopFront on empty list did not throw an exception");
-			}
+			std::uint32_t value = rand();
+			list.PushFront(value);
+			list.PushFront(rand());
+			list.PushBack(rand());
+			Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+			list.PopFront();
+			Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+			Assert::AreEqual(value, list.Front());
 		}
 
 		TEST_METHOD(TestPushBack)
 		{
 			Library::SList<std::uint32_t> list;
-			Assert::IsTrue(list.Size() == 0);
+			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			std::uint32_t value = rand();
 			list.PushBack(rand());
-			Assert::IsTrue(list.Size() == 1);
+			list.PushBack(value);
+			Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+			Assert::AreEqual(value, list.Back());
 		}
 
 		TEST_METHOD(TestFrontReturnsItemInTheFront)
 		{
 			Library::SList<std::uint32_t> list;
-			Assert::IsTrue(list.Size() == 0);
+			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
 			list.PushFront(rand());
 			std::uint32_t value = rand();
 			list.PushFront(value);
 			list.PushBack(rand());
-			Assert::IsTrue(list.Size() == 3);
-			Assert::IsTrue(list.Front() == value);
+			Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+			Assert::AreEqual(value, list.Front());
+		}
+
+		TEST_METHOD(TestModifyingFrontValue)
+		{
+			Library::SList<std::uint32_t> list;
+			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			std::uint32_t value = rand();
+			list.PushFront(value);
+			Assert::AreEqual(value, list.Front());
+			std::uint32_t newValue = rand();
+			list.Front() = newValue;
+			Assert::AreEqual(newValue, list.Front());
 		}
 
 		TEST_METHOD(TestFrontThrowsExceptionWhenListIsEmpty)
 		{
 			Library::SList<std::uint32_t> list;
-			Assert::IsTrue(list.Size() == 0);
-			bool didThrowException = false;
-			try
-			{
-				list.Front();
-			}
-			catch(std::exception)
-			{
-				didThrowException = true;
-			}
-
-			if (!didThrowException)
-			{
-				Assert::Fail(L"Front on empty list did not throw an exception");
-			}
+			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::ExpectException <std::exception>([&list] () { list.Front(); }, L"Front on empty list did not throw an exception");
 		}
 
 		TEST_METHOD(TestBackReturnsItemInTheBack)
 		{
 			Library::SList<std::uint32_t> list;
-			Assert::IsTrue(list.Size() == 0);
+			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
 			std::uint32_t value = rand();
 			list.PushBack(rand());
 			list.PushBack(value);
 			list.PushFront(rand());
-			Assert::IsTrue(list.Size() == 3);
-			Assert::IsTrue(list.Back() == value);
+			Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+			Assert::AreEqual(value, list.Back());
 		}
 
 		TEST_METHOD(TestBackThrowsExceptionWhenListIsEmpty)
 		{
 			Library::SList<std::uint32_t> list;
-			Assert::IsTrue(list.Size() == 0);
-			bool didThrowException = false;
-			try
-			{
-				list.Back();
-			}
-			catch (std::exception)
-			{
-				didThrowException = true;
-			}
+			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::ExpectException <std::exception>([&list]() { list.Front(); }, L"Back on empty list did not throw an exception");
+		}
 
-			if (!didThrowException)
-			{
-				Assert::Fail(L"Back on empty list did not throw an exception");
-			}
+		TEST_METHOD(TestModifyingBackValue)
+		{
+			Library::SList<std::uint32_t> list;
+			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			std::uint32_t value = rand();
+			list.PushBack(value);
+			Assert::AreEqual(value, list.Front());
+			std::uint32_t newValue = rand();
+			list.Back() = newValue;
+			Assert::AreEqual(newValue, list.Back());
 		}
 
 		TEST_METHOD(TestSizeMethod)
 		{
 			Library::SList<std::uint32_t> list;
-			Assert::IsTrue(list.Size() == 0);
+			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
 			list.PushBack(rand());
-			Assert::IsTrue(list.Size() == 1);
+			Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
 			list.PushFront(rand());
-			Assert::IsTrue(list.Size() == 2);
+			Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
 			list.PopFront();
-			Assert::IsTrue(list.Size() == 1);
+			Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
 			list.PopFront();
-			Assert::IsTrue(list.Size() == 0);
+			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
 		}
 
 		TEST_METHOD(TestEmptyMethod)
@@ -198,24 +193,6 @@ namespace UnitTestLibraryDesktop
 			list.PushFront(rand());
 			Assert::IsFalse(list.IsEmpty());
 			list.Clear();
-			Assert::IsTrue(list.IsEmpty());
-		}
-
-		TEST_METHOD(TestBasicFunctionalityWithStringObjects)
-		{
-			Library::SList<std::string> list;
-			Assert::IsTrue(list.IsEmpty());
-			Assert::IsTrue(list.Size() == 0);
-			list.PushBack("XYZ999");
-			list.PushFront("ABCD1234");
-			list.PushFront("EFGH5678");
-			Assert::IsTrue(list.Size() == 3);
-			Assert::IsTrue(list.PopFront() == "EFGH5678");
-			Assert::IsTrue(list.Size() == 2);
-			Assert::IsTrue(list.Front() == "ABCD1234");
-			Assert::IsTrue(list.Back() == "XYZ999");
-			list.Clear();
-			Assert::IsTrue(list.Size() == 0);
 			Assert::IsTrue(list.IsEmpty());
 		}
 

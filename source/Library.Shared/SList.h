@@ -19,10 +19,12 @@ namespace Library
 		/** Constructs a new single linked list
 		*/
 		explicit SList();
+
 		/** Copy constructor to construct a linked list copy of another list
 		 *	@param list The other list to create copy from
 		*/
 		SList(const SList<T>& list);
+
 		/** Assignment operator to construct a linked list copy of another list
 		 *	@param list The other list to create copy from
 		 *	@return A new instance of list which is a copy of the passed list
@@ -32,28 +34,32 @@ namespace Library
 		/** Push an item to the front of the list
 		 *	@param data The data item to push in the front of the list	 
 		*/
-		void PushFront(T data);
-		/** Pop an item from the front of the list
-		*	@return The data item that is removed from the front of the list
+		void PushFront(const T& data);
+
+		/** Remove an item from the front of the list
 		*/
-		T PopFront();
+		void PopFront();
+
 		/** Pop an item to the back of the list
 		*	@param data The data item to push in the back of the list
 		*/
-		void PushBack(T data);
+		void PushBack(const T& data);
 
 		/** Get the item at the front of the list
 		*	@return The item at the front of the list
 		*/
 		T& Front();
+
 		/** Get the item at the front of the list. This is the const version
 		*	@return The item at the front of the list
 		*/
 		const T& Front() const;
+
 		/** Get the item at the back of the list
 		*	@return The item at the back of the list
 		*/
 		T& Back();
+
 		/** Get the item at the back of the list. This is the const version
 		*	@return The item at the back of the list
 		*/
@@ -63,10 +69,12 @@ namespace Library
 		*	@return The number of items in the list
 		*/
 		std::uint32_t Size() const;
+
 		/** Check whether the list is empty or not
 		*	@return Whether the list is empty
 		*/
 		bool IsEmpty() const;
+
 		/** Clear all the items from the linked list
 		*/
 		void Clear();
@@ -85,8 +93,8 @@ namespace Library
 			T data;
 
 			// Construct a node from a next pointer and a data item
-			Node(Node* next, T& data) : next(next), data(data)
-			{				
+			Node(Node* next, const T& data) : next(next), data(data)
+			{
 			}
 		};
 
