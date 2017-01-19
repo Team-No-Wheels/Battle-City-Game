@@ -2,12 +2,6 @@
 
 #include "Pch.h"
 
-// This symbol is used to conditionally include this header in the SList.inl file
-// Without the conditional include, the inl file shows errors when opened in the editor
-// The conditional include will include the header only in the editor. During actual compilation
-// the condition will be false and the header won't be included in the inl file.
-#define ANONYMOUS_ENGINE_SLIST_HEADER
-
 namespace Library
 {
 	/** A single linked list container
@@ -111,5 +105,3 @@ namespace Library
 }
 
 #include "SList.inl"
-
-#undef ANONYMOUS_ENGINE_SLIST_HEADER

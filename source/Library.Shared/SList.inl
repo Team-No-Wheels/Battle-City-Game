@@ -1,7 +1,3 @@
-#ifndef ANONYMOUS_ENGINE_SLIST_HEADER
-#include "SList.h"
-#endif
-
 namespace Library
 {
 	template<typename T>
