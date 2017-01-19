@@ -16,6 +16,7 @@ namespace Library
 	{
 		if (this != &list)
 		{
+			Clear();
 			Copy(list);
 		}
 		return *this;

@@ -12,7 +12,16 @@
     <ClInclude Include="ShaderCompiler.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\default.frag" />
-    <None Include="shaders\default.vert" />
+    <None Include="shaders\default.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\default.vert">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{63bb3b76-7667-4bc0-b618-186662f87c84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
