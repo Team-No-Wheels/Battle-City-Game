@@ -76,7 +76,6 @@ namespace Library
 		/** Destroy the linked list object, freeing all allocated resources
 		*/
 		~SList();
-
 	private:
 		// Node structure representing each item in the list
 		struct Node
@@ -101,6 +100,29 @@ namespace Library
 
 		// Private method to create a copy of another list
 		inline void Copy(const SList<T>& list);
+
+	public:
+		class Iterator
+		{
+		public:
+			Iterator();
+			Iterator(const Iterator& rhs);
+			Iterator(Node* node, SList<T>* owner);
+			Iterator& operator=(const Iterator& rhs);
+			Iterator& operator++();
+			T& operator*();
+			const T& operator*() const;
+			bool operator==(const Iterator& rhs) const;
+			bool operator!=(const Iterator& rhs) const;
+		private:
+			Node* mNode;
+			SList* mOwner;
+		};
+
+		Iterator begin();
+		Iterator end();
+		void InsertAfter(const T& data, const Iterator& it);
+		void Remove(T& data);
 	};
 }
 

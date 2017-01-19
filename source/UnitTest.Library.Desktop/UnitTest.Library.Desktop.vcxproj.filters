@@ -6,6 +6,7 @@
     <ClCompile Include="Foo.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
+    <ClCompile Include="SlistIteratorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
