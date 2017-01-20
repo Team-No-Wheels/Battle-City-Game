@@ -1,21 +1,7 @@
 #include "Pch.h"
 #include "SList.h"
 #include "Foo.h"
-
-namespace Microsoft
-{
-	namespace VisualStudio
-	{
-		namespace CppUnitTestFramework
-		{
-			template<>
-			std::wstring ToString<UnitTestLibraryDesktop::Foo>(const UnitTestLibraryDesktop::Foo& foo)
-			{
-				return std::to_wstring(foo.Data());
-			}
-		}
-	}
-}
+#include "ToStringTemplates.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -551,6 +537,81 @@ namespace UnitTestLibraryDesktop
 			Assert::IsFalse(list.IsEmpty());
 			list.Clear();
 			Assert::IsTrue(list.IsEmpty());
+		}
+
+		TEST_METHOD(TestBeginAndEnd)
+		{
+			Library::SList<std::uint32_t> list;
+			Assert::IsTrue(list.begin() == list.end());
+			std::uint32_t value = rand();
+			list.PushFront(value);
+			Assert::IsFalse(list.begin() == list.end());
+			list.PushBack(rand());
+			Assert::AreEqual(list.Front(), *(list.begin()));
+		}
+
+		TEST_METHOD(TestFind)
+		{
+			Library::SList<std::uint32_t> list;
+			list.PushFront(rand());
+			std::uint32_t value = rand();
+			list.PushBack(value);
+			list.PushBack(rand());
+			Assert::AreEqual(*(list.Find(value)), value);
+			Assert::IsFalse(list.Find(value) == list.end());
+			std::uint32_t randomValue = rand();
+			Assert::IsTrue(list.Find(randomValue) == list.end());
+		}
+
+		TEST_METHOD(TestInsertAfter)
+		{
+			Library::SList<std::uint32_t> list;
+			Assert::ExpectException<std::exception>([&list]() { list.InsertAfter(rand(), list.begin()); });
+			// check when there is only 1 element
+			std::uint32_t frontVal = rand();
+			list.PushFront(frontVal);
+			std::uint32_t value1 = rand();
+			list.InsertAfter(value1, list.begin());
+			Assert::AreEqual(value1, list.Back());
+
+			// check when there are 2 and 3 elements
+			std::uint32_t backVal = rand();
+			list.PushBack(backVal);
+			std::uint32_t value2 = rand();
+			list.InsertAfter(value2, list.Find(value1));
+			Assert::AreEqual(frontVal, *(list.begin()));
+
+			Library::SList<std::uint32_t>::Iterator it = list.begin();
+			Assert::AreEqual(value1, *(++it));
+			Assert::AreEqual(value2, *(++it));
+			Assert::AreEqual(backVal, *(++it));
+		}
+
+		TEST_METHOD(TestRemove)
+		{
+			Library::SList<std::uint32_t> list1;
+			// check remove on empty list
+			std::uint32_t frontVal = rand();
+			list1.Remove(frontVal);
+			Assert::IsTrue(list1.IsEmpty());
+			
+			// check on single item list
+			list1.PushFront(frontVal);
+			list1.Remove(frontVal);
+			Assert::IsTrue(list1.IsEmpty());
+
+			// delete middle element from 3 element list
+			Library::SList<std::uint32_t> list2;
+			list2.PushFront(frontVal);
+			std::uint32_t value1 = rand();
+			std::uint32_t backVal = rand();
+			list2.PushBack(value1);
+			list2.PushBack(backVal);
+			Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
+			list2.Remove(value1);
+			Assert::AreEqual(static_cast<std::uint32_t>(2), list2.Size());
+			Assert::AreEqual(frontVal, list2.Front());
+			Assert::AreEqual(backVal, list2.Back());
 		}
 
 		TEST_CLASS_INITIALIZE(BeginClass)

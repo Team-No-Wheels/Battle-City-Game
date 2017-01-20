@@ -13,6 +13,9 @@
     <ClInclude Include="Foo.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
+    <ClInclude Include="ToStringTemplates.h">
+      <Filter>SupportingClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SupportingClasses">

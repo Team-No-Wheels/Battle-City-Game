@@ -135,16 +135,6 @@ namespace Library
 		Clear();
 	}
 
-	// This method is used by copy constructor and assignment operator to copy values from another list
-	template<typename T>
-	void SList<T>::Copy(const SList<T>& list)
-	{
-		for (Node* node = list.mFront; node != nullptr; node = node->next)
-		{
-			PushBack(node->data);
-		}
-	}
-
 	template<typename T>
 	SList<T>::Iterator::Iterator() : mNode(nullptr), mOwner(nullptr)
 	{
@@ -156,15 +146,18 @@ namespace Library
 	}
 
 	template<typename T>
-	SList<T>::Iterator::Iterator(Node* node, SList<T>* owner) : mNode(node), mOwner(owner)
+	SList<T>::Iterator::Iterator(Node* node, const SList<T>* owner) : mNode(node), mOwner(owner)
 	{
 	}
 
 	template<typename T>
 	typename SList<T>::Iterator& SList<T>::Iterator::operator=(const typename SList<T>::Iterator& rhs)
 	{
-		mOwner = rhs.mOwner;
-		mNode = rhs.mNode;
+		if(this != &rhs)
+		{
+			mOwner = rhs.mOwner;
+			mNode = rhs.mNode;
+		}
 		return *this;
 	}
 
@@ -175,6 +168,23 @@ namespace Library
 		{
 			mNode = mNode->next;
 			return *this;
+		}
+		else
+		{
+			throw std::exception("Iterator out of range");
+		}
+	}
+
+	template<typename T>
+	typename SList<T>::Iterator SList<T>::Iterator::operator++(int unused)
+	{
+		// The line below is to get rid of the warning
+		unused;
+		if (mNode != nullptr)
+		{
+			Iterator it = *this;
+			mNode = mNode->next;
+			return it;
 		}
 		else
 		{
@@ -207,44 +217,112 @@ namespace Library
 	}
 
 	template<typename T>
-	typename SList<T>::Iterator SList<T>::begin()
+	typename SList<T>::Iterator SList<T>::begin() const
 	{
 		return Iterator(mFront, this);
 	}
 
 	template<typename T>
-	typename SList<T>::Iterator SList<T>::end()
+	typename SList<T>::Iterator SList<T>::end() const
 	{
 		return Iterator(nullptr, this);
 	}
 
 	template<typename T>
+	typename SList<T>::Iterator SList<T>::Find(T& value)
+	{
+		if (mSize == 1 && mFront->data == value)
+		{
+			return Iterator(mFront, this);
+		}
+		else
+		{
+			Iterator it = FindMatchNext(value);
+			if (it != end())
+			{
+				return ++it;
+			}
+			else
+			{
+				return it;
+			}
+		}
+	}
+
+	template<typename T>
 	void SList<T>::InsertAfter(const T& data, const typename SList<T>::Iterator& it)
 	{
-		Node* temp = new Node(data, it.mNode->next);
-		it.mNode->next = temp;
+		if (it.mNode != nullptr)
+		{
+			Node* temp = new Node(it.mNode->next, data);
+			it.mNode->next = temp;
+			if (mFront == mBack)
+			{
+				mBack = temp;
+			}
+			mSize++;
+		}
+		else
+		{
+			throw std::exception("Iterator out of range for insert after");
+		}
 	}
 
 	template<typename T>
 	void SList<T>::Remove(T& data)
 	{
-		if (mSize == 1 && mFront->data == data)
+		if (mFront != nullptr && mFront->data == data)
 		{
 			PopFront();
 		}
 		else if (mSize > 1)
 		{
+			Iterator it = FindMatchNext(data);
+			if (it != end())
+			{
+				Node* temp = it.mNode;
+				Node* nodeToDelete = temp->next;
+				temp->next = nodeToDelete->next;
+				delete nodeToDelete;
+				mSize--;
+			}
+
+			if(mSize == 1)
+			{
+				mBack = mFront;
+			}
+		}
+	}
+
+	// This method is used by copy constructor and assignment operator to copy values from another list
+	template<typename T>
+	void SList<T>::Copy(const SList<T>& list)
+	{
+		for (Node* node = list.mFront; node != nullptr; node = node->next)
+		{
+			PushBack(node->data);
+		}
+	}
+
+	template<typename T>
+	typename SList<T>::Iterator SList<T>::FindMatchNext(const T& value)
+	{
+		if (mFront == nullptr)
+		{
+			return end();
+		}
+		else
+		{
 			Node* temp = mFront;
 			while (temp->next != nullptr)
 			{
-				if (temp->next->data == data)
+				if (temp->next->data == value)
 				{
-					Node* toDelete = temp->next;
-					temp->next = toDelete->next;
-					delete toDelete;
+					return Iterator(temp, this);
 				}
 				temp = temp->next;
 			}
+			return end();
 		}
 	}
 }
