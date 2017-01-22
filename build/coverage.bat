@@ -1,0 +1,31 @@
+@echo off
+setlocal ENABLEDELAYEDEXPANSION
+
+set PROJECTS_DIR=..\source
+set PROJECT_UNDER_TEST=Library.Shared
+set UNIT_TEST_PROJECT=UnitTest.Library.Desktop
+set DEFAULT_BINARY_PATH=bin\Win32\Debug
+set COVERAGE_REPORTS_PATH=CoverageReports
+
+set GENERATE_COVERAGE_COMMAND=vstest.console.exe /InIsolation /Enablecodecoverage
+set GENERATE_XML_COMMAND=CodeCoverage.exe analyze /output:
+set GENERATE_REPORT_COMMAND=ReportGenerator.exe
+set START_WEB_SERVER_COMMAND=python -m SimpleHTTPServer
+set COVERAGE_SERVER_PORT=9000
+
+
+!GENERATE_COVERAGE_COMMAND! !PROJECTS_DIR!\!UNIT_TEST_PROJECT!\!DEFAULT_BINARY_PATH!\!UNIT_TEST_PROJECT!.dll
+set REPORTS=
+for /f "tokens=* USEBACKQ" %%i in (`dir *.coverage /s /b`) do (
+	!GENERATE_XML_COMMAND!"%%i.xml" "%%i"
+	set REPORTS=!REPORTS!;%%i.xml
+)
+!GENERATE_REPORT_COMMAND! "-reports:!REPORTS!" "-targetdir:CoverageReports" "-sourcedirs:!PROJECTS_DIR!\!PROJECT_UNDER_TEST!"
+
+cd !COVERAGE_REPORTS_PATH!
+!START_WEB_SERVER_COMMAND! !COVERAGE_SERVER_PORT!
+cd -
+
+
+endlocal
+@echo on
