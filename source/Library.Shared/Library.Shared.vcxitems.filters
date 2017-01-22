@@ -11,10 +11,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SList.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
       <UniqueIdentifier>{cd38dc33-ad1d-4308-8c8e-59b2a017d5ba}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Vector.inl" />
   </ItemGroup>
 </Project>

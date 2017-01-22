@@ -178,7 +178,7 @@ namespace Library
 	template<typename T>
 	typename SList<T>::Iterator SList<T>::Iterator::operator++(int unused)
 	{
-		// The line below is to get rid of the warning
+		// The line below is to get rid of the unused parameter warning
 		unused;
 		if (mNode != nullptr)
 		{
@@ -237,7 +237,7 @@ namespace Library
 		}
 		else
 		{
-			Iterator it = FindMatchNext(value);
+			Iterator it = FindIfNextItemMatches(value);
 			if (it != end())
 			{
 				return ++it;
@@ -277,7 +277,7 @@ namespace Library
 		}
 		else if (mSize > 1)
 		{
-			Iterator it = FindMatchNext(data);
+			Iterator it = FindIfNextItemMatches(data);
 			if (it != end())
 			{
 				Node* temp = it.mNode;
@@ -305,7 +305,7 @@ namespace Library
 	}
 
 	template<typename T>
-	typename SList<T>::Iterator SList<T>::FindMatchNext(const T& value)
+	typename SList<T>::Iterator SList<T>::FindIfNextItemMatches(const T& value)
 	{
 		if (mFront == nullptr)
 		{

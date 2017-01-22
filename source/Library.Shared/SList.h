@@ -187,7 +187,7 @@ namespace Library
 		void Remove(T& data);
 
 	private:
-		Iterator FindMatchNext(const T& value);
+		Iterator FindIfNextItemMatches(const T& value);
 	};
 }
 
