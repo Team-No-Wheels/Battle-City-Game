@@ -1,6 +1,84 @@
 namespace Library
 {
 	template<typename T>
+	SList<T>::Iterator::Iterator() : mNode(nullptr), mOwner(nullptr)
+	{}
+
+	template<typename T>
+	SList<T>::Iterator::Iterator(const Iterator& rhs) : mNode(rhs.mNode), mOwner(rhs.mOwner)
+	{}
+
+	template<typename T>
+	SList<T>::Iterator::Iterator(Node* node, const SList<T>* owner) : mNode(node), mOwner(owner)
+	{}
+
+	template<typename T>
+	typename SList<T>::Iterator& SList<T>::Iterator::operator=(const typename SList<T>::Iterator& rhs)
+	{
+		if (this != &rhs)
+		{
+			mOwner = rhs.mOwner;
+			mNode = rhs.mNode;
+		}
+		return *this;
+	}
+
+	template<typename T>
+	typename SList<T>::Iterator& SList<T>::Iterator::operator++()
+	{
+		if (mNode != nullptr)
+		{
+			mNode = mNode->next;
+			return *this;
+		}
+		else
+		{
+			throw std::exception("Iterator out of range");
+		}
+	}
+
+	template<typename T>
+	typename SList<T>::Iterator SList<T>::Iterator::operator++(int unused)
+	{
+		// The line below is to get rid of the unused parameter warning
+		unused;
+		if (mNode != nullptr)
+		{
+			Iterator it = *this;
+			mNode = mNode->next;
+			return it;
+		}
+		else
+		{
+			throw std::exception("Iterator out of range");
+		}
+	}
+
+	template<typename T>
+	T& SList<T>::Iterator::operator*()
+	{
+		return mNode->data;
+	}
+
+	template<typename T>
+	const T& SList<T>::Iterator::operator*() const
+	{
+		return mNode->data;
+	}
+
+	template<typename T>
+	bool SList<T>::Iterator::operator==(const Iterator& rhs) const
+	{
+		return (mOwner == rhs.mOwner && mNode == rhs.mNode);
+	}
+
+	template<typename T>
+	bool SList<T>::Iterator::operator!=(const Iterator& rhs) const
+	{
+		return !(*this == rhs);
+	}
+
+	template<typename T>
 	SList<T>::SList() : mFront(nullptr), mBack(nullptr), mSize(0)
 	{
 	}
@@ -133,87 +211,6 @@ namespace Library
 	{
 		// Since clear does all the necessary things required to free up resources, call clear
 		Clear();
-	}
-
-	template<typename T>
-	SList<T>::Iterator::Iterator() : mNode(nullptr), mOwner(nullptr)
-	{
-	}
-
-	template<typename T>
-	SList<T>::Iterator::Iterator(const Iterator& rhs) : mNode(rhs.mNode), mOwner(rhs.mOwner)
-	{
-	}
-
-	template<typename T>
-	SList<T>::Iterator::Iterator(Node* node, const SList<T>* owner) : mNode(node), mOwner(owner)
-	{
-	}
-
-	template<typename T>
-	typename SList<T>::Iterator& SList<T>::Iterator::operator=(const typename SList<T>::Iterator& rhs)
-	{
-		if(this != &rhs)
-		{
-			mOwner = rhs.mOwner;
-			mNode = rhs.mNode;
-		}
-		return *this;
-	}
-
-	template<typename T>
-	typename SList<T>::Iterator& SList<T>::Iterator::operator++()
-	{
-		if (mNode != nullptr)
-		{
-			mNode = mNode->next;
-			return *this;
-		}
-		else
-		{
-			throw std::exception("Iterator out of range");
-		}
-	}
-
-	template<typename T>
-	typename SList<T>::Iterator SList<T>::Iterator::operator++(int unused)
-	{
-		// The line below is to get rid of the unused parameter warning
-		unused;
-		if (mNode != nullptr)
-		{
-			Iterator it = *this;
-			mNode = mNode->next;
-			return it;
-		}
-		else
-		{
-			throw std::exception("Iterator out of range");
-		}
-	}
-
-	template<typename T>
-	T& SList<T>::Iterator::operator*()
-	{
-		return mNode->data;
-	}
-
-	template<typename T>
-	const T& SList<T>::Iterator::operator*() const
-	{
-		return mNode->data;
-	}
-
-	template<typename T>
-	bool SList<T>::Iterator::operator==(const Iterator& rhs) const
-	{
-		return (mOwner == rhs.mOwner && mNode == rhs.mNode);
-	}
-
-	template<typename T>
-	bool SList<T>::Iterator::operator!=(const Iterator& rhs) const
-	{
-		return !(*this == rhs);
 	}
 
 	template<typename T>

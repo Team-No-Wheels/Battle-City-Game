@@ -331,7 +331,9 @@ namespace UnitTestLibraryDesktop
 				list.PushFront(value);
 				list.PushBack(rand());
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+				const Library::SList<std::uint32_t> constList(list);
 				Assert::AreEqual(value, list.Front());
+				Assert::AreEqual(value, constList.Front());
 			}
 
 			// pointer type test
@@ -345,7 +347,9 @@ namespace UnitTestLibraryDesktop
 				std::uint32_t* value3 = new std::uint32_t(rand());
 				list.PushBack(value3);
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+				const Library::SList<std::uint32_t*> constList(list);
 				Assert::AreEqual(value2, list.Front());
+				Assert::AreEqual(value2, constList.Front());
 				delete value1;
 				delete value2;
 				delete value3;
@@ -360,7 +364,9 @@ namespace UnitTestLibraryDesktop
 				list.PushFront(value);
 				list.PushBack(rand());
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+				const Library::SList<Foo> constList(list);
 				Assert::AreEqual(Foo(value), list.Front());
+				Assert::AreEqual(Foo(value), constList.Front());
 			}
 		}
 
@@ -407,23 +413,48 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestFrontThrowsExceptionWhenListIsEmpty)
 		{
-			Library::SList<std::uint32_t> list;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-			Assert::ExpectException <std::exception>([&list]() { list.Front(); }, L"Front on empty list did not throw an exception");
+			// primitive type test
+			{
+				Library::SList<std::uint32_t> list;
+				const Library::SList<std::uint32_t> constList;
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+				Assert::ExpectException <std::exception>([&list]() { list.Front(); }, L"Front on empty list did not throw an exception");
+				Assert::ExpectException <std::exception>([&constList]() { constList.Front(); }, L"Front on empty list did not throw an exception");
+			}
+
+			// pointer type test
+			{
+				Library::SList<std::uint32_t*> list;
+				const Library::SList<std::uint32_t*> constList;
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+				Assert::ExpectException <std::exception>([&list]() { list.Front(); }, L"Front on empty list did not throw an exception");
+				Assert::ExpectException <std::exception>([&constList]() { constList.Front(); }, L"Front on empty list did not throw an exception");
+			}
+
+			// user defined type test
+			{
+				Library::SList<Foo> list;
+				const Library::SList<Foo> constList;
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+				Assert::ExpectException <std::exception>([&list]() { list.Front(); }, L"Front on empty list did not throw an exception");
+				Assert::ExpectException <std::exception>([&constList]() { constList.Front(); }, L"Front on empty list did not throw an exception");
+			}
 		}
 
 		TEST_METHOD(TestBackReturnsItemInTheBack)
 		{
 			// primitive type test
 			{
-				Library::SList<std::uint32_t> list;
+				Library::SList<std::uint32_t> list;				
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
 				std::uint32_t value = rand();
 				list.PushBack(rand());
 				list.PushBack(value);
 				list.PushFront(rand());
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+				const Library::SList<std::uint32_t> constList(list);
 				Assert::AreEqual(value, list.Back());
+				Assert::AreEqual(value, constList.Back());
 			}
 
 			// pointer type test
@@ -437,7 +468,9 @@ namespace UnitTestLibraryDesktop
 				list.PushBack(value2);
 				list.PushFront(value3);
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+				const Library::SList<std::uint32_t*> constList(list);
 				Assert::AreEqual(value2, list.Back());
+				Assert::AreEqual(value2, constList.Back());
 				delete value1;
 				delete value2;
 				delete value3;
@@ -452,15 +485,37 @@ namespace UnitTestLibraryDesktop
 				list.PushBack(Foo(value));
 				list.PushFront(Foo(rand()));
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+				const Library::SList<Foo> constList(list);
 				Assert::AreEqual(Foo(value), list.Back());
+				Assert::AreEqual(Foo(value), constList.Back());
 			}
 		}
 
 		TEST_METHOD(TestBackThrowsExceptionWhenListIsEmpty)
 		{
-			Library::SList<std::uint32_t> list;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-			Assert::ExpectException <std::exception>([&list]() { list.Front(); }, L"Back on empty list did not throw an exception");
+			{
+				Library::SList<std::uint32_t> list;
+				const Library::SList<std::uint32_t> constList;
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+				Assert::ExpectException <std::exception>([&list]() { list.Back(); }, L"Back on empty list did not throw an exception");
+				Assert::ExpectException <std::exception>([&constList]() { constList.Back(); }, L"Front on empty list did not throw an exception");
+			}
+
+			{
+				Library::SList<std::uint32_t*> list;
+				const Library::SList<std::uint32_t*> constList;
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+				Assert::ExpectException <std::exception>([&list]() { list.Back(); }, L"Back on empty list did not throw an exception");
+				Assert::ExpectException <std::exception>([&constList]() { constList.Back(); }, L"Front on empty list did not throw an exception");
+			}
+
+			{
+				Library::SList<Foo> list;
+				const Library::SList<Foo> constList;
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+				Assert::ExpectException <std::exception>([&list]() { list.Back(); }, L"Back on empty list did not throw an exception");
+				Assert::ExpectException <std::exception>([&constList]() { constList.Back(); }, L"Front on empty list did not throw an exception");
+			}
 		}
 
 		TEST_METHOD(TestModifyingBackValue)
@@ -506,112 +561,404 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestSizeMethod)
 		{
-			Library::SList<std::uint32_t> list;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-			list.PushBack(rand());
-			Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
-			list.PushFront(rand());
-			Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
-			list.PopFront();
-			Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
-			list.PopFront();
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			// primitive type
+			{
+				Library::SList<std::uint32_t> list;
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+				list.PushBack(rand());
+				Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
+				list.PushFront(rand());
+				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+				list.PopFront();
+				Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
+				list.PopFront();
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			}
+			// pointer type
+			{
+				Library::SList<std::uint32_t*> list;
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+				std::uint32_t value = rand();
+				list.PushBack(&value);
+				Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
+				list.Clear();
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			}
+			// user defined type
+			{
+				Library::SList<Foo> list;
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+				std::uint32_t value = rand();
+				list.PushBack(Foo(value));
+				Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
+				list.Clear();
+				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			}
 		}
 
 		TEST_METHOD(TestEmptyMethod)
 		{
-			Library::SList<std::uint32_t> list;
-			Assert::IsTrue(list.IsEmpty());
-			list.PushBack(rand());
-			Assert::IsFalse(list.IsEmpty());
-			list.PopFront();
-			Assert::IsTrue(list.IsEmpty());
+			// primtive type
+			{
+				Library::SList<std::uint32_t> list;
+				Assert::IsTrue(list.IsEmpty());
+				list.PushBack(rand());
+				Assert::IsFalse(list.IsEmpty());
+				list.PopFront();
+				Assert::IsTrue(list.IsEmpty());
+			}
+			// pointer type
+			{
+				Library::SList<std::uint32_t*> list;
+				Assert::IsTrue(list.IsEmpty());
+				std::uint32_t value = rand();
+				list.PushBack(&value);
+				Assert::IsFalse(list.IsEmpty());
+				list.PopFront();
+				Assert::IsTrue(list.IsEmpty());
+			}
+			// user defined type
+			{
+				Library::SList<Foo> list;
+				Assert::IsTrue(list.IsEmpty());
+				list.PushBack(Foo(rand()));
+				Assert::IsFalse(list.IsEmpty());
+				list.PopFront();
+				Assert::IsTrue(list.IsEmpty());
+			}
 		}
 
 		TEST_METHOD(TestClear)
 		{
-			Library::SList<std::uint32_t> list;
-			Assert::IsTrue(list.IsEmpty());
-			list.PushBack(rand());
-			list.PushFront(rand());
-			Assert::IsFalse(list.IsEmpty());
-			list.Clear();
-			Assert::IsTrue(list.IsEmpty());
+			// primtive type
+			{
+				Library::SList<std::uint32_t> list;
+				Assert::IsTrue(list.IsEmpty());
+				list.PushBack(rand());
+				list.PushFront(rand());
+				Assert::IsFalse(list.IsEmpty());
+				list.Clear();
+				Assert::IsTrue(list.IsEmpty());
+			}
+			// pointer type
+			{
+				Library::SList<std::uint32_t*> list;
+				Assert::IsTrue(list.IsEmpty());
+				std::uint32_t value1 = rand();
+				std::uint32_t value2 = rand();
+				list.PushBack(&value1);
+				list.PushFront(&value2);
+				Assert::IsFalse(list.IsEmpty());
+				list.Clear();
+				Assert::IsTrue(list.IsEmpty());
+			}
+			// user defined type
+			{
+				Library::SList<Foo> list;
+				Assert::IsTrue(list.IsEmpty());
+				list.PushBack(Foo(rand()));
+				list.PushFront(Foo(rand()));
+				Assert::IsFalse(list.IsEmpty());
+				list.Clear();
+				Assert::IsTrue(list.IsEmpty());
+			}
 		}
 
 		TEST_METHOD(TestBeginAndEnd)
 		{
-			Library::SList<std::uint32_t> list;
-			Assert::IsTrue(list.begin() == list.end());
-			std::uint32_t value = rand();
-			list.PushFront(value);
-			Assert::IsFalse(list.begin() == list.end());
-			list.PushBack(rand());
-			Assert::AreEqual(list.Front(), *(list.begin()));
+			// primitive type
+			{
+				Library::SList<std::uint32_t> list;
+				Assert::IsTrue(list.begin() == list.end());
+				std::uint32_t value = rand();
+				list.PushFront(value);
+				Assert::IsFalse(list.begin() == list.end());
+				list.PushBack(rand());
+				Assert::AreEqual(list.Front(), *(list.begin()));
+			}
+			// pointer type
+			{
+				Library::SList<std::uint32_t*> list;
+				Assert::IsTrue(list.begin() == list.end());
+				std::uint32_t value1 = rand();
+				list.PushFront(&value1);
+				Assert::IsFalse(list.begin() == list.end());
+				std::uint32_t value2 = rand();
+				list.PushBack(&value2);
+				Assert::AreEqual(list.Front(), *(list.begin()));
+			}
+			// user defined type
+			{
+				Library::SList<Foo> list;
+				Assert::IsTrue(list.begin() == list.end());
+				std::uint32_t value = rand();
+				list.PushFront(Foo(value));
+				Assert::IsFalse(list.begin() == list.end());
+				list.PushBack(Foo(rand()));
+				Assert::AreEqual(list.Front(), *(list.begin()));
+			}
 		}
 
 		TEST_METHOD(TestFind)
 		{
-			Library::SList<std::uint32_t> list;
-			list.PushFront(rand());
-			std::uint32_t value = rand();
-			list.PushBack(value);
-			list.PushBack(rand());
-			Assert::AreEqual(*(list.Find(value)), value);
-			Assert::IsFalse(list.Find(value) == list.end());
-			std::uint32_t randomValue = rand();
-			Assert::IsTrue(list.Find(randomValue) == list.end());
+			// primitive type
+			{
+				Library::SList<std::uint32_t> list;
+				// test on empty list
+				std::uint32_t value = rand();
+				Assert::IsTrue(list.Find(value) == list.end());
+
+				// test on list with 1 element
+				std::uint32_t value1 = rand();
+				list.PushFront(value1);
+				Assert::AreEqual(*(list.Find(value1)), value1);
+
+				// test on list with multiple element
+				std::uint32_t value2 = rand();
+				list.PushBack(value2);
+				list.PushBack(rand());
+				Assert::AreEqual(*(list.Find(value2)), value2);
+				Assert::IsFalse(list.Find(value2) == list.end());
+				std::uint32_t randomValue = rand();
+				Assert::IsTrue(list.Find(randomValue) == list.end());
+			}
+			// pointer type
+			{
+				Library::SList<std::uint32_t*> list;
+				// test on empty list
+				std::uint32_t value = rand();
+				std::uint32_t *valuePtr = &value;
+				Assert::IsTrue(list.Find(valuePtr) == list.end());
+
+				// test on list with 1 element
+				std::uint32_t value1 = rand();
+				std::uint32_t *value1Ptr = &value1;
+				list.PushFront(&value1);
+				Assert::AreEqual(*(list.Find(value1Ptr)), &value1);
+
+				// test on list with multiple element
+				std::uint32_t value2 = rand();
+				std::uint32_t value3 = rand();
+				std::uint32_t *value2Ptr = &value2;
+				std::uint32_t *value3Ptr = &value3;
+				list.PushBack(value2Ptr);
+				list.PushBack(value3Ptr);
+				Assert::AreEqual(*(list.Find(value2Ptr)), value2Ptr);
+				Assert::IsFalse(list.Find(value2Ptr) == list.end());
+				std::uint32_t randomValue = rand();
+				std::uint32_t* randomValuePtr = &randomValue;
+				Assert::IsTrue(list.Find(randomValuePtr) == list.end());
+			}
+			// user defined type
+			{
+				Library::SList<Foo> list;
+				// test on empty list
+				Foo value = Foo(rand());
+				Assert::IsTrue(list.Find(value) == list.end());
+
+				// test on list with 1 element
+				Foo value1 = Foo(rand());
+				list.PushFront(value1);
+				Assert::AreEqual(*(list.Find(value1)), value1);
+
+				// test on list with multiple element
+				Foo value2 = Foo(rand());
+				list.PushBack(value2);
+				list.PushBack(rand());
+				Assert::AreEqual(*(list.Find(value2)), value2);
+				Assert::IsFalse(list.Find(value2) == list.end());
+				Foo randomValue = Foo(rand());
+				Assert::IsTrue(list.Find(randomValue) == list.end());
+			}
 		}
 
 		TEST_METHOD(TestInsertAfter)
 		{
-			Library::SList<std::uint32_t> list;
-			Assert::ExpectException<std::exception>([&list]() { list.InsertAfter(rand(), list.begin()); });
-			// check when there is only 1 element
-			std::uint32_t frontVal = rand();
-			list.PushFront(frontVal);
-			std::uint32_t value1 = rand();
-			list.InsertAfter(value1, list.begin());
-			Assert::AreEqual(value1, list.Back());
+			// primitive type test
+			{
+				Library::SList<std::uint32_t> list;
+				Assert::ExpectException<std::exception>([&list]() { list.InsertAfter(rand(), list.begin()); });
+				// check when there is only 1 element
+				std::uint32_t frontVal = rand();
+				list.PushFront(frontVal);
+				std::uint32_t value1 = rand();
+				list.InsertAfter(value1, list.begin());
+				Assert::AreEqual(value1, list.Back());
 
-			// check when there are 2 and 3 elements
-			std::uint32_t backVal = rand();
-			list.PushBack(backVal);
-			std::uint32_t value2 = rand();
-			list.InsertAfter(value2, list.Find(value1));
-			Assert::AreEqual(frontVal, *(list.begin()));
+				// check when there are 2 and 3 elements
+				std::uint32_t backVal = rand();
+				list.PushBack(backVal);
+				std::uint32_t value2 = rand();
+				list.InsertAfter(value2, list.Find(value1));
+				Assert::AreEqual(frontVal, *(list.begin()));
 
-			Library::SList<std::uint32_t>::Iterator it = list.begin();
-			Assert::AreEqual(value1, *(++it));
-			Assert::AreEqual(value2, *(++it));
-			Assert::AreEqual(backVal, *(++it));
+				Library::SList<std::uint32_t>::Iterator it = list.begin();
+				Assert::AreEqual(value1, *(++it));
+				Assert::AreEqual(value2, *(++it));
+				Assert::AreEqual(backVal, *(++it));
+			}
+			// pointer type test
+			{
+				Library::SList<std::uint32_t*> list;
+				std::uint32_t value = rand();
+				std::uint32_t* valuePtr = &value;
+				Assert::ExpectException<std::exception>([&list, valuePtr]() { list.InsertAfter(valuePtr, list.begin()); });
+				// check when there is only 1 element
+				std::uint32_t frontVal = rand();
+				list.PushFront(&frontVal);
+				std::uint32_t value1 = rand();
+				list.InsertAfter(&value1, list.begin());
+				Assert::AreEqual(&value1, list.Back());
+
+				// check when there are 2 and 3 elements
+				std::uint32_t backVal = rand();
+				list.PushBack(&backVal);
+				std::uint32_t value2 = rand();
+				std::uint32_t* value1Ptr = &value1;
+				list.InsertAfter(&value2, list.Find(value1Ptr));
+				Assert::AreEqual(&frontVal, *(list.begin()));
+
+				Library::SList<std::uint32_t*>::Iterator it = list.begin();
+				Assert::AreEqual(&value1, *(++it));
+				Assert::AreEqual(&value2, *(++it));
+				Assert::AreEqual(&backVal, *(++it));
+			}
+			// user defined type test
+			{
+				Library::SList<Foo> list;
+				Assert::ExpectException<std::exception>([&list]() { list.InsertAfter(rand(), list.begin()); });
+				// check when there is only 1 element
+				Foo frontVal = Foo(rand());
+				list.PushFront(frontVal);
+				Foo value1 = Foo(rand());
+				list.InsertAfter(value1, list.begin());
+				Assert::AreEqual(value1, list.Back());
+
+				// check when there are 2 and 3 elements
+				Foo backVal = Foo(rand());
+				list.PushBack(backVal);
+				Foo value2 = Foo(rand());
+				list.InsertAfter(value2, list.Find(value1));
+				Assert::AreEqual(frontVal, *(list.begin()));
+
+				Library::SList<Foo>::Iterator it = list.begin();
+				Assert::AreEqual(value1, *(++it));
+				Assert::AreEqual(value2, *(++it));
+				Assert::AreEqual(backVal, *(++it));
+			}
 		}
 
 		TEST_METHOD(TestRemove)
 		{
-			Library::SList<std::uint32_t> list1;
-			// check remove on empty list
-			std::uint32_t frontVal = rand();
-			list1.Remove(frontVal);
-			Assert::IsTrue(list1.IsEmpty());
-			
-			// check on single item list
-			list1.PushFront(frontVal);
-			list1.Remove(frontVal);
-			Assert::IsTrue(list1.IsEmpty());
+			// primitive type test
+			{
+				Library::SList<std::uint32_t> list1;
+				// check remove on empty list
+				std::uint32_t frontVal = rand();
+				list1.Remove(frontVal);
+				Assert::IsTrue(list1.IsEmpty());
 
-			// delete middle element from 3 element list
-			Library::SList<std::uint32_t> list2;
-			list2.PushFront(frontVal);
-			std::uint32_t value1 = rand();
-			std::uint32_t backVal = rand();
-			list2.PushBack(value1);
-			list2.PushBack(backVal);
-			Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
-			list2.Remove(value1);
-			Assert::AreEqual(static_cast<std::uint32_t>(2), list2.Size());
-			Assert::AreEqual(frontVal, list2.Front());
-			Assert::AreEqual(backVal, list2.Back());
+				// check on single item list
+				list1.PushFront(frontVal);
+				list1.Remove(frontVal);
+				Assert::IsTrue(list1.IsEmpty());
+
+				// check on 2 items list
+				std::uint32_t value = rand();
+				list1.PushFront(rand());
+				list1.PushBack(value);
+				list1.Remove(value);
+				Assert::AreNotEqual(value, list1.Back());
+				Assert::AreEqual(static_cast<std::uint32_t>(1), list1.Size());
+
+				// delete middle element from 3 element list
+				Library::SList<std::uint32_t> list2;
+				list2.PushFront(frontVal);
+				std::uint32_t value1 = rand();
+				std::uint32_t backVal = rand();
+				list2.PushBack(value1);
+				list2.PushBack(backVal);
+				Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
+				list2.Remove(value1);
+				Assert::AreEqual(static_cast<std::uint32_t>(2), list2.Size());
+				Assert::AreEqual(frontVal, list2.Front());
+				Assert::AreEqual(backVal, list2.Back());
+			}
+			// pointer type test
+			{
+				Library::SList<std::uint32_t*> list1;
+				// check remove on empty list
+				std::uint32_t frontVal = rand();
+				std::uint32_t* frontValPtr = &frontVal;
+				list1.Remove(frontValPtr);
+				Assert::IsTrue(list1.IsEmpty());
+
+				// check on single item list
+				list1.PushFront(frontValPtr);
+				list1.Remove(frontValPtr);
+				Assert::IsTrue(list1.IsEmpty());
+
+				// check on 2 items list
+				std::uint32_t value = rand();
+				std::uint32_t* valuePtr = &value;
+				std::uint32_t randomValue = rand();
+				std::uint32_t* randomValuePtr = &randomValue;
+				list1.PushFront(randomValuePtr);
+				list1.PushBack(valuePtr);
+				list1.Remove(valuePtr);
+				Assert::AreNotEqual(valuePtr, list1.Back());
+				Assert::AreEqual(static_cast<std::uint32_t>(1), list1.Size());
+
+				// delete middle element from 3 element list
+				Library::SList<std::uint32_t*> list2;
+				list2.PushFront(frontValPtr);
+				std::uint32_t value1 = rand();
+				std::uint32_t* value1Ptr = &value1;
+				std::uint32_t backVal = rand();
+				std::uint32_t* backValPtr = &backVal;
+				list2.PushBack(value1Ptr);
+				list2.PushBack(backValPtr);
+				Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
+				list2.Remove(value1Ptr);
+				Assert::AreEqual(static_cast<std::uint32_t>(2), list2.Size());
+				Assert::AreEqual(frontValPtr, list2.Front());
+				Assert::AreEqual(backValPtr, list2.Back());
+			}
+			// user defined type test
+			{
+				Library::SList<Foo> list1;
+				// check remove on empty list
+				Foo frontVal = Foo(rand());
+				list1.Remove(frontVal);
+				Assert::IsTrue(list1.IsEmpty());
+
+				// check on single item list
+				list1.PushFront(frontVal);
+				list1.Remove(frontVal);
+				Assert::IsTrue(list1.IsEmpty());
+
+				// check on 2 items list
+				Foo value = rand();
+				list1.PushFront(rand());
+				list1.PushBack(value);
+				list1.Remove(value);
+				Assert::AreNotEqual(value, list1.Back());
+				Assert::AreEqual(static_cast<std::uint32_t>(1), list1.Size());
+
+				// delete middle element from 3 element list
+				Library::SList<Foo> list2;
+				list2.PushFront(frontVal);
+				Foo value1 = Foo(rand());
+				Foo backVal = Foo(rand());
+				list2.PushBack(value1);
+				list2.PushBack(backVal);
+				Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
+				list2.Remove(value1);
+				Assert::AreEqual(static_cast<std::uint32_t>(2), list2.Size());
+				Assert::AreEqual(frontVal, list2.Front());
+				Assert::AreEqual(backVal, list2.Back());
+				Foo randomFoo;
+			}
 		}
 
 		TEST_CLASS_INITIALIZE(BeginClass)
