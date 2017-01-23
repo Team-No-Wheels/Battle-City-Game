@@ -10,7 +10,80 @@ namespace AnonymousEngine
 	template <typename T>
 	class SList
 	{
+		// Node structure representing each item in the list
+		struct Node
+		{
+			// Pointer to next node in the list
+			Node* mNext;
+			// The actual data element that is stored in the list
+			T mData;
+
+			// Construct a node from a next pointer and a data item
+			Node(Node* next, const T& data) : mNext(next), mData(data)
+			{}
+			// Delete default and copy constructors and assignment operator
+			Node() = delete;
+			Node(const Node& node) = delete;
+			Node& operator=(const Node& node) = delete;
+		};
 	public:
+		/** Iterator for SList class
+		*/
+		class Iterator
+		{
+		public:
+			/** Default constructor. Initializes an empty iterator which doesn't point to anything
+			*/
+			Iterator();
+
+			/** Initializes an iterator from the values of another iterator
+			*  @param rhs The iterator from which values are to be copied
+			*/
+			Iterator(const Iterator& rhs) = default;
+
+			/** Copies the values from another iterator to this iterator
+			*  @param rhs The iterator from which the values are to be copied
+			*/
+			Iterator& operator=(const Iterator& rhs) = default;
+
+			/** Advances the iterator to the next location in the container
+			*  @returns The current iterator which now points to the next location in the container
+			*/
+			Iterator& operator++();
+
+			/** Give an iterator which points to the current location in the container and advances the iterator to the next
+			*  location in the container
+			*  @param unused This paremeter is not used. It is used by C++ compiler for identifying post increment from pre increment
+			*/
+			Iterator operator++(int unused);
+
+			/** Get the current value in the container that the iterator points to
+			*  @returns A reference to the value that the iterator points to
+			*/
+			T& operator*();
+
+			/** Get the current value in the container that the iterator points to
+			*   @returns A constant reference to the value that the iterator points to
+			*/
+			const T& operator*() const;
+
+			/** Check if two iterators are equal
+			*   @returns A boolean indicating whether the two iterators are equal
+			*/
+			bool operator==(const Iterator& rhs) const;
+
+			/** Check if two iterators are not equal
+			*   @returns A boolean indicating whether the two iterators are not equal
+			*/
+			bool operator!=(const Iterator& rhs) const;
+		private:
+			Node* mNode;
+			const SList* mOwner;
+
+			Iterator(Node* node, const SList<T>* owner);
+			friend SList<T>;
+		};
+
 		/** Constructs a new single linked list
 		*/
 		explicit SList();
@@ -27,9 +100,10 @@ namespace AnonymousEngine
 		SList<T>& operator=(const SList<T>& list);
 
 		/** Push an item to the front of the list
-		 *	@param data The data item to push in the front of the list	 
+		 *	@param data The data item to push in the front of the list
+		 *	@return An iterator to the current data that is pushed
 		*/
-		void PushFront(const T& data);
+		Iterator PushFront(const T& data);
 
 		/** Remove an item from the front of the list
 		*/
@@ -37,8 +111,9 @@ namespace AnonymousEngine
 
 		/** Pop an item to the back of the list
 		*	@param data The data item to push in the back of the list
+		*	@return An iterator to the current data that is pushed
 		*/
-		void PushBack(const T& data);
+		Iterator PushBack(const T& data);
 
 		/** Get the item at the front of the list
 		*	@return The item at the front of the list
@@ -77,88 +152,6 @@ namespace AnonymousEngine
 		/** Destroy the linked list object, freeing all allocated resources
 		*/
 		~SList();
-	private:
-		// Private method to create a copy of another list
-		inline void Copy(const SList<T>& list);
-
-		// Node structure representing each item in the list
-		struct Node
-		{
-			// Pointer to next node in the list
-			Node* mNext;
-			// The actual data element that is stored in the list
-			T mData;
-
-			// Construct a node from a next pointer and a data item
-			Node(Node* next, const T& data) : mNext(next), mData(data)
-			{
-			}
-		};
-
-		// Pointer to the first element in the list
-		Node* mFront;
-		// Pointer to the last element in the list
-		Node* mBack;
-		// Number of elements in the list
-		std::uint32_t mSize;		
-
-	public:
-		/** Iterator for SList class
-		*/
-		class Iterator
-		{
-		public:
-			/** Default constructor. Initializes an empty iterator which doesn't point to anything
-			*/
-			Iterator();
-
-			/** Initializes an iterator from the values of another iterator
-			 *  @param rhs The iterator from which values are to be copied
-			*/
-			Iterator(const Iterator& rhs);
-
-			/** Copies the values from another iterator to this iterator
-			 *  @param rhs The iterator from which the values are to be copied
-			*/
-			Iterator& operator=(const Iterator& rhs);
-
-			/** Advances the iterator to the next location in the container
-			 *  @returns The current iterator which now points to the next location in the container
-			*/
-			Iterator& operator++();
-
-			/** Give an iterator which points to the current location in the container and advances the iterator to the next
-			 *  location in the container
-			 *  @param unused This paremeter is not used. It is used by C++ compiler for identifying post increment from pre increment
-			*/
-			Iterator operator++(int unused);
-
-			/** Get the current value in the container that the iterator points to
-			 *  @returns A reference to the value that the iterator points to
-			*/
-			T& operator*();
-
-			/** Get the current value in the container that the iterator points to
-			*   @returns A constant reference to the value that the iterator points to
-			*/
-			const T& operator*() const;
-
-			/** Check if two iterators are equal
-			*   @returns A boolean indicating whether the two iterators are equal
-			*/
-			bool operator==(const Iterator& rhs) const;
-
-			/** Check if two iterators are not equal
-			*   @returns A boolean indicating whether the two iterators are not equal
-			*/
-			bool operator!=(const Iterator& rhs) const;
-		private:
-			Node* mNode;
-			const SList* mOwner;
-
-			Iterator(Node* node, const SList<T>* owner);
-			friend SList<T>;
-		};
 
 		/** Get the beginning of the container
 		*   @returns An iterator pointing to the start of the container
@@ -174,22 +167,31 @@ namespace AnonymousEngine
 		*   @param value The value to search for
 		*   @returns Iterator to the first element that matched. Returns end() otherwise
 		*/
-		Iterator Find(T& value);
+		Iterator Find(const T& value);
 
 		/** Insert the given value at a specified location
 		*   @param data The data to insert
 		*   @param it The iterator which points to the location after which the data is to be inserted
+		*   @return An iterator that points to the new data that was inserted
 		*/
-		void InsertAfter(const T& data, const Iterator& it);
+		Iterator InsertAfter(const T& data, const Iterator& it);
 
 		/** Removes the first occurence of the given data from the list
 		*   @param data The data value to be removed
+		*   @return A boolean indicating whether an element was removed or not
 		*/
-		void Remove(T& data);
+		bool Remove(const T& data);
 
 	private:
-		// private method to find if next item matches a given value. Used in Find and Remove
-		Iterator FindIfNextItemMatches(const T& value);
+		// Private method to create a copy of another list
+		inline void Copy(const SList<T>& list);
+
+		// Pointer to the first element in the list
+		Node* mFront;
+		// Pointer to the last element in the list
+		Node* mBack;
+		// Number of elements in the list
+		std::uint32_t mSize;
 	};
 }
 

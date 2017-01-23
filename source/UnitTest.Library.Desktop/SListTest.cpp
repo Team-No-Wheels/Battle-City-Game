@@ -203,8 +203,9 @@ namespace UnitTestLibraryDesktop
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
 				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront((*mDistribution)(*mGenerator));
-				list.PushFront(value);
+				AnonymousEngine::SList<std::uint32_t>::Iterator it = list.PushFront(value);
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+				Assert::AreEqual(value, *it);
 				Assert::AreEqual(value, list.Front());
 			}
 
@@ -215,8 +216,9 @@ namespace UnitTestLibraryDesktop
 				std::uint32_t* value1 = new std::uint32_t((*mDistribution)(*mGenerator));
 				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.PushFront(value1);
-				list.PushFront(value2);
+				AnonymousEngine::SList<std::uint32_t*>::Iterator it = list.PushFront(value2);
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+				Assert::AreEqual(value2, *it);
 				Assert::AreEqual(value2, list.Front());
 				delete value1;
 				delete value2;
@@ -228,8 +230,9 @@ namespace UnitTestLibraryDesktop
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
 				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(Foo((*mDistribution)(*mGenerator)));
-				list.PushFront(Foo(value));
+				AnonymousEngine::SList<Foo>::Iterator it = list.PushFront(Foo(value));
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+				Assert::AreEqual(Foo(value), *it);
 				Assert::AreEqual(Foo(value), list.Front());
 			}
 		}
@@ -289,8 +292,9 @@ namespace UnitTestLibraryDesktop
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
 				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushBack((*mDistribution)(*mGenerator));
-				list.PushBack(value);
+				AnonymousEngine::SList<std::uint32_t>::Iterator it = list.PushBack(value);
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+				Assert::AreEqual(value, *it);
 				Assert::AreEqual(value, list.Back());
 			}
 
@@ -301,8 +305,9 @@ namespace UnitTestLibraryDesktop
 				std::uint32_t* value1 = new std::uint32_t((*mDistribution)(*mGenerator));
 				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.PushBack(value1);
-				list.PushBack(value2);
+				AnonymousEngine::SList<std::uint32_t*>::Iterator it = list.PushBack(value2);
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+				Assert::AreEqual(value2, *it);
 				Assert::AreEqual(value2, list.Back());
 				delete value1;
 				delete value2;
@@ -314,8 +319,9 @@ namespace UnitTestLibraryDesktop
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
 				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushBack(Foo((*mDistribution)(*mGenerator)));
-				list.PushBack(Foo(value));
+				AnonymousEngine::SList<Foo>::Iterator it = list.PushBack(Foo(value));
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+				Assert::AreEqual(Foo(value), *it);
 				Assert::AreEqual(Foo(value), list.Back());
 			}
 		}
@@ -777,74 +783,107 @@ namespace UnitTestLibraryDesktop
 			// primitive type test
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
-				Assert::ExpectException<std::exception>([&list]() { list.InsertAfter((*mDistribution)(*mGenerator), list.begin()); });
+				std::uint32_t value = (*mDistribution)(*mGenerator);
+				AnonymousEngine::SList<std::uint32_t>::Iterator it = list.InsertAfter(value, list.begin());
+				Assert::AreEqual(value, *it);
+				Assert::AreEqual(value, list.Back());
+				list.Clear();
+				Assert::ExpectException<std::exception>([&list, &value]()
+				{
+					AnonymousEngine::SList<std::uint32_t>::Iterator invalid;
+					list.InsertAfter(value, invalid);
+				});
+
 				// check when there is only 1 element
 				std::uint32_t frontVal = (*mDistribution)(*mGenerator);
 				list.PushFront(frontVal);
 				std::uint32_t value1 = (*mDistribution)(*mGenerator);
-				list.InsertAfter(value1, list.begin());
+				AnonymousEngine::SList<std::uint32_t>::Iterator it1 = list.InsertAfter(value1, list.begin());
+				Assert::AreEqual(value1, *it1);
 				Assert::AreEqual(value1, list.Back());
 
 				// check when there are 2 and 3 elements
 				std::uint32_t backVal = (*mDistribution)(*mGenerator);
 				list.PushBack(backVal);
 				std::uint32_t value2 = (*mDistribution)(*mGenerator);
-				list.InsertAfter(value2, list.Find(value1));
+				AnonymousEngine::SList<std::uint32_t>::Iterator it2 = list.InsertAfter(value2, list.Find(value1));
+				Assert::AreEqual(value2, *it2);
 				Assert::AreEqual(frontVal, *(list.begin()));
 
-				AnonymousEngine::SList<std::uint32_t>::Iterator it = list.begin();
-				Assert::AreEqual(value1, *(++it));
-				Assert::AreEqual(value2, *(++it));
-				Assert::AreEqual(backVal, *(++it));
+				AnonymousEngine::SList<std::uint32_t>::Iterator it3 = list.begin();
+				Assert::AreEqual(value1, *(++it3));
+				Assert::AreEqual(value2, *(++it3));
+				Assert::AreEqual(backVal, *(++it3));
 			}
 			// pointer type test
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				std::uint32_t value = (*mDistribution)(*mGenerator);
 				std::uint32_t* valuePtr = &value;
-				Assert::ExpectException<std::exception>([&list, valuePtr]() { list.InsertAfter(valuePtr, list.begin()); });
+				AnonymousEngine::SList<std::uint32_t*>::Iterator it = list.InsertAfter(valuePtr, list.begin());
+				Assert::AreEqual(valuePtr, *it);
+				list.Clear();
+				Assert::ExpectException<std::exception>([&list, &valuePtr]()
+				{
+					AnonymousEngine::SList<std::uint32_t*>::Iterator invalid;
+					list.InsertAfter(valuePtr, invalid);
+				});
+
 				// check when there is only 1 element
 				std::uint32_t frontVal = (*mDistribution)(*mGenerator);
 				list.PushFront(&frontVal);
 				std::uint32_t value1 = (*mDistribution)(*mGenerator);
-				list.InsertAfter(&value1, list.begin());
+				AnonymousEngine::SList<std::uint32_t*>::Iterator it1 = list.InsertAfter(&value1, list.begin());
+				Assert::AreEqual(&value1, *it1);
 				Assert::AreEqual(&value1, list.Back());
 
 				// check when there are 2 and 3 elements
 				std::uint32_t backVal = (*mDistribution)(*mGenerator);
 				list.PushBack(&backVal);
 				std::uint32_t value2 = (*mDistribution)(*mGenerator);
-				std::uint32_t* value1Ptr = &value1;
-				list.InsertAfter(&value2, list.Find(value1Ptr));
+				std::uint32_t* value1Ptr = &value1;				
+				AnonymousEngine::SList<std::uint32_t*>::Iterator it2 = list.InsertAfter(&value2, list.Find(value1Ptr));
+				Assert::AreEqual(&value2, *it2);
 				Assert::AreEqual(&frontVal, *(list.begin()));
 
-				AnonymousEngine::SList<std::uint32_t*>::Iterator it = list.begin();
-				Assert::AreEqual(&value1, *(++it));
-				Assert::AreEqual(&value2, *(++it));
-				Assert::AreEqual(&backVal, *(++it));
+				AnonymousEngine::SList<std::uint32_t*>::Iterator it3 = list.begin();
+				Assert::AreEqual(&value1, *(++it3));
+				Assert::AreEqual(&value2, *(++it3));
+				Assert::AreEqual(&backVal, *(++it3));
 			}
 			// user defined type test
 			{
 				AnonymousEngine::SList<Foo> list;
-				Assert::ExpectException<std::exception>([&list]() { list.InsertAfter((*mDistribution)(*mGenerator), list.begin()); });
+				Foo value = Foo((*mDistribution)(*mGenerator));
+				AnonymousEngine::SList<Foo>::Iterator it = list.InsertAfter(value, list.begin());
+				Assert::AreEqual(value, *it);
+				list.Clear();
+				Assert::ExpectException<std::exception>([&list, &value]()
+				{
+					AnonymousEngine::SList<Foo>::Iterator invalid;
+					list.InsertAfter(value, invalid);
+				});
+
 				// check when there is only 1 element
 				Foo frontVal = Foo((*mDistribution)(*mGenerator));
 				list.PushFront(frontVal);
-				Foo value1 = Foo((*mDistribution)(*mGenerator));
-				list.InsertAfter(value1, list.begin());
+				Foo value1 = Foo((*mDistribution)(*mGenerator));				
+				AnonymousEngine::SList<Foo>::Iterator it1 = list.InsertAfter(value1, list.begin());
+				Assert::AreEqual(value1, *it1);
 				Assert::AreEqual(value1, list.Back());
 
 				// check when there are 2 and 3 elements
 				Foo backVal = Foo((*mDistribution)(*mGenerator));
 				list.PushBack(backVal);
-				Foo value2 = Foo((*mDistribution)(*mGenerator));
-				list.InsertAfter(value2, list.Find(value1));
+				Foo value2 = Foo((*mDistribution)(*mGenerator));				
+				AnonymousEngine::SList<Foo>::Iterator it2 = list.InsertAfter(value2, list.Find(value1));
+				Assert::AreEqual(value2, *it2);
 				Assert::AreEqual(frontVal, *(list.begin()));
 
-				AnonymousEngine::SList<Foo>::Iterator it = list.begin();
-				Assert::AreEqual(value1, *(++it));
-				Assert::AreEqual(value2, *(++it));
-				Assert::AreEqual(backVal, *(++it));
+				AnonymousEngine::SList<Foo>::Iterator it3 = list.begin();
+				Assert::AreEqual(value1, *(++it3));
+				Assert::AreEqual(value2, *(++it3));
+				Assert::AreEqual(backVal, *(++it3));
 			}
 		}
 
@@ -855,19 +894,20 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t> list1;
 				// check remove on empty list
 				std::uint32_t frontVal = (*mDistribution)(*mGenerator);
-				list1.Remove(frontVal);
+				Assert::IsFalse(list1.Remove(frontVal));
 				Assert::IsTrue(list1.IsEmpty());
 
 				// check on single item list
 				list1.PushFront(frontVal);
-				list1.Remove(frontVal);
+				Assert::IsFalse(list1.Remove((*mDistribution)(*mGenerator)));
+				Assert::IsTrue(list1.Remove(frontVal));
 				Assert::IsTrue(list1.IsEmpty());
 
 				// check on 2 items list
 				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list1.PushFront((*mDistribution)(*mGenerator));
 				list1.PushBack(value);
-				list1.Remove(value);
+				Assert::IsTrue(list1.Remove(value));
 				Assert::AreNotEqual(value, list1.Back());
 				Assert::AreEqual(static_cast<std::uint32_t>(1), list1.Size());
 
@@ -879,10 +919,16 @@ namespace UnitTestLibraryDesktop
 				list2.PushBack(value1);
 				list2.PushBack(backVal);
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
-				list2.Remove(value1);
+				Assert::IsTrue(list2.Remove(value1));
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list2.Size());
 				Assert::AreEqual(frontVal, list2.Front());
 				Assert::AreEqual(backVal, list2.Back());
+
+				// delete final element from 3 element list
+				list2.InsertAfter(value1, list2.begin());
+				Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
+				Assert::IsTrue(list2.Remove(backVal));
+				Assert::AreEqual(value1, list2.Back());
 			}
 			// pointer type test
 			{
@@ -890,12 +936,14 @@ namespace UnitTestLibraryDesktop
 				// check remove on empty list
 				std::uint32_t frontVal = (*mDistribution)(*mGenerator);
 				std::uint32_t* frontValPtr = &frontVal;
-				list1.Remove(frontValPtr);
-				Assert::IsTrue(list1.IsEmpty());
+				Assert::IsFalse(list1.Remove(frontValPtr));
+				Assert::IsTrue(list1.IsEmpty());				
 
 				// check on single item list
 				list1.PushFront(frontValPtr);
-				list1.Remove(frontValPtr);
+				std::uint32_t randomVal = (*mDistribution)(*mGenerator);
+				Assert::IsFalse(list1.Remove(&randomVal));
+				Assert::IsTrue(list1.Remove(frontValPtr));
 				Assert::IsTrue(list1.IsEmpty());
 
 				// check on 2 items list
@@ -905,7 +953,7 @@ namespace UnitTestLibraryDesktop
 				std::uint32_t* randomValuePtr = &randomValue;
 				list1.PushFront(randomValuePtr);
 				list1.PushBack(valuePtr);
-				list1.Remove(valuePtr);
+				Assert::IsTrue(list1.Remove(valuePtr));
 				Assert::AreNotEqual(valuePtr, list1.Back());
 				Assert::AreEqual(static_cast<std::uint32_t>(1), list1.Size());
 
@@ -919,29 +967,36 @@ namespace UnitTestLibraryDesktop
 				list2.PushBack(value1Ptr);
 				list2.PushBack(backValPtr);
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
-				list2.Remove(value1Ptr);
+				Assert::IsTrue(list2.Remove(value1Ptr));
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list2.Size());
 				Assert::AreEqual(frontValPtr, list2.Front());
 				Assert::AreEqual(backValPtr, list2.Back());
+
+				// delete final element from 3 element list
+				list2.InsertAfter(value1Ptr, list2.begin());
+				Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
+				Assert::IsTrue(list2.Remove(&backVal));
+				Assert::AreEqual(value1Ptr, list2.Back());
 			}
 			// user defined type test
 			{
 				AnonymousEngine::SList<Foo> list1;
 				// check remove on empty list
 				Foo frontVal = Foo((*mDistribution)(*mGenerator));
-				list1.Remove(frontVal);
+				Assert::IsFalse(list1.Remove(frontVal));
 				Assert::IsTrue(list1.IsEmpty());
 
 				// check on single item list
 				list1.PushFront(frontVal);
-				list1.Remove(frontVal);
-				Assert::IsTrue(list1.IsEmpty());
+				Assert::IsFalse(list1.Remove(Foo((*mDistribution)(*mGenerator))));
+				Assert::IsTrue(list1.Remove(frontVal));
+				Assert::IsTrue(list1.IsEmpty());				
 
 				// check on 2 items list
 				Foo value = (*mDistribution)(*mGenerator);
 				list1.PushFront((*mDistribution)(*mGenerator));
 				list1.PushBack(value);
-				list1.Remove(value);
+				Assert::IsTrue(list1.Remove(value));
 				Assert::AreNotEqual(value, list1.Back());
 				Assert::AreEqual(static_cast<std::uint32_t>(1), list1.Size());
 
@@ -953,10 +1008,16 @@ namespace UnitTestLibraryDesktop
 				list2.PushBack(value1);
 				list2.PushBack(backVal);
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
-				list2.Remove(value1);
+				Assert::IsTrue(list2.Remove(value1));
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list2.Size());
 				Assert::AreEqual(frontVal, list2.Front());
 				Assert::AreEqual(backVal, list2.Back());
+
+				// delete final element from 3 element list
+				list2.InsertAfter(value1, list2.begin());
+				Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
+				Assert::IsTrue(list2.Remove(backVal));
+				Assert::AreEqual(value1, list2.Back());
 				Foo randomFoo;
 			}
 		}
