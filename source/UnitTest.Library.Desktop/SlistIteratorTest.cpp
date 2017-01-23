@@ -15,7 +15,7 @@ namespace UnitTestLibraryDesktop
 			// primitive type test
 			{
 				std::uint32_t testData[3];
-				Library::SList<std::uint32_t> list;
+				AnonymousEngine::SList<std::uint32_t> list;
 				for (std::uint32_t i = 0; i < 3; i++)
 				{
 					testData[i] = static_cast<std::uint32_t>(rand());
@@ -30,24 +30,24 @@ namespace UnitTestLibraryDesktop
 			}
 			// pointer type test
 			{
-				std::uint32_t* testData[3];
-				Library::SList<std::uint32_t*> list;
+				std::uint32_t testData[3];
+				AnonymousEngine::SList<std::uint32_t*> list;
 				for (std::uint32_t i = 0; i < 3; i++)
 				{
-					testData[i] = reinterpret_cast<std::uint32_t*>(rand());
-					list.PushBack(testData[i]);
+					testData[i] = rand();
+					list.PushBack(&testData[i]);
 				}
 				std::uint32_t index = 0;
 				for (auto value : list)
 				{
-					Assert::AreEqual(testData[index], value);
+					Assert::AreEqual(&testData[index], value);
 					index++;
 				}
 			}
 			// user defined type test
 			{
 				std::uint32_t testData[3];
-				Library::SList<Foo> list;
+				AnonymousEngine::SList<Foo> list;
 				for (std::uint32_t i = 0; i < 3; i++)
 				{
 					testData[i] = static_cast<std::uint32_t>(rand());
@@ -66,7 +66,7 @@ namespace UnitTestLibraryDesktop
 		{
 			// primitive type test
 			{
-				Library::SList<std::uint32_t> list;
+				AnonymousEngine::SList<std::uint32_t> list;
 				std::uint32_t value = rand();
 				list.PushFront(value);
 				auto iterator1 = list.begin();
@@ -76,9 +76,9 @@ namespace UnitTestLibraryDesktop
 			}
 			// pointer type test
 			{
-				Library::SList<std::uint32_t*> list;
-				std::uint32_t* value = reinterpret_cast<std::uint32_t*>(rand());
-				list.PushFront(value);
+				AnonymousEngine::SList<std::uint32_t*> list;
+				std::uint32_t value = rand();
+				list.PushFront(&value);
 				auto iterator1 = list.begin();
 				auto iterator2 = iterator1;
 				Assert::AreEqual(*iterator1, *iterator2);
@@ -86,7 +86,7 @@ namespace UnitTestLibraryDesktop
 			}
 			// user defined type test
 			{
-				Library::SList<Foo> list;
+				AnonymousEngine::SList<Foo> list;
 				std::uint32_t value = rand();
 				list.PushFront(Foo(value));
 				auto iterator1 = list.begin();
@@ -100,33 +100,33 @@ namespace UnitTestLibraryDesktop
 		{
 			// primitive type test
 			{
-				Library::SList<std::uint32_t> list;
+				AnonymousEngine::SList<std::uint32_t> list;
 				std::uint32_t value = rand();
 				list.PushFront(value);
 				auto iterator1 = list.begin();
-				Library::SList<std::uint32_t>::Iterator iterator2;
+				AnonymousEngine::SList<std::uint32_t>::Iterator iterator2;
 				iterator2 = iterator1;
 				Assert::AreEqual(*iterator1, *iterator2);
 				Assert::IsTrue(iterator1 == iterator2);
 			}
 			// pointer type test
 			{
-				Library::SList<std::uint32_t*> list;
-				std::uint32_t* value = reinterpret_cast<std::uint32_t*>(rand());
-				list.PushFront(value);
+				AnonymousEngine::SList<std::uint32_t*> list;
+				std::uint32_t value = rand();
+				list.PushFront(&value);
 				auto iterator1 = list.begin();
-				Library::SList<std::uint32_t*>::Iterator iterator2;
+				AnonymousEngine::SList<std::uint32_t*>::Iterator iterator2;
 				iterator2 = iterator1;
 				Assert::AreEqual(*iterator1, *iterator2);
 				Assert::IsTrue(iterator1 == iterator2);
 			}
 			// user defined type test
 			{
-				Library::SList<Foo> list;
+				AnonymousEngine::SList<Foo> list;
 				std::uint32_t value = rand();
 				list.PushFront(Foo(value));
 				auto iterator1 = list.begin();
-				Library::SList<Foo>::Iterator iterator2;
+				AnonymousEngine::SList<Foo>::Iterator iterator2;
 				iterator2 = iterator1;
 				Assert::AreEqual(*iterator1, *iterator2);
 				Assert::IsTrue(iterator1 == iterator2);
@@ -137,7 +137,7 @@ namespace UnitTestLibraryDesktop
 		{
 			// primitive type test
 			{
-				Library::SList<std::uint32_t> list;
+				AnonymousEngine::SList<std::uint32_t> list;
 				std::uint32_t value1 = rand();
 				std::uint32_t value2 = rand();
 				list.PushFront(value2);
@@ -157,27 +157,27 @@ namespace UnitTestLibraryDesktop
 			}
 			// pointer type test
 			{
-				Library::SList<std::uint32_t*> list;
-				std::uint32_t* value1 = reinterpret_cast<std::uint32_t*>(rand());
-				std::uint32_t* value2 = reinterpret_cast<std::uint32_t*>(rand());
-				list.PushFront(value2);
-				list.PushFront(value1);
+				AnonymousEngine::SList<std::uint32_t*> list;
+				std::uint32_t value1 = rand();
+				std::uint32_t value2 = rand();
+				list.PushFront(&value2);
+				list.PushFront(&value1);
 				//test post increment
 				auto iterator = list.begin();
-				Assert::AreEqual(value1, list.Front());
-				Assert::AreEqual(value1, *iterator);
+				Assert::AreEqual(&value1, list.Front());
+				Assert::AreEqual(&value1, *iterator);
 				auto it = iterator++;
-				Assert::AreEqual(value1, *it);
-				Assert::AreEqual(value2, *iterator);
+				Assert::AreEqual(&value1, *it);
+				Assert::AreEqual(&value2, *iterator);
 				// test pre increment
 				iterator = list.begin();
 				it = ++iterator;
-				Assert::AreEqual(value2, *iterator);
-				Assert::AreEqual(value2, list.Back());
+				Assert::AreEqual(&value2, *iterator);
+				Assert::AreEqual(&value2, list.Back());
 			}
 			// user defined type test
 			{
-				Library::SList<Foo> list;
+				AnonymousEngine::SList<Foo> list;
 				std::uint32_t value1 = rand();
 				std::uint32_t value2 = rand();
 				list.PushFront(Foo(value2));
@@ -201,7 +201,7 @@ namespace UnitTestLibraryDesktop
 		{
 			// primitive type test
 			{
-				Library::SList<std::uint32_t> list;
+				AnonymousEngine::SList<std::uint32_t> list;
 				std::uint32_t value1 = rand();
 				list.PushFront(value1);
 				auto iterator = list.end();
@@ -211,17 +211,17 @@ namespace UnitTestLibraryDesktop
 			}
 			// pointer type test
 			{
-				Library::SList<std::uint32_t*> list;
-				std::uint32_t* value1 = reinterpret_cast<std::uint32_t*>(rand());
-				list.PushFront(value1);
+				AnonymousEngine::SList<std::uint32_t*> list;
+				std::uint32_t value1 = rand();
+				list.PushFront(&value1);
 				auto iterator = list.end();
-				Assert::AreEqual(value1, list.Front());
+				Assert::AreEqual(&value1, list.Front());
 				Assert::ExpectException<std::exception>([&iterator]() { ++iterator; });
 				Assert::ExpectException<std::exception>([&iterator]() { iterator++; });
 			}
 			// user defined type test
 			{
-				Library::SList<Foo> list;
+				AnonymousEngine::SList<Foo> list;
 				std::uint32_t value1 = rand();
 				list.PushFront(Foo(value1));
 				auto iterator = list.end();
@@ -238,41 +238,41 @@ namespace UnitTestLibraryDesktop
 				std::uint32_t value1 = rand();
 				std::uint32_t value2 = rand();
 				// Test for non const version
-				Library::SList<std::uint32_t> list1;
+				AnonymousEngine::SList<std::uint32_t> list1;
 				list1.PushFront(value1);
 				Assert::AreEqual(value1, *(list1.begin()));
 				list1.PushFront(value2);
 				Assert::AreEqual(value2, *(list1.begin()));
 				// Test for const version
-				const Library::SList<std::uint32_t>::Iterator constIt(list1.begin());
+				const AnonymousEngine::SList<std::uint32_t>::Iterator constIt(list1.begin());
 				Assert::AreEqual(value2, *constIt);
 			}
 			// pointer type test
 			{
-				std::uint32_t* value1 = reinterpret_cast<std::uint32_t*>(rand());
-				std::uint32_t* value2 = reinterpret_cast<std::uint32_t*>(rand());
+				std::uint32_t value1 = rand();
+				std::uint32_t value2 = rand();
 				// Test for non const version
-				Library::SList<std::uint32_t*> list1;
-				list1.PushFront(value1);
-				Assert::AreEqual(value1, *(list1.begin()));
-				list1.PushFront(value2);
-				Assert::AreEqual(value2, *(list1.begin()));
+				AnonymousEngine::SList<std::uint32_t*> list1;
+				list1.PushFront(&value1);
+				Assert::AreEqual(&value1, *(list1.begin()));
+				list1.PushFront(&value2);
+				Assert::AreEqual(&value2, *(list1.begin()));
 				// Test for const version
-				const Library::SList<std::uint32_t*>::Iterator constIt(list1.begin());
-				Assert::AreEqual(value2, *constIt);
+				const AnonymousEngine::SList<std::uint32_t*>::Iterator constIt(list1.begin());
+				Assert::AreEqual(&value2, *constIt);
 			}
 			// user defined type test
 			{
 				std::uint32_t value1 = rand();
 				std::uint32_t value2 = rand();
 				// Test for non const version
-				Library::SList<Foo> list1;
+				AnonymousEngine::SList<Foo> list1;
 				list1.PushFront(Foo(value1));
 				Assert::AreEqual(Foo(value1), *(list1.begin()));
 				list1.PushFront(Foo(value2));
 				Assert::AreEqual(Foo(value2), *(list1.begin()));
 				// Test for const version
-				const Library::SList<Foo>::Iterator constIt(list1.begin());
+				const AnonymousEngine::SList<Foo>::Iterator constIt(list1.begin());
 				Assert::AreEqual(Foo(value2), *constIt);
 			}
 		}
@@ -281,8 +281,8 @@ namespace UnitTestLibraryDesktop
 		{
 			// primitive type test
 			{
-				Library::SList<std::uint32_t> list1;
-				Library::SList<std::uint32_t> list2;
+				AnonymousEngine::SList<std::uint32_t> list1;
+				AnonymousEngine::SList<std::uint32_t> list2;
 				list1.PushFront(rand());
 				list2.PushFront(rand());
 				//equals operator
@@ -295,17 +295,19 @@ namespace UnitTestLibraryDesktop
 				Assert::IsFalse(list1.end() != list1.end());
 				Assert::IsTrue(list1.begin() != list2.begin());
 				Assert::IsTrue(list1.end() != list2.end());
-				Library::SList<Foo>::Iterator it1;
-				Library::SList<Foo>::Iterator it2;
+				AnonymousEngine::SList<Foo>::Iterator it1;
+				AnonymousEngine::SList<Foo>::Iterator it2;
 				Assert::IsTrue(it1 == it2);
 				Assert::IsFalse(it1 != it2);
 			}
 			// pointer type test
 			{
-				Library::SList<std::uint32_t*> list1;
-				Library::SList<std::uint32_t*> list2;
-				list1.PushFront(reinterpret_cast<std::uint32_t*>(rand()));
-				list2.PushFront(reinterpret_cast<std::uint32_t*>(rand()));
+				AnonymousEngine::SList<std::uint32_t*> list1;
+				AnonymousEngine::SList<std::uint32_t*> list2;
+				std::uint32_t value1 = rand();
+				std::uint32_t value2 = rand();
+				list1.PushFront(&value1);
+				list2.PushFront(&value2);
 				//equals operator
 				Assert::IsTrue(list1.begin() == list1.begin());
 				Assert::IsTrue(list1.end() == list1.end());
@@ -316,15 +318,15 @@ namespace UnitTestLibraryDesktop
 				Assert::IsFalse(list1.end() != list1.end());
 				Assert::IsTrue(list1.begin() != list2.begin());
 				Assert::IsTrue(list1.end() != list2.end());
-				Library::SList<Foo>::Iterator it1;
-				Library::SList<Foo>::Iterator it2;
+				AnonymousEngine::SList<Foo>::Iterator it1;
+				AnonymousEngine::SList<Foo>::Iterator it2;
 				Assert::IsTrue(it1 == it2);
 				Assert::IsFalse(it1 != it2);
 			}
 			// user defined type test
 			{
-				Library::SList<Foo> list1;
-				Library::SList<Foo> list2;
+				AnonymousEngine::SList<Foo> list1;
+				AnonymousEngine::SList<Foo> list2;
 				list1.PushFront(Foo(rand()));
 				list2.PushFront(Foo(rand()));
 				//equals operator
@@ -337,8 +339,8 @@ namespace UnitTestLibraryDesktop
 				Assert::IsFalse(list1.end() != list1.end());
 				Assert::IsTrue(list1.begin() != list2.begin());
 				Assert::IsTrue(list1.end() != list2.end());
-				Library::SList<Foo>::Iterator it1;
-				Library::SList<Foo>::Iterator it2;
+				AnonymousEngine::SList<Foo>::Iterator it1;
+				AnonymousEngine::SList<Foo>::Iterator it2;
 				Assert::IsTrue(it1 == it2);
 				Assert::IsFalse(it1 != it2);
 			}

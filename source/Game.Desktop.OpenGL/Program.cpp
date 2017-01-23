@@ -3,13 +3,13 @@
 #include <fstream>
 #include "ShaderCompiler.h"
 
-namespace Game
+namespace AnonymousEngine
 {
 	Program::Program(int width, int height, std::string title)
 		: width(width), height(height), title(title), window(nullptr), shaderProgram(0), VAO(0)
 	{
-		// Using code from Library.Desktop
-		list = new Library::SList<int>();
+		// Using code from AnonymousEngine.Desktop
+		list = new SList<int>();
 	}
 
 	Program::~Program()

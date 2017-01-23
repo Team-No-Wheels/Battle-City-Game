@@ -29,7 +29,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
 	// Using library code from DirectX project
-	Library::SList<int>* list = new Library::SList<int>();
+	AnonymousEngine::SList<int>* list = new AnonymousEngine::SList<int>();
 	list->PushFront(10);
 	list->PopFront();
 

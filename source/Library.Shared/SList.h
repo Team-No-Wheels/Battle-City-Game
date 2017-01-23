@@ -2,7 +2,7 @@
 
 #include "Pch.h"
 
-namespace Library
+namespace AnonymousEngine
 {
 	/** A single linked list container
 	*/

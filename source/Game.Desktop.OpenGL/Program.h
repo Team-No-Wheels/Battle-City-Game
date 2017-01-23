@@ -3,7 +3,7 @@
 #include "GLFW/glfw3.h"
 #include "SList.h"
 
-namespace Game
+namespace AnonymousEngine
 {
 	/** Program flow control and initalization handler
 	* Handles the initalization of program window, OpenGL context and game loop
@@ -45,7 +45,7 @@ namespace Game
 		GLuint VAO;
 
 		// A single linked list object
-		Library::SList<int>* list;
+		SList<int>* list;
 
 		// Compiles all the shaders and links them to a program
 		void InitShaders();

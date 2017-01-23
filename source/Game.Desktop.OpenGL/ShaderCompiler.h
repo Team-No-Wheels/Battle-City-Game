@@ -3,7 +3,7 @@
 #include <vector>
 #include <GLFW/glfw3.h>
 
-namespace Game
+namespace AnonymousEngine
 {
 	/** GLSL shader compiler utility class
 	 *  This class has methods to compile GLSL shaders and link them

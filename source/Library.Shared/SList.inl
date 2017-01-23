@@ -1,4 +1,4 @@
-namespace Library
+namespace AnonymousEngine
 {
 	template<typename T>
 	SList<T>::Iterator::Iterator() : mNode(nullptr), mOwner(nullptr)

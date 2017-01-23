@@ -4,7 +4,7 @@
 
 #define INFO_LOG_LENGTH 512
 
-namespace Game
+namespace AnonymousEngine
 {
 	GLuint ShaderCompiler::CompileShader(std::string shaderSource, ShaderType shaderType)
 	{
