@@ -371,6 +371,13 @@ namespace UnitTestLibraryDesktop
 			mDistribution = new std::uniform_int_distribution<std::uint32_t>(0, UINT32_MAX);
 		}
 
+		TEST_CLASS_CLEANUP(EndClass)
+		{
+			delete mGenerator;
+			delete mDistribution;
+		}
+
+#if _DEBUG
 		TEST_METHOD_INITIALIZE(Setup)
 		{
 			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
@@ -379,37 +386,24 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD_CLEANUP(Teardown)
 		{
-			if (DidMemoryStateChange(mStartMemState))
-			{
-				Assert::Fail(L"Memory leak...");
-			}
-		}
-
-		TEST_CLASS_CLEANUP(EndClass)
-		{
-			delete mGenerator;
-			delete mDistribution;
-		}
-	private:
-		_CrtMemState mStartMemState;
-		static std::default_random_engine* mGenerator;
-		static std::uniform_int_distribution<std::uint32_t>* mDistribution;
-
-		static bool DidMemoryStateChange(_CrtMemState startState)
-		{
 			_CrtMemState endMemState;
 			_CrtMemState diffMemState;
 			_CrtMemCheckpoint(&endMemState);
-			if (_CrtMemDifference(&diffMemState, &startState, &endMemState))
+			if (_CrtMemDifference(&diffMemState, &mStartMemState, &endMemState))
 			{
 				_CrtMemDumpStatistics(&diffMemState);
-				return true;
+				Assert::Fail(L"Memory leak...");
 			}
-			return false;
 		}
+	private:
+		_CrtMemState mStartMemState;
+#else
+	private:
+#endif
+		static std::default_random_engine* mGenerator;
+		static std::uniform_int_distribution<std::uint32_t>* mDistribution;
 	};
 
 	std::default_random_engine* SListIteratorTest::mGenerator;
 	std::uniform_int_distribution<std::uint32_t>* SListIteratorTest::mDistribution;
 }
-

@@ -38,15 +38,19 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t> list1;
 				list1.PushFront(0);
 				list1.PushFront((*mDistribution)(*mGenerator));
-				_CrtMemState memStateBeforeAssignment;
-				_CrtMemCheckpoint(&memStateBeforeAssignment);
 
 				// Verify that new memory has been allocated and lists are equivalent
 				AnonymousEngine::SList<std::uint32_t> list2(list1);
-				Assert::IsTrue(DidMemoryStateChange(memStateBeforeAssignment));
-				Assert::AreEqual(list1.Size(), list2.Size());
-				Assert::AreEqual(list1.Front(), list2.Front());
-				Assert::AreEqual(list1.Back(), list2.Back());
+				std::uint32_t list1Size = list1.Size();
+				std::uint32_t list1Front = list1.Front();
+				std::uint32_t list1Back = list1.Back();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
+				list1.Clear();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
 			}
 
 			{
@@ -61,10 +65,16 @@ namespace UnitTestLibraryDesktop
 
 				// Verify that new memory has been allocated and lists are equivalent
 				AnonymousEngine::SList<std::uint32_t*> list2(list1);
-				Assert::IsTrue(DidMemoryStateChange(memStateBeforeAssignment));
-				Assert::AreEqual(list1.Size(), list2.Size());
-				Assert::AreEqual(list1.Front(), list2.Front());
-				Assert::AreEqual(list1.Back(), list2.Back());
+				std::uint32_t list1Size = list1.Size();
+				std::uint32_t* list1Front = list1.Front();
+				std::uint32_t* list1Back = list1.Back();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
+				list1.Clear();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
 				delete value1;
 				delete value2;
 			}
@@ -79,10 +89,16 @@ namespace UnitTestLibraryDesktop
 
 				// Verify that new memory has been allocated and lists are equivalent
 				AnonymousEngine::SList<Foo> list2(list1);
-				Assert::IsTrue(DidMemoryStateChange(memStateBeforeAssignment));
-				Assert::AreEqual(list1.Size(), list2.Size());
-				Assert::AreEqual(list1.Front(), list2.Front());
-				Assert::AreEqual(list1.Back(), list2.Back());
+				std::uint32_t list1Size = list1.Size();
+				Foo list1Front = list1.Front();
+				Foo list1Back = list1.Back();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
+				list1.Clear();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
 			}
 		}
 
@@ -100,10 +116,16 @@ namespace UnitTestLibraryDesktop
 
 				// Verify that new memory has been allocated and lists are equivalent
 				list2 = list1;
-				Assert::IsTrue(DidMemoryStateChange(memStateBeforeAssignment));
-				Assert::AreEqual(list1.Size(), list2.Size());
-				Assert::AreEqual(list1.Front(), list2.Front());
-				Assert::AreEqual(list1.Back(), list2.Back());
+				std::uint32_t list1Size = list1.Size();
+				std::uint32_t list1Front = list1.Front();
+				std::uint32_t list1Back = list1.Back();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
+				list1.Clear();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
 			}
 
 			// test for pointer
@@ -120,10 +142,16 @@ namespace UnitTestLibraryDesktop
 
 				// Verify that new memory has been allocated and lists are equivalent
 				list2 = list1;
-				Assert::IsTrue(DidMemoryStateChange(memStateBeforeAssignment));
-				Assert::AreEqual(list1.Size(), list2.Size());
-				Assert::AreEqual(list1.Front(), list2.Front());
-				Assert::AreEqual(list1.Back(), list2.Back());
+				std::uint32_t list1Size = list1.Size();
+				std::uint32_t* list1Front = list1.Front();
+				std::uint32_t* list1Back = list1.Back();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
+				list1.Clear();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
 				delete value1;
 				delete value2;
 			}
@@ -140,10 +168,16 @@ namespace UnitTestLibraryDesktop
 
 				// Verify that new memory has been allocated and lists are equivalent
 				list2 = list1;
-				Assert::IsTrue(DidMemoryStateChange(memStateBeforeAssignment));
-				Assert::AreEqual(list1.Size(), list2.Size());
-				Assert::AreEqual(list1.Front(), list2.Front());
-				Assert::AreEqual(list1.Back(), list2.Back());
+				std::uint32_t list1Size = list1.Size();
+				Foo list1Front = list1.Front();
+				Foo list1Back = list1.Back();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
+				list1.Clear();
+				Assert::AreEqual(list1Size, list2.Size());
+				Assert::AreEqual(list1Front, list2.Front());
+				Assert::AreEqual(list1Back, list2.Back());
 			}
 		}
 
@@ -155,12 +189,15 @@ namespace UnitTestLibraryDesktop
 
 				list1.PushFront((*mDistribution)(*mGenerator));
 				list1.PushFront((*mDistribution)(*mGenerator));
-				_CrtMemState memStateBeforeAssignment;
-				_CrtMemCheckpoint(&memStateBeforeAssignment);
 
-				// Verify that no new memory has been allocated
+				// Verify that self assignment didn't do anything
+				std::uint32_t list1Size = list1.Size();
+				std::uint32_t list1Front = list1.Front();
+				std::uint32_t list1Back = list1.Back();
 				list1 = list1;
-				Assert::IsFalse(DidMemoryStateChange(memStateBeforeAssignment));
+				Assert::AreEqual(list1Size, list1.Size());
+				Assert::AreEqual(list1Front, list1.Front());
+				Assert::AreEqual(list1Back, list1.Back());
 			}
 
 			// pointer test
@@ -170,12 +207,15 @@ namespace UnitTestLibraryDesktop
 				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list1.PushFront(value1);
 				list1.PushFront(value2);
-				_CrtMemState memStateBeforeAssignment;
-				_CrtMemCheckpoint(&memStateBeforeAssignment);
 
-				// Verify that no new memory has been allocated
+				// Verify that self assignment didn't do anything
+				std::uint32_t list1Size = list1.Size();
+				std::uint32_t* list1Front = list1.Front();
+				std::uint32_t* list1Back = list1.Back();
 				list1 = list1;
-				Assert::IsFalse(DidMemoryStateChange(memStateBeforeAssignment));
+				Assert::AreEqual(list1Size, list1.Size());
+				Assert::AreEqual(list1Front, list1.Front());
+				Assert::AreEqual(list1Back, list1.Back());
 				delete value1;
 				delete value2;
 			}
@@ -186,12 +226,15 @@ namespace UnitTestLibraryDesktop
 
 				list1.PushFront(Foo((*mDistribution)(*mGenerator)));
 				list1.PushFront(Foo((*mDistribution)(*mGenerator)));
-				_CrtMemState memStateBeforeAssignment;
-				_CrtMemCheckpoint(&memStateBeforeAssignment);
 
-				// Verify that no new memory has been allocated
+				// Verify that self assignment didn't do anything
+				std::uint32_t list1Size = list1.Size();
+				Foo list1Front = list1.Front();
+				Foo list1Back = list1.Back();
 				list1 = list1;
-				Assert::IsFalse(DidMemoryStateChange(memStateBeforeAssignment));
+				Assert::AreEqual(list1Size, list1.Size());
+				Assert::AreEqual(list1Front, list1.Front());
+				Assert::AreEqual(list1Back, list1.Back());
 			}
 		}
 
@@ -1029,6 +1072,13 @@ namespace UnitTestLibraryDesktop
 			mDistribution = new std::uniform_int_distribution<std::uint32_t>(0, UINT32_MAX);
 		}
 
+		TEST_CLASS_CLEANUP(EndClass)
+		{
+			delete mGenerator;
+			delete mDistribution;
+		}
+
+#if _DEBUG
 		TEST_METHOD_INITIALIZE(Setup)
 		{
 			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
@@ -1037,37 +1087,24 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD_CLEANUP(Teardown)
 		{
-			if (DidMemoryStateChange(mStartMemState))
-			{
-				Assert::Fail(L"Memory leak...");
-			}
-		}
-
-		TEST_CLASS_CLEANUP(EndClass)
-		{
-			delete mGenerator;
-			delete mDistribution;
-		}
-	private:
-		_CrtMemState mStartMemState;
-		static std::default_random_engine* mGenerator;
-		static std::uniform_int_distribution<std::uint32_t>* mDistribution;
-
-		static bool DidMemoryStateChange(_CrtMemState startState)
-		{
 			_CrtMemState endMemState;
 			_CrtMemState diffMemState;
 			_CrtMemCheckpoint(&endMemState);
-			if (_CrtMemDifference(&diffMemState, &startState, &endMemState))
+			if (_CrtMemDifference(&diffMemState, &mStartMemState, &endMemState))
 			{
 				_CrtMemDumpStatistics(&diffMemState);
-				return true;
+				Assert::Fail(L"Memory leak...");
 			}
-			return false;
 		}
+	private:
+		_CrtMemState mStartMemState;
+#else
+	private:
+#endif
+		static std::default_random_engine* mGenerator;
+		static std::uniform_int_distribution<std::uint32_t>* mDistribution;
 	};
 
 	std::default_random_engine* SListTest::mGenerator;
 	std::uniform_int_distribution<std::uint32_t>* SListTest::mDistribution;
 }
-
