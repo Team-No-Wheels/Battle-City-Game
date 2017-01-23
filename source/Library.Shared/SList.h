@@ -58,14 +58,9 @@ namespace AnonymousEngine
 			Iterator operator++(int unused);
 
 			/** Get the current value in the container that the iterator points to
-			*  @returns A reference to the value that the iterator points to
-			*/
-			T& operator*();
-
-			/** Get the current value in the container that the iterator points to
 			*   @returns A constant reference to the value that the iterator points to
 			*/
-			const T& operator*() const;
+			T& operator*() const;
 
 			/** Check if two iterators are equal
 			*   @returns A boolean indicating whether the two iterators are equal
