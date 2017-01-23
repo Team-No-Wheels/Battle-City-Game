@@ -36,7 +36,7 @@ namespace UnitTestLibraryDesktop
 			{
 				// test for primitive type
 				AnonymousEngine::SList<std::uint32_t> list1;
-				list1.PushFront(0);
+				list1.PushFront((*mDistribution)(*mGenerator));
 				list1.PushFront((*mDistribution)(*mGenerator));
 
 				// Verify that new memory has been allocated and lists are equivalent
@@ -56,7 +56,7 @@ namespace UnitTestLibraryDesktop
 			{
 				// test for pointer type
 				AnonymousEngine::SList<std::uint32_t*> list1;
-				std::uint32_t* value1 = new std::uint32_t(0);
+				std::uint32_t* value1 = new std::uint32_t((*mDistribution)(*mGenerator));
 				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list1.PushFront(value1);
 				list1.PushFront(value2);
@@ -82,7 +82,7 @@ namespace UnitTestLibraryDesktop
 			{
 				// test for user defined type
 				AnonymousEngine::SList<Foo> list1;
-				list1.PushFront(Foo(0));
+				list1.PushFront(Foo((*mDistribution)(*mGenerator)));
 				list1.PushFront(Foo((*mDistribution)(*mGenerator)));
 				_CrtMemState memStateBeforeAssignment;
 				_CrtMemCheckpoint(&memStateBeforeAssignment);
