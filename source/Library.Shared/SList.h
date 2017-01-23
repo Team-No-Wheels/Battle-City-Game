@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Pch.h"
+#include <string>
 
-namespace Library
+namespace AnonymousEngine
 {
 	/** A single linked list container
 	*/
@@ -77,16 +78,19 @@ namespace Library
 		*/
 		~SList();
 	private:
+		// Private method to create a copy of another list
+		inline void Copy(const SList<T>& list);
+
 		// Node structure representing each item in the list
 		struct Node
 		{
 			// Pointer to next node in the list
-			Node* next;
+			Node* mNext;
 			// The actual data element that is stored in the list
-			T data;
+			T mData;
 
 			// Construct a node from a next pointer and a data item
-			Node(Node* next, const T& data) : next(next), data(data)
+			Node(Node* next, const T& data) : mNext(next), mData(data)
 			{
 			}
 		};
@@ -96,10 +100,7 @@ namespace Library
 		// Pointer to the last element in the list
 		Node* mBack;
 		// Number of elements in the list
-		std::uint32_t mSize;
-
-		// Private method to create a copy of another list
-		inline void Copy(const SList<T>& list);
+		std::uint32_t mSize;		
 
 	public:
 		/** Iterator for SList class
@@ -187,7 +188,8 @@ namespace Library
 		void Remove(T& data);
 
 	private:
-		Iterator FindMatchNext(const T& value);
+		// private method to find if next item matches a given value. Used in Find and Remove
+		Iterator FindIfNextItemMatches(const T& value);
 	};
 }
 

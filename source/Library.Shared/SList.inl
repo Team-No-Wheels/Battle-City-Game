@@ -1,5 +1,91 @@
-namespace Library
+namespace AnonymousEngine
 {
+	template<typename T>
+	SList<T>::Iterator::Iterator() : mNode(nullptr), mOwner(nullptr)
+	{}
+
+	template<typename T>
+	SList<T>::Iterator::Iterator(const Iterator& rhs) : mNode(rhs.mNode), mOwner(rhs.mOwner)
+	{}
+
+	template<typename T>
+	SList<T>::Iterator::Iterator(Node* node, const SList<T>* owner) : mNode(node), mOwner(owner)
+	{}
+
+	template<typename T>
+	typename SList<T>::Iterator& SList<T>::Iterator::operator=(const typename SList<T>::Iterator& rhs)
+	{
+		if (this != &rhs)
+		{
+			mOwner = rhs.mOwner;
+			mNode = rhs.mNode;
+		}
+		return *this;
+	}
+
+	template<typename T>
+	typename SList<T>::Iterator& SList<T>::Iterator::operator++()
+	{
+		if (mNode != nullptr)
+		{
+			mNode = mNode->mNext;
+			return *this;
+		}
+		else
+		{
+			throw std::exception("Iterator out of range");
+		}
+	}
+
+	template<typename T>
+	typename SList<T>::Iterator SList<T>::Iterator::operator++(int unused)
+	{
+		// The line below is to get rid of the unused parameter warning
+		unused;
+		if (mNode != nullptr)
+		{
+			Iterator it = *this;
+			mNode = mNode->mNext;
+			return it;
+		}
+		else
+		{
+			throw std::exception("Iterator out of range");
+		}
+	}
+
+	template<typename T>
+	T& SList<T>::Iterator::operator*()
+	{
+		if (mNode == nullptr)
+		{
+			throw std::exception("Iterator does not point a valid element");
+		}
+		return mNode->mData;
+	}
+
+	template<typename T>
+	const T& SList<T>::Iterator::operator*() const
+	{
+		if (mNode == nullptr)
+		{
+			throw std::exception("Iterator does not point a valid element");
+		}
+		return mNode->mData;
+	}
+
+	template<typename T>
+	bool SList<T>::Iterator::operator==(const Iterator& rhs) const
+	{
+		return (mOwner == rhs.mOwner && mNode == rhs.mNode);
+	}
+
+	template<typename T>
+	bool SList<T>::Iterator::operator!=(const Iterator& rhs) const
+	{
+		return !(*this == rhs);
+	}
+
 	template<typename T>
 	SList<T>::SList() : mFront(nullptr), mBack(nullptr), mSize(0)
 	{
@@ -40,7 +126,7 @@ namespace Library
 		if (mSize > 0)
 		{
 			Node* node = mFront;
-			mFront = node->next;
+			mFront = node->mNext;
 			mSize--;
 			if (mFront == nullptr)
 			{
@@ -56,7 +142,7 @@ namespace Library
 		Node* node = new Node(nullptr, data);
 		if (mBack != nullptr)
 		{
-			mBack->next = node;
+			mBack->mNext = node;
 		}
 		else
 		{
@@ -73,7 +159,7 @@ namespace Library
 		{
 			throw std::exception("The list is empty.");
 		}
-		return mFront->data;
+		return mFront->mData;
 	}
 
 	template<typename T>
@@ -83,7 +169,7 @@ namespace Library
 		{
 			throw std::exception("The list is empty.");
 		}
-		return static_cast<const T&>(mFront->data);
+		return static_cast<const T&>(mFront->mData);
 	}
 
 	template<typename T>
@@ -93,7 +179,7 @@ namespace Library
 		{
 			throw std::exception("The list is empty.");
 		}
-		return mBack->data;
+		return mBack->mData;
 	}
 
 	template<typename T>
@@ -103,7 +189,7 @@ namespace Library
 		{
 			throw std::exception("The list is empty.");
 		}
-		return static_cast<const T&>(mBack->data);
+		return static_cast<const T&>(mBack->mData);
 	}
 
 	template<typename T>
@@ -136,87 +222,6 @@ namespace Library
 	}
 
 	template<typename T>
-	SList<T>::Iterator::Iterator() : mNode(nullptr), mOwner(nullptr)
-	{
-	}
-
-	template<typename T>
-	SList<T>::Iterator::Iterator(const Iterator& rhs) : mNode(rhs.mNode), mOwner(rhs.mOwner)
-	{
-	}
-
-	template<typename T>
-	SList<T>::Iterator::Iterator(Node* node, const SList<T>* owner) : mNode(node), mOwner(owner)
-	{
-	}
-
-	template<typename T>
-	typename SList<T>::Iterator& SList<T>::Iterator::operator=(const typename SList<T>::Iterator& rhs)
-	{
-		if(this != &rhs)
-		{
-			mOwner = rhs.mOwner;
-			mNode = rhs.mNode;
-		}
-		return *this;
-	}
-
-	template<typename T>
-	typename SList<T>::Iterator& SList<T>::Iterator::operator++()
-	{
-		if (mNode != nullptr)
-		{
-			mNode = mNode->next;
-			return *this;
-		}
-		else
-		{
-			throw std::exception("Iterator out of range");
-		}
-	}
-
-	template<typename T>
-	typename SList<T>::Iterator SList<T>::Iterator::operator++(int unused)
-	{
-		// The line below is to get rid of the warning
-		unused;
-		if (mNode != nullptr)
-		{
-			Iterator it = *this;
-			mNode = mNode->next;
-			return it;
-		}
-		else
-		{
-			throw std::exception("Iterator out of range");
-		}
-	}
-
-	template<typename T>
-	T& SList<T>::Iterator::operator*()
-	{
-		return mNode->data;
-	}
-
-	template<typename T>
-	const T& SList<T>::Iterator::operator*() const
-	{
-		return mNode->data;
-	}
-
-	template<typename T>
-	bool SList<T>::Iterator::operator==(const Iterator& rhs) const
-	{
-		return (mOwner == rhs.mOwner && mNode == rhs.mNode);
-	}
-
-	template<typename T>
-	bool SList<T>::Iterator::operator!=(const Iterator& rhs) const
-	{
-		return !(*this == rhs);
-	}
-
-	template<typename T>
 	typename SList<T>::Iterator SList<T>::begin() const
 	{
 		return Iterator(mFront, this);
@@ -231,13 +236,13 @@ namespace Library
 	template<typename T>
 	typename SList<T>::Iterator SList<T>::Find(T& value)
 	{
-		if (mSize == 1 && mFront->data == value)
+		if (mSize == 1 && mFront->mData == value)
 		{
 			return Iterator(mFront, this);
 		}
 		else
 		{
-			Iterator it = FindMatchNext(value);
+			Iterator it = FindIfNextItemMatches(value);
 			if (it != end())
 			{
 				return ++it;
@@ -254,8 +259,8 @@ namespace Library
 	{
 		if (it.mNode != nullptr)
 		{
-			Node* temp = new Node(it.mNode->next, data);
-			it.mNode->next = temp;
+			Node* temp = new Node(it.mNode->mNext, data);
+			it.mNode->mNext = temp;
 			if (mFront == mBack)
 			{
 				mBack = temp;
@@ -271,18 +276,18 @@ namespace Library
 	template<typename T>
 	void SList<T>::Remove(T& data)
 	{
-		if (mFront != nullptr && mFront->data == data)
+		if (mFront != nullptr && mFront->mData == data)
 		{
 			PopFront();
 		}
 		else if (mSize > 1)
 		{
-			Iterator it = FindMatchNext(data);
+			Iterator it = FindIfNextItemMatches(data);
 			if (it != end())
 			{
 				Node* temp = it.mNode;
-				Node* nodeToDelete = temp->next;
-				temp->next = nodeToDelete->next;
+				Node* nodeToDelete = temp->mNext;
+				temp->mNext = nodeToDelete->mNext;
 				delete nodeToDelete;
 				mSize--;
 			}
@@ -298,14 +303,14 @@ namespace Library
 	template<typename T>
 	void SList<T>::Copy(const SList<T>& list)
 	{
-		for (Node* node = list.mFront; node != nullptr; node = node->next)
+		for (Node* node = list.mFront; node != nullptr; node = node->mNext)
 		{
-			PushBack(node->data);
+			PushBack(node->mData);
 		}
 	}
 
 	template<typename T>
-	typename SList<T>::Iterator SList<T>::FindMatchNext(const T& value)
+	typename SList<T>::Iterator SList<T>::FindIfNextItemMatches(const T& value)
 	{
 		if (mFront == nullptr)
 		{
@@ -314,13 +319,13 @@ namespace Library
 		else
 		{
 			Node* temp = mFront;
-			while (temp->next != nullptr)
+			while (temp->mNext != nullptr)
 			{
-				if (temp->next->data == value)
+				if (temp->mNext->mData == value)
 				{
 					return Iterator(temp, this);
 				}
-				temp = temp->next;
+				temp = temp->mNext;
 			}
 			return end();
 		}

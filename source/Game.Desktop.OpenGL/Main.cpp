@@ -14,7 +14,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	UNREFERENCED_PARAMETER(nCmdShow);
 
 	// All program flow control is delegated to Program class
-	Game::Program* program = new Game::Program(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
+	AnonymousEngine::Program* program = new AnonymousEngine::Program(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 	program->Init();
 	program->GameLoop();
 	program->ShutDown();
