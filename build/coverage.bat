@@ -6,6 +6,7 @@ set PROJECT_UNDER_TEST=Library.Shared
 set UNIT_TEST_PROJECT=UnitTest.Library.Desktop
 set DEFAULT_BINARY_PATH=bin\Win32\Debug
 set COVERAGE_REPORTS_PATH=CoverageReports
+set TEST_RESULTS_PATH=TestResults
 
 set GENERATE_COVERAGE_COMMAND=vstest.console.exe /InIsolation /Enablecodecoverage
 set GENERATE_XML_COMMAND=CodeCoverage.exe analyze /output:
@@ -13,6 +14,9 @@ set GENERATE_REPORT_COMMAND=ReportGenerator.exe
 set START_WEB_SERVER_COMMAND=python -m SimpleHTTPServer
 set COVERAGE_SERVER_PORT=9000
 
+
+if exist !TEST_RESULTS_PATH! rd /s /q !TEST_RESULTS_PATH!
+if exist !COVERAGE_REPORTS_PATH! rd /s /q !COVERAGE_REPORTS_PATH!
 
 !GENERATE_COVERAGE_COMMAND! !PROJECTS_DIR!\!UNIT_TEST_PROJECT!\!DEFAULT_BINARY_PATH!\!UNIT_TEST_PROJECT!.dll
 set REPORTS=
