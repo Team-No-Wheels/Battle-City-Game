@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Pch.h"
+#include <string>
 
 namespace AnonymousEngine
 {

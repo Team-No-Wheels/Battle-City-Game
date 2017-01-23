@@ -57,12 +57,20 @@ namespace AnonymousEngine
 	template<typename T>
 	T& SList<T>::Iterator::operator*()
 	{
+		if (mNode == nullptr)
+		{
+			throw std::exception("Iterator does not point a valid element");
+		}
 		return mNode->mData;
 	}
 
 	template<typename T>
 	const T& SList<T>::Iterator::operator*() const
 	{
+		if (mNode == nullptr)
+		{
+			throw std::exception("Iterator does not point a valid element");
+		}
 		return mNode->mData;
 	}
 

@@ -669,7 +669,7 @@ namespace UnitTestLibraryDesktop
 			// primitive type
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
-				Assert::IsTrue(list.begin() == list.end());
+				Assert::AreEqual(list.begin(), list.end());
 				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(value);
 				Assert::IsFalse(list.begin() == list.end());
@@ -679,7 +679,7 @@ namespace UnitTestLibraryDesktop
 			// pointer type
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
-				Assert::IsTrue(list.begin() == list.end());
+				Assert::AreEqual(list.begin(), list.end());
 				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				list.PushFront(&value1);
 				Assert::IsFalse(list.begin() == list.end());
@@ -690,7 +690,7 @@ namespace UnitTestLibraryDesktop
 			// user defined type
 			{
 				AnonymousEngine::SList<Foo> list;
-				Assert::IsTrue(list.begin() == list.end());
+				Assert::AreEqual(list.begin(), list.end());
 				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(Foo(value));
 				Assert::IsFalse(list.begin() == list.end());
@@ -706,21 +706,21 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t> list;
 				// test on empty list
 				std::uint32_t value = (*mDistribution)(*mGenerator);
-				Assert::IsTrue(list.Find(value) == list.end());
+				Assert::AreEqual(list.end(), list.Find(value));
 
 				// test on list with 1 element
 				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				list.PushFront(value1);
-				Assert::AreEqual(*(list.Find(value1)), value1);
+				Assert::AreEqual(value1, *(list.Find(value1)));
 
 				// test on list with multiple element
 				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				list.PushBack(value2);
 				list.PushBack((*mDistribution)(*mGenerator));
-				Assert::AreEqual(*(list.Find(value2)), value2);
-				Assert::IsFalse(list.Find(value2) == list.end());
+				Assert::AreEqual(value2, *(list.Find(value2)));
+				Assert::AreNotEqual(list.end(), list.Find(value2));
 				std::uint32_t randomValue = (*mDistribution)(*mGenerator);
-				Assert::IsTrue(list.Find(randomValue) == list.end());
+				Assert::AreEqual(list.end(), list.Find(randomValue));
 			}
 			// pointer type
 			{
@@ -728,13 +728,13 @@ namespace UnitTestLibraryDesktop
 				// test on empty list
 				std::uint32_t value = (*mDistribution)(*mGenerator);
 				std::uint32_t *valuePtr = &value;
-				Assert::IsTrue(list.Find(valuePtr) == list.end());
+				Assert::AreEqual(list.end(), list.Find(valuePtr));
 
 				// test on list with 1 element
 				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				std::uint32_t *value1Ptr = &value1;
 				list.PushFront(&value1);
-				Assert::AreEqual(*(list.Find(value1Ptr)), &value1);
+				Assert::AreEqual(&value1, *(list.Find(value1Ptr)));
 
 				// test on list with multiple element
 				std::uint32_t value2 = (*mDistribution)(*mGenerator);
@@ -743,32 +743,32 @@ namespace UnitTestLibraryDesktop
 				std::uint32_t *value3Ptr = &value3;
 				list.PushBack(value2Ptr);
 				list.PushBack(value3Ptr);
-				Assert::AreEqual(*(list.Find(value2Ptr)), value2Ptr);
-				Assert::IsFalse(list.Find(value2Ptr) == list.end());
+				Assert::AreEqual(value2Ptr, *(list.Find(value2Ptr)));
+				Assert::AreNotEqual(list.end(), list.Find(value2Ptr));
 				std::uint32_t randomValue = (*mDistribution)(*mGenerator);
 				std::uint32_t* randomValuePtr = &randomValue;
-				Assert::IsTrue(list.Find(randomValuePtr) == list.end());
+				Assert::AreEqual(list.end(), list.Find(randomValuePtr));
 			}
 			// user defined type
 			{
 				AnonymousEngine::SList<Foo> list;
 				// test on empty list
 				Foo value = Foo((*mDistribution)(*mGenerator));
-				Assert::IsTrue(list.Find(value) == list.end());
+				Assert::AreEqual(list.end(), list.Find(value));
 
 				// test on list with 1 element
 				Foo value1 = Foo((*mDistribution)(*mGenerator));
 				list.PushFront(value1);
-				Assert::AreEqual(*(list.Find(value1)), value1);
+				Assert::AreEqual(value1, *(list.Find(value1)));
 
 				// test on list with multiple element
 				Foo value2 = Foo((*mDistribution)(*mGenerator));
 				list.PushBack(value2);
 				list.PushBack((*mDistribution)(*mGenerator));
 				Assert::AreEqual(*(list.Find(value2)), value2);
-				Assert::IsFalse(list.Find(value2) == list.end());
+				Assert::AreNotEqual(list.end(), list.Find(value2));
 				Foo randomValue = Foo((*mDistribution)(*mGenerator));
-				Assert::IsTrue(list.Find(randomValue) == list.end());
+				Assert::AreEqual(list.end(), list.Find(randomValue));
 			}
 		}
 

@@ -72,7 +72,7 @@ namespace UnitTestLibraryDesktop
 				auto iterator1 = list.begin();
 				auto iterator2 = iterator1;
 				Assert::AreEqual(*iterator1, *iterator2);
-				Assert::IsTrue(iterator1 == iterator2);
+				Assert::AreEqual(iterator1, iterator2);
 			}
 			// pointer type test
 			{
@@ -82,7 +82,7 @@ namespace UnitTestLibraryDesktop
 				auto iterator1 = list.begin();
 				auto iterator2 = iterator1;
 				Assert::AreEqual(*iterator1, *iterator2);
-				Assert::IsTrue(iterator1 == iterator2);
+				Assert::AreEqual(iterator1, iterator2);
 			}
 			// user defined type test
 			{
@@ -92,7 +92,7 @@ namespace UnitTestLibraryDesktop
 				auto iterator1 = list.begin();
 				auto iterator2 = iterator1;
 				Assert::AreEqual(*iterator1, *iterator2);
-				Assert::IsTrue(iterator1 == iterator2);
+				Assert::AreEqual(iterator1, iterator2);
 			}
 		}
 
@@ -107,7 +107,7 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t>::Iterator iterator2;
 				iterator2 = iterator1;
 				Assert::AreEqual(*iterator1, *iterator2);
-				Assert::IsTrue(iterator1 == iterator2);
+				Assert::AreEqual(iterator1, iterator2);
 			}
 			// pointer type test
 			{
@@ -118,7 +118,7 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t*>::Iterator iterator2;
 				iterator2 = iterator1;
 				Assert::AreEqual(*iterator1, *iterator2);
-				Assert::IsTrue(iterator1 == iterator2);
+				Assert::AreEqual(iterator1, iterator2);
 			}
 			// user defined type test
 			{
@@ -129,7 +129,7 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<Foo>::Iterator iterator2;
 				iterator2 = iterator1;
 				Assert::AreEqual(*iterator1, *iterator2);
-				Assert::IsTrue(iterator1 == iterator2);
+				Assert::AreEqual(iterator1, iterator2);
 			}
 		}
 
@@ -286,19 +286,19 @@ namespace UnitTestLibraryDesktop
 				list1.PushFront((*mDistribution)(*mGenerator));
 				list2.PushFront((*mDistribution)(*mGenerator));
 				//equals operator
-				Assert::IsTrue(list1.begin() == list1.begin());
-				Assert::IsTrue(list1.end() == list1.end());
-				Assert::IsFalse(list1.begin() == list2.begin());
-				Assert::IsFalse(list1.end() == list2.end());
+				Assert::AreEqual(list1.begin(), list1.begin());
+				Assert::AreEqual(list1.end(), list1.end());
+				Assert::AreNotEqual(list1.begin(), list2.begin());
+				Assert::AreNotEqual(list1.end(), list2.end());
 				//not equals operator
-				Assert::IsFalse(list1.begin() != list1.begin());
-				Assert::IsFalse(list1.end() != list1.end());
-				Assert::IsTrue(list1.begin() != list2.begin());
-				Assert::IsTrue(list1.end() != list2.end());
+				Assert::AreEqual(list1.begin(), list1.begin());
+				Assert::AreEqual(list1.end(), list1.end());
+				Assert::AreNotEqual(list1.begin(), list2.begin());
+				Assert::AreNotEqual(list1.end(), list2.end());
 				AnonymousEngine::SList<Foo>::Iterator it1;
 				AnonymousEngine::SList<Foo>::Iterator it2;
-				Assert::IsTrue(it1 == it2);
-				Assert::IsFalse(it1 != it2);
+				Assert::AreEqual(it1, it2);
+				Assert::AreEqual(it1, it2);
 			}
 			// pointer type test
 			{
@@ -309,19 +309,19 @@ namespace UnitTestLibraryDesktop
 				list1.PushFront(&value1);
 				list2.PushFront(&value2);
 				//equals operator
-				Assert::IsTrue(list1.begin() == list1.begin());
-				Assert::IsTrue(list1.end() == list1.end());
-				Assert::IsFalse(list1.begin() == list2.begin());
-				Assert::IsFalse(list1.end() == list2.end());
+				Assert::AreEqual(list1.begin(), list1.begin());
+				Assert::AreEqual(list1.end(), list1.end());
+				Assert::AreNotEqual(list1.begin(), list2.begin());
+				Assert::AreNotEqual(list1.end(), list2.end());
 				//not equals operator
-				Assert::IsFalse(list1.begin() != list1.begin());
-				Assert::IsFalse(list1.end() != list1.end());
-				Assert::IsTrue(list1.begin() != list2.begin());
-				Assert::IsTrue(list1.end() != list2.end());
+				Assert::AreEqual(list1.begin(), list1.begin());
+				Assert::AreEqual(list1.end(), list1.end());
+				Assert::AreNotEqual(list1.begin(), list2.begin());
+				Assert::AreNotEqual(list1.end(), list2.end());
 				AnonymousEngine::SList<Foo>::Iterator it1;
 				AnonymousEngine::SList<Foo>::Iterator it2;
-				Assert::IsTrue(it1 == it2);
-				Assert::IsFalse(it1 != it2);
+				Assert::AreEqual(it1, it2);
+				Assert::AreEqual(it1, it2);
 			}
 			// user defined type test
 			{
@@ -330,19 +330,19 @@ namespace UnitTestLibraryDesktop
 				list1.PushFront(Foo((*mDistribution)(*mGenerator)));
 				list2.PushFront(Foo((*mDistribution)(*mGenerator)));
 				//equals operator
-				Assert::IsTrue(list1.begin() == list1.begin());
-				Assert::IsTrue(list1.end() == list1.end());
-				Assert::IsFalse(list1.begin() == list2.begin());
-				Assert::IsFalse(list1.end() == list2.end());
+				Assert::AreEqual(list1.begin(), list1.begin());
+				Assert::AreEqual(list1.end(), list1.end());
+				Assert::AreNotEqual(list1.begin(), list2.begin());
+				Assert::AreNotEqual(list1.end(), list2.end());
 				//not equals operator
-				Assert::IsFalse(list1.begin() != list1.begin());
-				Assert::IsFalse(list1.end() != list1.end());
-				Assert::IsTrue(list1.begin() != list2.begin());
-				Assert::IsTrue(list1.end() != list2.end());
+				Assert::AreEqual(list1.begin(), list1.begin());
+				Assert::AreEqual(list1.end(), list1.end());
+				Assert::AreNotEqual(list1.begin(), list2.begin());
+				Assert::AreNotEqual(list1.end(), list2.end());
 				AnonymousEngine::SList<Foo>::Iterator it1;
 				AnonymousEngine::SList<Foo>::Iterator it2;
-				Assert::IsTrue(it1 == it2);
-				Assert::IsFalse(it1 != it2);
+				Assert::AreEqual(it1, it2);
+				Assert::AreEqual(it1, it2);
 			}
 		}
 
