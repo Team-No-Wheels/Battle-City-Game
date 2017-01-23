@@ -28,7 +28,7 @@ namespace AnonymousEngine
 	{
 		if (mNode != nullptr)
 		{
-			mNode = mNode->next;
+			mNode = mNode->mNext;
 			return *this;
 		}
 		else
@@ -45,7 +45,7 @@ namespace AnonymousEngine
 		if (mNode != nullptr)
 		{
 			Iterator it = *this;
-			mNode = mNode->next;
+			mNode = mNode->mNext;
 			return it;
 		}
 		else
@@ -57,13 +57,13 @@ namespace AnonymousEngine
 	template<typename T>
 	T& SList<T>::Iterator::operator*()
 	{
-		return mNode->data;
+		return mNode->mData;
 	}
 
 	template<typename T>
 	const T& SList<T>::Iterator::operator*() const
 	{
-		return mNode->data;
+		return mNode->mData;
 	}
 
 	template<typename T>
@@ -118,7 +118,7 @@ namespace AnonymousEngine
 		if (mSize > 0)
 		{
 			Node* node = mFront;
-			mFront = node->next;
+			mFront = node->mNext;
 			mSize--;
 			if (mFront == nullptr)
 			{
@@ -134,7 +134,7 @@ namespace AnonymousEngine
 		Node* node = new Node(nullptr, data);
 		if (mBack != nullptr)
 		{
-			mBack->next = node;
+			mBack->mNext = node;
 		}
 		else
 		{
@@ -151,7 +151,7 @@ namespace AnonymousEngine
 		{
 			throw std::exception("The list is empty.");
 		}
-		return mFront->data;
+		return mFront->mData;
 	}
 
 	template<typename T>
@@ -161,7 +161,7 @@ namespace AnonymousEngine
 		{
 			throw std::exception("The list is empty.");
 		}
-		return static_cast<const T&>(mFront->data);
+		return static_cast<const T&>(mFront->mData);
 	}
 
 	template<typename T>
@@ -171,7 +171,7 @@ namespace AnonymousEngine
 		{
 			throw std::exception("The list is empty.");
 		}
-		return mBack->data;
+		return mBack->mData;
 	}
 
 	template<typename T>
@@ -181,7 +181,7 @@ namespace AnonymousEngine
 		{
 			throw std::exception("The list is empty.");
 		}
-		return static_cast<const T&>(mBack->data);
+		return static_cast<const T&>(mBack->mData);
 	}
 
 	template<typename T>
@@ -228,7 +228,7 @@ namespace AnonymousEngine
 	template<typename T>
 	typename SList<T>::Iterator SList<T>::Find(T& value)
 	{
-		if (mSize == 1 && mFront->data == value)
+		if (mSize == 1 && mFront->mData == value)
 		{
 			return Iterator(mFront, this);
 		}
@@ -251,8 +251,8 @@ namespace AnonymousEngine
 	{
 		if (it.mNode != nullptr)
 		{
-			Node* temp = new Node(it.mNode->next, data);
-			it.mNode->next = temp;
+			Node* temp = new Node(it.mNode->mNext, data);
+			it.mNode->mNext = temp;
 			if (mFront == mBack)
 			{
 				mBack = temp;
@@ -268,7 +268,7 @@ namespace AnonymousEngine
 	template<typename T>
 	void SList<T>::Remove(T& data)
 	{
-		if (mFront != nullptr && mFront->data == data)
+		if (mFront != nullptr && mFront->mData == data)
 		{
 			PopFront();
 		}
@@ -278,8 +278,8 @@ namespace AnonymousEngine
 			if (it != end())
 			{
 				Node* temp = it.mNode;
-				Node* nodeToDelete = temp->next;
-				temp->next = nodeToDelete->next;
+				Node* nodeToDelete = temp->mNext;
+				temp->mNext = nodeToDelete->mNext;
 				delete nodeToDelete;
 				mSize--;
 			}
@@ -295,9 +295,9 @@ namespace AnonymousEngine
 	template<typename T>
 	void SList<T>::Copy(const SList<T>& list)
 	{
-		for (Node* node = list.mFront; node != nullptr; node = node->next)
+		for (Node* node = list.mFront; node != nullptr; node = node->mNext)
 		{
-			PushBack(node->data);
+			PushBack(node->mData);
 		}
 	}
 
@@ -311,13 +311,13 @@ namespace AnonymousEngine
 		else
 		{
 			Node* temp = mFront;
-			while (temp->next != nullptr)
+			while (temp->mNext != nullptr)
 			{
-				if (temp->next->data == value)
+				if (temp->mNext->mData == value)
 				{
 					return Iterator(temp, this);
 				}
-				temp = temp->next;
+				temp = temp->mNext;
 			}
 			return end();
 		}

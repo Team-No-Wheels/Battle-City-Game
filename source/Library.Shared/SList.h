@@ -84,12 +84,12 @@ namespace AnonymousEngine
 		struct Node
 		{
 			// Pointer to next node in the list
-			Node* next;
+			Node* mNext;
 			// The actual data element that is stored in the list
-			T data;
+			T mData;
 
 			// Construct a node from a next pointer and a data item
-			Node(Node* next, const T& data) : next(next), data(data)
+			Node(Node* next, const T& data) : mNext(next), mData(data)
 			{
 			}
 		};
