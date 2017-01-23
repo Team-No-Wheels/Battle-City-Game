@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Pch.h"
-#include <string>
+#include <cstdint>
 
 namespace AnonymousEngine
 {
@@ -19,8 +18,7 @@ namespace AnonymousEngine
 			T mData;
 
 			// Construct a node from a next pointer and a data item
-			Node(Node* next, const T& data) : mNext(next), mData(data)
-			{}
+			Node(Node* next, const T& data);
 			// Delete default and copy constructors and assignment operator
 			Node() = delete;
 			Node(const Node& node) = delete;
@@ -162,7 +160,7 @@ namespace AnonymousEngine
 		*   @param value The value to search for
 		*   @returns Iterator to the first element that matched. Returns end() otherwise
 		*/
-		Iterator Find(const T& value);
+		Iterator Find(const T& value) const;
 
 		/** Insert the given value at a specified location
 		*   @param data The data to insert

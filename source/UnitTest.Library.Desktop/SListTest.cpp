@@ -424,8 +424,8 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t> list;
 				const AnonymousEngine::SList<std::uint32_t> constList;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				Assert::ExpectException <std::exception>([&list]() { list.Front(); }, L"Front on empty list did not throw an exception");
-				Assert::ExpectException <std::exception>([&constList]() { constList.Front(); }, L"Front on empty list did not throw an exception");
+				Assert::ExpectException <std::domain_error>([&list]() { list.Front(); }, L"Front on empty list did not throw an exception");
+				Assert::ExpectException <std::domain_error>([&constList]() { constList.Front(); }, L"Front on empty list did not throw an exception");
 			}
 
 			// pointer type test
@@ -433,8 +433,8 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t*> list;
 				const AnonymousEngine::SList<std::uint32_t*> constList;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				Assert::ExpectException <std::exception>([&list]() { list.Front(); }, L"Front on empty list did not throw an exception");
-				Assert::ExpectException <std::exception>([&constList]() { constList.Front(); }, L"Front on empty list did not throw an exception");
+				Assert::ExpectException <std::domain_error>([&list]() { list.Front(); }, L"Front on empty list did not throw an exception");
+				Assert::ExpectException <std::domain_error>([&constList]() { constList.Front(); }, L"Front on empty list did not throw an exception");
 			}
 
 			// user defined type test
@@ -442,8 +442,8 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<Foo> list;
 				const AnonymousEngine::SList<Foo> constList;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				Assert::ExpectException <std::exception>([&list]() { list.Front(); }, L"Front on empty list did not throw an exception");
-				Assert::ExpectException <std::exception>([&constList]() { constList.Front(); }, L"Front on empty list did not throw an exception");
+				Assert::ExpectException <std::domain_error>([&list]() { list.Front(); }, L"Front on empty list did not throw an exception");
+				Assert::ExpectException <std::domain_error>([&constList]() { constList.Front(); }, L"Front on empty list did not throw an exception");
 			}
 		}
 
@@ -503,16 +503,16 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t> list;
 				const AnonymousEngine::SList<std::uint32_t> constList;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				Assert::ExpectException <std::exception>([&list]() { list.Back(); }, L"Back on empty list did not throw an exception");
-				Assert::ExpectException <std::exception>([&constList]() { constList.Back(); }, L"Front on empty list did not throw an exception");
+				Assert::ExpectException <std::domain_error>([&list]() { list.Back(); }, L"Back on empty list did not throw an exception");
+				Assert::ExpectException <std::domain_error>([&constList]() { constList.Back(); }, L"Front on empty list did not throw an exception");
 			}
 
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				const AnonymousEngine::SList<std::uint32_t*> constList;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				Assert::ExpectException <std::exception>([&list]() { list.Back(); }, L"Back on empty list did not throw an exception");
-				Assert::ExpectException <std::exception>([&constList]() { constList.Back(); }, L"Front on empty list did not throw an exception");
+				Assert::ExpectException <std::domain_error>([&list]() { list.Back(); }, L"Back on empty list did not throw an exception");
+				Assert::ExpectException <std::domain_error>([&constList]() { constList.Back(); }, L"Front on empty list did not throw an exception");
 			}
 
 			{
@@ -788,7 +788,7 @@ namespace UnitTestLibraryDesktop
 				Assert::AreEqual(value, *it);
 				Assert::AreEqual(value, list.Back());
 				list.Clear();
-				Assert::ExpectException<std::exception>([&list, &value]()
+				Assert::ExpectException<std::invalid_argument>([&list, &value]()
 				{
 					AnonymousEngine::SList<std::uint32_t>::Iterator invalid;
 					list.InsertAfter(value, invalid);
@@ -823,7 +823,7 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t*>::Iterator it = list.InsertAfter(valuePtr, list.begin());
 				Assert::AreEqual(valuePtr, *it);
 				list.Clear();
-				Assert::ExpectException<std::exception>([&list, &valuePtr]()
+				Assert::ExpectException<std::invalid_argument>([&list, &valuePtr]()
 				{
 					AnonymousEngine::SList<std::uint32_t*>::Iterator invalid;
 					list.InsertAfter(valuePtr, invalid);
@@ -858,7 +858,7 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<Foo>::Iterator it = list.InsertAfter(value, list.begin());
 				Assert::AreEqual(value, *it);
 				list.Clear();
-				Assert::ExpectException<std::exception>([&list, &value]()
+				Assert::ExpectException<std::invalid_argument>([&list, &value]()
 				{
 					AnonymousEngine::SList<Foo>::Iterator invalid;
 					list.InsertAfter(value, invalid);

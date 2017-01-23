@@ -206,8 +206,8 @@ namespace UnitTestLibraryDesktop
 				list.PushFront(value1);
 				auto iterator = list.end();
 				Assert::AreEqual(value1, list.Front());
-				Assert::ExpectException<std::exception>([&iterator]() { ++iterator; });
-				Assert::ExpectException<std::exception>([&iterator]() { iterator++; });
+				Assert::ExpectException<std::out_of_range>([&iterator]() { ++iterator; });
+				Assert::ExpectException<std::out_of_range>([&iterator]() { iterator++; });
 			}
 			// pointer type test
 			{
@@ -216,8 +216,8 @@ namespace UnitTestLibraryDesktop
 				list.PushFront(&value1);
 				auto iterator = list.end();
 				Assert::AreEqual(&value1, list.Front());
-				Assert::ExpectException<std::exception>([&iterator]() { ++iterator; });
-				Assert::ExpectException<std::exception>([&iterator]() { iterator++; });
+				Assert::ExpectException<std::out_of_range>([&iterator]() { ++iterator; });
+				Assert::ExpectException<std::out_of_range>([&iterator]() { iterator++; });
 			}
 			// user defined type test
 			{
@@ -226,8 +226,8 @@ namespace UnitTestLibraryDesktop
 				list.PushFront(Foo(value1));
 				auto iterator = list.end();
 				Assert::AreEqual(Foo(value1), list.Front());
-				Assert::ExpectException<std::exception>([&iterator]() { ++iterator; });
-				Assert::ExpectException<std::exception>([&iterator]() { iterator++; });
+				Assert::ExpectException<std::out_of_range>([&iterator]() { ++iterator; });
+				Assert::ExpectException<std::out_of_range>([&iterator]() { iterator++; });
 			}
 		}
 
@@ -239,7 +239,7 @@ namespace UnitTestLibraryDesktop
 				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				// Test for non const version
 				AnonymousEngine::SList<std::uint32_t> list1;
-				Assert::ExpectException<std::exception>([&list1]() { *(list1.begin()); });
+				Assert::ExpectException<std::domain_error>([&list1]() { *(list1.begin()); });
 				list1.PushFront(value1);
 				Assert::AreEqual(value1, *(list1.begin()));
 				list1.PushFront(value2);
@@ -247,7 +247,7 @@ namespace UnitTestLibraryDesktop
 				// Test for const version
 				const AnonymousEngine::SList<std::uint32_t>::Iterator constIt(list1.begin());
 				Assert::AreEqual(value2, *constIt);
-				Assert::ExpectException<std::exception>([&list1]()
+				Assert::ExpectException<std::domain_error>([&list1]()
 				{
 					const AnonymousEngine::SList<std::uint32_t>::Iterator it;
 					*it;

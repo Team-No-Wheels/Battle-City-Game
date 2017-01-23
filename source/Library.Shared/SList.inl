@@ -1,5 +1,12 @@
 namespace AnonymousEngine
 {
+#pragma region NodeMethods
+	template<typename T>
+	SList<T>::Node::Node(Node* next, const T& data) : mNext(next), mData(data)
+	{
+	}
+#pragma endregion 
+
 #pragma region IteratorMethods
 	template<typename T>
 	SList<T>::Iterator::Iterator() : mNode(nullptr), mOwner(nullptr)
@@ -21,7 +28,7 @@ namespace AnonymousEngine
 		}
 		else
 		{
-			throw std::exception("Iterator out of range");
+			throw std::out_of_range("Iterator out of range");
 		}
 	}
 
@@ -38,7 +45,7 @@ namespace AnonymousEngine
 		}
 		else
 		{
-			throw std::exception("Iterator out of range");
+			throw std::out_of_range("Iterator out of range");
 		}
 	}
 
@@ -47,7 +54,7 @@ namespace AnonymousEngine
 	{
 		if (mNode == nullptr)
 		{
-			throw std::exception("Iterator does not point a valid element");
+			throw std::domain_error("Iterator does not point a valid element");
 		}
 		return mNode->mData;
 	}
@@ -139,7 +146,7 @@ namespace AnonymousEngine
 	{
 		if (mFront == nullptr)
 		{
-			throw std::exception("The list is empty.");
+			throw std::domain_error("The list is empty.");
 		}
 		return mFront->mData;
 	}
@@ -155,7 +162,7 @@ namespace AnonymousEngine
 	{
 		if (mBack == nullptr)
 		{
-			throw std::exception("The list is empty.");
+			throw std::domain_error("The list is empty.");
 		}
 		return mBack->mData;
 	}
@@ -206,7 +213,7 @@ namespace AnonymousEngine
 	}
 
 	template<typename T>
-	typename SList<T>::Iterator SList<T>::Find(const T& value)
+	typename SList<T>::Iterator SList<T>::Find(const T& value) const
 	{
 		for(Iterator it = begin(); it != end(); ++it)
 		{
@@ -223,7 +230,7 @@ namespace AnonymousEngine
 	{
 		if (it.mOwner != this)
 		{
-			throw std::exception("Iterator is not an iterator to the current list");
+			throw std::invalid_argument("Iterator is not an iterator to the current list");
 		}
 		
 		if (it == end())
