@@ -209,6 +209,7 @@
   <ItemGroup>
     <ClInclude Include="Foo.h" />
     <ClInclude Include="Pch.h" />
+    <ClInclude Include="TestingUtilities.h" />
     <ClInclude Include="ToStringTemplates.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

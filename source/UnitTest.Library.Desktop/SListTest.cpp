@@ -37,7 +37,7 @@ namespace UnitTestLibraryDesktop
 				// test for primitive type
 				AnonymousEngine::SList<std::uint32_t> list1;
 				list1.PushFront(0);
-				list1.PushFront(rand());
+				list1.PushFront((*mDistribution)(*mGenerator));
 				_CrtMemState memStateBeforeAssignment;
 				_CrtMemCheckpoint(&memStateBeforeAssignment);
 
@@ -53,7 +53,7 @@ namespace UnitTestLibraryDesktop
 				// test for pointer type
 				AnonymousEngine::SList<std::uint32_t*> list1;
 				std::uint32_t* value1 = new std::uint32_t(0);
-				std::uint32_t* value2 = new std::uint32_t(rand());
+				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list1.PushFront(value1);
 				list1.PushFront(value2);
 				_CrtMemState memStateBeforeAssignment;
@@ -73,7 +73,7 @@ namespace UnitTestLibraryDesktop
 				// test for user defined type
 				AnonymousEngine::SList<Foo> list1;
 				list1.PushFront(Foo(0));
-				list1.PushFront(Foo(rand()));
+				list1.PushFront(Foo((*mDistribution)(*mGenerator)));
 				_CrtMemState memStateBeforeAssignment;
 				_CrtMemCheckpoint(&memStateBeforeAssignment);
 
@@ -93,8 +93,8 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t> list1;
 				AnonymousEngine::SList<std::uint32_t> list2;
 				
-				list1.PushFront(rand());
-				list1.PushFront(rand());
+				list1.PushFront((*mDistribution)(*mGenerator));
+				list1.PushFront((*mDistribution)(*mGenerator));
 				_CrtMemState memStateBeforeAssignment;
 				_CrtMemCheckpoint(&memStateBeforeAssignment);
 
@@ -111,8 +111,8 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t*> list1;
 				AnonymousEngine::SList<std::uint32_t*> list2;
 
-				std::uint32_t* value1 = new std::uint32_t(rand());
-				std::uint32_t* value2 = new std::uint32_t(rand());
+				std::uint32_t* value1 = new std::uint32_t((*mDistribution)(*mGenerator));
+				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list1.PushFront(value1);
 				list1.PushFront(value2);
 				_CrtMemState memStateBeforeAssignment;
@@ -133,8 +133,8 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<Foo> list1;
 				AnonymousEngine::SList<Foo> list2;
 
-				list1.PushFront(Foo(rand()));
-				list1.PushFront(Foo(rand()));
+				list1.PushFront(Foo((*mDistribution)(*mGenerator)));
+				list1.PushFront(Foo((*mDistribution)(*mGenerator)));
 				_CrtMemState memStateBeforeAssignment;
 				_CrtMemCheckpoint(&memStateBeforeAssignment);
 
@@ -153,8 +153,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list1;
 
-				list1.PushFront(rand());
-				list1.PushFront(rand());
+				list1.PushFront((*mDistribution)(*mGenerator));
+				list1.PushFront((*mDistribution)(*mGenerator));
 				_CrtMemState memStateBeforeAssignment;
 				_CrtMemCheckpoint(&memStateBeforeAssignment);
 
@@ -166,8 +166,8 @@ namespace UnitTestLibraryDesktop
 			// pointer test
 			{
 				AnonymousEngine::SList<std::uint32_t*> list1;
-				std::uint32_t* value1 = new std::uint32_t(rand());
-				std::uint32_t* value2 = new std::uint32_t(rand());
+				std::uint32_t* value1 = new std::uint32_t((*mDistribution)(*mGenerator));
+				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list1.PushFront(value1);
 				list1.PushFront(value2);
 				_CrtMemState memStateBeforeAssignment;
@@ -184,8 +184,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list1;
 
-				list1.PushFront(Foo(rand()));
-				list1.PushFront(Foo(rand()));
+				list1.PushFront(Foo((*mDistribution)(*mGenerator)));
+				list1.PushFront(Foo((*mDistribution)(*mGenerator)));
 				_CrtMemState memStateBeforeAssignment;
 				_CrtMemCheckpoint(&memStateBeforeAssignment);
 
@@ -201,8 +201,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
-				list.PushFront(rand());
+				std::uint32_t value = (*mDistribution)(*mGenerator);
+				list.PushFront((*mDistribution)(*mGenerator));
 				list.PushFront(value);
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
 				Assert::AreEqual(value, list.Front());
@@ -212,8 +212,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t* value1 = new std::uint32_t(rand());
-				std::uint32_t* value2 = new std::uint32_t(rand());
+				std::uint32_t* value1 = new std::uint32_t((*mDistribution)(*mGenerator));
+				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.PushFront(value1);
 				list.PushFront(value2);
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
@@ -226,8 +226,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
-				list.PushFront(Foo(rand()));
+				std::uint32_t value = (*mDistribution)(*mGenerator);
+				list.PushFront(Foo((*mDistribution)(*mGenerator)));
 				list.PushFront(Foo(value));
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
 				Assert::AreEqual(Foo(value), list.Front());
@@ -239,10 +239,10 @@ namespace UnitTestLibraryDesktop
 			// primitive test
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(value);
-				list.PushFront(rand());
-				list.PushBack(rand());
+				list.PushFront((*mDistribution)(*mGenerator));
+				list.PushBack((*mDistribution)(*mGenerator));
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
 				list.PopFront();
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
@@ -252,9 +252,9 @@ namespace UnitTestLibraryDesktop
 			// pointer test
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
-				std::uint32_t* value1 = new std::uint32_t(rand());
-				std::uint32_t* value2 = new std::uint32_t(rand());
-				std::uint32_t* value3 = new std::uint32_t(rand());
+				std::uint32_t* value1 = new std::uint32_t((*mDistribution)(*mGenerator));
+				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
+				std::uint32_t* value3 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.PushFront(value1);
 				list.PushFront(value2);
 				list.PushBack(value3);
@@ -270,10 +270,10 @@ namespace UnitTestLibraryDesktop
 			// user defined type test
 			{
 				AnonymousEngine::SList<Foo> list;
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(Foo(value));
-				list.PushFront(Foo(rand()));
-				list.PushBack(Foo(rand()));
+				list.PushFront(Foo((*mDistribution)(*mGenerator)));
+				list.PushBack(Foo((*mDistribution)(*mGenerator)));
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
 				list.PopFront();
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
@@ -287,8 +287,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
-				list.PushBack(rand());
+				std::uint32_t value = (*mDistribution)(*mGenerator);
+				list.PushBack((*mDistribution)(*mGenerator));
 				list.PushBack(value);
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
 				Assert::AreEqual(value, list.Back());
@@ -298,8 +298,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t* value1 = new std::uint32_t(rand());
-				std::uint32_t* value2 = new std::uint32_t(rand());
+				std::uint32_t* value1 = new std::uint32_t((*mDistribution)(*mGenerator));
+				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.PushBack(value1);
 				list.PushBack(value2);
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
@@ -312,8 +312,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
-				list.PushBack(Foo(rand()));
+				std::uint32_t value = (*mDistribution)(*mGenerator);
+				list.PushBack(Foo((*mDistribution)(*mGenerator)));
 				list.PushBack(Foo(value));
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
 				Assert::AreEqual(Foo(value), list.Back());
@@ -326,10 +326,10 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				list.PushFront(rand());
-				std::uint32_t value = rand();
+				list.PushFront((*mDistribution)(*mGenerator));
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(value);
-				list.PushBack(rand());
+				list.PushBack((*mDistribution)(*mGenerator));
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
 				const AnonymousEngine::SList<std::uint32_t> constList(list);
 				Assert::AreEqual(value, list.Front());
@@ -340,11 +340,11 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t* value1= new std::uint32_t(rand());
+				std::uint32_t* value1= new std::uint32_t((*mDistribution)(*mGenerator));
 				list.PushFront(value1);
-				std::uint32_t* value2 = new std::uint32_t(rand());
+				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.PushFront(value2);
-				std::uint32_t* value3 = new std::uint32_t(rand());
+				std::uint32_t* value3 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.PushBack(value3);
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
 				const AnonymousEngine::SList<std::uint32_t*> constList(list);
@@ -359,10 +359,10 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				list.PushFront(rand());
-				std::uint32_t value = rand();
+				list.PushFront((*mDistribution)(*mGenerator));
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(value);
-				list.PushBack(rand());
+				list.PushBack((*mDistribution)(*mGenerator));
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
 				const AnonymousEngine::SList<Foo> constList(list);
 				Assert::AreEqual(Foo(value), list.Front());
@@ -376,10 +376,10 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(value);
 				Assert::AreEqual(value, list.Front());
-				std::uint32_t newValue = rand();
+				std::uint32_t newValue = (*mDistribution)(*mGenerator);
 				list.Front() = newValue;
 				Assert::AreEqual(newValue, list.Front());
 			}
@@ -388,10 +388,10 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t* value = new std::uint32_t(rand());
+				std::uint32_t* value = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.PushFront(value);
 				Assert::AreEqual(value, list.Front());
-				std::uint32_t* newValue = new std::uint32_t(rand());
+				std::uint32_t* newValue = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.Front() = newValue;
 				Assert::AreEqual(newValue, list.Front());
 				delete value;
@@ -402,10 +402,10 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(Foo(value));
 				Assert::AreEqual(Foo(value), list.Front());
-				std::uint32_t newValue = rand();
+				std::uint32_t newValue = (*mDistribution)(*mGenerator);
 				list.Front() = newValue;
 				Assert::AreEqual(Foo(newValue), list.Front());
 			}
@@ -447,10 +447,10 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
-				list.PushBack(rand());
+				std::uint32_t value = (*mDistribution)(*mGenerator);
+				list.PushBack((*mDistribution)(*mGenerator));
 				list.PushBack(value);
-				list.PushFront(rand());
+				list.PushFront((*mDistribution)(*mGenerator));
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
 				const AnonymousEngine::SList<std::uint32_t> constList(list);
 				Assert::AreEqual(value, list.Back());
@@ -461,9 +461,9 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t* value1 = new std::uint32_t(rand());
-				std::uint32_t* value2 = new std::uint32_t(rand());
-				std::uint32_t* value3 = new std::uint32_t(rand());
+				std::uint32_t* value1 = new std::uint32_t((*mDistribution)(*mGenerator));
+				std::uint32_t* value2 = new std::uint32_t((*mDistribution)(*mGenerator));
+				std::uint32_t* value3 = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.PushBack(value1);
 				list.PushBack(value2);
 				list.PushFront(value3);
@@ -480,10 +480,10 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
-				list.PushBack(Foo(rand()));
+				std::uint32_t value = (*mDistribution)(*mGenerator);
+				list.PushBack(Foo((*mDistribution)(*mGenerator)));
 				list.PushBack(Foo(value));
-				list.PushFront(Foo(rand()));
+				list.PushFront(Foo((*mDistribution)(*mGenerator)));
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
 				const AnonymousEngine::SList<Foo> constList(list);
 				Assert::AreEqual(Foo(value), list.Back());
@@ -524,10 +524,10 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushBack(value);
 				Assert::AreEqual(value, list.Front());
-				std::uint32_t newValue = rand();
+				std::uint32_t newValue = (*mDistribution)(*mGenerator);
 				list.Back() = newValue;
 				Assert::AreEqual(newValue, list.Back());
 			}
@@ -536,10 +536,10 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t* value = new std::uint32_t(rand());
+				std::uint32_t* value = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.PushBack(value);
 				Assert::AreEqual(value, list.Front());
-				std::uint32_t* newValue = new std::uint32_t(rand());
+				std::uint32_t* newValue = new std::uint32_t((*mDistribution)(*mGenerator));
 				list.Back() = newValue;
 				Assert::AreEqual(newValue, list.Back());
 				delete value;
@@ -550,10 +550,10 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushBack(Foo(value));
 				Assert::AreEqual(Foo(value), list.Front());
-				std::uint32_t newValue = rand();
+				std::uint32_t newValue = (*mDistribution)(*mGenerator);
 				list.Back() = Foo(newValue);
 				Assert::AreEqual(Foo(newValue), list.Back());
 			}
@@ -565,9 +565,9 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				list.PushBack(rand());
+				list.PushBack((*mDistribution)(*mGenerator));
 				Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
-				list.PushFront(rand());
+				list.PushFront((*mDistribution)(*mGenerator));
 				Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
 				list.PopFront();
 				Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
@@ -578,7 +578,7 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushBack(&value);
 				Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
 				list.Clear();
@@ -588,7 +588,7 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list;
 				Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushBack(Foo(value));
 				Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
 				list.Clear();
@@ -602,7 +602,7 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
 				Assert::IsTrue(list.IsEmpty());
-				list.PushBack(rand());
+				list.PushBack((*mDistribution)(*mGenerator));
 				Assert::IsFalse(list.IsEmpty());
 				list.PopFront();
 				Assert::IsTrue(list.IsEmpty());
@@ -611,7 +611,7 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				Assert::IsTrue(list.IsEmpty());
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushBack(&value);
 				Assert::IsFalse(list.IsEmpty());
 				list.PopFront();
@@ -621,7 +621,7 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list;
 				Assert::IsTrue(list.IsEmpty());
-				list.PushBack(Foo(rand()));
+				list.PushBack(Foo((*mDistribution)(*mGenerator)));
 				Assert::IsFalse(list.IsEmpty());
 				list.PopFront();
 				Assert::IsTrue(list.IsEmpty());
@@ -634,8 +634,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
 				Assert::IsTrue(list.IsEmpty());
-				list.PushBack(rand());
-				list.PushFront(rand());
+				list.PushBack((*mDistribution)(*mGenerator));
+				list.PushFront((*mDistribution)(*mGenerator));
 				Assert::IsFalse(list.IsEmpty());
 				list.Clear();
 				Assert::IsTrue(list.IsEmpty());
@@ -644,8 +644,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				Assert::IsTrue(list.IsEmpty());
-				std::uint32_t value1 = rand();
-				std::uint32_t value2 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				list.PushBack(&value1);
 				list.PushFront(&value2);
 				Assert::IsFalse(list.IsEmpty());
@@ -656,8 +656,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list;
 				Assert::IsTrue(list.IsEmpty());
-				list.PushBack(Foo(rand()));
-				list.PushFront(Foo(rand()));
+				list.PushBack(Foo((*mDistribution)(*mGenerator)));
+				list.PushFront(Foo((*mDistribution)(*mGenerator)));
 				Assert::IsFalse(list.IsEmpty());
 				list.Clear();
 				Assert::IsTrue(list.IsEmpty());
@@ -670,20 +670,20 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
 				Assert::IsTrue(list.begin() == list.end());
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(value);
 				Assert::IsFalse(list.begin() == list.end());
-				list.PushBack(rand());
+				list.PushBack((*mDistribution)(*mGenerator));
 				Assert::AreEqual(list.Front(), *(list.begin()));
 			}
 			// pointer type
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				Assert::IsTrue(list.begin() == list.end());
-				std::uint32_t value1 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				list.PushFront(&value1);
 				Assert::IsFalse(list.begin() == list.end());
-				std::uint32_t value2 = rand();
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				list.PushBack(&value2);
 				Assert::AreEqual(list.Front(), *(list.begin()));
 			}
@@ -691,10 +691,10 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list;
 				Assert::IsTrue(list.begin() == list.end());
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(Foo(value));
 				Assert::IsFalse(list.begin() == list.end());
-				list.PushBack(Foo(rand()));
+				list.PushBack(Foo((*mDistribution)(*mGenerator)));
 				Assert::AreEqual(list.Front(), *(list.begin()));
 			}
 		}
@@ -705,47 +705,47 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
 				// test on empty list
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				Assert::IsTrue(list.Find(value) == list.end());
 
 				// test on list with 1 element
-				std::uint32_t value1 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				list.PushFront(value1);
 				Assert::AreEqual(*(list.Find(value1)), value1);
 
 				// test on list with multiple element
-				std::uint32_t value2 = rand();
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				list.PushBack(value2);
-				list.PushBack(rand());
+				list.PushBack((*mDistribution)(*mGenerator));
 				Assert::AreEqual(*(list.Find(value2)), value2);
 				Assert::IsFalse(list.Find(value2) == list.end());
-				std::uint32_t randomValue = rand();
+				std::uint32_t randomValue = (*mDistribution)(*mGenerator);
 				Assert::IsTrue(list.Find(randomValue) == list.end());
 			}
 			// pointer type
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
 				// test on empty list
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				std::uint32_t *valuePtr = &value;
 				Assert::IsTrue(list.Find(valuePtr) == list.end());
 
 				// test on list with 1 element
-				std::uint32_t value1 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				std::uint32_t *value1Ptr = &value1;
 				list.PushFront(&value1);
 				Assert::AreEqual(*(list.Find(value1Ptr)), &value1);
 
 				// test on list with multiple element
-				std::uint32_t value2 = rand();
-				std::uint32_t value3 = rand();
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
+				std::uint32_t value3 = (*mDistribution)(*mGenerator);
 				std::uint32_t *value2Ptr = &value2;
 				std::uint32_t *value3Ptr = &value3;
 				list.PushBack(value2Ptr);
 				list.PushBack(value3Ptr);
 				Assert::AreEqual(*(list.Find(value2Ptr)), value2Ptr);
 				Assert::IsFalse(list.Find(value2Ptr) == list.end());
-				std::uint32_t randomValue = rand();
+				std::uint32_t randomValue = (*mDistribution)(*mGenerator);
 				std::uint32_t* randomValuePtr = &randomValue;
 				Assert::IsTrue(list.Find(randomValuePtr) == list.end());
 			}
@@ -753,21 +753,21 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list;
 				// test on empty list
-				Foo value = Foo(rand());
+				Foo value = Foo((*mDistribution)(*mGenerator));
 				Assert::IsTrue(list.Find(value) == list.end());
 
 				// test on list with 1 element
-				Foo value1 = Foo(rand());
+				Foo value1 = Foo((*mDistribution)(*mGenerator));
 				list.PushFront(value1);
 				Assert::AreEqual(*(list.Find(value1)), value1);
 
 				// test on list with multiple element
-				Foo value2 = Foo(rand());
+				Foo value2 = Foo((*mDistribution)(*mGenerator));
 				list.PushBack(value2);
-				list.PushBack(rand());
+				list.PushBack((*mDistribution)(*mGenerator));
 				Assert::AreEqual(*(list.Find(value2)), value2);
 				Assert::IsFalse(list.Find(value2) == list.end());
-				Foo randomValue = Foo(rand());
+				Foo randomValue = Foo((*mDistribution)(*mGenerator));
 				Assert::IsTrue(list.Find(randomValue) == list.end());
 			}
 		}
@@ -777,18 +777,18 @@ namespace UnitTestLibraryDesktop
 			// primitive type test
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
-				Assert::ExpectException<std::exception>([&list]() { list.InsertAfter(rand(), list.begin()); });
+				Assert::ExpectException<std::exception>([&list]() { list.InsertAfter((*mDistribution)(*mGenerator), list.begin()); });
 				// check when there is only 1 element
-				std::uint32_t frontVal = rand();
+				std::uint32_t frontVal = (*mDistribution)(*mGenerator);
 				list.PushFront(frontVal);
-				std::uint32_t value1 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				list.InsertAfter(value1, list.begin());
 				Assert::AreEqual(value1, list.Back());
 
 				// check when there are 2 and 3 elements
-				std::uint32_t backVal = rand();
+				std::uint32_t backVal = (*mDistribution)(*mGenerator);
 				list.PushBack(backVal);
-				std::uint32_t value2 = rand();
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				list.InsertAfter(value2, list.Find(value1));
 				Assert::AreEqual(frontVal, *(list.begin()));
 
@@ -800,20 +800,20 @@ namespace UnitTestLibraryDesktop
 			// pointer type test
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				std::uint32_t* valuePtr = &value;
 				Assert::ExpectException<std::exception>([&list, valuePtr]() { list.InsertAfter(valuePtr, list.begin()); });
 				// check when there is only 1 element
-				std::uint32_t frontVal = rand();
+				std::uint32_t frontVal = (*mDistribution)(*mGenerator);
 				list.PushFront(&frontVal);
-				std::uint32_t value1 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				list.InsertAfter(&value1, list.begin());
 				Assert::AreEqual(&value1, list.Back());
 
 				// check when there are 2 and 3 elements
-				std::uint32_t backVal = rand();
+				std::uint32_t backVal = (*mDistribution)(*mGenerator);
 				list.PushBack(&backVal);
-				std::uint32_t value2 = rand();
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				std::uint32_t* value1Ptr = &value1;
 				list.InsertAfter(&value2, list.Find(value1Ptr));
 				Assert::AreEqual(&frontVal, *(list.begin()));
@@ -826,18 +826,18 @@ namespace UnitTestLibraryDesktop
 			// user defined type test
 			{
 				AnonymousEngine::SList<Foo> list;
-				Assert::ExpectException<std::exception>([&list]() { list.InsertAfter(rand(), list.begin()); });
+				Assert::ExpectException<std::exception>([&list]() { list.InsertAfter((*mDistribution)(*mGenerator), list.begin()); });
 				// check when there is only 1 element
-				Foo frontVal = Foo(rand());
+				Foo frontVal = Foo((*mDistribution)(*mGenerator));
 				list.PushFront(frontVal);
-				Foo value1 = Foo(rand());
+				Foo value1 = Foo((*mDistribution)(*mGenerator));
 				list.InsertAfter(value1, list.begin());
 				Assert::AreEqual(value1, list.Back());
 
 				// check when there are 2 and 3 elements
-				Foo backVal = Foo(rand());
+				Foo backVal = Foo((*mDistribution)(*mGenerator));
 				list.PushBack(backVal);
-				Foo value2 = Foo(rand());
+				Foo value2 = Foo((*mDistribution)(*mGenerator));
 				list.InsertAfter(value2, list.Find(value1));
 				Assert::AreEqual(frontVal, *(list.begin()));
 
@@ -854,7 +854,7 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list1;
 				// check remove on empty list
-				std::uint32_t frontVal = rand();
+				std::uint32_t frontVal = (*mDistribution)(*mGenerator);
 				list1.Remove(frontVal);
 				Assert::IsTrue(list1.IsEmpty());
 
@@ -864,8 +864,8 @@ namespace UnitTestLibraryDesktop
 				Assert::IsTrue(list1.IsEmpty());
 
 				// check on 2 items list
-				std::uint32_t value = rand();
-				list1.PushFront(rand());
+				std::uint32_t value = (*mDistribution)(*mGenerator);
+				list1.PushFront((*mDistribution)(*mGenerator));
 				list1.PushBack(value);
 				list1.Remove(value);
 				Assert::AreNotEqual(value, list1.Back());
@@ -874,8 +874,8 @@ namespace UnitTestLibraryDesktop
 				// delete middle element from 3 element list
 				AnonymousEngine::SList<std::uint32_t> list2;
 				list2.PushFront(frontVal);
-				std::uint32_t value1 = rand();
-				std::uint32_t backVal = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
+				std::uint32_t backVal = (*mDistribution)(*mGenerator);
 				list2.PushBack(value1);
 				list2.PushBack(backVal);
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
@@ -888,7 +888,7 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t*> list1;
 				// check remove on empty list
-				std::uint32_t frontVal = rand();
+				std::uint32_t frontVal = (*mDistribution)(*mGenerator);
 				std::uint32_t* frontValPtr = &frontVal;
 				list1.Remove(frontValPtr);
 				Assert::IsTrue(list1.IsEmpty());
@@ -899,9 +899,9 @@ namespace UnitTestLibraryDesktop
 				Assert::IsTrue(list1.IsEmpty());
 
 				// check on 2 items list
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				std::uint32_t* valuePtr = &value;
-				std::uint32_t randomValue = rand();
+				std::uint32_t randomValue = (*mDistribution)(*mGenerator);
 				std::uint32_t* randomValuePtr = &randomValue;
 				list1.PushFront(randomValuePtr);
 				list1.PushBack(valuePtr);
@@ -912,9 +912,9 @@ namespace UnitTestLibraryDesktop
 				// delete middle element from 3 element list
 				AnonymousEngine::SList<std::uint32_t*> list2;
 				list2.PushFront(frontValPtr);
-				std::uint32_t value1 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				std::uint32_t* value1Ptr = &value1;
-				std::uint32_t backVal = rand();
+				std::uint32_t backVal = (*mDistribution)(*mGenerator);
 				std::uint32_t* backValPtr = &backVal;
 				list2.PushBack(value1Ptr);
 				list2.PushBack(backValPtr);
@@ -928,7 +928,7 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list1;
 				// check remove on empty list
-				Foo frontVal = Foo(rand());
+				Foo frontVal = Foo((*mDistribution)(*mGenerator));
 				list1.Remove(frontVal);
 				Assert::IsTrue(list1.IsEmpty());
 
@@ -938,8 +938,8 @@ namespace UnitTestLibraryDesktop
 				Assert::IsTrue(list1.IsEmpty());
 
 				// check on 2 items list
-				Foo value = rand();
-				list1.PushFront(rand());
+				Foo value = (*mDistribution)(*mGenerator);
+				list1.PushFront((*mDistribution)(*mGenerator));
 				list1.PushBack(value);
 				list1.Remove(value);
 				Assert::AreNotEqual(value, list1.Back());
@@ -948,8 +948,8 @@ namespace UnitTestLibraryDesktop
 				// delete middle element from 3 element list
 				AnonymousEngine::SList<Foo> list2;
 				list2.PushFront(frontVal);
-				Foo value1 = Foo(rand());
-				Foo backVal = Foo(rand());
+				Foo value1 = Foo((*mDistribution)(*mGenerator));
+				Foo backVal = Foo((*mDistribution)(*mGenerator));
 				list2.PushBack(value1);
 				list2.PushBack(backVal);
 				Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
@@ -963,7 +963,9 @@ namespace UnitTestLibraryDesktop
 
 		TEST_CLASS_INITIALIZE(BeginClass)
 		{
-			srand(static_cast<unsigned int>(time(nullptr)));
+			std::random_device mDevice;
+			mGenerator = new std::default_random_engine(mDevice());
+			mDistribution = new std::uniform_int_distribution<std::uint32_t>(0, UINT32_MAX);
 		}
 
 		TEST_METHOD_INITIALIZE(Setup)
@@ -980,8 +982,15 @@ namespace UnitTestLibraryDesktop
 			}
 		}
 
+		TEST_CLASS_CLEANUP(EndClass)
+		{
+			delete mGenerator;
+			delete mDistribution;
+		}
 	private:
 		_CrtMemState mStartMemState;
+		static std::default_random_engine* mGenerator;
+		static std::uniform_int_distribution<std::uint32_t>* mDistribution;
 
 		static bool DidMemoryStateChange(_CrtMemState startState)
 		{
@@ -996,5 +1005,8 @@ namespace UnitTestLibraryDesktop
 			return false;
 		}
 	};
+
+	std::default_random_engine* SListTest::mGenerator;
+	std::uniform_int_distribution<std::uint32_t>* SListTest::mDistribution;
 }
 

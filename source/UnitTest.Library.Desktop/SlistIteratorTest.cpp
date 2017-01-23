@@ -18,7 +18,7 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t> list;
 				for (std::uint32_t i = 0; i < 3; i++)
 				{
-					testData[i] = static_cast<std::uint32_t>(rand());
+					testData[i] = static_cast<std::uint32_t>((*mDistribution)(*mGenerator));
 					list.PushBack(testData[i]);
 				}
 				std::uint32_t index = 0;
@@ -34,7 +34,7 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<std::uint32_t*> list;
 				for (std::uint32_t i = 0; i < 3; i++)
 				{
-					testData[i] = rand();
+					testData[i] = (*mDistribution)(*mGenerator);
 					list.PushBack(&testData[i]);
 				}
 				std::uint32_t index = 0;
@@ -50,7 +50,7 @@ namespace UnitTestLibraryDesktop
 				AnonymousEngine::SList<Foo> list;
 				for (std::uint32_t i = 0; i < 3; i++)
 				{
-					testData[i] = static_cast<std::uint32_t>(rand());
+					testData[i] = static_cast<std::uint32_t>((*mDistribution)(*mGenerator));
 					list.PushBack(Foo(testData[i]));
 				}
 				std::uint32_t index = 0;
@@ -67,7 +67,7 @@ namespace UnitTestLibraryDesktop
 			// primitive type test
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(value);
 				auto iterator1 = list.begin();
 				auto iterator2 = iterator1;
@@ -77,7 +77,7 @@ namespace UnitTestLibraryDesktop
 			// pointer type test
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(&value);
 				auto iterator1 = list.begin();
 				auto iterator2 = iterator1;
@@ -87,7 +87,7 @@ namespace UnitTestLibraryDesktop
 			// user defined type test
 			{
 				AnonymousEngine::SList<Foo> list;
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(Foo(value));
 				auto iterator1 = list.begin();
 				auto iterator2 = iterator1;
@@ -101,7 +101,7 @@ namespace UnitTestLibraryDesktop
 			// primitive type test
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(value);
 				auto iterator1 = list.begin();
 				AnonymousEngine::SList<std::uint32_t>::Iterator iterator2;
@@ -112,7 +112,7 @@ namespace UnitTestLibraryDesktop
 			// pointer type test
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(&value);
 				auto iterator1 = list.begin();
 				AnonymousEngine::SList<std::uint32_t*>::Iterator iterator2;
@@ -123,7 +123,7 @@ namespace UnitTestLibraryDesktop
 			// user defined type test
 			{
 				AnonymousEngine::SList<Foo> list;
-				std::uint32_t value = rand();
+				std::uint32_t value = (*mDistribution)(*mGenerator);
 				list.PushFront(Foo(value));
 				auto iterator1 = list.begin();
 				AnonymousEngine::SList<Foo>::Iterator iterator2;
@@ -138,8 +138,8 @@ namespace UnitTestLibraryDesktop
 			// primitive type test
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
-				std::uint32_t value1 = rand();
-				std::uint32_t value2 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				list.PushFront(value2);
 				list.PushFront(value1);
 				//test post increment
@@ -158,8 +158,8 @@ namespace UnitTestLibraryDesktop
 			// pointer type test
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
-				std::uint32_t value1 = rand();
-				std::uint32_t value2 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				list.PushFront(&value2);
 				list.PushFront(&value1);
 				//test post increment
@@ -178,8 +178,8 @@ namespace UnitTestLibraryDesktop
 			// user defined type test
 			{
 				AnonymousEngine::SList<Foo> list;
-				std::uint32_t value1 = rand();
-				std::uint32_t value2 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				list.PushFront(Foo(value2));
 				list.PushFront(Foo(value1));
 				//test post increment
@@ -202,7 +202,7 @@ namespace UnitTestLibraryDesktop
 			// primitive type test
 			{
 				AnonymousEngine::SList<std::uint32_t> list;
-				std::uint32_t value1 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				list.PushFront(value1);
 				auto iterator = list.end();
 				Assert::AreEqual(value1, list.Front());
@@ -212,7 +212,7 @@ namespace UnitTestLibraryDesktop
 			// pointer type test
 			{
 				AnonymousEngine::SList<std::uint32_t*> list;
-				std::uint32_t value1 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				list.PushFront(&value1);
 				auto iterator = list.end();
 				Assert::AreEqual(&value1, list.Front());
@@ -222,7 +222,7 @@ namespace UnitTestLibraryDesktop
 			// user defined type test
 			{
 				AnonymousEngine::SList<Foo> list;
-				std::uint32_t value1 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
 				list.PushFront(Foo(value1));
 				auto iterator = list.end();
 				Assert::AreEqual(Foo(value1), list.Front());
@@ -235,8 +235,8 @@ namespace UnitTestLibraryDesktop
 		{
 			// primitive type test
 			{
-				std::uint32_t value1 = rand();
-				std::uint32_t value2 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				// Test for non const version
 				AnonymousEngine::SList<std::uint32_t> list1;
 				list1.PushFront(value1);
@@ -249,8 +249,8 @@ namespace UnitTestLibraryDesktop
 			}
 			// pointer type test
 			{
-				std::uint32_t value1 = rand();
-				std::uint32_t value2 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				// Test for non const version
 				AnonymousEngine::SList<std::uint32_t*> list1;
 				list1.PushFront(&value1);
@@ -263,8 +263,8 @@ namespace UnitTestLibraryDesktop
 			}
 			// user defined type test
 			{
-				std::uint32_t value1 = rand();
-				std::uint32_t value2 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				// Test for non const version
 				AnonymousEngine::SList<Foo> list1;
 				list1.PushFront(Foo(value1));
@@ -283,8 +283,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t> list1;
 				AnonymousEngine::SList<std::uint32_t> list2;
-				list1.PushFront(rand());
-				list2.PushFront(rand());
+				list1.PushFront((*mDistribution)(*mGenerator));
+				list2.PushFront((*mDistribution)(*mGenerator));
 				//equals operator
 				Assert::IsTrue(list1.begin() == list1.begin());
 				Assert::IsTrue(list1.end() == list1.end());
@@ -304,8 +304,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<std::uint32_t*> list1;
 				AnonymousEngine::SList<std::uint32_t*> list2;
-				std::uint32_t value1 = rand();
-				std::uint32_t value2 = rand();
+				std::uint32_t value1 = (*mDistribution)(*mGenerator);
+				std::uint32_t value2 = (*mDistribution)(*mGenerator);
 				list1.PushFront(&value1);
 				list2.PushFront(&value2);
 				//equals operator
@@ -327,8 +327,8 @@ namespace UnitTestLibraryDesktop
 			{
 				AnonymousEngine::SList<Foo> list1;
 				AnonymousEngine::SList<Foo> list2;
-				list1.PushFront(Foo(rand()));
-				list2.PushFront(Foo(rand()));
+				list1.PushFront(Foo((*mDistribution)(*mGenerator)));
+				list2.PushFront(Foo((*mDistribution)(*mGenerator)));
 				//equals operator
 				Assert::IsTrue(list1.begin() == list1.begin());
 				Assert::IsTrue(list1.end() == list1.end());
@@ -348,7 +348,9 @@ namespace UnitTestLibraryDesktop
 
 		TEST_CLASS_INITIALIZE(BeginClass)
 		{
-			srand(static_cast<unsigned int>(time(nullptr)));
+			std::random_device mDevice;
+			mGenerator = new std::default_random_engine(mDevice());
+			mDistribution = new std::uniform_int_distribution<std::uint32_t>(0, UINT32_MAX);
 		}
 
 		TEST_METHOD_INITIALIZE(Setup)
@@ -365,8 +367,15 @@ namespace UnitTestLibraryDesktop
 			}
 		}
 
+		TEST_CLASS_CLEANUP(EndClass)
+		{
+			delete mGenerator;
+			delete mDistribution;
+		}
 	private:
 		_CrtMemState mStartMemState;
+		static std::default_random_engine* mGenerator;
+		static std::uniform_int_distribution<std::uint32_t>* mDistribution;
 
 		static bool DidMemoryStateChange(_CrtMemState startState)
 		{
@@ -381,5 +390,8 @@ namespace UnitTestLibraryDesktop
 			return false;
 		}
 	};
+
+	std::default_random_engine* SListIteratorTest::mGenerator;
+	std::uniform_int_distribution<std::uint32_t>* SListIteratorTest::mDistribution;
 }
 

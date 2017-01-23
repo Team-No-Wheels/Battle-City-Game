@@ -16,6 +16,9 @@
     <ClInclude Include="ToStringTemplates.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
+    <ClInclude Include="TestingUtilities.h">
+      <Filter>SupportingClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SupportingClasses">
