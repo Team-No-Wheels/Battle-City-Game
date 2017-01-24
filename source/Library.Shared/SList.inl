@@ -1,28 +1,23 @@
 namespace AnonymousEngine
 {
+#pragma region NodeMethods
+	template<typename T>
+	SList<T>::Node::Node(Node* next, const T& data) : mNext(next), mData(data)
+	{
+	}
+#pragma endregion 
+
+#pragma region IteratorMethods
 	template<typename T>
 	SList<T>::Iterator::Iterator() : mNode(nullptr), mOwner(nullptr)
-	{}
-
-	template<typename T>
-	SList<T>::Iterator::Iterator(const Iterator& rhs) : mNode(rhs.mNode), mOwner(rhs.mOwner)
-	{}
+	{
+	}
 
 	template<typename T>
 	SList<T>::Iterator::Iterator(Node* node, const SList<T>* owner) : mNode(node), mOwner(owner)
-	{}
-
-	template<typename T>
-	typename SList<T>::Iterator& SList<T>::Iterator::operator=(const typename SList<T>::Iterator& rhs)
 	{
-		if (this != &rhs)
-		{
-			mOwner = rhs.mOwner;
-			mNode = rhs.mNode;
-		}
-		return *this;
 	}
-
+	
 	template<typename T>
 	typename SList<T>::Iterator& SList<T>::Iterator::operator++()
 	{
@@ -33,7 +28,7 @@ namespace AnonymousEngine
 		}
 		else
 		{
-			throw std::exception("Iterator out of range");
+			throw std::out_of_range("Iterator out of range");
 		}
 	}
 
@@ -50,26 +45,16 @@ namespace AnonymousEngine
 		}
 		else
 		{
-			throw std::exception("Iterator out of range");
+			throw std::out_of_range("Iterator out of range");
 		}
 	}
 
 	template<typename T>
-	T& SList<T>::Iterator::operator*()
+	T& SList<T>::Iterator::operator*() const
 	{
 		if (mNode == nullptr)
 		{
-			throw std::exception("Iterator does not point a valid element");
-		}
-		return mNode->mData;
-	}
-
-	template<typename T>
-	const T& SList<T>::Iterator::operator*() const
-	{
-		if (mNode == nullptr)
-		{
-			throw std::exception("Iterator does not point a valid element");
+			throw std::domain_error("Iterator does not point a valid element");
 		}
 		return mNode->mData;
 	}
@@ -85,14 +70,16 @@ namespace AnonymousEngine
 	{
 		return !(*this == rhs);
 	}
+#pragma endregion 
 
+#pragma region SListMethods
 	template<typename T>
 	SList<T>::SList() : mFront(nullptr), mBack(nullptr), mSize(0)
 	{
 	}
 
 	template<typename T>
-	SList<T>::SList(const SList<T>& list) : mFront(nullptr), mBack(nullptr), mSize(0)
+	SList<T>::SList(const SList<T>& list) : SList()
 	{
 		Copy(list);
 	}
@@ -109,7 +96,7 @@ namespace AnonymousEngine
 	}
 
 	template<typename T>
-	void SList<T>::PushFront(const T& data)
+	typename SList<T>::Iterator SList<T>::PushFront(const T& data)
 	{
 		Node* node = new Node(mFront, data);
 		if (mFront == nullptr)
@@ -118,6 +105,7 @@ namespace AnonymousEngine
 		}
 		mFront = node;
 		mSize++;
+		return begin();
 	}
 
 	template<typename T>
@@ -137,7 +125,7 @@ namespace AnonymousEngine
 	}
 
 	template<typename T>
-	void SList<T>::PushBack(const T& data)
+	typename SList<T>::Iterator SList<T>::PushBack(const T& data)
 	{
 		Node* node = new Node(nullptr, data);
 		if (mBack != nullptr)
@@ -150,6 +138,7 @@ namespace AnonymousEngine
 		}
 		mBack = node;
 		mSize++;
+		return Iterator(node, this);
 	}
 
 	template<typename T>
@@ -157,7 +146,7 @@ namespace AnonymousEngine
 	{
 		if (mFront == nullptr)
 		{
-			throw std::exception("The list is empty.");
+			throw std::domain_error("The list is empty.");
 		}
 		return mFront->mData;
 	}
@@ -165,11 +154,7 @@ namespace AnonymousEngine
 	template<typename T>
 	const T& SList<T>::Front() const
 	{
-		if (mFront == nullptr)
-		{
-			throw std::exception("The list is empty.");
-		}
-		return static_cast<const T&>(mFront->mData);
+		return const_cast<const T&>(const_cast<SList*>(this)->Front());
 	}
 
 	template<typename T>
@@ -177,7 +162,7 @@ namespace AnonymousEngine
 	{
 		if (mBack == nullptr)
 		{
-			throw std::exception("The list is empty.");
+			throw std::domain_error("The list is empty.");
 		}
 		return mBack->mData;
 	}
@@ -185,11 +170,7 @@ namespace AnonymousEngine
 	template<typename T>
 	const T& SList<T>::Back() const
 	{
-		if (mBack == nullptr)
-		{
-			throw std::exception("The list is empty.");
-		}
-		return static_cast<const T&>(mBack->mData);
+		return const_cast<const T&>(const_cast<SList*>(this)->Back());
 	}
 
 	template<typename T>
@@ -207,8 +188,7 @@ namespace AnonymousEngine
 	template<typename T>
 	void SList<T>::Clear()
 	{
-		std::uint32_t initialSize = mSize;
-		for(std::uint32_t i = 0; i < initialSize; i++)
+		while(mSize > 0)
 		{
 			PopFront();
 		}
@@ -217,7 +197,6 @@ namespace AnonymousEngine
 	template<typename T>
 	SList<T>::~SList()
 	{
-		// Since clear does all the necessary things required to free up resources, call clear
 		Clear();
 	}
 
@@ -234,69 +213,72 @@ namespace AnonymousEngine
 	}
 
 	template<typename T>
-	typename SList<T>::Iterator SList<T>::Find(T& value)
+	typename SList<T>::Iterator SList<T>::Find(const T& value) const
 	{
-		if (mSize == 1 && mFront->mData == value)
+		for(Iterator it = begin(); it != end(); ++it)
 		{
-			return Iterator(mFront, this);
-		}
-		else
-		{
-			Iterator it = FindIfNextItemMatches(value);
-			if (it != end())
-			{
-				return ++it;
-			}
-			else
+			if (*it == value)
 			{
 				return it;
 			}
 		}
+		return end();
 	}
 
 	template<typename T>
-	void SList<T>::InsertAfter(const T& data, const typename SList<T>::Iterator& it)
+	typename SList<T>::Iterator SList<T>::InsertAfter(const T& data, const typename SList<T>::Iterator& it)
 	{
-		if (it.mNode != nullptr)
+		if (it.mOwner != this)
 		{
-			Node* temp = new Node(it.mNode->mNext, data);
-			it.mNode->mNext = temp;
-			if (mFront == mBack)
-			{
-				mBack = temp;
-			}
-			mSize++;
+			throw std::invalid_argument("Iterator is not an iterator to the current list");
 		}
-		else
+		
+		if (it == end())
 		{
-			throw std::exception("Iterator out of range for insert after");
+			return PushBack(data);
 		}
+
+		Node* node = new Node(it.mNode->mNext, data);
+		if (it.mNode == mBack)
+		{
+			mBack = node;
+		}
+		it.mNode->mNext = node;
+		mSize++;
+		return Iterator(node, this);
 	}
 
 	template<typename T>
-	void SList<T>::Remove(T& data)
+	bool SList<T>::Remove(const T& data)
 	{
-		if (mFront != nullptr && mFront->mData == data)
+		if (mSize == 0)
+		{
+			return false;
+		}
+		
+		if (mFront->mData == data)
 		{
 			PopFront();
+			return true;
 		}
-		else if (mSize > 1)
+				
+		Iterator previous = begin();
+		for (Iterator it = ++begin(); it != end(); ++it)
 		{
-			Iterator it = FindIfNextItemMatches(data);
-			if (it != end())
+			if (*it == data)
 			{
-				Node* temp = it.mNode;
-				Node* nodeToDelete = temp->mNext;
-				temp->mNext = nodeToDelete->mNext;
-				delete nodeToDelete;
+				previous.mNode->mNext = it.mNode->mNext;
+				if (it.mNode == mBack)
+				{
+					mBack = previous.mNode;
+				}
+				delete it.mNode;
 				mSize--;
+				return true;
 			}
-
-			if(mSize == 1)
-			{
-				mBack = mFront;
-			}
+			previous = it;
 		}
+		return false;
 	}
 
 	// This method is used by copy constructor and assignment operator to copy values from another list
@@ -308,26 +290,5 @@ namespace AnonymousEngine
 			PushBack(node->mData);
 		}
 	}
-
-	template<typename T>
-	typename SList<T>::Iterator SList<T>::FindIfNextItemMatches(const T& value)
-	{
-		if (mFront == nullptr)
-		{
-			return end();
-		}
-		else
-		{
-			Node* temp = mFront;
-			while (temp->mNext != nullptr)
-			{
-				if (temp->mNext->mData == value)
-				{
-					return Iterator(temp, this);
-				}
-				temp = temp->mNext;
-			}
-			return end();
-		}
-	}
+#pragma endregion 
 }
