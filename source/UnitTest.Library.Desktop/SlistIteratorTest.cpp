@@ -1,8 +1,8 @@
 #include "Pch.h"
-#include "SList.h"
 #include "Foo.h"
-#include "ToStringTemplates.h"
+#include "SList.h"
 #include "SListIteratorTestTemplate.h"
+#include "ToStringTemplates.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -13,12 +13,13 @@ namespace UnitTestLibraryDesktop
 	public:
 		TEST_METHOD(TestIteration)
 		{
-			std::uint32_t value1 = (*mDistribution)(*mGenerator);
-			std::uint32_t value2 = (*mDistribution)(*mGenerator);
-			std::uint32_t value3 = (*mDistribution)(*mGenerator);			
-			SListIteratorTestTemplate<std::uint32_t>::TestIteration(value1, value2, value2);
-			SListIteratorTestTemplate<std::uint32_t*>::TestIteration(&value1, &value2, &value3);
-			SListIteratorTestTemplate<Foo>::TestIteration(Foo(value1), Foo(value2), Foo(value3));
+			const std::uint32_t size = 3;
+			std::uint32_t values[size] = {(*mDistribution)(*mGenerator), (*mDistribution)(*mGenerator), (*mDistribution)(*mGenerator)};
+			std::uint32_t* ptrValues[size] = {&values[0], &values[1], &values[2]};
+			Foo foos[size] = {Foo(values[0]), Foo(values[1]), Foo(values[2])};
+			SListIteratorTestTemplate<std::uint32_t>::TestIteration(values, size);
+			SListIteratorTestTemplate<std::uint32_t*>::TestIteration(ptrValues, size);
+			SListIteratorTestTemplate<Foo>::TestIteration(foos, size);
 		}
 
 		TEST_METHOD(TestCopyConstructor)

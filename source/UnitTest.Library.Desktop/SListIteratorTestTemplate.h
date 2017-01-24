@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Foo.h"
 #include "CppUnitTestAssert.h"
 #include "SList.h"
 
@@ -13,17 +12,18 @@ namespace UnitTestLibraryDesktop
 	class SListIteratorTestTemplate
 	{
 	public:
-		static void TestIteration(const T& value1, const T& value2, const T& value3)
+		static void TestIteration(const T values[], std::uint32_t size)
 		{
 			AnonymousEngine::SList<T> list;
-			list.PushBack(value1);
-			list.PushBack(value2);
-			list.PushBack(value3);
-			
+			for(std::uint32_t i = 0; i < size; ++i)
+			{
+				list.PushBack(values[i]);
+			}
 			auto it = list.begin();
-			Assert::AreEqual(value1, *it++);
-			Assert::AreEqual(value2, *it++);
-			Assert::AreEqual(value3, *it++);
+			for (std::uint32_t i = 0; i < size; ++i)
+			{
+				Assert::AreEqual(values[i], *it++);
+			}
 		}
 
 		static void TestCopyConstructor(const T& value)
