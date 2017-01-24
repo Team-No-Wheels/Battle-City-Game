@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Foo.h"
 #include "CppUnitTestAssert.h"
 #include "SList.h"
 

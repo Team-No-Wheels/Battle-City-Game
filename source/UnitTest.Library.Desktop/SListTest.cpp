@@ -1,8 +1,7 @@
 #include "Pch.h"
-#include "SList.h"
 #include "Foo.h"
-#include "ToStringTemplates.h"
 #include "SListTestTemplate.h"
+#include "ToStringTemplates.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

@@ -23,6 +23,9 @@
     <ClInclude Include="SListIteratorTestTemplate.h">
       <Filter>SupportingClasses\TestClassTemplates</Filter>
     </ClInclude>
+    <ClInclude Include="VectorTestTemplate.h">
+      <Filter>SupportingClasses\TestClassTemplates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SupportingClasses">

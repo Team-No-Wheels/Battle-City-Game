@@ -213,6 +213,7 @@
     <ClInclude Include="SListIteratorTestTemplate.h" />
     <ClInclude Include="SListTestTemplate.h" />
     <ClInclude Include="ToStringTemplates.h" />
+    <ClInclude Include="VectorTestTemplate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

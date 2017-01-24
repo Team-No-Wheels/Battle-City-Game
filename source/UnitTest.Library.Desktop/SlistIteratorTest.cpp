@@ -1,6 +1,5 @@
 #include "Pch.h"
 #include "Foo.h"
-#include "SList.h"
 #include "SListIteratorTestTemplate.h"
 #include "ToStringTemplates.h"
 
