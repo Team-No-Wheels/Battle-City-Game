@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <functional>
+#include "CapacityStrategy.h"
 
 namespace AnonymousEngine
 {
@@ -16,14 +17,15 @@ namespace AnonymousEngine
 			Iterator();
 
 			/** Initializes an iterator from the values of another iterator
-			*  @param rhs The iterator from which values are to be copied
+			*   @param rhs The iterator from which values are to be copied
 			*/
-			Iterator(const Iterator& rhs) = default;
+			Iterator(const Iterator& rhs) = default;			
 
 			/** Copies the values from another iterator to this iterator
 			*  @param rhs The iterator from which the values are to be copied
 			*/
 			Iterator& operator=(const Iterator& rhs) = default;
+			
 
 			/** Advances the iterator to the next location in the container
 			*  @returns The current iterator which now points to the next location in the container
@@ -52,9 +54,9 @@ namespace AnonymousEngine
 			bool operator!=(const Iterator& rhs) const;
 		private:
 			std::uint32_t mIndex;
-			const Vector<T>* mOwner;
+			Vector<T>* mOwner;
 
-			Iterator(std::uint32_t* index, const Vector<T>* owner);
+			Iterator(const std::uint32_t index, Vector<T>* owner);
 			friend Vector<T>;
 		};
 
@@ -107,7 +109,7 @@ namespace AnonymousEngine
 		 *  @param index The index from which the data is to be retrieved
 		 *  @return The data at the given index
 		 */
-		T& operator[](std::uint32_t index);
+		const T& operator[](std::uint32_t index);
 
 		/** Get the item at the given index. This is the constant version
 		*  @param index The index from which the data is to be retrieved
@@ -120,6 +122,12 @@ namespace AnonymousEngine
 		*  @return The data at the given index
 		*/
 		T& At(std::uint32_t index);
+
+		/** Get the item at the given index. This is the constant version
+		*  @param index The index from which the data is to be retrieved
+		*  @return The data at the given index
+		*/
+		const T& At(std::uint32_t index) const;
 
 		/** Get the total number of items in the vector
 		*	@return The number of items in the vector
@@ -175,20 +183,25 @@ namespace AnonymousEngine
 		void Clear();
 
 		/** Supply an capacity increment strategy functor which will be used by vector class to expand
-		*   @param strategyFunctor The functor which accepts current size and capacity to return a capacity increment
+		*   @param strategy The functor which accepts current size and capacity to return a capacity increment
 		*/
-		void IncrementStrategy(std::function<std::uint32_t(std::uint32_t, std::uint32_t)> strategyFunctor);
+		void IncrementStrategy(const CapacityStrategy* strategy);
 
 		/** Destroy the vector object, freeing all allocated resources
 		*/
 		~Vector();
 	private:
-		T* mBuffer;
+		T* mData;
 		std::uint32_t mSize;
 		std::uint32_t mCapacity;
+		const CapacityStrategy* mStrategy;
+		const CapacityStrategy* const mDefaultStrategy;
+
+		// copies data from one list to another. Used in copy constructor and assignment operator
+		void Copy(const Vector<T>& rhs);
 
 		friend Iterator;
 	};
 }
 
-#include "Vector.inl"
+//#include "Vector.inl"

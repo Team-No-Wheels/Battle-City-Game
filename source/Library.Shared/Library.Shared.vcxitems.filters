@@ -14,6 +14,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Vector.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CapacityStrategy.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
