@@ -1,5 +1,4 @@
 #include "Vector.h"
-#include <stdexcept>
 
 namespace AnonymousEngine
 {

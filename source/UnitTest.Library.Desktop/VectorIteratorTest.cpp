@@ -1,6 +1,6 @@
 #include "Pch.h"
 #include "Foo.h"
-#include "VectorTestTemplate.h"
+#include "VectorIteratorTestTemplate.h"
 #include "TestClassHelper.h"
 #include "ToStringTemplates.h"
 
@@ -8,12 +8,12 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTestLibraryDesktop
 {
-	TEST_CLASS(VectorTest)
+	TEST_CLASS(VectorIteratorTest)
 	{
 	public:
 		TEST_METHOD(TestDefaultConstructor)
 		{
-			
+
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
@@ -39,5 +39,5 @@ namespace UnitTestLibraryDesktop
 		static TestClassHelper mHelper;
 	};
 
-	TestClassHelper VectorTest::mHelper;
+	TestClassHelper VectorIteratorTest::mHelper;
 }

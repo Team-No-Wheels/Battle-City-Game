@@ -11,6 +11,7 @@
     <ClCompile Include="TestClassHelper.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
+    <ClCompile Include="VectorIteratorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="TestClassHelper.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
+    <ClInclude Include="VectorIteratorTestTemplate.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SupportingClasses">

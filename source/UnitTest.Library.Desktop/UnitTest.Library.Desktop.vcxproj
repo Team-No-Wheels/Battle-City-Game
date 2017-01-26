@@ -201,6 +201,7 @@
     </ClCompile>
     <ClCompile Include="SlistIteratorTest.cpp" />
     <ClCompile Include="TestClassHelper.cpp" />
+    <ClCompile Include="VectorIteratorTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +216,7 @@
     <ClInclude Include="SListTestTemplate.h" />
     <ClInclude Include="TestClassHelper.h" />
     <ClInclude Include="ToStringTemplates.h" />
+    <ClInclude Include="VectorIteratorTestTemplate.h" />
     <ClInclude Include="VectorTestTemplate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
