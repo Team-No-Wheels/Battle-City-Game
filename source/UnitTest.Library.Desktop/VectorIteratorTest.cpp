@@ -13,7 +13,7 @@ namespace UnitTestLibraryDesktop
 	public:
 		TEST_METHOD(TestDefaultConstructor)
 		{
-
+			Assert::Fail();
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)

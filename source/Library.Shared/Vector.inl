@@ -5,7 +5,7 @@ namespace AnonymousEngine
 
 #pragma region IteratorMethods
 
-	template <typename T>
+	/*template <typename T>
 	typename Vector<T>::Iterator::Iterator() :
 		mIndex(0), mOwner(nullptr)
 	{
@@ -56,7 +56,7 @@ namespace AnonymousEngine
 		mIndex(index), mOwner(owner)
 	{
 		
-	}
+	}*/
 #pragma endregion 
 
 #pragma region VectorMethods
@@ -65,7 +65,7 @@ namespace AnonymousEngine
 		mData(nullptr), mSize(0), mCapacity(0), mStrategy(nullptr), mDefaultStrategy(new DefaultVectorCapacityStrategy())
 	{
 		mStrategy = mDefaultStrategy;
-		Reserve(mCapacity + mStrategy(mSize, mCapacity));
+		Reserve(mCapacity + (*mStrategy)(mSize, mCapacity));
 	}
 
 	template <typename T>
@@ -85,7 +85,7 @@ namespace AnonymousEngine
 		}
 	}
 
-	template <typename T>
+	/*template <typename T>
 	typename Vector<T>::Iterator Vector<T>::PushBack(const T& data)
 	{
 		if (mSize == mCapacity)
@@ -162,7 +162,7 @@ namespace AnonymousEngine
 	const T& Vector<T>::At(std::uint32_t index) const
 	{
 		return this->operator[](index);
-	}
+	}*/
 
 	template <typename T>
 	std::uint32_t Vector<T>::Size() const
@@ -181,7 +181,7 @@ namespace AnonymousEngine
 	{
 		return (mSize == 0);
 	}
-
+	/*
 	template <typename T>
 	typename Vector<T>::Iterator Vector<T>::begin() const
 	{
@@ -247,7 +247,7 @@ namespace AnonymousEngine
 			return true;
 		}
 		return false;
-	}
+	}*/
 
 	template <typename T>
 	void Vector<T>::Reserve(std::uint32_t capacity)
@@ -262,16 +262,16 @@ namespace AnonymousEngine
 	template <typename T>
 	void Vector<T>::Clear()
 	{
-		for (T& value : *this)
+		for(std::uint32_t i = 0; i < mSize; i++)
 		{
-			value.~T();
+			mData[i].~T();
 		}
 		free(mData);
 		mSize = 0;
 		mCapacity = 0;
 	}
 
-	template <typename T>
+	/*template <typename T>
 	void Vector<T>::IncrementStrategy(const CapacityStrategy* strategy)
 	{
 		if (strategy == nullptr)
@@ -282,16 +282,12 @@ namespace AnonymousEngine
 		{
 			mStrategy = strategy;
 		}
-	}
+	}*/
 
 	template <typename T>
 	Vector<T>::~Vector()
 	{
-		for (std::uint32_t i = 0; i < mSize; i++)
-		{
-			mData[i].~T();
-		}
-		delete [] mData;
+		Clear();
 		delete mDefaultStrategy;
 	}
 

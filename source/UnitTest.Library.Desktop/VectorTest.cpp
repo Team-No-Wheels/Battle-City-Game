@@ -13,7 +13,9 @@ namespace UnitTestLibraryDesktop
 	public:
 		TEST_METHOD(TestDefaultConstructor)
 		{
-			
+			VectorTestTemplate<std::uint32_t>::TestDefaultConstructor();
+			VectorTestTemplate<std::uint32_t*>::TestDefaultConstructor();
+			VectorTestTemplate<Foo>::TestDefaultConstructor();
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
