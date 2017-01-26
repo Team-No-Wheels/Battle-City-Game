@@ -200,6 +200,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="SlistIteratorTest.cpp" />
+    <ClCompile Include="TestClassHelper.cpp" />
     <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +213,7 @@
     <ClInclude Include="Pch.h" />
     <ClInclude Include="SListIteratorTestTemplate.h" />
     <ClInclude Include="SListTestTemplate.h" />
+    <ClInclude Include="TestClassHelper.h" />
     <ClInclude Include="ToStringTemplates.h" />
     <ClInclude Include="VectorTestTemplate.h" />
   </ItemGroup>
