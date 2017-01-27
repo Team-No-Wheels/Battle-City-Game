@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include "CapacityStrategy.h"
+#include "DefaultVectorCapacityStrategy.h"
 
 namespace AnonymousEngine
 {

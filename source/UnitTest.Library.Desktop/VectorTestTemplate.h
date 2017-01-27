@@ -3,7 +3,7 @@
 #include "CppUnitTestAssert.h"
 #include "Vector.h"
 #include "CapacityStrategy.h"
-
+#include "DefaultVectorCapacityStrategy.h"
 
 namespace UnitTestLibraryDesktop
 {
