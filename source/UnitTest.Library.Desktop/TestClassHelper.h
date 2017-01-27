@@ -21,7 +21,7 @@ namespace UnitTestLibraryDesktop
 		void Setup();
 		void Teardown();
 
-		std::uint32_t getRandomUInt32() const;
+		std::uint32_t GetRandomUInt32() const;
 	protected:
 		_CrtMemState mStartMemState;
 		std::default_random_engine* mGenerator;

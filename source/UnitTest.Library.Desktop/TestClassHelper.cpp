@@ -43,7 +43,7 @@ namespace UnitTestLibraryDesktop
 #endif
 	}
 
-	std::uint32_t TestClassHelper::getRandomUInt32() const
+	std::uint32_t TestClassHelper::GetRandomUInt32() const
 	{
 		return (*mDistribution)(*mGenerator);
 	}

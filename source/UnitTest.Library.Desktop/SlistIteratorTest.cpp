@@ -14,7 +14,7 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestIteration)
 		{
 			const std::uint32_t size = 3;
-			std::uint32_t values[size] = {mHelper.getRandomUInt32(), mHelper.getRandomUInt32(), mHelper.getRandomUInt32()};
+			std::uint32_t values[size] = {mHelper.GetRandomUInt32(), mHelper.GetRandomUInt32(), mHelper.GetRandomUInt32()};
 			std::uint32_t* ptrValues[size] = {&values[0], &values[1], &values[2]};
 			Foo foos[size] = {Foo(values[0]), Foo(values[1]), Foo(values[2])};
 			SListIteratorTestTemplate<std::uint32_t>::TestIteration(values, size);
@@ -24,7 +24,7 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestCopyConstructor)
 		{
-			std::uint32_t value = mHelper.getRandomUInt32();
+			std::uint32_t value = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestCopyConstructor(value);
 			SListIteratorTestTemplate<std::uint32_t*>::TestCopyConstructor(&value);
 			SListIteratorTestTemplate<Foo>::TestCopyConstructor(Foo(value));
@@ -32,7 +32,7 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestAssignmentOperator)
 		{
-			std::uint32_t value = mHelper.getRandomUInt32();
+			std::uint32_t value = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestAssignmentOperator(value);
 			SListIteratorTestTemplate<std::uint32_t*>::TestAssignmentOperator(&value);
 			SListIteratorTestTemplate<Foo>::TestAssignmentOperator(Foo(value));
@@ -40,8 +40,8 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestPostAndPreIncrementOperators)
 		{
-			std::uint32_t value1 = mHelper.getRandomUInt32();
-			std::uint32_t value2 = mHelper.getRandomUInt32();
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestPostAndPreIncrementOperators(value1, value2);
 			SListIteratorTestTemplate<std::uint32_t*>::TestPostAndPreIncrementOperators(&value1, &value2);
 			SListIteratorTestTemplate<Foo>::TestPostAndPreIncrementOperators(Foo(value1), Foo(value2));
@@ -49,7 +49,7 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestIncrementOperatorsThrowsException)
 		{
-			std::uint32_t value = mHelper.getRandomUInt32();
+			std::uint32_t value = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestIncrementOperatorsThrowsException(value);
 			SListIteratorTestTemplate<std::uint32_t*>::TestIncrementOperatorsThrowsException(&value);
 			SListIteratorTestTemplate<Foo>::TestIncrementOperatorsThrowsException(Foo(value));
@@ -57,8 +57,8 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestDereferenceOperator)
 		{
-			std::uint32_t value1 = mHelper.getRandomUInt32();
-			std::uint32_t value2 = mHelper.getRandomUInt32();
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestDereferenceOperator(value1, value2);
 			SListIteratorTestTemplate<std::uint32_t*>::TestDereferenceOperator(&value1, &value2);
 			SListIteratorTestTemplate<Foo>::TestDereferenceOperator(Foo(value1), Foo(value2));
@@ -66,8 +66,8 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestEqualAndNotEqualOperators)
 		{
-			std::uint32_t value1 = mHelper.getRandomUInt32();
-			std::uint32_t value2 = mHelper.getRandomUInt32();
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestEqualAndNotEqualOperators(value1, value2);
 			SListIteratorTestTemplate<std::uint32_t*>::TestEqualAndNotEqualOperators(&value1, &value2);
 			SListIteratorTestTemplate<Foo>::TestEqualAndNotEqualOperators(Foo(value1), Foo(value2));

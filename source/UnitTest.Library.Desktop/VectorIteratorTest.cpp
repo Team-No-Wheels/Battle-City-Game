@@ -11,9 +11,37 @@ namespace UnitTestLibraryDesktop
 	TEST_CLASS(VectorIteratorTest)
 	{
 	public:
-		TEST_METHOD(TestDefaultConstructor)
+		TEST_METHOD(TestDerefenceOperator)
 		{
-			Assert::Fail();
+			std::uint32_t value = mHelper.GetRandomUInt32();
+			VectorIteratorTestTemplate<std::uint32_t>::TestDerefenceOperator(value);
+			VectorIteratorTestTemplate<std::uint32_t*>::TestDerefenceOperator(&value);
+			VectorIteratorTestTemplate<Foo>::TestDerefenceOperator(Foo(value));
+		}
+
+		TEST_METHOD(TestPreIncrementOperator)
+		{
+			std::uint32_t value = mHelper.GetRandomUInt32();
+			VectorIteratorTestTemplate<std::uint32_t>::TestPreIncrementOperator(value);
+			VectorIteratorTestTemplate<std::uint32_t*>::TestPreIncrementOperator(&value);
+			VectorIteratorTestTemplate<Foo>::TestPreIncrementOperator(Foo(value));
+		}
+
+		TEST_METHOD(TestPostIncrementOperator)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			VectorIteratorTestTemplate<std::uint32_t>::TestPostIncrementOperator(value1, value2);
+			VectorIteratorTestTemplate<std::uint32_t*>::TestPostIncrementOperator(&value1, &value2);
+			VectorIteratorTestTemplate<Foo>::TestPostIncrementOperator(Foo(value1), Foo(value2));
+		}
+
+		TEST_METHOD(TestEqualityOperators)
+		{
+			std::uint32_t value = mHelper.GetRandomUInt32();
+			VectorIteratorTestTemplate<std::uint32_t>::TestEqualityOperators(value);
+			VectorIteratorTestTemplate<std::uint32_t*>::TestEqualityOperators(&value);
+			VectorIteratorTestTemplate<Foo>::TestEqualityOperators(Foo(value));
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)

@@ -1,12 +1,9 @@
-#include "Vector.h"
-
 namespace AnonymousEngine
 {
-
 #pragma region IteratorMethods
 
-	/*template <typename T>
-	typename Vector<T>::Iterator::Iterator() :
+	template <typename T>
+	Vector<T>::Iterator::Iterator() :
 		mIndex(0), mOwner(nullptr)
 	{
 	}
@@ -14,16 +11,19 @@ namespace AnonymousEngine
 	template <typename T>
 	typename Vector<T>::Iterator& Vector<T>::Iterator::operator++()
 	{
-		if (mOwner == nullptr || mIndex >= mSize)
+		if (mOwner == nullptr || mIndex == mOwner->mSize)
 		{
 			throw std::out_of_range("Iterator out of range");
 		}
+		++mIndex;
 		return *this;
 	}
 
 	template <typename T>
 	typename Vector<T>::Iterator Vector<T>::Iterator::operator++(int unused)
 	{
+		// This line is used to get rid of unused variable warnings
+		unused;
 		Iterator it = *this;
 		operator++();
 		return it;
@@ -32,7 +32,7 @@ namespace AnonymousEngine
 	template <typename T>
 	T& Vector<T>::Iterator::operator*() const
 	{
-		if (mOwner == nullptr || mIndex >= mSize)
+		if (mOwner == nullptr || mIndex == mOwner->mSize)
 		{
 			throw std::out_of_range("Iterator out of range");
 		}
@@ -52,14 +52,15 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
-	typename Vector<T>::Iterator::Iterator(const std::uint32_t index, Vector<T>* owner) :
+	Vector<T>::Iterator::Iterator(const std::uint32_t index, Vector<T>* owner) :
 		mIndex(index), mOwner(owner)
 	{
-		
-	}*/
-#pragma endregion 
+	}
+
+#pragma endregion
 
 #pragma region VectorMethods
+
 	template <typename T>
 	Vector<T>::Vector() :
 		mData(nullptr), mSize(0), mCapacity(0), mStrategy(nullptr), mDefaultStrategy(new DefaultVectorCapacityStrategy())
@@ -75,24 +76,43 @@ namespace AnonymousEngine
 		Copy(rhs);
 	}
 
-	template <typename T>	
+	template <typename T>
 	Vector<T>& Vector<T>::operator=(const Vector<T>& rhs)
 	{
-		if (*this != rhs)
+		if (this != &rhs)
 		{
 			Clear();
 			Copy(rhs);
 		}
+		return (*this);
 	}
 
-	/*template <typename T>
-	typename Vector<T>::Iterator Vector<T>::PushBack(const T& data)
+	template <typename T>
+	std::uint32_t Vector<T>::Size() const
+	{
+		return mSize;
+	}
+
+	template <typename T>
+	std::uint32_t Vector<T>::Capacity() const
+	{
+		return mCapacity;
+	}
+
+	template <typename T>
+	bool Vector<T>::IsEmpty() const
+	{
+		return (mSize == 0);
+	}
+
+	template <typename T>
+	void Vector<T>::PushBack(const T& data)
 	{
 		if (mSize == mCapacity)
 		{
-			Reserve(mCapacity + mStrategy(mSize, mCapacity));
+			Reserve(mCapacity + (*mStrategy)(mSize, mCapacity));
 		}
-		mData[mSize++] = data;
+		new (&mData[mSize++]) T(data);
 	}
 
 	template <typename T>
@@ -101,7 +121,9 @@ namespace AnonymousEngine
 		if (mSize > 0)
 		{
 			mData[--mSize].~T();
+			return true;
 		}
+		return false;
 	}
 
 	template <typename T>
@@ -139,7 +161,7 @@ namespace AnonymousEngine
 	template <typename T>
 	T& Vector<T>::operator[](std::uint32_t index)
 	{
-		if (index > mSize)
+		if (index >= mSize)
 		{
 			throw std::out_of_range("Index out of range");
 		}
@@ -153,45 +175,15 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
-	T& Vector<T>::At(std::uint32_t index)
-	{
-		return this->operator[](index);
-	}
-
-	template <typename T>
-	const T& Vector<T>::At(std::uint32_t index) const
-	{
-		return this->operator[](index);
-	}*/
-
-	template <typename T>
-	std::uint32_t Vector<T>::Size() const
-	{
-		return mSize;
-	}
-
-	template <typename T>
-	std::uint32_t Vector<T>::Capacity() const
-	{
-		return mCapacity;
-	}
-
-	template <typename T>
-	bool Vector<T>::IsEmpty() const
-	{
-		return (mSize == 0);
-	}
-	/*
-	template <typename T>
 	typename Vector<T>::Iterator Vector<T>::begin() const
 	{
-		return Iterator(0, this);
+		return Iterator(0, const_cast<Vector<T>*>(this));
 	}
 
 	template <typename T>
 	typename Vector<T>::Iterator Vector<T>::end() const
 	{
-		return Iterator(mSize+1, this);
+		return Iterator(mSize, const_cast<Vector<T>*>(this));
 	}
 
 	template <typename T>
@@ -210,15 +202,11 @@ namespace AnonymousEngine
 	template <typename T>
 	bool Vector<T>::Remove(const T& data)
 	{
-		Iterator it = Find(data);
+ 		Iterator it = Find(data);
 		if (it != end())
 		{
-			for(std::uint32_t i = it.mIndex; i < mSize - 1; ++i)
-			{
-				mData[i] = mData[i + 1];
-			}
-			--mSize;
-			return true;
+			Iterator first = it++;
+			return Remove(first, it);
 		}
 		return false;
 	}
@@ -226,35 +214,30 @@ namespace AnonymousEngine
 	template <typename T>
 	bool Vector<T>::Remove(const typename Vector<T>::Iterator& first, const typename Vector<T>::Iterator& last)
 	{
-		if (first.mOwner != last.mOwner != this)
+		if (first.mOwner != this || first.mOwner != last.mOwner)
 		{
 			throw std::invalid_argument("Iterator is not an iterator to this list");
 		}
 
-		if (first.mIndex >= 0 && last.mIndex > first.mIndex && last.mIndex < mSize)
+		if (first.mIndex >= 0 && last.mIndex > first.mIndex && last.mIndex <= mSize)
 		{
-			std::uint32_t copyFromIndex = last.mIndex;
-			std::uint32_t itemsToCopy = mSize - last.mIndex;
-			for (std::uint32_t i = first.mIndex; i < itemsToCopy; ++i)
-			{
-				mData[i] = mData[copyFromIndex++];
-			}
-			for (std::uint32_t i = first.mIndex + itemsToCopy; i < mSize; ++i)
+			for (std::uint32_t i = first.mIndex; i < last.mIndex; i++)
 			{
 				mData[i].~T();
 			}
-			--mSize;
+			memmove(&mData[first.mIndex], &mData[last.mIndex], (mSize - last.mIndex) * sizeof(T));
+			mSize -= (last.mIndex - first.mIndex);
 			return true;
 		}
 		return false;
-	}*/
+	}
 
 	template <typename T>
 	void Vector<T>::Reserve(std::uint32_t capacity)
 	{
 		if (capacity > mCapacity)
 		{
-			mData = static_cast<T*>(realloc(mData, sizeof(T) * mCapacity));
+			mData = static_cast<T*>(realloc(mData, sizeof(T) * capacity));
 			mCapacity = capacity;
 		}
 	}
@@ -262,27 +245,15 @@ namespace AnonymousEngine
 	template <typename T>
 	void Vector<T>::Clear()
 	{
-		for(std::uint32_t i = 0; i < mSize; i++)
+		for (std::uint32_t i = 0; i < mSize; i++)
 		{
 			mData[i].~T();
 		}
 		free(mData);
+		mData = nullptr;
 		mSize = 0;
 		mCapacity = 0;
 	}
-
-	/*template <typename T>
-	void Vector<T>::IncrementStrategy(const CapacityStrategy* strategy)
-	{
-		if (strategy == nullptr)
-		{
-			mStrategy = mDefaultStrategy;
-		}
-		else
-		{
-			mStrategy = strategy;
-		}
-	}*/
 
 	template <typename T>
 	Vector<T>::~Vector()
@@ -297,8 +268,9 @@ namespace AnonymousEngine
 		Reserve(rhs.mCapacity);
 		for (std::uint32_t i = 0; i < rhs.mSize; i++)
 		{
-			PushBack(rhs[i]);
+			PushBack(rhs.mData[i]);
 		}
 	}
+
 #pragma endregion
 }
