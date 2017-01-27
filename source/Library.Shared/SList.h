@@ -71,7 +71,7 @@ namespace AnonymousEngine
 			bool operator!=(const Iterator& rhs) const;
 		private:
 			Node* mNode;
-			const SList* mOwner;
+			const SList<T>* mOwner;
 
 			Iterator(Node* node, const SList<T>* owner);
 			friend SList<T>;
@@ -86,8 +86,8 @@ namespace AnonymousEngine
 		*/
 		SList(const SList<T>& list);
 
-		/** Assignment operator to construct a linked list copy of another list
-		 *	@param list The other list to create copy from
+		/** Assignment operator to copy all the values from another list
+		 *	@param list The other list to copy from
 		 *	@return A new instance of list which is a copy of the passed list
 		*/
 		SList<T>& operator=(const SList<T>& list);
@@ -102,8 +102,8 @@ namespace AnonymousEngine
 		*/
 		void PopFront();
 
-		/** Pop an item to the back of the list
-		*	@param data The data item to push in the back of the list
+		/** Push an item to the back of the list
+		*	@param data The data item to push to the back of the list
 		*	@return An iterator to the current data that is pushed
 		*/
 		Iterator PushBack(const T& data);

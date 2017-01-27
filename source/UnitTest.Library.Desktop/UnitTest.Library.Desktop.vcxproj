@@ -200,6 +200,9 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="SlistIteratorTest.cpp" />
+    <ClCompile Include="TestClassHelper.cpp" />
+    <ClCompile Include="VectorIteratorTest.cpp" />
+    <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library.Desktop\Library.Desktop.vcxproj">
@@ -211,7 +214,10 @@
     <ClInclude Include="Pch.h" />
     <ClInclude Include="SListIteratorTestTemplate.h" />
     <ClInclude Include="SListTestTemplate.h" />
+    <ClInclude Include="TestClassHelper.h" />
     <ClInclude Include="ToStringTemplates.h" />
+    <ClInclude Include="VectorIteratorTestTemplate.h" />
+    <ClInclude Include="VectorTestTemplate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

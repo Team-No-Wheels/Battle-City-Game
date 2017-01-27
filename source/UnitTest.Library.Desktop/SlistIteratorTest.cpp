@@ -1,7 +1,7 @@
 #include "Pch.h"
 #include "Foo.h"
-#include "SList.h"
 #include "SListIteratorTestTemplate.h"
+#include "TestClassHelper.h"
 #include "ToStringTemplates.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -14,7 +14,7 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestIteration)
 		{
 			const std::uint32_t size = 3;
-			std::uint32_t values[size] = {(*mDistribution)(*mGenerator), (*mDistribution)(*mGenerator), (*mDistribution)(*mGenerator)};
+			std::uint32_t values[size] = {mHelper.GetRandomUInt32(), mHelper.GetRandomUInt32(), mHelper.GetRandomUInt32()};
 			std::uint32_t* ptrValues[size] = {&values[0], &values[1], &values[2]};
 			Foo foos[size] = {Foo(values[0]), Foo(values[1]), Foo(values[2])};
 			SListIteratorTestTemplate<std::uint32_t>::TestIteration(values, size);
@@ -24,7 +24,7 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestCopyConstructor)
 		{
-			std::uint32_t value = (*mDistribution)(*mGenerator);
+			std::uint32_t value = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestCopyConstructor(value);
 			SListIteratorTestTemplate<std::uint32_t*>::TestCopyConstructor(&value);
 			SListIteratorTestTemplate<Foo>::TestCopyConstructor(Foo(value));
@@ -32,7 +32,7 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestAssignmentOperator)
 		{
-			std::uint32_t value = (*mDistribution)(*mGenerator);
+			std::uint32_t value = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestAssignmentOperator(value);
 			SListIteratorTestTemplate<std::uint32_t*>::TestAssignmentOperator(&value);
 			SListIteratorTestTemplate<Foo>::TestAssignmentOperator(Foo(value));
@@ -40,8 +40,8 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestPostAndPreIncrementOperators)
 		{
-			std::uint32_t value1 = (*mDistribution)(*mGenerator);
-			std::uint32_t value2 = (*mDistribution)(*mGenerator);
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestPostAndPreIncrementOperators(value1, value2);
 			SListIteratorTestTemplate<std::uint32_t*>::TestPostAndPreIncrementOperators(&value1, &value2);
 			SListIteratorTestTemplate<Foo>::TestPostAndPreIncrementOperators(Foo(value1), Foo(value2));
@@ -49,7 +49,7 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestIncrementOperatorsThrowsException)
 		{
-			std::uint32_t value = (*mDistribution)(*mGenerator);
+			std::uint32_t value = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestIncrementOperatorsThrowsException(value);
 			SListIteratorTestTemplate<std::uint32_t*>::TestIncrementOperatorsThrowsException(&value);
 			SListIteratorTestTemplate<Foo>::TestIncrementOperatorsThrowsException(Foo(value));
@@ -57,8 +57,8 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestDereferenceOperator)
 		{
-			std::uint32_t value1 = (*mDistribution)(*mGenerator);
-			std::uint32_t value2 = (*mDistribution)(*mGenerator);
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestDereferenceOperator(value1, value2);
 			SListIteratorTestTemplate<std::uint32_t*>::TestDereferenceOperator(&value1, &value2);
 			SListIteratorTestTemplate<Foo>::TestDereferenceOperator(Foo(value1), Foo(value2));
@@ -66,53 +66,35 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestEqualAndNotEqualOperators)
 		{
-			std::uint32_t value1 = (*mDistribution)(*mGenerator);
-			std::uint32_t value2 = (*mDistribution)(*mGenerator);
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
 			SListIteratorTestTemplate<std::uint32_t>::TestEqualAndNotEqualOperators(value1, value2);
 			SListIteratorTestTemplate<std::uint32_t*>::TestEqualAndNotEqualOperators(&value1, &value2);
 			SListIteratorTestTemplate<Foo>::TestEqualAndNotEqualOperators(Foo(value1), Foo(value2));
 		}
 
-		TEST_CLASS_INITIALIZE(BeginClass)
+		TEST_CLASS_INITIALIZE(InitializeClass)
 		{
-			std::random_device mDevice;
-			mGenerator = new std::default_random_engine(mDevice());
-			mDistribution = new std::uniform_int_distribution<std::uint32_t>(0, UINT32_MAX);
+			mHelper.BeginClass();
 		}
 
-		TEST_CLASS_CLEANUP(EndClass)
-		{
-			delete mGenerator;
-			delete mDistribution;
-		}
-
-#if _DEBUG
 		TEST_METHOD_INITIALIZE(Setup)
 		{
-			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
-			_CrtMemCheckpoint(&mStartMemState);
+			mHelper.Setup();
 		}
 
 		TEST_METHOD_CLEANUP(Teardown)
 		{
-			_CrtMemState endMemState;
-			_CrtMemState diffMemState;
-			_CrtMemCheckpoint(&endMemState);
-			if (_CrtMemDifference(&diffMemState, &mStartMemState, &endMemState))
-			{
-				_CrtMemDumpStatistics(&diffMemState);
-				Assert::Fail(L"Memory leak...");
-			}
+			mHelper.Teardown();
+		}
+
+		TEST_CLASS_CLEANUP(CleanupClass)
+		{
+			mHelper.EndClass();
 		}
 	private:
-		_CrtMemState mStartMemState;
-#else
-	private:
-#endif
-		static std::default_random_engine* mGenerator;
-		static std::uniform_int_distribution<std::uint32_t>* mDistribution;
+		static TestClassHelper mHelper;
 	};
 
-	std::default_random_engine* SListIteratorTest::mGenerator;
-	std::uniform_int_distribution<std::uint32_t>* SListIteratorTest::mDistribution;
+	TestClassHelper SListIteratorTest::mHelper;
 }

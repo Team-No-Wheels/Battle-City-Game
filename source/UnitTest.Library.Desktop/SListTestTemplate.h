@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Foo.h"
 #include "CppUnitTestAssert.h"
 #include "SList.h"
 
@@ -16,7 +15,7 @@ namespace UnitTestLibraryDesktop
 		{
 			AnonymousEngine::SList<T>* list1 = new AnonymousEngine::SList<T>();
 			Assert::IsNotNull(list1);
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list1->Size());
+			Assert::AreEqual(0U, list1->Size());
 			delete list1;
 		}
 
@@ -80,10 +79,10 @@ namespace UnitTestLibraryDesktop
 		static void TestPushFront(const T& value1, const T& value2)
 		{
 			AnonymousEngine::SList<T> list;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::AreEqual(0U, list.Size());
 			list.PushFront(value1);
 			typename AnonymousEngine::SList<T>::Iterator it = list.PushFront(value2);
-			Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+			Assert::AreEqual(2U, list.Size());
 			Assert::AreEqual(value2, *it);
 			Assert::AreEqual(value2, list.Front());
 		}
@@ -94,19 +93,19 @@ namespace UnitTestLibraryDesktop
 			list.PushFront(value1);
 			list.PushFront(value2);
 			list.PushBack(value3);
-			Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+			Assert::AreEqual(3U, list.Size());
 			list.PopFront();
-			Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+			Assert::AreEqual(2U, list.Size());
 			Assert::AreEqual(value1, list.Front());
 		}
 
 		static void TestPushBack(const T& value1, const T& value2)
 		{
 			AnonymousEngine::SList<T> list;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::AreEqual(0U, list.Size());
 			list.PushBack(value1);
 			typename AnonymousEngine::SList<T>::Iterator it = list.PushBack(value2);
-			Assert::AreEqual(static_cast<std::uint32_t>(2), list.Size());
+			Assert::AreEqual(2U, list.Size());
 			Assert::AreEqual(value2, *it);
 			Assert::AreEqual(value2, list.Back());
 		}
@@ -114,11 +113,11 @@ namespace UnitTestLibraryDesktop
 		static void TestFrontReturnsItemInTheFront(const T& value1, const T& value2, const T& value3)
 		{
 			AnonymousEngine::SList<T> list;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::AreEqual(0U, list.Size());
 			list.PushFront(value1);
 			list.PushFront(value2);
 			list.PushBack(value3);
-			Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+			Assert::AreEqual(3U, list.Size());
 			const AnonymousEngine::SList<T> constList(list);
 			Assert::AreEqual(value2, list.Front());
 			Assert::AreEqual(value2, constList.Front());
@@ -127,7 +126,7 @@ namespace UnitTestLibraryDesktop
 		static void TestModifyingFrontValue(const T& value1, const T& value2)
 		{
 			AnonymousEngine::SList<T> list;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::AreEqual(0U, list.Size());
 			list.PushFront(value1);
 			Assert::AreEqual(value1, list.Front());
 			list.Front() = value2;
@@ -138,7 +137,7 @@ namespace UnitTestLibraryDesktop
 		{
 			AnonymousEngine::SList<T> list;
 			const AnonymousEngine::SList<T> constList;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::AreEqual(0U, list.Size());
 			Assert::ExpectException <std::domain_error>([&list]()
 			{
 				list.Front();
@@ -152,11 +151,11 @@ namespace UnitTestLibraryDesktop
 		static void TestBackReturnsItemInTheBack(const T& value1, const T& value2, const T& value3)
 		{
 			AnonymousEngine::SList<T> list;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::AreEqual(0U, list.Size());
 			list.PushBack(value2);
 			list.PushBack(value1);
 			list.PushFront(value3);
-			Assert::AreEqual(static_cast<std::uint32_t>(3), list.Size());
+			Assert::AreEqual(3U, list.Size());
 			const AnonymousEngine::SList<T> constList(list);
 			Assert::AreEqual(value1, list.Back());
 			Assert::AreEqual(value1, constList.Back());
@@ -166,7 +165,7 @@ namespace UnitTestLibraryDesktop
 		{
 			AnonymousEngine::SList<T> list;
 			const AnonymousEngine::SList<T> constList;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::AreEqual(0U, list.Size());
 			Assert::ExpectException <std::exception>([&list]()
 			{
 				list.Back();
@@ -180,7 +179,7 @@ namespace UnitTestLibraryDesktop
 		static void TestModifyingBackValue(const T& value1, const T& value2)
 		{
 			AnonymousEngine::SList<T> list;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::AreEqual(0U, list.Size());
 			list.PushBack(value1);
 			Assert::AreEqual(value1, list.Front());
 			list.Back() = value2;
@@ -190,11 +189,11 @@ namespace UnitTestLibraryDesktop
 		static void TestSizeMethod(const T& value)
 		{
 			AnonymousEngine::SList<T> list;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::AreEqual(0U, list.Size());
 			list.PushBack(value);
-			Assert::AreEqual(static_cast<std::uint32_t>(1), list.Size());
+			Assert::AreEqual(1U, list.Size());
 			list.Clear();
-			Assert::AreEqual(static_cast<std::uint32_t>(0), list.Size());
+			Assert::AreEqual(0U, list.Size());
 		}
 
 		static void TestEmptyMethod(const T& value)
@@ -297,7 +296,7 @@ namespace UnitTestLibraryDesktop
 			list1.PushBack(value2);
 			Assert::IsTrue(list1.Remove(value2));
 			Assert::AreNotEqual(value2, list1.Back());
-			Assert::AreEqual(static_cast<std::uint32_t>(1), list1.Size());
+			Assert::AreEqual(1U, list1.Size());
 
 			// delete middle element from 3 element list
 			AnonymousEngine::SList<T> list2;
@@ -305,15 +304,15 @@ namespace UnitTestLibraryDesktop
 			T backVal = value4;
 			list2.PushBack(value3);
 			list2.PushBack(backVal);
-			Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
+			Assert::AreEqual(3U, list2.Size());
 			Assert::IsTrue(list2.Remove(value3));
-			Assert::AreEqual(static_cast<std::uint32_t>(2), list2.Size());
+			Assert::AreEqual(2U, list2.Size());
 			Assert::AreEqual(frontVal, list2.Front());
 			Assert::AreEqual(backVal, list2.Back());
 
 			// delete final element from 3 element list
 			list2.InsertAfter(value3, list2.begin());
-			Assert::AreEqual(static_cast<std::uint32_t>(3), list2.Size());
+			Assert::AreEqual(3U, list2.Size());
 			Assert::IsTrue(list2.Remove(backVal));
 			Assert::AreEqual(value3, list2.Back());
 		}

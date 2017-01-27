@@ -7,6 +7,11 @@
       <Filter>SupportingClasses</Filter>
     </ClCompile>
     <ClCompile Include="SlistIteratorTest.cpp" />
+    <ClCompile Include="VectorTest.cpp" />
+    <ClCompile Include="TestClassHelper.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorIteratorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -16,19 +21,17 @@
     <ClInclude Include="ToStringTemplates.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
-    <ClInclude Include="SListTestTemplate.h">
-      <Filter>SupportingClasses\TestClassTemplates</Filter>
+    <ClInclude Include="VectorTestTemplate.h" />
+    <ClInclude Include="SListIteratorTestTemplate.h" />
+    <ClInclude Include="SListTestTemplate.h" />
+    <ClInclude Include="TestClassHelper.h">
+      <Filter>SupportingClasses</Filter>
     </ClInclude>
-    <ClInclude Include="SListIteratorTestTemplate.h">
-      <Filter>SupportingClasses\TestClassTemplates</Filter>
-    </ClInclude>
+    <ClInclude Include="VectorIteratorTestTemplate.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SupportingClasses">
       <UniqueIdentifier>{51d25af1-bd2d-4272-a2df-0d5959eacd13}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SupportingClasses\TestClassTemplates">
-      <UniqueIdentifier>{b53b654f-bc04-41b1-9cba-69b9cea9b641}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

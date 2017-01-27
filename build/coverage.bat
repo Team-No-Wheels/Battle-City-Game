@@ -14,7 +14,6 @@ set GENERATE_REPORT_COMMAND=ReportGenerator.exe
 set START_WEB_SERVER_COMMAND=python -m SimpleHTTPServer
 set COVERAGE_SERVER_PORT=9000
 
-
 if exist !TEST_RESULTS_PATH! rd /s /q !TEST_RESULTS_PATH!
 if exist !COVERAGE_REPORTS_PATH! rd /s /q !COVERAGE_REPORTS_PATH!
 
@@ -29,7 +28,6 @@ for /f "tokens=* USEBACKQ" %%i in (`dir *.coverage /s /b`) do (
 cd !COVERAGE_REPORTS_PATH!
 !START_WEB_SERVER_COMMAND! !COVERAGE_SERVER_PORT!
 cd -
-
 
 endlocal
 @echo on
