@@ -263,6 +263,19 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
+	void Vector<T>::IncrementStrategy(const CapacityStrategy* strategy)
+	{
+		if (strategy == nullptr)
+		{
+			mStrategy = mDefaultStrategy;
+		}
+		else
+		{
+			mStrategy = strategy;
+		}
+	}
+
+	template <typename T>
 	void AnonymousEngine::Vector<T>::Copy(const Vector<T>& rhs)
 	{
 		Reserve(rhs.mCapacity);

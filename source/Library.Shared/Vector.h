@@ -165,6 +165,11 @@ namespace AnonymousEngine
 		*/
 		void Reserve(std::uint32_t capacity);
 
+		/** Supply an capacity increment strategy functor which will be used by vector class to expand
+		*   @param strategy The functor which accepts current size and capacity to return a capacity increment
+		*/
+		void IncrementStrategy(const CapacityStrategy* strategy);
+
 		/** Clear all the items from the vector
 		*/
 		void Clear();
@@ -181,8 +186,6 @@ namespace AnonymousEngine
 
 		// copies data from one list to another. Used in copy constructor and assignment operator
 		void Copy(const Vector<T>& rhs);
-
-		//friend Iterator;
 	};
 }
 

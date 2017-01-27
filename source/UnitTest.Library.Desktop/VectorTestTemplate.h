@@ -9,6 +9,24 @@ namespace UnitTestLibraryDesktop
 {
 	using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+	class TestCapacityStrategy : public AnonymousEngine::CapacityStrategy
+	{
+	public:
+		TestCapacityStrategy() = default;
+		~TestCapacityStrategy() = default;
+		inline std::uint32_t operator()(std::uint32_t size, std::uint32_t capacity) const override
+		{
+			if (capacity == 0)
+			{
+				return 2;
+			}
+			else
+			{
+				return size;
+			}
+		}
+	};
+
 	template <typename T>
 	class VectorTestTemplate
 	{
@@ -173,7 +191,7 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(value2, vector[1]);
 			Assert::ExpectException<std::out_of_range>([&vector] { vector[vector.Size()]; });
 			vector[1] = value1;
-			Assert::AreEqual(value1, const_cast<AnonymousEngine::Vector<T>&>(vector)[1]);
+			Assert::AreEqual(value1, const_cast<const AnonymousEngine::Vector<T>&>(vector)[1]);
 		}
 
 		static void TestFind(const T& value1, const T& value2)
@@ -239,6 +257,37 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(value1, *(it++));
 			Assert::AreEqual(value4, *(it++));
 			Assert::AreEqual(vector.end(), it);
+		}
+
+		static void TestCustomIncrementStrategy(const T& value1, const T& value2, const T& value3)
+		{
+			AnonymousEngine::Vector<T> vector;
+			Assert::AreEqual(0U, vector.Size());
+			Assert::AreEqual(3U, vector.Capacity());
+			vector.PushBack(value1);
+			vector.PushBack(value2);
+			vector.PushBack(value3);
+			Assert::AreEqual(3U, vector.Size());
+			Assert::AreEqual(3U, vector.Capacity());
+			vector.Clear();
+			TestCapacityStrategy strategy;
+			vector.IncrementStrategy(&strategy);
+			vector.PushBack(value1);
+			vector.PushBack(value2);
+			Assert::AreEqual(2U, vector.Size());
+			Assert::AreEqual(2U, vector.Capacity());
+			vector.PushBack(value3);
+			Assert::AreEqual(3U, vector.Size());
+			Assert::AreEqual(4U, vector.Capacity());
+			vector.Clear();
+			vector.IncrementStrategy(nullptr);
+			Assert::AreEqual(0U, vector.Size());
+			Assert::AreEqual(0U, vector.Capacity());
+			vector.PushBack(value1);
+			vector.PushBack(value2);
+			vector.PushBack(value3);
+			Assert::AreEqual(3U, vector.Size());
+			Assert::AreEqual(3U, vector.Capacity());
 		}
 	};
 }

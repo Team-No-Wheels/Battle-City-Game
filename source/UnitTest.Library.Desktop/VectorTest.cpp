@@ -1,6 +1,6 @@
 #include "Pch.h"
-#include "Foo.h"
 #include "VectorTestTemplate.h"
+#include "Foo.h"
 #include "TestClassHelper.h"
 #include "ToStringTemplates.h"
 
@@ -129,6 +129,16 @@ namespace UnitTestLibraryDesktop
 			VectorTestTemplate<std::uint32_t>::TestRemoveElementRange(value1, value2, value3, value4);
 			VectorTestTemplate<std::uint32_t*>::TestRemoveElementRange(&value1, &value2, &value3, &value4);
 			VectorTestTemplate<Foo>::TestRemoveElementRange(Foo(value1), Foo(value2), Foo(value3), Foo(value4));
+		}
+
+		TEST_METHOD(TestCustomIncrementStrategy)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			std::uint32_t value3 = mHelper.GetRandomUInt32();
+			VectorTestTemplate<std::uint32_t>::TestCustomIncrementStrategy(value1, value2, value3);
+			VectorTestTemplate<std::uint32_t*>::TestCustomIncrementStrategy(&value1, &value2, &value3);
+			VectorTestTemplate<Foo>::TestCustomIncrementStrategy(Foo(value1), Foo(value2), Foo(value3));
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
