@@ -18,7 +18,7 @@ namespace UnitTestLibraryDesktop
 			AnonymousEngine::Vector<T> vector;
 			AnonymousEngine::DefaultVectorCapacityStrategy strategy;
 			Assert::AreEqual(strategy(0, 0), vector.Capacity());
-			Assert::AreEqual(static_cast<std::uint32_t>(0), vector.Size());
+			Assert::AreEqual(0U, vector.Size());
 		}
 
 		static void TestCopyConstructor(const T& value1, const T& value2, const T& value3, const T& value4)
@@ -60,7 +60,7 @@ namespace UnitTestLibraryDesktop
 		{
 			AnonymousEngine::Vector<T> vector;
 			AnonymousEngine::DefaultVectorCapacityStrategy strategy;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), vector.Size());
+			Assert::AreEqual(0U, vector.Size());
 			Assert::AreEqual(strategy(0, 0), vector.Capacity());
 			Assert::IsTrue(vector.IsEmpty());
 			vector.PushBack(value);
@@ -71,14 +71,14 @@ namespace UnitTestLibraryDesktop
 		{
 			AnonymousEngine::Vector<T> vector;
 			AnonymousEngine::DefaultVectorCapacityStrategy strategy;
-			Assert::AreEqual(static_cast<std::uint32_t>(0), vector.Size());
+			Assert::AreEqual(0U, vector.Size());
 			Assert::AreEqual(strategy(0, 0), vector.Capacity());
 			Assert::IsTrue(vector.IsEmpty());
 			vector.PushBack(value1);
-			Assert::AreEqual(static_cast<std::uint32_t>(1), vector.Size());
+			Assert::AreEqual(1U, vector.Size());
 			Assert::IsFalse(vector.IsEmpty());
 			vector.PushBack(value2);
-			Assert::AreEqual(static_cast<std::uint32_t>(2), vector.Size());
+			Assert::AreEqual(2U, vector.Size());
 			Assert::IsFalse(vector.IsEmpty());
 		}
 
@@ -87,12 +87,12 @@ namespace UnitTestLibraryDesktop
 			AnonymousEngine::Vector<T> vector;
 			vector.PushBack(value1);
 			vector.PushBack(value2);
-			Assert::AreEqual(static_cast<std::uint32_t>(2), vector.Size());
+			Assert::AreEqual(2U, vector.Size());
 			Assert::IsFalse(vector.IsEmpty());
 			Assert::IsTrue(vector.PopBack());
-			Assert::AreEqual(static_cast<std::uint32_t>(1), vector.Size());
+			Assert::AreEqual(1U, vector.Size());
 			Assert::IsTrue(vector.PopBack());
-			Assert::AreEqual(static_cast<std::uint32_t>(0), vector.Size());
+			Assert::AreEqual(0U, vector.Size());
 			Assert::IsTrue(vector.IsEmpty());
 			Assert::IsFalse(vector.PopBack());
 		}
@@ -140,10 +140,10 @@ namespace UnitTestLibraryDesktop
 			vector.PushBack(value);
 			std::uint32_t newCapacity = strategy(vector.Size(), vector.Capacity()) + vector.Capacity();
 			vector.PushBack(value);
-			Assert::AreEqual(static_cast<std::uint32_t>(4), vector.Size());
+			Assert::AreEqual(4U, vector.Size());
 			Assert::AreEqual(newCapacity, vector.Capacity());
 			vector.Clear();
-			Assert::AreEqual(static_cast<std::uint32_t>(0), vector.Capacity());
+			Assert::AreEqual(0U, vector.Capacity());
 			Assert::IsTrue(vector.IsEmpty());
 		}
 
@@ -158,7 +158,7 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(strategy(0, 0), vector.Capacity());
 			std::uint32_t newCapacity = strategy(vector.Size(), vector.Capacity()) + vector.Capacity();
 			vector.PushBack(value4);
-			Assert::AreEqual(static_cast<std::uint32_t>(4), vector.Size());
+			Assert::AreEqual(4U, vector.Size());
 			Assert::AreEqual(newCapacity, vector.Capacity());
 			Assert::AreEqual(value1, vector.Front());
 			Assert::AreEqual(value4, vector.Back());
