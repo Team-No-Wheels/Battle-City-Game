@@ -20,10 +20,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultVectorCapacityStrategy.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Hashmap.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)HashFunctors.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)HashFunctors.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)HashMap.h">
       <Filter>Containers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -39,10 +39,10 @@
     <None Include="$(MSBuildThisFileDirectory)SList.inl">
       <Filter>Containers</Filter>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)Hashmap.inl">
+    <None Include="$(MSBuildThisFileDirectory)HashFunctors.inl">
       <Filter>Containers</Filter>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)HashFunctors.inl">
+    <None Include="$(MSBuildThisFileDirectory)HashMap.inl">
       <Filter>Containers</Filter>
     </None>
   </ItemGroup>
