@@ -12,7 +12,6 @@
       <Filter>SupportingClasses</Filter>
     </ClCompile>
     <ClCompile Include="VectorIteratorTest.cpp" />
-    <ClCompile Include="HashFunctionsTest.cpp" />
     <ClCompile Include="HashFunctorsTest.cpp" />
   </ItemGroup>
   <ItemGroup>

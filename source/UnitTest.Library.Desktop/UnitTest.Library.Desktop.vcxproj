@@ -196,7 +196,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Foo.cpp" />
-    <ClCompile Include="HashFunctionsTest.cpp" />
     <ClCompile Include="HashFunctorsTest.cpp" />
     <ClCompile Include="Pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
