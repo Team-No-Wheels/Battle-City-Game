@@ -1,4 +1,3 @@
-
 #include "HashFunctions.h"
 
 namespace AnonymousEngine

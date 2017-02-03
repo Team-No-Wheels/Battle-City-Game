@@ -20,7 +20,21 @@ namespace AnonymousEngine
 	};
 
 	template <>
+	class DefaultHashFunctor<const char*>
+	{
+	public:
+		std::uint32_t operator()(const char*& data) const;
+	};
+
+	template <>
 	class DefaultHashFunctor<std::string>
+	{
+	public:
+		std::uint32_t operator()(const std::string& data) const;
+	};
+
+	template <>
+	class DefaultHashFunctor<const std::string>
 	{
 	public:
 		std::uint32_t operator()(const std::string& data) const;
