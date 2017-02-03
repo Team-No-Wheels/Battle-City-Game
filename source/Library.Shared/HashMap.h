@@ -8,26 +8,81 @@
 
 namespace AnonymousEngine
 {
+	/** A templated Hashmap implementation
+	 */
 	template <typename TKey, typename TData, typename THashFunctor = DefaultHashFunctor<TKey>>
 	class HashMap final
 	{
 	public:
+		/** The type of each entry in the hashmap
+		 */
 		typedef std::pair<TKey, TData> EntryType;
+		/** The type of each chain in the hashmap bucket
+		*/
 		typedef SList<EntryType> ChainType;
+		/** The type of the hashmap buckets
+		*/
 		typedef Vector<ChainType> BucketType;
+		/** The type of iterator to the chain in a hashmap bucket
+		*/
+		typedef typename ChainType::Iterator ChainIterator;
+		/** The type of iterator to the hashmap buckets
+		*/
+		typedef typename BucketType::Iterator BucketIterator;
 
-		/*class Iterator
+		/** Iterator to the hashmap
+		 */
+		class Iterator
 		{
 		public:
-			Iterator();
+			/** Default constructor with default implementation
+			 */
+			Iterator() = default;
+			/** Copy constructor with default implementation
+			 *  @param rhs The iterator to copy from
+			*/
+			Iterator(const Iterator& rhs) = default;
+			/** Copy assignment operator with default implementation
+			 *  @param rhs The iterator to assign from
+			 *  @return A reference to the current iterator
+			*/
+			Iterator& operator=(const Iterator& rhs) = default;
+			/** Destructor with default implementation
+			*/
+			~Iterator() = default;
 
+			/** Moves the iterator to next location.
+			 *  @return A reference to the current iterator
+			*/
+			Iterator& operator++();
+			/** Moves the iterator to next location.
+			 *  @return A reference to another iterator which points to the location before the increment
+			*/
+			Iterator& operator++(int);
 
+			/** Get the entry in the hashmap at the location pointed by the iterator
+			 *  @return A reference to the entry at the location pointed by the iterator
+			*/
+			EntryType& operator*() const;
+			
+			/** Check if two iterators are equal
+			 *  @param rhs The other iterator to which the current one should be compared
+			 *  @return True if both the iterators are same. False otherwise
+			 */
+			bool operator==(const Iterator& rhs) const;
+			/** Check if two iterators are not equal
+			*  @param rhs The other iterator to which the current one should be compared
+			*  @return False if both the iterators are same. True otherwise
+			*/
+			bool operator!=(const Iterator& rhs) const;
 		private:
 			std::uint32_t mIndex;
 			typename ChainType::Iterator mChainIterator;
+			
+			Iterator(std::uint32_t index, ChainIterator it);
 
 			friend HashMap;
-		};*/
+		};
 
 		/** Initializes a hashmap with provided capacity (no. of buckets).
 		 *  A default capaicty is provided in case the user doesn't supply any
@@ -103,9 +158,6 @@ namespace AnonymousEngine
 
 		std::uint32_t CalculateIndex(const TKey& key);
 		EntryType& InsertEntry(TKey& key, TData& data);
-
-		typedef typename BucketType::Iterator BucketIterator;
-		typedef typename ChainType::Iterator ChainIterator;
 	};
 }
 

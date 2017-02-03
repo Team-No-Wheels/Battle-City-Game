@@ -2,6 +2,49 @@
 
 namespace AnonymousEngine
 {
+#pragma region HashmapIteratorMethods
+	template <typename TKey, typename TData, typename THashFunctor>
+	typename HashMap<TKey, TData, THashFunctor>::Iterator& HashMap<TKey, TData, THashFunctor>::Iterator::operator++()
+	{
+		//TODO: increment
+		return *this;
+	}
+	
+	template <typename TKey, typename TData, typename THashFunctor>
+	typename HashMap<TKey, TData, THashFunctor>::Iterator& HashMap<TKey, TData, THashFunctor>::Iterator::operator++(int)
+	{
+		//TODO: increment and return copy
+		return *this;
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor>
+	typename HashMap<TKey, TData, THashFunctor>::EntryType& HashMap<TKey, TData, THashFunctor>::Iterator::operator*() const
+	{
+		//TODO: check owner
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor>
+	bool HashMap<TKey, TData, THashFunctor>::Iterator::operator==(const Iterator& rhs) const
+	{
+		//TODO: return correct value
+		return true;
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor>
+	bool HashMap<TKey, TData, THashFunctor>::Iterator::operator!=(const Iterator& rhs) const
+	{
+		return !(*this == rhs);
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor>
+	HashMap<TKey, TData, THashFunctor>::Iterator::Iterator(std::uint32_t index, ChainIterator it) :
+		mIndex(index), mChainIterator(it)
+	{
+	}
+
+#pragma endregion
+
+#pragma region HashMapMethods
 	template <typename TKey, typename TData, typename THashFunctor>
 	HashMap<TKey, TData, THashFunctor>::HashMap(std::uint32_t buckets = 13U) :
 		mSize(0U)
@@ -51,7 +94,7 @@ namespace AnonymousEngine
 		// TODO: match return value with end()
 		if (Find(key))
 		{
-			//TODO: remove the correct item
+			//TODO: call remove on the Slist at index and pass the data from the iterator
 			return true;
 		}
 		return false;
@@ -123,4 +166,5 @@ namespace AnonymousEngine
 		it = mData[index].PushBack(std::make_pair<TKey, TData>(key, TData()));
 		return *it;
 	}
+#pragma endregion
 }
