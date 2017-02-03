@@ -5,7 +5,11 @@
 
 namespace AnonymousEngine
 {
-	std::uint32_t SuperFastHash(const std::int8_t* data, std::uint32_t length);
+	class HashFunctions
+	{
+	public:
+		static std::uint32_t SuperFastHash(const std::int8_t* data, std::uint32_t length);
+	};
 
 	template <typename T>
 	class DefaultHashFunctor

@@ -6,7 +6,7 @@ namespace AnonymousEngine
 {
 	using namespace std;
 
-	uint32_t SuperFastHash(const int8_t* data, uint32_t length)
+	uint32_t HashFunctions::SuperFastHash(const int8_t* data, uint32_t length)
 	{
 		uint32_t hash = length, tmp;
 		int32_t rem;
@@ -61,21 +61,21 @@ namespace AnonymousEngine
 
 	std::uint32_t DefaultHashFunctor<char*>::operator()(const char*& data) const
 	{
-		return SuperFastHash(reinterpret_cast<const int8_t*>(data), static_cast<std::uint32_t>(strlen(data)));
+		return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(data), static_cast<std::uint32_t>(strlen(data)));
 	}
 
 	std::uint32_t DefaultHashFunctor<const char*>::operator()(const char*& data) const
 	{
-		return SuperFastHash(reinterpret_cast<const int8_t*>(data), static_cast<std::uint32_t>(strlen(data)));
+		return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(data), static_cast<std::uint32_t>(strlen(data)));
 	}
 
 	std::uint32_t DefaultHashFunctor<std::string>::operator()(const std::string& data) const
 	{
-		return SuperFastHash(reinterpret_cast<const int8_t*>(data.c_str()), static_cast<std::uint32_t>(data.size()));
+		return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(data.c_str()), static_cast<std::uint32_t>(data.size()));
 	}
 
 	std::uint32_t DefaultHashFunctor<const std::string>::operator()(const std::string& data) const
 	{
-		return SuperFastHash(reinterpret_cast<const int8_t*>(data.c_str()), static_cast<std::uint32_t>(data.size()));
+		return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(data.c_str()), static_cast<std::uint32_t>(data.size()));
 	}
 }
