@@ -100,6 +100,12 @@ namespace AnonymousEngine
 	private:
 		BucketType mData;
 		std::uint32_t mSize;
+
+		std::uint32_t CalculateIndex(const TKey& key);
+		EntryType& InsertEntry(TKey& key, TData& data);
+
+		typedef typename BucketType::Iterator BucketIterator;
+		typedef typename ChainType::Iterator ChainIterator;
 	};
 }
 
