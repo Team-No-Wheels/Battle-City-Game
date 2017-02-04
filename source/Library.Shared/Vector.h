@@ -61,8 +61,9 @@ namespace AnonymousEngine
 		};
 
 		/** Constructs a new vector
+		 *  @param capacity The initial capacity of the vector
 		*/
-		Vector();
+		Vector(std::uint32_t capacity = 3U);
 
 		/** Copy constructor to construct a copy of vector
 		*	@param vector The other list to create copy from

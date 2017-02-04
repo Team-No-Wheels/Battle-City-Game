@@ -62,11 +62,11 @@ namespace AnonymousEngine
 #pragma region VectorMethods
 
 	template <typename T>
-	Vector<T>::Vector() :
+	Vector<T>::Vector(std::uint32_t capacity) :
 		mData(nullptr), mSize(0), mCapacity(0), mStrategy(nullptr), mDefaultStrategy(new DefaultVectorCapacityStrategy())
 	{
 		mStrategy = mDefaultStrategy;
-		Reserve(mCapacity + (*mStrategy)(mSize, mCapacity));
+		Reserve(capacity);
 	}
 
 	template <typename T>
