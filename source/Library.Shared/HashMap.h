@@ -123,7 +123,7 @@ namespace AnonymousEngine
 		*   @param key The key of the element which should be removed from the hashmap
 		*   @return A boolean indicating whether the element was removed or not
 		*/
-		//bool Remove(const TKey& key);
+		bool Remove(const TKey& key);
 
 		/** Returns a reference to the data element for a given key.
 		 *  If the given key does not exist in the hashmap, insert a default initialized value and return a reference to that

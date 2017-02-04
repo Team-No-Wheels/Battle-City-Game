@@ -90,16 +90,39 @@ namespace UnitTestLibraryDesktop
 			std::uint32_t value1 = mHelper.GetRandomUInt32();
 			std::uint32_t value2 = mHelper.GetRandomUInt32();
 			std::uint32_t value3 = mHelper.GetRandomUInt32();
-			/*std::string str1 = "hello1";
+			std::uint32_t value4 = mHelper.GetRandomUInt32();
+			std::string str1 = "hello1";
 			std::string str2 = "hello2";
-			std::string str3 = "hello3";*/
-			HashMapTestTemplate<std::uint32_t>::TestIndexOfOperator(value1, value2, value3);
-			/*HashMapTestTemplate<std::uint32_t*>::TestIndexOfOperator(&value1, &value2, &value3);
-			HashMapTestTemplate<const char*>::TestIndexOfOperator(str1.c_str(), str2.c_str(), str3.c_str());
-			HashMapTestTemplate<char*>::TestIndexOfOperator(const_cast<char*>(str1.c_str()), const_cast<char*>(str2.c_str()), const_cast<char*>(str3.c_str()));
-			HashMapTestTemplate<std::string>::TestIndexOfOperator(str1, str2, str3);
-			HashMapTestTemplate<const std::string>::TestIndexOfOperator(str1, str2, str3);
-			HashMapTestTemplate<Foo>::TestIndexOfOperator(Foo(value1), Foo(value2), Foo(value3));*/
+			std::string str3 = "hello3";
+			std::string str4 = "hello4";
+			HashMapTestTemplate<std::uint32_t>::TestIndexOfOperator(value1, value2, value3, value4);
+			HashMapTestTemplate<std::uint32_t*>::TestIndexOfOperator(&value1, &value2, &value3, &value4);
+			HashMapTestTemplate<const char*>::TestIndexOfOperator(str1.c_str(), str2.c_str(), str3.c_str(), str4.c_str());
+			HashMapTestTemplate<char*>::TestIndexOfOperator(const_cast<char*>(str1.c_str()), 
+				const_cast<char*>(str2.c_str()), const_cast<char*>(str3.c_str()), const_cast<char*>(str4.c_str()));
+			HashMapTestTemplate<std::string>::TestIndexOfOperator(str1, str2, str3, str4);
+			HashMapTestTemplate<const std::string>::TestIndexOfOperator(str1, str2, str3, str4);
+			HashMapTestTemplate<Foo>::TestIndexOfOperator(Foo(value1), Foo(value2), Foo(value3), Foo(value4));
+		}
+
+		TEST_METHOD(TestRemove)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			std::uint32_t value3 = mHelper.GetRandomUInt32();
+			std::uint32_t value4 = mHelper.GetRandomUInt32();
+			std::string str1 = "hello1";
+			std::string str2 = "hello2";
+			std::string str3 = "hello3";
+			std::string str4 = "hello4";
+			HashMapTestTemplate<std::uint32_t>::TestRemove(value1, value2, value3, value4);
+			HashMapTestTemplate<std::uint32_t*>::TestRemove(&value1, &value2, &value3, &value4);
+			HashMapTestTemplate<const char*>::TestRemove(str1.c_str(), str2.c_str(), str3.c_str(), str4.c_str());
+			HashMapTestTemplate<char*>::TestRemove(const_cast<char*>(str1.c_str()),
+				const_cast<char*>(str2.c_str()), const_cast<char*>(str3.c_str()), const_cast<char*>(str4.c_str()));
+			HashMapTestTemplate<std::string>::TestRemove(str1, str2, str3, str4);
+			HashMapTestTemplate<const std::string>::TestRemove(str1, str2, str3, str4);
+			HashMapTestTemplate<Foo>::TestRemove(Foo(value1), Foo(value2), Foo(value3), Foo(value4));
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)

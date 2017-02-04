@@ -82,7 +82,7 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(*it == *map.Insert(pair));
 		}
 
-		static void TestIndexOfOperator(const TKey& value1, const TKey& value2, const TKey& value3)
+		static void TestIndexOfOperator(const TKey& value1, const TKey& value2, const TKey& value3, const TKey& value4)
 		{
 			EntryType pair1(value1, 1U);
 			EntryType pair2(value2, 2U);
@@ -100,7 +100,25 @@ namespace UnitTestLibraryDesktop
 			const MapType map2(map1);
 			Assert::AreEqual(3U, map2.Size());
 			Assert::AreEqual(3U, map2[value3]);
-			Assert::ExpectException<std::out_of_range>([&map2] { map2[1U]; });
+			Assert::ExpectException<std::out_of_range>([&map2, &value4] { map2[value4]; });
+		}
+
+		static void TestRemove(const TKey& value1, const TKey& value2, const TKey& value3, const TKey& value4)
+		{
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			EntryType pair3(value3, 3U);
+			MapType map;
+			Assert::IsFalse(map.Remove(value4));
+			map.Insert(pair1);
+			map.Insert(pair2);
+			map.Insert(pair3);
+			Assert::AreEqual(3U, map.Size());
+			Assert::IsFalse(map.Remove(value4));
+			Assert::IsTrue(map.Remove(value2));
+			Assert::IsTrue(map.Remove(value3));
+			Assert::IsTrue(map.Remove(value1));
+			Assert::IsFalse(map.Remove(value1));
 		}
 	};
 }

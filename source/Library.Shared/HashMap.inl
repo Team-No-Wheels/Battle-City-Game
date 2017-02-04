@@ -118,7 +118,7 @@ namespace AnonymousEngine
 		}
 		return it;
 	}
-	/*
+
 	template <typename TKey, typename TData, typename THashFunctor>
 	bool HashMap<TKey, TData, THashFunctor>::Remove(const TKey& key)
 	{
@@ -130,7 +130,7 @@ namespace AnonymousEngine
 		}
 		return false;
 	}
-	*/
+
 	template <typename TKey, typename TData, typename THashFunctor>
 	TData& HashMap<TKey, TData, THashFunctor>::operator[](const TKey& key)
 	{
