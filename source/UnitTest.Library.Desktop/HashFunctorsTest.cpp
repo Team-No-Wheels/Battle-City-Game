@@ -66,14 +66,20 @@ namespace UnitTestLibraryDesktop
 			const char* string1 = "Hello";
 			const char* string2 = "Hello";
 			const char* string3 = "Hello, World!";
+			const char* string4 = "Foo";
 			AnonymousEngine::DefaultHashFunctor<char*> charPtrFunctor;
 			Assert::AreEqual(charPtrFunctor(string1), charPtrFunctor(string2));
 			Assert::AreEqual(charPtrFunctor(string1), charPtrFunctor(string1));
 			Assert::AreNotEqual(charPtrFunctor(string1), charPtrFunctor(string3));
+			Assert::AreNotEqual(charPtrFunctor(string1), charPtrFunctor(string3));
+			Assert::AreEqual(charPtrFunctor(string4), charPtrFunctor(string4));
+			Assert::IsTrue(charPtrFunctor(nullptr) == 0U);
 			AnonymousEngine::DefaultHashFunctor<const char*> constCharPtrFunctor;
 			Assert::AreEqual(constCharPtrFunctor(string1), constCharPtrFunctor(string2));
 			Assert::AreEqual(constCharPtrFunctor(string1), constCharPtrFunctor(string1));
 			Assert::AreNotEqual(constCharPtrFunctor(string1), constCharPtrFunctor(string3));
+			Assert::IsTrue(constCharPtrFunctor("") == 0U);
+			Assert::IsTrue(constCharPtrFunctor(nullptr) == 0U);
 		}
 
 		TEST_METHOD(TestHashFunctionWithString)
