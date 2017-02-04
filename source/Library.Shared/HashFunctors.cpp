@@ -59,12 +59,12 @@ namespace AnonymousEngine
 		return hash;
 	}
 
-	std::uint32_t DefaultHashFunctor<char*>::operator()(const char*& data) const
+	std::uint32_t DefaultHashFunctor<char*>::operator()(const char* data) const
 	{
 		return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(data), static_cast<std::uint32_t>(strlen(data)));
 	}
 
-	std::uint32_t DefaultHashFunctor<const char*>::operator()(const char*& data) const
+	std::uint32_t DefaultHashFunctor<const char*>::operator()(const char* data) const
 	{
 		return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(data), static_cast<std::uint32_t>(strlen(data)));
 	}

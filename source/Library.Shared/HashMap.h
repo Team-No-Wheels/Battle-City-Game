@@ -37,7 +37,7 @@ namespace AnonymousEngine
 		public:
 			/** Default constructor with default implementation
 			 */
-			Iterator() = default;
+			Iterator();
 			/** Copy constructor with default implementation
 			 *  @param rhs The iterator to copy from
 			*/
@@ -83,13 +83,15 @@ namespace AnonymousEngine
 		private:
 			std::uint32_t mIndex;
 			typename ChainType::Iterator mChainIterator;
+			HashMap* mOwner;
 			
 			// initialize the iterator with given values
-			Iterator(std::uint32_t index, ChainIterator& it);
+			Iterator(const std::uint32_t index, const ChainIterator it, HashMap* owner);
 
 			friend HashMap;
 		};
 
+		//TODO: move buckets to a static const uint
 		/** Initializes a hashmap with provided capacity (no. of buckets).
 		 *  A default capaicty is provided in case the user doesn't supply any
 		 */
@@ -115,26 +117,26 @@ namespace AnonymousEngine
 		 *  @param entry The entry to insert into the hashmap
 		 *  @return An iterator to the inserted element or with the given key if an element already exists
 		 */
-		Iterator Insert(const EntryType& entry);
+		Iterator Insert(EntryType& entry);
 
 		/** Insert an entry into the hashmap.
 		*   @param key The key of the element which should be removed from the hashmap
 		*   @return A boolean indicating whether the element was removed or not
 		*/
-		bool Remove(const TKey& key);
+		//bool Remove(const TKey& key);
 
 		/** Returns a reference to the data element for a given key.
 		 *  If the given key does not exist in the hashmap, insert a default initialized value and return a reference to that
 		 *  @param key The key for which the element has to be retrieved
 		 *  @returns A reference to the data for the given key
 		 */
-		TData& operator[](const TKey& key);
+		//TData& operator[](const TKey& key);
 		/** Returns a constant reference to the data element for a given key.
 		*  If the given key does not exist in the hashmap, this method throws an exception
 		*  @param key The key for which the element has to be retrieved
 		*  @returns A constant reference to the data for the given key
 		*/
-		const TData& operator[](const TKey& key) const;
+		//const TData& operator[](const TKey& key) const;
 
 		/** Clears the contents of the hashmap
 		 */
@@ -165,9 +167,10 @@ namespace AnonymousEngine
 	private:
 		BucketType mData;
 		std::uint32_t mSize;
+		Iterator mBegin;
 
-		std::uint32_t CalculateIndex(const TKey& key);
 		Iterator InsertEntry(TKey& key, TData& data);
+		std::uint32_t CalculateIndex(const TKey& key) const;
 	};
 }
 

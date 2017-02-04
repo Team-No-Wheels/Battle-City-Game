@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdint>
 #include "Foo.h"
+#include "HashMap.h"
 #include "SList.h"
 #include "Vector.h"
 
@@ -94,6 +95,20 @@ namespace Microsoft
 				try
 				{
 					valueString = std::to_wstring((*it).Data());
+				}
+				catch (std::exception)
+				{
+				}
+				return valueString;
+			}
+
+			template<>
+			inline std::wstring ToString<AnonymousEngine::HashMap<std::uint32_t, std::uint32_t>::Iterator>(const AnonymousEngine::HashMap<std::uint32_t, std::uint32_t>::Iterator& it)
+			{
+				std::wstring valueString;
+				try
+				{
+					valueString = std::to_wstring((*it).first);
 				}
 				catch (std::exception)
 				{
