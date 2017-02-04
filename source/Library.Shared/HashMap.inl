@@ -188,11 +188,12 @@ namespace AnonymousEngine
 	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::InsertEntry(TKey& key, TData& data)
 	{
 		std::uint32_t index = CalculateIndex(key);
+		ChainIterator it = mData[index].PushBack(std::make_pair(key, data));
 		if (index < mBegin.mIndex)
 		{
 			mBegin = Iterator(index, mData[index].begin(), this);
 		}
-		return Iterator(index, mData[index].PushBack(std::make_pair(key, data)), this);
+		return Iterator(index, it, this);
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>

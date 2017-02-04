@@ -25,30 +25,30 @@ namespace UnitTestLibraryDesktop
 		{
 			std::uint32_t value1 = mHelper.GetRandomUInt32();
 			std::uint32_t value2 = mHelper.GetRandomUInt32();
-			/*std::string str1 = "hello1";
-			std::string str2 = "hello2";*/
+			std::string str1 = "hello1";
+			std::string str2 = "hello2";
 			HashMapTestTemplate<std::uint32_t>::TestCopyConstructor(value1, value2);
-			/*HashMapTestTemplate<std::uint32_t*>::TestCopyConstructor(&value1, &value2);
+			HashMapTestTemplate<std::uint32_t*>::TestCopyConstructor(&value1, &value2);
 			HashMapTestTemplate<const char*>::TestCopyConstructor(str1.c_str(), str2.c_str());
 			HashMapTestTemplate<char*>::TestCopyConstructor(const_cast<char*>(str1.c_str()), const_cast<char*>(str2.c_str()));
 			HashMapTestTemplate<std::string>::TestCopyConstructor(str1, str2);
 			HashMapTestTemplate<const std::string>::TestCopyConstructor(str1, str2);
-			HashMapTestTemplate<Foo>::TestCopyConstructor(Foo(value1), Foo(value2));*/
+			HashMapTestTemplate<Foo>::TestCopyConstructor(Foo(value1), Foo(value2));
 		}
 
 		TEST_METHOD(TestAssignmentOperator)
 		{
 			std::uint32_t value1 = mHelper.GetRandomUInt32();
 			std::uint32_t value2 = mHelper.GetRandomUInt32();
-			/*std::string str1 = "hello1";
-			std::string str2 = "hello2";*/
+			std::string str1 = "hello1";
+			std::string str2 = "hello2";
 			HashMapTestTemplate<std::uint32_t>::TestCopyConstructor(value1, value2);
-			/*HashMapTestTemplate<std::uint32_t*>::TestCopyConstructor(&value1, &value2);
+			HashMapTestTemplate<std::uint32_t*>::TestCopyConstructor(&value1, &value2);
 			HashMapTestTemplate<const char*>::TestCopyConstructor(str1.c_str(), str2.c_str());
 			HashMapTestTemplate<char*>::TestCopyConstructor(const_cast<char*>(str1.c_str()), const_cast<char*>(str2.c_str()));
 			HashMapTestTemplate<std::string>::TestCopyConstructor(str1, str2);
 			HashMapTestTemplate<const std::string>::TestCopyConstructor(str1, str2);
-			HashMapTestTemplate<Foo>::TestCopyConstructor(Foo(value1), Foo(value2));*/
+			HashMapTestTemplate<Foo>::TestCopyConstructor(Foo(value1), Foo(value2));
 		}
 
 		TEST_METHOD(TestFind)
