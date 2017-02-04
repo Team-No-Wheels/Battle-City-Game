@@ -6,28 +6,51 @@ namespace AnonymousEngine
 	template <typename TKey, typename TData, typename THashFunctor>
 	typename HashMap<TKey, TData, THashFunctor>::Iterator& HashMap<TKey, TData, THashFunctor>::Iterator::operator++()
 	{
-		//TODO: increment
+		if (mIndex < mData.Size())
+		{
+			if (mChainIterator == mData[mIndex].end())
+			{
+				++mIndex;
+				if (mIndex < mData.Size())
+				{
+					mChainIterator = mData[mIndex].begin();
+				}
+			}
+			else
+			{
+				++mChainIterator;
+			}
+		}
 		return *this;
 	}
 	
 	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::Iterator& HashMap<TKey, TData, THashFunctor>::Iterator::operator++(int)
+	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::Iterator::operator++(int)
 	{
-		//TODO: increment and return copy
-		return *this;
+		Iterator it = ++(*this);
+		return it;
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
 	typename HashMap<TKey, TData, THashFunctor>::EntryType& HashMap<TKey, TData, THashFunctor>::Iterator::operator*() const
 	{
-		//TODO: check owner
+		if (mIndex < mData.Size() && mChainIterator != mData[mIndex].end())
+		{
+			return *mChainIterator;
+		}
+		throw std::out_of_range("Iterator out of range");
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor>
+	typename HashMap<TKey, TData, THashFunctor>::EntryType& HashMap<TKey, TData, THashFunctor>::Iterator::operator->() const
+	{
+		return operator*();
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
 	bool HashMap<TKey, TData, THashFunctor>::Iterator::operator==(const Iterator& rhs) const
 	{
-		//TODO: return correct value
-		return true;
+		return (mChainIterator == rhs.mChainIterator) && (mIndex == rhs.mIndex);
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
@@ -37,11 +60,10 @@ namespace AnonymousEngine
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
-	HashMap<TKey, TData, THashFunctor>::Iterator::Iterator(std::uint32_t index, ChainIterator it) :
+	HashMap<TKey, TData, THashFunctor>::Iterator::Iterator(std::uint32_t index, ChainIterator& it) :
 		mIndex(index), mChainIterator(it)
 	{
 	}
-
 #pragma endregion
 
 #pragma region HashMapMethods
@@ -51,50 +73,45 @@ namespace AnonymousEngine
 	{
 		mData.Reserve(buckets);
 		ChainType chainTypeObject;
-		for (std::uint32_t i = 0; i < buckets; i++)
+		for (std::uint32_t i = 0; i < buckets; ++i)
 		{
 			mData.PushBack(chainTypeObject);
 		}
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
-	bool HashMap<TKey, TData, THashFunctor>::Find(const TKey& key) const
+	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::Find(const TKey& key) const
 	{
-		// TODO: return iterator
 		std::uint32_t index = CalculateIndex(key);
 		ChainType chain = mData[index];
-		for (const auto& pair : chain)
+		for (const auto& it = chain.begin(); it != chain.end(); ++it)
 		{
-			if (pair.first == key)
+			if (it->first == key)
 			{
-				return true;
+				return Iterator(index, it);
 			}
 		}
-		return false;
+		return end();
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
-	void HashMap<TKey, TData, THashFunctor>::Insert(const EntryType& entry)
+	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::Insert(const EntryType& entry)
 	{
-		// TODO: return iterator returned by find
-		if (Find(entry.first))
+		Iterator it = Find(entry.first);
+		if (it == end())
 		{
-			return;
+			it = InsertEntry(entry.first, entry.second);
 		}
-		else
-		{
-			InsertEntry(entry.first, entry.second);
-			return;
-		}
+		return it;
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
 	bool HashMap<TKey, TData, THashFunctor>::Remove(const TKey& key)
 	{
-		// TODO: match return value with end()
-		if (Find(key))
+		Iterator it = Find(key);
+		if (it != end())
 		{
-			//TODO: call remove on the Slist at index and pass the data from the iterator
+			mData[it.mIndex].Remove(*it);
 			return true;
 		}
 		return false;
@@ -103,30 +120,19 @@ namespace AnonymousEngine
 	template <typename TKey, typename TData, typename THashFunctor>
 	TData& HashMap<TKey, TData, THashFunctor>::operator[](const TKey& key)
 	{
-		if (Find(key))
-		{
-			// TODO: return reference to dereference of iterator
-			return (*(mData[0].begin())).second;
-		}
-		else
+		Iterator it = Find(key);
+		if (it != end())
 		{
 			TData data;
-			return (*InsertEntry(key, data)).second;
+			it = InsertEntry(key, data);
 		}
+		return it->second;
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
 	const TData& HashMap<TKey, TData, THashFunctor>::operator[](const TKey& key) const
 	{
-		if (Find(key))
-		{
-			// TODO: return reference to dereference of iterator
-			return (*(mData[0].begin())).second;
-		}
-		else
-		{
-			throw std::out_of_range("Key not found");
-		}
+		return *Find(key);
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
@@ -138,8 +144,7 @@ namespace AnonymousEngine
 	template <typename TKey, typename TData, typename THashFunctor>
 	bool HashMap<TKey, TData, THashFunctor>::ContainsKey(const TKey& key)
 	{
-		// TODO: check find's return with end()
-		return Find(key);
+		return (Find(key) != end());
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
@@ -152,19 +157,38 @@ namespace AnonymousEngine
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
-	std::uint32_t HashMap<TKey, TData, THashFunctor>::CalculateIndex(const TKey& key)
+	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::begin() const
 	{
-		static THashFunctor hashFunctor;
-		return (hashFunctor(key) % mData.Capacity());
+		for (std::uint32_t index = 0; index < mData.Size(); ++index)
+		{
+			if (mData[index].Size() > 0)
+			{
+				return Iterator(index, mData[index].begin());
+			}
+		}
+		return Iterator(0, mData[0].begin());
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::EntryType& HashMap<TKey, TData, THashFunctor>::InsertEntry(TKey& key, TData& data)
+	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::end() const
+	{
+		return Iterator(mData.Size(), mData[mData.Size() - 1].end());
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor>
+	std::uint32_t HashMap<TKey, TData, THashFunctor>::CalculateIndex(const TKey& key)
+	{
+		static THashFunctor hashFunctor;
+		return (hashFunctor(key) % mData.Size());
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor>
+	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::InsertEntry(TKey& key, TData& data)
 	{
 		std::uint32_t index = CalculateIndex(key);
 		ChainIterator it;
 		it = mData[index].PushBack(std::make_pair<TKey, TData>(key, TData()));
-		return *it;
+		return Iterator(index, it);
 	}
 #pragma endregion
 }

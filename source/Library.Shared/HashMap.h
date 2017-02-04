@@ -56,14 +56,19 @@ namespace AnonymousEngine
 			*/
 			Iterator& operator++();
 			/** Moves the iterator to next location.
-			 *  @return A reference to another iterator which points to the location before the increment
+			 *  @return An iterator which points to the location before the increment
 			*/
-			Iterator& operator++(int);
+			Iterator operator++(int);
 
 			/** Get the entry in the hashmap at the location pointed by the iterator
 			 *  @return A reference to the entry at the location pointed by the iterator
 			*/
 			EntryType& operator*() const;
+
+			/** Get the entry in the hashmap at the location pointed by the iterator
+			 *  @return A reference to the entry at the location pointed by the iterator
+			*/
+			EntryType& operator->() const;
 			
 			/** Check if two iterators are equal
 			 *  @param rhs The other iterator to which the current one should be compared
@@ -79,7 +84,8 @@ namespace AnonymousEngine
 			std::uint32_t mIndex;
 			typename ChainType::Iterator mChainIterator;
 			
-			Iterator(std::uint32_t index, ChainIterator it);
+			// initialize the iterator with given values
+			Iterator(std::uint32_t index, ChainIterator& it);
 
 			friend HashMap;
 		};
@@ -99,19 +105,17 @@ namespace AnonymousEngine
 		*/
 		HashMap& operator=(const HashMap& rhs) = default;
 
-		//TODO: return iterator
 		/** Searches for a key in the hashmap and returns an iterator to the found element
 		 *  @param key The key to search for in the hashmap
 		 *  @return Iterator to the found key. Returns end() if the key is not found.
 		 */
-		bool Find(const TKey& key) const;
+		Iterator Find(const TKey& key) const;
 
-		//TODO: return iterator
 		/** Insert an entry into the hashmap. This method would not overwrite any existing element with the same key
 		 *  @param entry The entry to insert into the hashmap
 		 *  @return An iterator to the inserted element or with the given key if an element already exists
 		 */
-		void Insert(const EntryType& entry);
+		Iterator Insert(const EntryType& entry);
 
 		/** Insert an entry into the hashmap.
 		*   @param key The key of the element which should be removed from the hashmap
@@ -146,8 +150,14 @@ namespace AnonymousEngine
 		 */
 		bool ContainsKey(const TKey& key);
 
-		/*Iterator begin() const;
-		Iterator end() const;*/
+		/** Return an iterator to the beginning of the hashmap
+		 *  @return An iterator to the beginning of the hashmap
+		 */
+		Iterator begin() const;
+		/** Return an iterator to the end of the hashmap. End doesn't point to anything inside the hashmap
+		 *  @return An iterator to the end of the hashmap
+		*/
+		Iterator end() const;
 
 		/** Finalizes the hashmap. Default implementation suffices here.
 		 */
@@ -157,7 +167,7 @@ namespace AnonymousEngine
 		std::uint32_t mSize;
 
 		std::uint32_t CalculateIndex(const TKey& key);
-		EntryType& InsertEntry(TKey& key, TData& data);
+		Iterator InsertEntry(TKey& key, TData& data);
 	};
 }
 

@@ -12,6 +12,13 @@ namespace UnitTestLibraryDesktop
 	public:
 		TEST_METHOD(TestDefaultConstructor)
 		{
+			HashMapTestTemplate<std::uint32_t>::TestDefaultConstructor();
+			HashMapTestTemplate<std::uint32_t*>::TestDefaultConstructor();
+			HashMapTestTemplate<const char*>::TestDefaultConstructor();
+			HashMapTestTemplate<char*>::TestDefaultConstructor();
+			HashMapTestTemplate<std::string>::TestDefaultConstructor();
+			HashMapTestTemplate<const std::string>::TestDefaultConstructor();
+			HashMapTestTemplate<Foo>::TestDefaultConstructor();
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
