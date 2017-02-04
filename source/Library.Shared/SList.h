@@ -51,9 +51,8 @@ namespace AnonymousEngine
 
 			/** Give an iterator which points to the current location in the container and advances the iterator to the next
 			*  location in the container
-			*  @param unused This paremeter is not used. It is used by C++ compiler for identifying post increment from pre increment
 			*/
-			Iterator operator++(int unused);
+			Iterator operator++(int);
 
 			/** Get the current value in the container that the iterator points to
 			*   @returns A constant reference to the value that the iterator points to

@@ -34,9 +34,8 @@ namespace AnonymousEngine
 
 			/** Give an iterator which points to the current location in the container and advances the iterator to the next
 			*  location in the container
-			*  @param unused This paremeter is not used. It is used by C++ compiler for identifying post increment from pre increment
 			*/
-			Iterator operator++(int unused);
+			Iterator operator++(int);
 
 			/** Get the current value in the container that the iterator points to
 			*   @returns A constant reference to the value that the iterator points to
@@ -61,8 +60,9 @@ namespace AnonymousEngine
 		};
 
 		/** Constructs a new vector
+		 *  @param capacity The initial capacity of the vector
 		*/
-		Vector();
+		Vector(std::uint32_t capacity = 3U);
 
 		/** Copy constructor to construct a copy of vector
 		*	@param vector The other list to create copy from

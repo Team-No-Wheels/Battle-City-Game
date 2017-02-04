@@ -12,6 +12,8 @@
       <Filter>SupportingClasses</Filter>
     </ClCompile>
     <ClCompile Include="VectorIteratorTest.cpp" />
+    <ClCompile Include="HashFunctorsTest.cpp" />
+    <ClCompile Include="HashMapTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -28,6 +30,7 @@
       <Filter>SupportingClasses</Filter>
     </ClInclude>
     <ClInclude Include="VectorIteratorTestTemplate.h" />
+    <ClInclude Include="HashMapTestTemplate.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SupportingClasses">

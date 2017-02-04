@@ -20,10 +20,8 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
-	typename Vector<T>::Iterator Vector<T>::Iterator::operator++(int unused)
+	typename Vector<T>::Iterator Vector<T>::Iterator::operator++(int)
 	{
-		// This line is used to get rid of unused variable warnings
-		unused;
 		Iterator it = *this;
 		operator++();
 		return it;
@@ -62,11 +60,11 @@ namespace AnonymousEngine
 #pragma region VectorMethods
 
 	template <typename T>
-	Vector<T>::Vector() :
+	Vector<T>::Vector(std::uint32_t capacity) :
 		mData(nullptr), mSize(0), mCapacity(0), mStrategy(nullptr), mDefaultStrategy(new DefaultVectorCapacityStrategy())
 	{
 		mStrategy = mDefaultStrategy;
-		Reserve(mCapacity + (*mStrategy)(mSize, mCapacity));
+		Reserve(capacity);
 	}
 
 	template <typename T>
