@@ -33,10 +33,8 @@ namespace AnonymousEngine
 	}
 
 	template<typename T>
-	typename SList<T>::Iterator SList<T>::Iterator::operator++(int unused)
+	typename SList<T>::Iterator SList<T>::Iterator::operator++(int)
 	{
-		// The line below is to get rid of the unused parameter warning
-		unused;
 		if (mNode != nullptr)
 		{
 			Iterator it = *this;

@@ -20,10 +20,8 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
-	typename Vector<T>::Iterator Vector<T>::Iterator::operator++(int unused)
+	typename Vector<T>::Iterator Vector<T>::Iterator::operator++(int)
 	{
-		// This line is used to get rid of unused variable warnings
-		unused;
 		Iterator it = *this;
 		operator++();
 		return it;
