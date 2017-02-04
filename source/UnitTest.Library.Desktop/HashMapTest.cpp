@@ -85,6 +85,23 @@ namespace UnitTestLibraryDesktop
 			HashMapTestTemplate<Foo>::TestInsert(Foo(value1), Foo(value2), Foo(value3));
 		}
 
+		TEST_METHOD(TestDereferenceOperators)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			std::uint32_t value3 = mHelper.GetRandomUInt32();
+			std::string str1 = "hello1";
+			std::string str2 = "hello2";
+			std::string str3 = "hello3";
+			HashMapTestTemplate<std::uint32_t>::TestDereferenceOperators(value1, value2, value3);
+			HashMapTestTemplate<std::uint32_t*>::TestDereferenceOperators(&value1, &value2, &value3);
+			HashMapTestTemplate<const char*>::TestDereferenceOperators(str1.c_str(), str2.c_str(), str3.c_str());
+			HashMapTestTemplate<char*>::TestDereferenceOperators(const_cast<char*>(str1.c_str()), const_cast<char*>(str2.c_str()), const_cast<char*>(str3.c_str()));
+			HashMapTestTemplate<std::string>::TestDereferenceOperators(str1, str2, str3);
+			HashMapTestTemplate<const std::string>::TestDereferenceOperators(str1, str2, str3);
+			HashMapTestTemplate<Foo>::TestDereferenceOperators(Foo(value1), Foo(value2), Foo(value3));
+		}
+
 		TEST_METHOD(TestIndexOfOperator)
 		{
 			std::uint32_t value1 = mHelper.GetRandomUInt32();
@@ -123,6 +140,38 @@ namespace UnitTestLibraryDesktop
 			HashMapTestTemplate<std::string>::TestRemove(str1, str2, str3, str4);
 			HashMapTestTemplate<const std::string>::TestRemove(str1, str2, str3, str4);
 			HashMapTestTemplate<Foo>::TestRemove(Foo(value1), Foo(value2), Foo(value3), Foo(value4));
+		}
+
+		TEST_METHOD(TestContainsKey)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			std::uint32_t value3 = mHelper.GetRandomUInt32();
+			std::string str1 = "hello1";
+			std::string str2 = "hello2";
+			std::string str3 = "hello3";
+			HashMapTestTemplate<std::uint32_t>::TestContainsKey(value1, value2, value3);
+			HashMapTestTemplate<std::uint32_t*>::TestContainsKey(&value1, &value2, &value3);
+			HashMapTestTemplate<const char*>::TestContainsKey(str1.c_str(), str2.c_str(), str3.c_str());
+			HashMapTestTemplate<char*>::TestContainsKey(const_cast<char*>(str1.c_str()), const_cast<char*>(str2.c_str()), const_cast<char*>(str3.c_str()));
+			HashMapTestTemplate<std::string>::TestContainsKey(str1, str2, str3);
+			HashMapTestTemplate<const std::string>::TestContainsKey(str1, str2, str3);
+			HashMapTestTemplate<Foo>::TestContainsKey(Foo(value1), Foo(value2), Foo(value3));
+		}
+
+		TEST_METHOD(TestClear)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			std::string str1 = "hello1";
+			std::string str2 = "hello2";
+			HashMapTestTemplate<std::uint32_t>::TestClear(value1, value2);
+			HashMapTestTemplate<std::uint32_t*>::TestClear(&value1, &value2);
+			HashMapTestTemplate<const char*>::TestClear(str1.c_str(), str2.c_str());
+			HashMapTestTemplate<char*>::TestClear(const_cast<char*>(str1.c_str()), const_cast<char*>(str2.c_str()));
+			HashMapTestTemplate<std::string>::TestClear(str1, str2);
+			HashMapTestTemplate<const std::string>::TestClear(str1, str2);
+			HashMapTestTemplate<Foo>::TestClear(Foo(value1), Foo(value2));
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)

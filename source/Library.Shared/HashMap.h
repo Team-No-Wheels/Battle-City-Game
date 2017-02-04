@@ -15,7 +15,7 @@ namespace AnonymousEngine
 	{
 	public:
 		/** The type of each entry in the hashmap
-		 */
+		*/
 		typedef std::pair<TKey, TData> EntryType;
 		/** The type of each chain in the hashmap bucket
 		*/
@@ -63,12 +63,22 @@ namespace AnonymousEngine
 			/** Get the entry in the hashmap at the location pointed by the iterator
 			 *  @return A reference to the entry at the location pointed by the iterator
 			*/
-			EntryType& operator*() const;
+			EntryType& operator*();
+
+			/** Get the entry in the hashmap at the location pointed by the iterator. Constant version
+			*   @return A reference to the entry at the location pointed by the iterator
+			*/
+			const EntryType& operator*() const;
 
 			/** Get the entry in the hashmap at the location pointed by the iterator
-			 *  @return A reference to the entry at the location pointed by the iterator
+			 *  @return A pointer to the entry at the location pointed by the iterator
 			*/
-			EntryType& operator->() const;
+			EntryType* operator->();
+
+			/** Get the entry in the hashmap at the location pointed by the iterator constant version
+			*  @return A pointer to the entry at the location pointed by the iterator
+			*/
+			const EntryType* operator->() const;
 			
 			/** Check if two iterators are equal
 			 *  @param rhs The other iterator to which the current one should be compared

@@ -82,6 +82,24 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(*it == *map.Insert(pair));
 		}
 
+		static void TestDereferenceOperators(const TKey& value1, const TKey& value2, const TKey& value3)
+		{
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			EntryType pair3(value3, 3U);
+			MapType map;
+			map.Insert(pair1);
+			map.Insert(pair2);
+			map.Insert(pair3);
+			Assert::AreEqual(3U, map.Size());
+			Assert::IsTrue(pair1 == *map.Find(value1));
+			Assert::IsTrue(pair2 == *map.Find(value2));
+			Assert::IsTrue(pair3 == *map.Find(value3));
+			Assert::IsTrue(pair1.second == map.Find(value1)->second);
+			Assert::IsTrue(pair2.second == map.Find(value2)->second);
+			Assert::IsTrue(pair3.second == map.Find(value3)->second);
+		}
+
 		static void TestIndexOfOperator(const TKey& value1, const TKey& value2, const TKey& value3, const TKey& value4)
 		{
 			EntryType pair1(value1, 1U);
@@ -119,6 +137,38 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(map.Remove(value3));
 			Assert::IsTrue(map.Remove(value1));
 			Assert::IsFalse(map.Remove(value1));
+		}
+
+		static void TestContainsKey(const TKey& value1, const TKey& value2, const TKey& value3)
+		{
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			EntryType pair3(value3, 3U);
+			MapType map;
+			Assert::IsFalse(map.ContainsKey(value1));
+			map.Insert(pair1);
+			map.Insert(pair2);
+			Assert::IsTrue(map.ContainsKey(value1));
+			Assert::IsTrue(map.ContainsKey(value2));
+			Assert::IsFalse(map.ContainsKey(value3));
+			map.Insert(pair3);
+			Assert::IsTrue(map.ContainsKey(value3));
+		}
+
+		static void TestClear(const TKey& value1, const TKey& value2)
+		{
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			MapType map;
+			Assert::IsTrue(map.begin() == map.end());
+			Assert::AreEqual(0U, map.Size());
+			map.Insert(pair1);
+			map.Insert(pair2);
+			Assert::IsTrue(map.begin() != map.end());
+			Assert::AreEqual(2U, map.Size());
+			map.Clear();
+			Assert::AreEqual(0U, map.Size());
+			Assert::IsTrue(map.begin() == map.end());
 		}
 	};
 }

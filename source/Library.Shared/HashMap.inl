@@ -45,7 +45,7 @@ namespace AnonymousEngine
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::EntryType& HashMap<TKey, TData, THashFunctor>::Iterator::operator*() const
+	typename HashMap<TKey, TData, THashFunctor>::EntryType& HashMap<TKey, TData, THashFunctor>::Iterator::operator*()
 	{
 		if (*this == mOwner->end())
 		{
@@ -55,9 +55,25 @@ namespace AnonymousEngine
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::EntryType& HashMap<TKey, TData, THashFunctor>::Iterator::operator->() const
+	const typename HashMap<TKey, TData, THashFunctor>::EntryType& HashMap<TKey, TData, THashFunctor>::Iterator::operator*() const
 	{
-		return operator*();
+		if (*this == mOwner->end())
+		{
+			throw std::out_of_range("iterator out of range");
+		}
+		return *mChainIterator;
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor>
+	typename HashMap<TKey, TData, THashFunctor>::EntryType* HashMap<TKey, TData, THashFunctor>::Iterator::operator->()
+	{
+		return &operator*();
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor>
+	const typename HashMap<TKey, TData, THashFunctor>::EntryType* HashMap<TKey, TData, THashFunctor>::Iterator::operator->() const
+	{
+		return &operator*();
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
@@ -139,7 +155,7 @@ namespace AnonymousEngine
 		{
 			it = InsertEntry(key, TData());
 		}
-		return (*it).second;
+		return it->second;
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
@@ -150,7 +166,7 @@ namespace AnonymousEngine
 		{
 			std::invalid_argument("Key not found");
 		}
-		return (*it).second;
+		return it->second;
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
@@ -170,9 +186,10 @@ namespace AnonymousEngine
 	{
 		for (auto& chainObject : mData)
 		{
-			mData.Clear();
+			chainObject.Clear();
 		}
 		mBegin = end();
+		mSize = 0;
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
