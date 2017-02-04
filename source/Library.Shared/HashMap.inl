@@ -97,7 +97,7 @@ namespace AnonymousEngine
 	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::Find(const TKey& key) const
 	{
 		std::uint32_t index = CalculateIndex(key);
-		ChainType chain = mData[index];
+		const ChainType& chain = mData[index];
 		for (auto it = chain.begin(); it != chain.end(); ++it)
 		{
 			if ((*it).first == key)
@@ -115,7 +115,6 @@ namespace AnonymousEngine
 		if (it == end())
 		{
 			it = InsertEntry(entry.first, entry.second);
-			++mSize;
 		}
 		return it;
 	}
@@ -131,24 +130,28 @@ namespace AnonymousEngine
 		}
 		return false;
 	}
-
+	*/
 	template <typename TKey, typename TData, typename THashFunctor>
 	TData& HashMap<TKey, TData, THashFunctor>::operator[](const TKey& key)
 	{
 		Iterator it = Find(key);
-		if (it != end())
+		if (it == end())
 		{
-			TData data;
-			it = InsertEntry(key, data);
+			it = InsertEntry(key, TData());
 		}
-		return it->second;
+		return (*it).second;
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
 	const TData& HashMap<TKey, TData, THashFunctor>::operator[](const TKey& key) const
 	{
-		return *Find(key);
-	}*/
+		Iterator it = Find(key);
+		if (it == end())
+		{
+			std::invalid_argument("Key not found");
+		}
+		return (*it).second;
+	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
 	std::uint32_t HashMap<TKey, TData, THashFunctor>::Size() const
@@ -185,10 +188,11 @@ namespace AnonymousEngine
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::InsertEntry(TKey& key, TData& data)
+	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::InsertEntry(const TKey& key, const TData& data)
 	{
 		std::uint32_t index = CalculateIndex(key);
 		ChainIterator it = mData[index].PushBack(std::make_pair(key, data));
+		++mSize;
 		if (index < mBegin.mIndex)
 		{
 			mBegin = Iterator(index, mData[index].begin(), this);

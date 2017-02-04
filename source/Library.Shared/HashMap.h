@@ -130,13 +130,13 @@ namespace AnonymousEngine
 		 *  @param key The key for which the element has to be retrieved
 		 *  @returns A reference to the data for the given key
 		 */
-		//TData& operator[](const TKey& key);
+		TData& operator[](const TKey& key);
 		/** Returns a constant reference to the data element for a given key.
 		*  If the given key does not exist in the hashmap, this method throws an exception
 		*  @param key The key for which the element has to be retrieved
 		*  @returns A constant reference to the data for the given key
 		*/
-		//const TData& operator[](const TKey& key) const;
+		const TData& operator[](const TKey& key) const;
 
 		/** Clears the contents of the hashmap
 		 */
@@ -169,7 +169,7 @@ namespace AnonymousEngine
 		std::uint32_t mSize;
 		Iterator mBegin;
 
-		Iterator InsertEntry(TKey& key, TData& data);
+		Iterator InsertEntry(const TKey& key, const TData& data);
 		std::uint32_t CalculateIndex(const TKey& key) const;
 	};
 }

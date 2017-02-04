@@ -11,35 +11,38 @@ namespace UnitTestLibraryDesktop
 	template <typename TKey>
 	class HashMapTestTemplate
 	{
+		typedef AnonymousEngine::HashMap<TKey, std::uint32_t> MapType;
+		typedef typename AnonymousEngine::HashMap<TKey, std::uint32_t>::EntryType EntryType;
+		typedef typename AnonymousEngine::HashMap<TKey, std::uint32_t>::Iterator IteratorType;
 	public:
 		static void TestDefaultConstructor()
 		{
-			AnonymousEngine::HashMap<TKey, std::uint32_t> map;
+			MapType map;
 			Assert::AreEqual(0U, map.Size());
 		}
 
 		static void TestCopyConstructor(const TKey& value1, const TKey& value2)
 		{
-			std::pair<TKey, std::uint32_t> pair1(value1, 1U);
-			std::pair<TKey, std::uint32_t> pair2(value2, 2U);
-			AnonymousEngine::HashMap<TKey, std::uint32_t> map1;
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			MapType map1;
 			map1.Insert(pair1);
 			map1.Insert(pair2);
 			Assert::AreEqual(2U, map1.Size());
-			AnonymousEngine::HashMap<TKey, std::uint32_t> map2(map1);
+			MapType map2(map1);
 			Assert::AreEqual(map1.Size(), map2.Size());
 			Assert::IsTrue(*map1.begin() == *map2.begin());
 		}
 
 		static void TestAssignmentOperator(const TKey& value1, const TKey& value2)
 		{
-			std::pair<TKey, std::uint32_t> pair1(value1, 1U);
-			std::pair<TKey, std::uint32_t> pair2(value2, 2U);
-			AnonymousEngine::HashMap<TKey, std::uint32_t> map1;
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			MapType map1;
 			map1.Insert(pair1);
 			map1.Insert(pair2);
 			Assert::AreEqual(2U, map1.Size());
-			AnonymousEngine::HashMap<TKey, std::uint32_t> map2;
+			MapType map2;
 			map2 = map1;
 			Assert::AreEqual(map1.Size(), map2.Size());
 			Assert::IsTrue(*map1.begin() == *map2.begin());
@@ -47,32 +50,57 @@ namespace UnitTestLibraryDesktop
 
 		static void TestFind(const TKey& value1, const TKey& value2, const TKey& value3)
 		{
-			std::pair<TKey, std::uint32_t> pair1(value1, 1U);
-			std::pair<TKey, std::uint32_t> pair2(value2, 2U);
-			std::pair<TKey, std::uint32_t> pair3(value3, 3U);
-			AnonymousEngine::HashMap<TKey, std::uint32_t> map;
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			EntryType pair3(value3, 3U);
+			MapType map;
+			Assert::IsTrue(map.end() == map.Find(value1));
 			map.Insert(pair1);
-			//map.Insert(pair2);
-			//map.Insert(pair3);
-			Assert::AreEqual(1U, map.Size());
-			auto it = map.Find(value1);
+			map.Insert(pair2);
+			Assert::IsTrue(map.end() != map.Find(value1));
+			Assert::IsTrue(map.end() == map.Find(value3));
+			map.Insert(pair3);
+			Assert::AreEqual(3U, map.Size());
 			Assert::IsTrue(pair1 == *map.Find(value1));
-			/*Assert::IsTrue(pair2 == *map.Find(value2));
-			Assert::IsTrue(pair3 == *map.Find(value3));*/
+			Assert::IsTrue(pair2 == *map.Find(value2));
+			Assert::IsTrue(pair3 == *map.Find(value3));
 		}
 
 		static void TestInsert(const TKey& value1, const TKey& value2, const TKey& value3)
 		{
-			std::pair<TKey, std::uint32_t> pair1(value1, 1U);
-			std::pair<TKey, std::uint32_t> pair2(value2, 2U);
-			std::pair<TKey, std::uint32_t> pair3(value3, 3U);
-			std::pair<TKey, std::uint32_t> pair(value2, 3U);
-			AnonymousEngine::HashMap<TKey, std::uint32_t> map;
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			EntryType pair3(value3, 3U);
+			EntryType pair(value2, 3U);
+			MapType map;
 			map.Insert(pair1);
-			map.Insert(pair2);
-			typename AnonymousEngine::HashMap<TKey, std::uint32_t>::Iterator it = map.Insert(pair3);
+			IteratorType it = map.Insert(pair2);
+			map.Insert(pair3);
 			Assert::AreEqual(3U, map.Size());
+			Assert::IsTrue(pair1 == *map.Find(value1));
+			Assert::IsTrue(it == map.Insert(pair));
 			Assert::IsTrue(*it == *map.Insert(pair));
+		}
+
+		static void TestIndexOfOperator(const TKey& value1, const TKey& value2, const TKey& value3)
+		{
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			EntryType pair3(value3, 3U);
+			EntryType entry;
+			MapType map1;
+			map1.Insert(pair1);
+			map1.Insert(pair2);
+			Assert::AreEqual(1U, map1[value1]);
+			Assert::AreEqual(2U, map1[value2]);
+			Assert::AreEqual(entry.second, map1[value3]);
+			map1[value3] = 3U;
+			Assert::AreEqual(3U, map1[value3]);
+			Assert::AreEqual(3U, map1.Size());
+			const MapType map2(map1);
+			Assert::AreEqual(3U, map2.Size());
+			Assert::AreEqual(3U, map2[value3]);
+			Assert::ExpectException<std::out_of_range>([&map2] { map2[1U]; });
 		}
 	};
 }

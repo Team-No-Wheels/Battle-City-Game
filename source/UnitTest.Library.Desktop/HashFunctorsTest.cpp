@@ -7,6 +7,31 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+namespace AnonymousEngine
+{
+	template <>
+	class DefaultHashFunctor<UnitTestLibraryDesktop::Foo>
+	{
+	public:
+		std::uint32_t operator()(const UnitTestLibraryDesktop::Foo& data) const
+		{
+			std::uint32_t intData = data.Data();
+			return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(&intData), static_cast<std::uint32_t>(sizeof(intData)));
+		}
+	};
+
+	template <>
+	class DefaultHashFunctor<const UnitTestLibraryDesktop::Foo>
+	{
+	public:
+		std::uint32_t operator()(const UnitTestLibraryDesktop::Foo& data) const
+		{
+			std::uint32_t intData = data.Data();
+			return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(&intData), static_cast<std::uint32_t>(sizeof(intData)));
+		}
+	};
+}
+
 namespace UnitTestLibraryDesktop
 {
 	TEST_CLASS(HashFunctorsTest)
@@ -72,12 +97,8 @@ namespace UnitTestLibraryDesktop
 			Foo f2 = f1;
 			Foo f3 = Foo(mHelper.GetRandomUInt32());
 			AnonymousEngine::DefaultHashFunctor<Foo> fooFunctor;
-			AnonymousEngine::DefaultHashFunctor<std::uint32_t> intFunctor;
 			Assert::AreEqual(fooFunctor(f1), fooFunctor(f1));
-			Assert::AreNotEqual(fooFunctor(f1), fooFunctor(f2));
-			std::uint32_t value1 = f1.Data();
-			std::uint32_t value2 = f2.Data();
-			Assert::AreEqual(intFunctor(value1), intFunctor(value2));
+			Assert::AreEqual(fooFunctor(f1), fooFunctor(f2));
 			Assert::AreNotEqual(fooFunctor(f1), fooFunctor(f3));
 		}
 
