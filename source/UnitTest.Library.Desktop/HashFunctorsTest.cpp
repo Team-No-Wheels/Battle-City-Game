@@ -10,17 +10,6 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace AnonymousEngine
 {
 	template <>
-	class DefaultHashFunctor<UnitTestLibraryDesktop::Foo>
-	{
-	public:
-		std::uint32_t operator()(const UnitTestLibraryDesktop::Foo& data) const
-		{
-			std::uint32_t intData = data.Data();
-			return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(&intData), static_cast<std::uint32_t>(sizeof(intData)));
-		}
-	};
-
-	template <>
 	class DefaultHashFunctor<const UnitTestLibraryDesktop::Foo>
 	{
 	public:
@@ -67,30 +56,20 @@ namespace UnitTestLibraryDesktop
 			const char* string2 = "Hello";
 			const char* string3 = "Hello, World!";
 			const char* string4 = "Foo";
-			AnonymousEngine::DefaultHashFunctor<char*> charPtrFunctor;
-			Assert::AreEqual(charPtrFunctor(string1), charPtrFunctor(string2));
-			Assert::AreEqual(charPtrFunctor(string1), charPtrFunctor(string1));
-			Assert::AreNotEqual(charPtrFunctor(string1), charPtrFunctor(string3));
-			Assert::AreNotEqual(charPtrFunctor(string1), charPtrFunctor(string3));
-			Assert::AreEqual(charPtrFunctor(string4), charPtrFunctor(string4));
-			Assert::IsTrue(charPtrFunctor(nullptr) == 0U);
 			AnonymousEngine::DefaultHashFunctor<const char*> constCharPtrFunctor;
 			Assert::AreEqual(constCharPtrFunctor(string1), constCharPtrFunctor(string2));
 			Assert::AreEqual(constCharPtrFunctor(string1), constCharPtrFunctor(string1));
 			Assert::AreNotEqual(constCharPtrFunctor(string1), constCharPtrFunctor(string3));
+			Assert::AreEqual(constCharPtrFunctor(string4), constCharPtrFunctor(string4));
 			Assert::IsTrue(constCharPtrFunctor("") == 0U);
 			Assert::IsTrue(constCharPtrFunctor(nullptr) == 0U);
 		}
 
 		TEST_METHOD(TestHashFunctionWithString)
 		{
-			std::string string1 = "Hello";
-			std::string string2 = "Hello";
-			std::string string3 = "Hello, World!";
-			AnonymousEngine::DefaultHashFunctor<std::string> stringFunctor;
-			Assert::AreEqual(stringFunctor(string1), stringFunctor(string2));
-			Assert::AreEqual(stringFunctor(string1), stringFunctor(string1));
-			Assert::AreNotEqual(stringFunctor(string1), stringFunctor(string3));
+			const std::string string1 = "Hello";
+			const std::string string2 = "Hello";
+			const std::string string3 = "Hello, World!";
 			AnonymousEngine::DefaultHashFunctor<const std::string> constStringFunctor;
 			Assert::AreEqual(constStringFunctor(string1), constStringFunctor(string2));
 			Assert::AreEqual(constStringFunctor(string1), constStringFunctor(string1));
@@ -99,9 +78,9 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestHashFunctionWithFoo)
 		{
-			Foo f1 = Foo(mHelper.GetRandomUInt32());
-			Foo f2 = f1;
-			Foo f3 = Foo(mHelper.GetRandomUInt32());
+			const Foo f1 = Foo(mHelper.GetRandomUInt32());
+			const Foo f2 = f1;
+			const Foo f3 = Foo(mHelper.GetRandomUInt32());
 			AnonymousEngine::DefaultHashFunctor<Foo> fooFunctor;
 			Assert::AreEqual(fooFunctor(f1), fooFunctor(f1));
 			Assert::AreEqual(fooFunctor(f1), fooFunctor(f2));

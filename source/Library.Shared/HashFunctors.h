@@ -31,19 +31,6 @@ namespace AnonymousEngine
 		std::uint32_t operator()(const T& data) const;
 	};
 
-	/** The template specialization of DefaultHashFunctor for char*
-	*/
-	template <>
-	class DefaultHashFunctor<char*>
-	{
-	public:
-		/** This function returns the hash value for a given data
-		*  @param data The data for which hash has to be calculated
-		*  @return The calculated hash value
-		*/
-		std::uint32_t operator()(const char* data) const;
-	};
-
 	/** The template specialization of DefaultHashFunctor for const char*
 	*/
 	template <>
@@ -55,19 +42,6 @@ namespace AnonymousEngine
 		*  @return The calculated hash value
 		*/
 		std::uint32_t operator()(const char* data) const;
-	};
-
-	/** The template specialization of DefaultHashFunctor for std::string
-	*/
-	template <>
-	class DefaultHashFunctor<std::string>
-	{
-	public:
-		/** This function returns the hash value for a given data
-		*  @param data The data for which hash has to be calculated
-		*  @return The calculated hash value
-		*/
-		std::uint32_t operator()(const std::string& data) const;
 	};
 
 	/** The template specialization of DefaultHashFunctor for const std::string

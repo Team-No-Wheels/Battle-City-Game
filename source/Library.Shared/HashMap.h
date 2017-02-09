@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <utility>
+#include "Compare.h"
 #include "HashFunctors.h"
 #include "SList.h"
 #include "Vector.h"
@@ -10,7 +11,7 @@ namespace AnonymousEngine
 {
 	/** A templated Hashmap implementation
 	 */
-	template <typename TKey, typename TData, typename THashFunctor = DefaultHashFunctor<TKey>>
+	template <typename TKey, typename TData, typename THashFunctor = DefaultHashFunctor<const TKey>, typename TCompareFunctor = DefaultCompare<const TKey>>
 	class HashMap final
 	{
 	public:
@@ -96,12 +97,11 @@ namespace AnonymousEngine
 			HashMap* mOwner;
 			
 			// initialize the iterator with given values
-			Iterator(const std::uint32_t index, const ChainIterator it, HashMap* owner);
+			Iterator(const std::uint32_t index, const ChainIterator& it, HashMap* owner);
 
 			friend HashMap;
 		};
 
-		//TODO: move buckets to a static const uint
 		/** Initializes a hashmap with provided capacity (no. of buckets).
 		 *  A default capaicty is provided in case the user doesn't supply any
 		 */

@@ -4,14 +4,14 @@ namespace AnonymousEngine
 {
 #pragma region HashmapIteratorMethods
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	HashMap<TKey, TData, THashFunctor>::Iterator::Iterator() :
-		mIndex(0), mChainIterator(ChainIterator()), mOwner(nullptr)
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::Iterator() :
+		mIndex(0), mOwner(nullptr)
 	{
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::Iterator& HashMap<TKey, TData, THashFunctor>::Iterator::operator++()
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator& HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::operator++()
 	{
 		if (mOwner == nullptr)
 		{
@@ -36,17 +36,22 @@ namespace AnonymousEngine
 		return (*this);
 	}
 	
-	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::Iterator::operator++(int)
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::operator++(int)
 	{
 		Iterator it = (*this);
 		operator++();
 		return it;
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::EntryType& HashMap<TKey, TData, THashFunctor>::Iterator::operator*()
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::EntryType& HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::operator*()
 	{
+		if (mOwner == nullptr)
+		{
+			throw std::invalid_argument("Uninitialized iterator");
+		}
+
 		if (*this == mOwner->end())
 		{
 			throw std::out_of_range("iterator out of range");
@@ -54,42 +59,38 @@ namespace AnonymousEngine
 		return *mChainIterator;
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	const typename HashMap<TKey, TData, THashFunctor>::EntryType& HashMap<TKey, TData, THashFunctor>::Iterator::operator*() const
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	const typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::EntryType& HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::operator*() const
 	{
-		if (*this == mOwner->end())
-		{
-			throw std::out_of_range("iterator out of range");
-		}
-		return *mChainIterator;
+		return const_cast<const EntryType&>(const_cast<const typename HashMap::Iterator*>(this)->operator*());
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::EntryType* HashMap<TKey, TData, THashFunctor>::Iterator::operator->()
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::EntryType* HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::operator->()
 	{
 		return &operator*();
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	const typename HashMap<TKey, TData, THashFunctor>::EntryType* HashMap<TKey, TData, THashFunctor>::Iterator::operator->() const
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	const typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::EntryType* HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::operator->() const
 	{
 		return &operator*();
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	bool HashMap<TKey, TData, THashFunctor>::Iterator::operator==(const Iterator& rhs) const
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	bool HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::operator==(const Iterator& rhs) const
 	{
 		return (mOwner == rhs.mOwner) && (mIndex == rhs.mIndex) && (mChainIterator == rhs.mChainIterator);
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	bool HashMap<TKey, TData, THashFunctor>::Iterator::operator!=(const Iterator& rhs) const
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	bool HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::operator!=(const Iterator& rhs) const
 	{
 		return !(*this == rhs);
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	HashMap<TKey, TData, THashFunctor>::Iterator::Iterator(const std::uint32_t index, const ChainIterator it, HashMap* owner) :
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::Iterator(const std::uint32_t index, const ChainIterator& it, HashMap* owner) :
 		mIndex(index), mChainIterator(it), mOwner(owner)
 	{
 	}
@@ -97,8 +98,8 @@ namespace AnonymousEngine
 #pragma endregion
 
 #pragma region HashMapMethods
-	template <typename TKey, typename TData, typename THashFunctor>
-	HashMap<TKey, TData, THashFunctor>::HashMap(std::uint32_t buckets) :
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	HashMap<TKey, TData, THashFunctor, TCompareFunctor>::HashMap(std::uint32_t buckets) :
 		mData(BucketType(buckets)), mSize(0U), mBegin(Iterator())
 	{
 		// push default constructed lists into all slots in the vector
@@ -109,14 +110,15 @@ namespace AnonymousEngine
 		mBegin = end();
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::Find(const TKey& key) const
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Find(const TKey& key) const
 	{
 		std::uint32_t index = CalculateIndex(key);
+		static DefaultCompare<const TKey> compare;
 		const ChainType& chain = mData[index];
 		for (auto it = chain.begin(); it != chain.end(); ++it)
 		{
-			if ((*it).first == key)
+			if (compare((*it).first, key))
 			{
 				return Iterator(index, it, const_cast<HashMap*>(this));
 			}
@@ -124,8 +126,8 @@ namespace AnonymousEngine
 		return end();
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::Insert(EntryType& entry)
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Insert(EntryType& entry)
 	{
 		Iterator it = Find(entry.first);
 		if (it == end())
@@ -135,8 +137,8 @@ namespace AnonymousEngine
 		return it;
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	bool HashMap<TKey, TData, THashFunctor>::Remove(const TKey& key)
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	bool HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Remove(const TKey& key)
 	{
 		Iterator it = Find(key);
 		if (it != end())
@@ -147,8 +149,8 @@ namespace AnonymousEngine
 		return false;
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	TData& HashMap<TKey, TData, THashFunctor>::operator[](const TKey& key)
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	TData& HashMap<TKey, TData, THashFunctor, TCompareFunctor>::operator[](const TKey& key)
 	{
 		Iterator it = Find(key);
 		if (it == end())
@@ -158,8 +160,8 @@ namespace AnonymousEngine
 		return it->second;
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	const TData& HashMap<TKey, TData, THashFunctor>::operator[](const TKey& key) const
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	const TData& HashMap<TKey, TData, THashFunctor, TCompareFunctor>::operator[](const TKey& key) const
 	{
 		Iterator it = Find(key);
 		if (it == end())
@@ -169,20 +171,20 @@ namespace AnonymousEngine
 		return it->second;
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	std::uint32_t HashMap<TKey, TData, THashFunctor>::Size() const
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	std::uint32_t HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Size() const
 	{
 		return mSize;
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	bool HashMap<TKey, TData, THashFunctor>::ContainsKey(const TKey& key)
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	bool HashMap<TKey, TData, THashFunctor, TCompareFunctor>::ContainsKey(const TKey& key)
 	{
 		return (Find(key) != end());
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	void HashMap<TKey, TData, THashFunctor>::Clear()
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	void HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Clear()
 	{
 		for (auto& chainObject : mData)
 		{
@@ -192,20 +194,20 @@ namespace AnonymousEngine
 		mSize = 0;
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::begin() const
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::begin() const
 	{
 		return mBegin;
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::end() const
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::end() const
 	{
 		return Iterator(mData.Size(), mData[mData.Size() - 1].end(), const_cast<HashMap*>(this));
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	typename HashMap<TKey, TData, THashFunctor>::Iterator HashMap<TKey, TData, THashFunctor>::InsertEntry(const TKey& key, const TData& data)
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::InsertEntry(const TKey& key, const TData& data)
 	{
 		std::uint32_t index = CalculateIndex(key);
 		ChainIterator it = mData[index].PushBack(std::make_pair(key, data));
@@ -217,8 +219,8 @@ namespace AnonymousEngine
 		return Iterator(index, it, this);
 	}
 
-	template <typename TKey, typename TData, typename THashFunctor>
-	std::uint32_t HashMap<TKey, TData, THashFunctor>::CalculateIndex(const TKey& key) const
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	std::uint32_t HashMap<TKey, TData, THashFunctor, TCompareFunctor>::CalculateIndex(const TKey& key) const
 	{
 		static THashFunctor hashFunctor;
 		return (hashFunctor(key) % mData.Size());

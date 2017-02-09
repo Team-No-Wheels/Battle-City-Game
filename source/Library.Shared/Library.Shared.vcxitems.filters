@@ -5,6 +5,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)HashFunctors.cpp">
       <Filter>Containers</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Compare.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -26,6 +29,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)HashMap.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Compare.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
@@ -43,6 +49,9 @@
       <Filter>Containers</Filter>
     </None>
     <None Include="$(MSBuildThisFileDirectory)HashMap.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Compare.inl">
       <Filter>Containers</Filter>
     </None>
   </ItemGroup>

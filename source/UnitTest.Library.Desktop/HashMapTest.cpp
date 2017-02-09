@@ -5,6 +5,20 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+namespace AnonymousEngine
+{
+	template <>
+	class DefaultHashFunctor<const UnitTestLibraryDesktop::Foo>
+	{
+	public:
+		std::uint32_t operator()(const UnitTestLibraryDesktop::Foo& data) const
+		{
+			std::uint32_t intData = data.Data();
+			return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(&intData), static_cast<std::uint32_t>(sizeof(intData)));
+		}
+	};
+}
+
 namespace UnitTestLibraryDesktop
 {
 	TEST_CLASS(HashMapTest)

@@ -59,15 +59,6 @@ namespace AnonymousEngine
 		return hash;
 	}
 
-	std::uint32_t DefaultHashFunctor<char*>::operator()(const char* data) const
-	{
-		if (data == nullptr)
-		{
-			return 0U;
-		}
-		return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(data), static_cast<std::uint32_t>(strlen(data)));
-	}
-
 	std::uint32_t DefaultHashFunctor<const char*>::operator()(const char* data) const
 	{
 		if (data == nullptr)
@@ -75,11 +66,6 @@ namespace AnonymousEngine
 			return 0U;
 		}
 		return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(data), static_cast<std::uint32_t>(strlen(data)));
-	}
-
-	std::uint32_t DefaultHashFunctor<std::string>::operator()(const std::string& data) const
-	{
-		return HashFunctions::SuperFastHash(reinterpret_cast<const int8_t*>(data.c_str()), static_cast<std::uint32_t>(data.size()));
 	}
 
 	std::uint32_t DefaultHashFunctor<const std::string>::operator()(const std::string& data) const
