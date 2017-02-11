@@ -26,10 +26,14 @@ namespace AnonymousEngine
 
 	void Datum::SetType(DatumType type)
 	{
-		type;
+		if (mType != DatumType::Unknown || mType != type)
+		{
+			throw std::invalid_argument("Cannot modify the type of a Datum with an already set type");
+		}
+		mType = type;
 	}
 
-	Datum::DatumType Datum::Type()
+	Datum::DatumType Datum::Type() const
 	{
 		return mType;
 	}
@@ -97,6 +101,16 @@ namespace AnonymousEngine
 	}
 
 	template <>
+	std::string& Datum::Get(const std::uint32_t index)
+	{
+		if (index < 0 && index >= mSize)
+		{
+			throw std::out_of_range("index out of range");
+		}
+		return mData.strValue[index];
+	}
+
+	template <>
 	glm::mat4x4& Datum::Get(const std::uint32_t index)
 	{
 		if (index < 0 && index >= mSize)
@@ -117,13 +131,13 @@ namespace AnonymousEngine
 	}
 
 	template <>
-	std::string& Datum::Get(const std::uint32_t index)
+	RTTI*& Datum::Get(const std::uint32_t index)
 	{
 		if (index < 0 && index >= mSize)
 		{
 			throw std::out_of_range("index out of range");
 		}
-		return mData.strValue[index];
+		return mData.rttiPtrValue[index];
 	}
 
 	void Datum::Set(const std::int32_t data, const std::uint32_t index)
@@ -197,68 +211,68 @@ namespace AnonymousEngine
 		return true;
 	}
 
-	bool Datum::operator==(const std::int32_t data)
+	bool Datum::operator==(const std::int32_t data) const
 	{
 		data;
 		return true;
 	}
 
-	bool Datum::operator==(const float data)
+	bool Datum::operator==(const float data) const
 	{
 		data;
 		return true;
 	}
 
-	bool Datum::operator==(const std::string& data)
+	bool Datum::operator==(const std::string& data) const
 	{
 		data;
 		return true;
 	}
 
-	bool Datum::operator==(const glm::mat4x4& data)
+	bool Datum::operator==(const glm::mat4x4& data) const
 	{
 		data;
 		return true;
 	}
 
-	bool Datum::operator==(const glm::vec4& data)
+	bool Datum::operator==(const glm::vec4& data) const
 	{
 		data;
 		return true;
 	}
 
-	bool Datum::operator==(const RTTI* data)
+	bool Datum::operator==(const RTTI* data) const
 	{
 		data;
 		return true;
 	}
 
-	bool Datum::operator!=(const std::int32_t data)
+	bool Datum::operator!=(const std::int32_t data) const
 	{
 		return !(*this == data);
 	}
 
-	bool Datum::operator!=(const float data)
+	bool Datum::operator!=(const float data) const
 	{
 		return !(*this == data);
 	}
 
-	bool Datum::operator!=(const std::string& data)
+	bool Datum::operator!=(const std::string& data) const
 	{
 		return !(*this == data);
 	}
 
-	bool Datum::operator!=(const glm::mat4x4& data)
+	bool Datum::operator!=(const glm::mat4x4& data) const
 	{
 		return !(*this == data);
 	}
 
-	bool Datum::operator!=(const glm::vec4& data)
+	bool Datum::operator!=(const glm::vec4& data) const
 	{
 		return !(*this == data);
 	}
 
-	bool Datum::operator!=(const RTTI* data)
+	bool Datum::operator!=(const RTTI* data) const
 	{
 		return !(*this == data);
 	}
@@ -305,7 +319,7 @@ namespace AnonymousEngine
 		index;
 	}
 
-	std::string Datum::ToString()
+	std::string Datum::ToString() const
 	{
 		return "";
 	}

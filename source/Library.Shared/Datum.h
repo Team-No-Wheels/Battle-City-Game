@@ -40,7 +40,7 @@ namespace AnonymousEngine
 		/** Gets the current type of the datum
 		  * @return Returns the current datum type
 		 */
-		DatumType Type();
+		DatumType Type() const;
 
 		/** Assignment operator to copy all the values from another vector
 		 * @param datum The other vector to copy from
@@ -163,52 +163,52 @@ namespace AnonymousEngine
 		/** Check if the current datum and an int value is equal. If the datum is not a scalar, the result will be false
 		 * @param data The int value to compare to
 		*/
-		bool operator==(const std::int32_t data);
+		bool operator==(const std::int32_t data) const;
 		/** Check if the current datum and an float value is equal. If the datum is not a scalar, the result will be false
 		 * @param data The float value to compare to
 		*/
-		bool operator==(const float data);
+		bool operator==(const float data) const;
 		/** Check if the current datum and an string value is equal. If the datum is not a scalar, the result will be false
 		 * @param data The string value to compare to
 		*/
-		bool operator==(const std::string& data);
+		bool operator==(const std::string& data) const;
 		/** Check if the current datum and an mat4x4 value is equal. If the datum is not a scalar, the result will be false
 		 * @param data The string value to compare to
 		 */
-		bool operator==(const glm::mat4x4& data);
+		bool operator==(const glm::mat4x4& data) const;
 		/** Check if the current datum and an vec4 value is equal. If the datum is not a scalar, the result will be false
 		 * @param data The string value to compare to
 		 */
-		bool operator==(const glm::vec4& data);
+		bool operator==(const glm::vec4& data) const;
 		/** Check if the current datum and an RTTI value is equal. If the datum is not a scalar, the result will be false
 		 * @param data The RTTI value to compare to
 		*/
-		bool operator==(const RTTI* data);
+		bool operator==(const RTTI* data) const;
 
 		/** Check if the current datum and an int value is not equal. If the datum is not a scalar, the result will be false
 		 * @param data The int value to compare to
 		*/
-		bool operator!=(const std::int32_t data);
+		bool operator!=(const std::int32_t data) const;
 		/** Check if the current datum and an float value is not equal. If the datum is not a scalar, the result will be false
 		 * @param data The float value to compare to
 		*/
-		bool operator!=(const float data);
+		bool operator!=(const float data) const;
 		/** Check if the current datum and an string value is not equal. If the datum is not a scalar, the result will be false
 		 * @param data The string value to compare to
 		*/
-		bool operator!=(const std::string& data);
+		bool operator!=(const std::string& data) const;
 		/** Check if the current datum and an mat4x4 value is not equal. If the datum is not a scalar, the result will be false
 		* @param data The string value to compare to
 		*/
-		bool operator!=(const glm::mat4x4& data);
+		bool operator!=(const glm::mat4x4& data) const;
 		/** Check if the current datum and an vec4 value is not equal. If the datum is not a scalar, the result will be false
 		* @param data The string value to compare to
 		*/
-		bool operator!=(const glm::vec4& data);
+		bool operator!=(const glm::vec4& data) const;
 		/** Check if the current datum and an RTTI value is not equal. If the datum is not a scalar, the result will be false
 		 * @param data The RTTI value to compare to
 		*/
-		bool operator!=(const RTTI* data);
+		bool operator!=(const RTTI* data) const;
 
 		/** Set this datum to use an external int array
 		 * @param data The pointer to the external data
@@ -249,7 +249,7 @@ namespace AnonymousEngine
 		/** Convert the current datum value to a string
 		 * @return The string representation of the datum
 		 */
-		std::string ToString();
+		std::string ToString() const;
 
 		/** Change the size of the current datum to the new size.
 		 *  Expand the datum with default initialized values if the size is larger than the current
@@ -283,7 +283,7 @@ namespace AnonymousEngine
 			glm::mat4x4* matValue;
 			glm::vec4* vecValue;
 			std::string* strValue;
-			RTTI* rttiPtrValue;
+			RTTI** rttiPtrValue;
 			void* voidPtr;
 		};
 
