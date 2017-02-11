@@ -1,212 +1,344 @@
 #include "Datum.h"
 
-AnonymousEngine::Datum::Datum(DatumType type)
+namespace AnonymousEngine
 {
-	type;
-}
+	const std::uint32_t Datum::mTypeSize[7] = {
+		0,
+		sizeof(std::int32_t),
+		sizeof(float),
+		sizeof(glm::mat4x4),
+		sizeof(glm::vec4),
+		sizeof(std::string),
+		sizeof(RTTI*)
+	};
 
-AnonymousEngine::Datum::Datum(const Datum& datum)
-{
-	datum;
-}
+	Datum::Datum(DatumType type) :
+		mType(type), mSize(0), mCapacity(0)
+	{
+		mData.voidPtr = nullptr;
+		Reserve(3);
+	}
 
-void AnonymousEngine::Datum::SetType(DatumType type)
-{
-	type;
-}
+	Datum::Datum(const Datum& datum)
+	{
+		datum;
+	}
 
-AnonymousEngine::Datum::DatumType AnonymousEngine::Datum::Type()
-{
-	return mType;
-}
+	void Datum::SetType(DatumType type)
+	{
+		type;
+	}
 
-AnonymousEngine::Datum& AnonymousEngine::Datum::operator=(const Datum& datum)
-{
-	datum;
-	return (*this);
-}
+	Datum::DatumType Datum::Type()
+	{
+		return mType;
+	}
 
-AnonymousEngine::Datum& AnonymousEngine::Datum::operator=(const std::int32_t data)
-{
-	data;
-	return (*this);
-}
+	Datum& Datum::operator=(const Datum& datum)
+	{
+		datum;
+		return (*this);
+	}
 
-AnonymousEngine::Datum& AnonymousEngine::Datum::operator=(const float data)
-{
-	data;
-	return (*this);
-}
+	Datum& Datum::operator=(const std::int32_t data)
+	{
+		data;
+		return (*this);
+	}
 
-AnonymousEngine::Datum& AnonymousEngine::Datum::operator=(const std::string& data)
-{
-	data;
-	return (*this);
-}
+	Datum& Datum::operator=(const float data)
+	{
+		data;
+		return (*this);
+	}
 
-AnonymousEngine::Datum& AnonymousEngine::Datum::operator=(const RTTI* data)
-{
-	data;
-	return (*this);
-}
+	Datum& Datum::operator=(const std::string& data)
+	{
+		data;
+		return (*this);
+	}
 
-void AnonymousEngine::Datum::Set(const std::int32_t data, const std::uint32_t index)
-{
-	data;
-	index;
-}
+	Datum& Datum::operator=(const glm::mat4x4& data)
+	{
+		data;
+		return (*this);
+	}
 
-void AnonymousEngine::Datum::Set(const float data, const std::uint32_t index)
-{
-	data;
-	index;
-}
+	Datum& Datum::operator=(const glm::vec4& data)
+	{
+		data;
+		return (*this);
+	}
 
-void AnonymousEngine::Datum::Set(const std::string& data, const std::uint32_t index)
-{
-	data;
-	index;
-}
+	Datum& Datum::operator=(const RTTI* data)
+	{
+		data;
+		return (*this);
+	}
 
-void AnonymousEngine::Datum::Set(const RTTI* data, const std::uint32_t index)
-{
-	data;
-	index;
-}
+	template <>
+	std::int32_t Datum::Get(const std::uint32_t index)
+	{
+		if (index < 0 && index >= mSize)
+		{
+			throw std::out_of_range("index out of range");
+		}
+		return mData.intValue[index];
+	}
 
-void AnonymousEngine::Datum::PushBack(const std::int32_t data)
-{
-	data;
-}
+	template <>
+	float Datum::Get(const std::uint32_t index)
+	{
+		if (index < 0 && index >= mSize)
+		{
+			throw std::out_of_range("index out of range");
+		}
+		return mData.floatValue[index];
+	}
 
-void AnonymousEngine::Datum::PushBack(const float data)
-{
-	data;
-}
+	template <>
+	glm::mat4x4& Datum::Get(const std::uint32_t index)
+	{
+		if (index < 0 && index >= mSize)
+		{
+			throw std::out_of_range("index out of range");
+		}
+		return mData.matValue[index];
+	}
 
-void AnonymousEngine::Datum::PushBack(const std::string& data)
-{
-	data;
-}
+	template <>
+	glm::vec4& Datum::Get(const std::uint32_t index)
+	{
+		if (index < 0 && index >= mSize)
+		{
+			throw std::out_of_range("index out of range");
+		}
+		return mData.vecValue[index];
+	}
 
-void AnonymousEngine::Datum::PushBack(const RTTI* data)
-{
-	data;
-}
+	template <>
+	std::string& Datum::Get(const std::uint32_t index)
+	{
+		if (index < 0 && index >= mSize)
+		{
+			throw std::out_of_range("index out of range");
+		}
+		return mData.strValue[index];
+	}
 
-bool AnonymousEngine::Datum::PopBack()
-{
-	return true;
-}
+	void Datum::Set(const std::int32_t data, const std::uint32_t index)
+	{
+		data;
+		index;
+	}
 
-bool AnonymousEngine::Datum::operator==(const std::int32_t data)
-{
-	data;
-	return true;
-}
+	void Datum::Set(const float data, const std::uint32_t index)
+	{
+		data;
+		index;
+	}
 
-bool AnonymousEngine::Datum::operator==(const float data)
-{
-	data;
-	return true;
-}
+	void Datum::Set(const std::string& data, const std::uint32_t index)
+	{
+		data;
+		index;
+	}
 
-bool AnonymousEngine::Datum::operator==(const std::string& data)
-{
-	data;
-	return true;
-}
+	void Datum::Set(const glm::mat4x4& data, const std::uint32_t index)
+	{
+		data;
+		index;
+	}
 
-bool AnonymousEngine::Datum::operator==(const RTTI* data)
-{
-	data;
-	return true;
-}
+	void Datum::Set(const glm::vec4& data, const std::uint32_t index)
+	{
+		data;
+		index;
+	}
 
-bool AnonymousEngine::Datum::operator!=(const std::int32_t data)
-{
-	data;
-	return true;
-}
+	void Datum::Set(const RTTI* data, const std::uint32_t index)
+	{
+		data;
+		index;
+	}
 
-bool AnonymousEngine::Datum::operator!=(const float data)
-{
-	data;
-	return true;
-}
+	void Datum::PushBack(const std::int32_t data)
+	{
+		data;
+	}
 
-bool AnonymousEngine::Datum::operator!=(const std::string& data)
-{
-	data;
-	return true;
-}
+	void Datum::PushBack(const float data)
+	{
+		data;
+	}
 
-bool AnonymousEngine::Datum::operator!=(const RTTI* data)
-{
-	data;
-	return true;
-}
+	void Datum::PushBack(const std::string& data)
+	{
+		data;
+	}
 
-void AnonymousEngine::Datum::SetStorage(std::int32_t* data, std::uint32_t size)
-{
-	data;
-	size;
-}
+	void Datum::PushBack(const glm::mat4x4& data)
+	{
+		data;
+	}
 
-void AnonymousEngine::Datum::SetStorage(float* data, std::uint32_t size)
-{
-	data;
-	size;
-}
+	void Datum::PushBack(const glm::vec4& data)
+	{
+		data;
+	}
 
-void AnonymousEngine::Datum::SetStorage(std::string* data, std::uint32_t size)
-{
-	data;
-	size;
-}
+	void Datum::PushBack(const RTTI* data)
+	{
+		data;
+	}
 
-void AnonymousEngine::Datum::SetStorage(RTTI** data, std::uint32_t size)
-{
-	data;
-	size;
-}
+	bool Datum::PopBack()
+	{
+		return true;
+	}
 
-void AnonymousEngine::Datum::SetFromString(const std::string& stringData, std::uint32_t index)
-{
-	stringData;
-	index;
-}
+	bool Datum::operator==(const std::int32_t data)
+	{
+		data;
+		return true;
+	}
 
-std::string AnonymousEngine::Datum::ToString()
-{
-	return "";
-}
+	bool Datum::operator==(const float data)
+	{
+		data;
+		return true;
+	}
 
-void AnonymousEngine::Datum::Resize(std::uint32_t newSize)
-{
-	newSize;
-}
+	bool Datum::operator==(const std::string& data)
+	{
+		data;
+		return true;
+	}
 
-std::uint32_t AnonymousEngine::Datum::Size() const
-{
-	return mSize;
-}
+	bool Datum::operator==(const glm::mat4x4& data)
+	{
+		data;
+		return true;
+	}
 
-void AnonymousEngine::Datum::Reserve(std::uint32_t capacity)
-{
-	capacity;
-}
+	bool Datum::operator==(const glm::vec4& data)
+	{
+		data;
+		return true;
+	}
 
-void AnonymousEngine::Datum::Clear()
-{
-}
+	bool Datum::operator==(const RTTI* data)
+	{
+		data;
+		return true;
+	}
 
-AnonymousEngine::Datum::~Datum()
-{
-}
+	bool Datum::operator!=(const std::int32_t data)
+	{
+		return !(*this == data);
+	}
 
-void AnonymousEngine::Datum::Copy(const Datum& rhs)
-{
-	rhs;
-}
+	bool Datum::operator!=(const float data)
+	{
+		return !(*this == data);
+	}
 
+	bool Datum::operator!=(const std::string& data)
+	{
+		return !(*this == data);
+	}
+
+	bool Datum::operator!=(const glm::mat4x4& data)
+	{
+		return !(*this == data);
+	}
+
+	bool Datum::operator!=(const glm::vec4& data)
+	{
+		return !(*this == data);
+	}
+
+	bool Datum::operator!=(const RTTI* data)
+	{
+		return !(*this == data);
+	}
+
+	void Datum::SetStorage(std::int32_t* data, std::uint32_t size)
+	{
+		data;
+		size;
+	}
+
+	void Datum::SetStorage(float* data, std::uint32_t size)
+	{
+		data;
+		size;
+	}
+
+	void Datum::SetStorage(std::string* data, std::uint32_t size)
+	{
+		data;
+		size;
+	}
+
+	void Datum::SetStorage(RTTI** data, std::uint32_t size)
+	{
+		data;
+		size;
+	}
+
+	void Datum::SetStorage(glm::mat4x4* data, std::uint32_t size)
+	{
+		data;
+		size;
+	}
+
+	void Datum::SetStorage(glm::vec4* data, std::uint32_t size)
+	{
+		data;
+		size;
+	}
+
+	void Datum::SetFromString(const std::string& stringData, std::uint32_t index)
+	{
+		stringData;
+		index;
+	}
+
+	std::string Datum::ToString()
+	{
+		return "";
+	}
+
+	void Datum::Resize(std::uint32_t newSize)
+	{
+		newSize;
+	}
+
+	std::uint32_t Datum::Size() const
+	{
+		return mSize;
+	}
+
+	void Datum::Reserve(std::uint32_t capacity)
+	{
+		if (capacity > mCapacity)
+		{
+			mData.voidPtr = (realloc(mData.voidPtr, mTypeSize[static_cast<std::uint32_t>(mType)] * capacity));
+			mCapacity = capacity;
+		}
+	}
+
+	void Datum::Clear()
+	{}
+
+	Datum::~Datum()
+	{
+		Clear();
+	}
+
+	void Datum::Copy(const Datum& rhs)
+	{
+		rhs;
+	}
+}
