@@ -76,7 +76,7 @@ namespace AnonymousEngine
 		 * @param data The data to assign
 		 * @return A reference to the current datum
 		*/
-		Datum& operator=(const RTTI* data);
+		Datum& operator=(RTTI* data);
 
 		/** Assigns the given int value to the datum at the specified index.
 		 * Throws exception if index is out of range. index should be in the range [0, size)
@@ -119,7 +119,7 @@ namespace AnonymousEngine
 		 * @param index The index to which the data is to be assigned.
 		 * @return A reference to the current datum
 		*/
-		void Set(const RTTI* data, const std::uint32_t index = 0);
+		void Set(RTTI* data, const std::uint32_t index = 0);
 
 		template<typename T>
 		T Get(const std::uint32_t index);
@@ -153,7 +153,7 @@ namespace AnonymousEngine
 		 * @param data The data item to push to the back of the datum
 		 * @return A reference to the current data that is pushed
 		*/
-		void PushBack(const RTTI* data);
+		void PushBack(RTTI* data);
 
 		/** Remove an item from the back of the vector
 		 *  @return True if an item was popped, False otherwise
@@ -291,9 +291,22 @@ namespace AnonymousEngine
 		DatumValue mData;
 		std::uint32_t mSize;
 		std::uint32_t mCapacity;
+		bool mIsExternal;
 		static const std::uint32_t mTypeSize[7];
 
-		// copies data from one list to another. Used in copy constructor and assignment operator
-		void Copy(const Datum& rhs);
+		// Checks if the passed type can be assigned to current datum. Throw exception otherwise
+		void IsTypeAssignable(DatumType type) const;
+
+		// Check if the passed in index is within range
+		void IndexBoundsCheck(std::uint32_t index) const;
+
+		// If current size is equal to capacity reserve more memory
+		void ExpandIfFull();
+
+		// Copies data from one datum to another. Used in copy constructor and assignment operator
+		void Copy(const Datum& datum);
+
+		// Common method to set external storage based on type
+		void SetExternalStorage(void* externalData, std::uint32_t size, DatumType type);
 	};
 }
