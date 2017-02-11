@@ -8,6 +8,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Compare.cpp">
       <Filter>Containers</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -32,6 +35,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Compare.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
