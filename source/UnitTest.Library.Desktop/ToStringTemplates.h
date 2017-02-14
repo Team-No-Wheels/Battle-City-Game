@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <cstdint>
-#include "Datum.h"
 #include "Foo.h"
 #include "HashMap.h"
 #include "SList.h"
@@ -115,12 +114,6 @@ namespace Microsoft
 				{
 				}
 				return valueString;
-			}
-
-			template<>
-			inline std::wstring ToString<AnonymousEngine::Datum::DatumType>(const AnonymousEngine::Datum::DatumType& type)
-			{
-				return std::to_wstring(static_cast<std::uint32_t>(type));
 			}
 		}
 	}

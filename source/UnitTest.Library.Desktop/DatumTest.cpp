@@ -2,9 +2,23 @@
 #include "Foo.h"
 #include "DatumTestTemplate.h"
 #include "TestClassHelper.h"
-#include "ToStringTemplates.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+namespace Microsoft
+{
+	namespace VisualStudio
+	{
+		namespace CppUnitTestFramework
+		{
+			template<>
+			inline std::wstring ToString<AnonymousEngine::Datum::DatumType>(const AnonymousEngine::Datum::DatumType& type)
+			{
+				return std::to_wstring(static_cast<std::uint32_t>(type));
+			}
+		}
+	}
+}
 
 namespace UnitTestLibraryDesktop
 {
@@ -70,12 +84,12 @@ namespace UnitTestLibraryDesktop
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestGet(&f1, &f2);
 
-			DatumTestTemplate<std::int32_t>::TestConstantGet(mHelper.GetRandomInt32());
+			/*DatumTestTemplate<std::int32_t>::TestConstantGet(mHelper.GetRandomInt32());
 			DatumTestTemplate<float>::TestConstantGet(mHelper.GetRandomFloat());
 			DatumTestTemplate<std::string>::TestConstantGet(mHelper.GetRandomString());
 			DatumTestTemplate<glm::vec4>::TestConstantGet(mHelper.GetRandomVec4());
 			DatumTestTemplate<glm::mat4>::TestConstantGet(mHelper.GetRandomMat4());
-			DatumTestTemplate<RTTI*>::TestConstantGet(&f1);
+			DatumTestTemplate<RTTI*>::TestConstantGet(&f1);*/
 		}
 
 		TEST_METHOD(TestSet)

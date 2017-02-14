@@ -126,97 +126,13 @@ namespace AnonymousEngine
 
 		// Templated base implementation not to be used. Specializations are available as public methods
 		template<typename T>
-		T& Get(const std::uint32_t = 0)
-		{
-			return *reinterpret_cast<T*>(mData.voidPtr);
-		}
-
-		template <>
-		std::int32_t& Get<std::int32_t>(const std::uint32_t index)
-		{
-			ValidateIndex(index);
-			return mData.intValue[index];
-		}
-
-		template <>
-		float& Get<float>(const std::uint32_t index)
-		{
-			ValidateIndex(index);
-			return mData.floatValue[index];
-		}
-
-		template <>
-		std::string& Get<std::string>(const std::uint32_t index)
-		{
-			ValidateIndex(index);
-			return mData.strValue[index];
-		}
-
-		template <>
-		glm::mat4& Get<glm::mat4>(const std::uint32_t index)
-		{
-			ValidateIndex(index);
-			return mData.matValue[index];
-		}
-
-		template <>
-		glm::vec4& Get<glm::vec4>(const std::uint32_t index)
-		{
-			ValidateIndex(index);
-			return mData.vecValue[index];
-		}
-
-		template <>
-		RTTI*& Get<RTTI*>(const std::uint32_t index)
-		{
-			ValidateIndex(index);
-			return mData.rttiPtrValue[index];
-		}
+		T& Get(const std::uint32_t = 0);
 
 		template<typename T>
-		const T& Get(const std::uint32_t = 0) const
-		{
-			return const_cast<const Datum*>(this)->Get<T>();
-		}
-
-		template <>
-		const std::int32_t& Get<std::int32_t>(const std::uint32_t index) const
-		{
-			return const_cast<const Datum*>(this)->Get<std::int32_t>(index);
-		}
-
-		template <>
-		const float& Get<float>(const std::uint32_t index) const
-		{
-			return const_cast<const Datum*>(this)->Get<float>(index);
-		}
-
-		template <>
-		const std::string& Get<std::string>(const std::uint32_t index) const
-		{
-			return const_cast<const Datum*>(this)->Get<std::string>(index);
-		}
-
-		template <>
-		const glm::mat4& Get<glm::mat4>(const std::uint32_t index) const
-		{
-			return const_cast<const Datum*>(this)->Get<glm::mat4>(index);
-		}
-
-		template <>
-		const glm::vec4& Get<glm::vec4>(const std::uint32_t index) const
-		{
-			return const_cast<const Datum*>(this)->Get<glm::vec4>(index);
-		}
-
-		template <>
-		RTTI* const& Get<RTTI*>(const std::uint32_t index) const
-		{
-			return const_cast<const Datum*>(this)->Get<RTTI*>(index);
-		}
+		const T& Get(const std::uint32_t = 0) const;
 
 		/** Push an int value to the end of the datum
-		 *  @param data The data item to push to the back of the datum
+		 *  @param data The data item to pupsh to the back of the datum
 		 *  @return A reference to the current data that is pushed
 		 */
 		void PushBack(const std::int32_t data);
@@ -414,6 +330,5 @@ namespace AnonymousEngine
 		inline void SetExternalStorage(void* externalData, std::uint32_t size, DatumType type);
 	};
 }
-
 
 #include "Datum.inl"
