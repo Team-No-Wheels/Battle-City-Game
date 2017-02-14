@@ -43,15 +43,14 @@ namespace AnonymousEngine
 			return nullptr;
 		}
 
-		virtual std::string ToString() const
-		{
-			return "RTTI";
-		}
+		virtual std::string ToString() const = 0;
 
 		virtual bool Equals(const RTTI* rhs) const
 		{
 			return this == rhs;
 		}
+
+		virtual RTTI* FromString(const std::string& str) const = 0;
 	};
 
 #define RTTI_DECLARATIONS(Type, ParentType)																	 \

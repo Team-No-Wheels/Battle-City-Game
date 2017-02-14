@@ -195,6 +195,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DatumTest.cpp" />
     <ClCompile Include="Foo.cpp" />
     <ClCompile Include="HashFunctorsTest.cpp" />
     <ClCompile Include="HashMapTest.cpp" />
@@ -221,6 +222,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DatumTestTemplate.h" />
     <ClInclude Include="Foo.h" />
     <ClInclude Include="HashMapTestTemplate.h" />
     <ClInclude Include="Pch.h" />
