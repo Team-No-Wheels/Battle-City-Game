@@ -61,5 +61,8 @@
     <None Include="$(MSBuildThisFileDirectory)Compare.inl">
       <Filter>Containers</Filter>
     </None>
+    <None Include="$(MSBuildThisFileDirectory)Datum.inl">
+      <Filter>Containers</Filter>
+    </None>
   </ItemGroup>
 </Project>

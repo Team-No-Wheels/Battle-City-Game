@@ -47,4 +47,47 @@ namespace UnitTestLibraryDesktop
 	{
 		return (*mDistribution)(*mGenerator);
 	}
+
+	std::int32_t TestClassHelper::GetRandomInt32() const
+	{
+		return static_cast<std::int32_t>(GetRandomUInt32());
+	}
+
+	float TestClassHelper::GetRandomFloat() const
+	{
+		return static_cast<float>(GetRandomUInt32()) / GetRandomUInt32();
+	}
+
+	std::string TestClassHelper::GetRandomString() const
+	{
+		static const char alphanum[] =
+			"0123456789"
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+			"abcdefghijklmnopqrstuvwxyz";
+		
+		char temp[33];
+		std::uint32_t length = (GetRandomUInt32() % 32) + 1;
+
+		for (std::uint32_t i = 0; i < length; ++i)
+		{
+			temp[i] = alphanum[GetRandomUInt32() % (sizeof(alphanum) - 1)];
+		}
+		temp[length] = '\0';
+		return std::string(temp);
+	}
+
+	glm::vec4 TestClassHelper::GetRandomVec4() const
+	{
+		return glm::vec4(GetRandomFloat(), GetRandomFloat(), GetRandomFloat(), GetRandomFloat());
+	}
+
+	glm::mat4 TestClassHelper::GetRandomMat4() const
+	{
+		return glm::mat4(GetRandomVec4(), GetRandomVec4(), GetRandomVec4(), GetRandomVec4());
+	}
+
+	Foo TestClassHelper::GetRandomFoo() const
+	{
+		return Foo(GetRandomUInt32());
+	}
 }

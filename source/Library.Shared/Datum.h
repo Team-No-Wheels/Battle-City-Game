@@ -17,9 +17,9 @@ namespace AnonymousEngine
 			Unknown,
 			Integer,
 			Float,
+			String,
 			Vector,
 			Matrix,
-			String,
 			RTTI,
 			MaxTypes
 		};
@@ -53,28 +53,28 @@ namespace AnonymousEngine
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
 		 */
-		Datum& operator=(const std::int32_t data);
-		void InitializeScalar();
+		Datum& operator=(const std::int32_t& data);
+
 		/** Assigns the given float value to the datum
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
 		 */
-		Datum& operator=(const float data);
+		Datum& operator=(const float& data);
 		/** Assigns the given string value to the datum
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
 		 */
 		Datum& operator=(const std::string& data);
-		/** Assigns the given mat4 value to the datum
-		 *  @param data The data to assign
-		 *  @return A reference to the current datum
-		 */
-		Datum& operator=(const glm::mat4& data);
 		/** Assigns the given vec4 value to the datum
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
 		 */
 		Datum& operator=(const glm::vec4& data);
+		/** Assigns the given mat4 value to the datum
+		 *  @param data The data to assign
+		 *  @return A reference to the current datum
+		 */
+		Datum& operator=(const glm::mat4& data);
 		/** Assigns the given RTTI value to the datum
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
@@ -102,13 +102,6 @@ namespace AnonymousEngine
 		 *  @return A reference to the current datum
 		 */
 		void Set(const std::string& data, const std::uint32_t index = 0);
-		/** Assigns the given mat4 value to the datum at the specified index.
-		 *  Throws exception if index is out of range. index should be in the range [0, size)
-		 *  @param data The data to assign
-		 *  @param index The index to which the data is to be assigned.
-		 *  @return A reference to the current datum
-		 */
-		void Set(const glm::mat4& data, const std::uint32_t index = 0);
 		/** Assigns the given vec4 value to the datum at the specified index.
 		 *  Throws exception if index is out of range. index should be in the range [0, size)
 		 *  @param data The data to assign
@@ -116,6 +109,13 @@ namespace AnonymousEngine
 		 *  @return A reference to the current datum
 		 */
 		void Set(const glm::vec4& data, const std::uint32_t index = 0);
+		/** Assigns the given mat4 value to the datum at the specified index.
+		 *  Throws exception if index is out of range. index should be in the range [0, size)
+		 *  @param data The data to assign
+		 *  @param index The index to which the data is to be assigned.
+		 *  @return A reference to the current datum
+		 */
+		void Set(const glm::mat4& data, const std::uint32_t index = 0);
 		/** Assigns the given RTTI value to the datum at the specified index.
 		 *  Throws exception if index is out of range. index should be in the range [0, size)
 		 *  @param data The data to assign
@@ -124,57 +124,96 @@ namespace AnonymousEngine
 		 */
 		void Set(RTTI* data, const std::uint32_t index = 0);
 
-	private:
 		// Templated base implementation not to be used. Specializations are available as public methods
 		template<typename T>
-		T Get(const std::uint32_t index = 0)
+		T& Get(const std::uint32_t = 0)
 		{
-			return nullptr;
+			return *reinterpret_cast<T*>(mData.voidPtr);
 		}
 
-	public:
+		template <>
+		std::int32_t& Get<std::int32_t>(const std::uint32_t index)
+		{
+			ValidateIndex(index);
+			return mData.intValue[index];
+		}
 
-		/** Gets the integer value stored by the datum at the specified index. Default index is 0
-		 *  @param index The index of the data to be retrived
-		 *  @return The integer value at the given index
-		 */
-		template<>
-		std::int32_t Get(const std::uint32_t index);
+		template <>
+		float& Get<float>(const std::uint32_t index)
+		{
+			ValidateIndex(index);
+			return mData.floatValue[index];
+		}
 
-		/** Gets the float value stored by the datum at the specified index. Default index is 0
-		 *  @param index The index of the data to be retrived
-		 *  @return The float value at the given index
-		 */
-		template<>
-		float Get(const std::uint32_t index);
+		template <>
+		std::string& Get<std::string>(const std::uint32_t index)
+		{
+			ValidateIndex(index);
+			return mData.strValue[index];
+		}
 
-		/** Gets the string value stored by the datum at the specified index. Default index is 0
-		 *  @param index The index of the data to be retrived
-		 *  @return The string value at the given index
-		 */
-		template<>
-		std::string Get(const std::uint32_t index);
+		template <>
+		glm::mat4& Get<glm::mat4>(const std::uint32_t index)
+		{
+			ValidateIndex(index);
+			return mData.matValue[index];
+		}
 
-		/** Gets the mat4 value stored by the datum at the specified index. Default index is 0
-		 *  @param index The index of the data to be retrived
-		 *  @return The mat4 value at the given index
-		 */
-		template<>
-		glm::mat4 Get(const std::uint32_t index);
+		template <>
+		glm::vec4& Get<glm::vec4>(const std::uint32_t index)
+		{
+			ValidateIndex(index);
+			return mData.vecValue[index];
+		}
 
-		/** Gets the vec4 value stored by the datum at the specified index. Default index is 0
-		 *  @param index The index of the data to be retrived
-		 *  @return The vec4 value at the given index
-		 */
-		template<>
-		glm::vec4 Get(const std::uint32_t index);
+		template <>
+		RTTI*& Get<RTTI*>(const std::uint32_t index)
+		{
+			ValidateIndex(index);
+			return mData.rttiPtrValue[index];
+		}
 
-		/** Gets the RTTI pointer value stored by the datum at the specified index. Default index is 0
-		 *  @param index The index of the data to be retrived
-		 *  @return The RTTI pointer value at the given index
-		 */
-		template<>
-		RTTI* Get(const std::uint32_t index);
+		template<typename T>
+		const T& Get(const std::uint32_t = 0) const
+		{
+			return const_cast<const Datum*>(this)->Get<T>();
+		}
+
+		template <>
+		const std::int32_t& Get<std::int32_t>(const std::uint32_t index) const
+		{
+			return const_cast<const Datum*>(this)->Get<std::int32_t>(index);
+		}
+
+		template <>
+		const float& Get<float>(const std::uint32_t index) const
+		{
+			return const_cast<const Datum*>(this)->Get<float>(index);
+		}
+
+		template <>
+		const std::string& Get<std::string>(const std::uint32_t index) const
+		{
+			return const_cast<const Datum*>(this)->Get<std::string>(index);
+		}
+
+		template <>
+		const glm::mat4& Get<glm::mat4>(const std::uint32_t index) const
+		{
+			return const_cast<const Datum*>(this)->Get<glm::mat4>(index);
+		}
+
+		template <>
+		const glm::vec4& Get<glm::vec4>(const std::uint32_t index) const
+		{
+			return const_cast<const Datum*>(this)->Get<glm::vec4>(index);
+		}
+
+		template <>
+		RTTI* const& Get<RTTI*>(const std::uint32_t index) const
+		{
+			return const_cast<const Datum*>(this)->Get<RTTI*>(index);
+		}
 
 		/** Push an int value to the end of the datum
 		 *  @param data The data item to push to the back of the datum
@@ -191,16 +230,16 @@ namespace AnonymousEngine
 		 *  @return A reference to the current data that is pushed
 		 */
 		void PushBack(const std::string& data);
-		/** Push an mat4 value to the end of the datum
-		 *  @param data The data item to push to the back of the datum
-		 *  @return A reference to the current data that is pushed
-		 */
-		void PushBack(const glm::mat4& data);
 		/** Push an vec4 value to the end of the datum
 		 *  @param data The data item to push to the back of the datum
 		 *  @return A reference to the current data that is pushed
 		 */
 		void PushBack(const glm::vec4& data);
+		/** Push an mat4 value to the end of the datum
+		 *  @param data The data item to push to the back of the datum
+		 *  @return A reference to the current data that is pushed
+		 */
+		void PushBack(const glm::mat4& data);
 		/** Push an RTTI value to the end of the datum
 		 *  @param data The data item to push to the back of the datum
 		 *  @return A reference to the current data that is pushed
@@ -228,19 +267,23 @@ namespace AnonymousEngine
 		 *  @param data The string value to compare to
 		 */
 		bool operator==(const std::string& data) const;
-		/** Check if the current datum and an mat4 value is equal. If the datum is not a scalar, the result will be false
-		 *  @param data The string value to compare to
-		 */
-		bool operator==(const glm::mat4& data) const;
 		/** Check if the current datum and an vec4 value is equal. If the datum is not a scalar, the result will be false
 		 *  @param data The string value to compare to
 		 */
 		bool operator==(const glm::vec4& data) const;
+		/** Check if the current datum and an mat4 value is equal. If the datum is not a scalar, the result will be false
+		 *  @param data The string value to compare to
+		 */
+		bool operator==(const glm::mat4& data) const;
 		/** Check if the current datum and an RTTI value is equal. If the datum is not a scalar, the result will be false
 		 *  @param data The RTTI value to compare to
 		 */
 		bool operator==(const RTTI* data) const;
 
+		/** Check if the current datum is not equal to another datum.
+		 *  @param data The datum value to compare to
+		 */
+		bool operator!=(const Datum& data) const;
 		/** Check if the current datum and an int value is not equal. If the datum is not a scalar, the result will be false
 		 *  @param data The int value to compare to
 		 */
@@ -253,14 +296,14 @@ namespace AnonymousEngine
 		 *  @param data The string value to compare to
 		 */
 		bool operator!=(const std::string& data) const;
-		/** Check if the current datum and an mat4 value is not equal. If the datum is not a scalar, the result will be false
-		 *  @param data The string value to compare to
-		 */
-		bool operator!=(const glm::mat4& data) const;
 		/** Check if the current datum and an vec4 value is not equal. If the datum is not a scalar, the result will be false
 		 *  @param data The string value to compare to
 		 */
 		bool operator!=(const glm::vec4& data) const;
+		/** Check if the current datum and an mat4 value is not equal. If the datum is not a scalar, the result will be false
+		 *  @param data The string value to compare to
+		 */
+		bool operator!=(const glm::mat4& data) const;
 		/** Check if the current datum and an RTTI value is not equal. If the datum is not a scalar, the result will be false
 		 *  @param data The RTTI value to compare to
 		 */
@@ -281,16 +324,16 @@ namespace AnonymousEngine
 		 *  @param size The number of elements in the external data array
 		 */
 		void SetStorage(std::string* data, std::uint32_t size);
-		/** Set this datum to use an external mat4 array
-		 *  @param data The pointer to the external data
-		 *  @param size The number of elements in the external data array
-		 */
-		void SetStorage(glm::mat4* data, std::uint32_t size);
 		/** Set this datum to use an external vec4 array
 		 *  @param data The pointer to the external data
 		 *  @param size The number of elements in the external data array
 		 */
 		void SetStorage(glm::vec4* data, std::uint32_t size);
+		/** Set this datum to use an external mat4 array
+		 *  @param data The pointer to the external data
+		 *  @param size The number of elements in the external data array
+		 */
+		void SetStorage(glm::mat4* data, std::uint32_t size);
 		/** Set this datum to use an external RTTI pointer array
 		 *  @param data The pointer to the external data
 		 *  @param size The number of elements in the external data array
@@ -371,3 +414,6 @@ namespace AnonymousEngine
 		inline void SetExternalStorage(void* externalData, std::uint32_t size, DatumType type);
 	};
 }
+
+
+#include "Datum.inl"

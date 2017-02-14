@@ -48,6 +48,6 @@ namespace UnitTestLibraryDesktop
 
 	void Foo::FromString(const std::string& str)
 	{
-		*mData = std::stoi(str);
+		*mData = std::stoul(str);
 	}
 }
