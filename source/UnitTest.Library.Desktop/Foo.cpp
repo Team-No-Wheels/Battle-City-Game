@@ -3,7 +3,9 @@
 
 namespace UnitTestLibraryDesktop
 {
-	Foo::Foo() : mData(nullptr)
+	RTTI_DEFINITIONS(Foo)
+
+	Foo::Foo() : mData(new std::uint32_t(0))
 	{
 	}
 
@@ -37,5 +39,15 @@ namespace UnitTestLibraryDesktop
 	Foo::~Foo()
 	{
 		delete mData;
+	}
+
+	std::string Foo::ToString() const
+	{
+		return std::to_string(*mData);
+	}
+
+	void Foo::FromString(const std::string& str)
+	{
+		*mData = std::stoi(str);
 	}
 }

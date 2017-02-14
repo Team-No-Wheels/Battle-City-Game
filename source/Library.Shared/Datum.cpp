@@ -2,7 +2,7 @@
 
 namespace AnonymousEngine
 {
-	const std::uint32_t Datum::mTypeSizes[7] = {
+	const std::uint32_t Datum::mTypeSizes[] = {
 		0,
 		sizeof(std::int32_t),
 		sizeof(float),
@@ -12,7 +12,7 @@ namespace AnonymousEngine
 		sizeof(RTTI*)
 	};
 
-	const std::function<void(Datum::DatumValue&, std::uint32_t)> Datum::mDefaultConstructors[7] =  {
+	const std::function<void(Datum::DatumValue&, std::uint32_t)> Datum::mDefaultConstructors[] =  {
 		[] (DatumValue&, std::uint32_t) { },		// Unknown
 		[] (DatumValue& datum, std::uint32_t index) { datum.intValue[index] = 0; },						// Integer
 		[] (DatumValue& datum, std::uint32_t index) { datum.floatValue[index] = 0.0f; },				// Float
@@ -22,7 +22,7 @@ namespace AnonymousEngine
 		[] (DatumValue& datum, std::uint32_t index) { datum.rttiPtrValue[index] = nullptr; }			// RTTI*
 	};
 
-	const std::function<void(Datum::DatumValue&, std::uint32_t)> Datum::mDestructors[7] = {
+	const std::function<void(Datum::DatumValue&, std::uint32_t)> Datum::mDestructors[] = {
 		[] (DatumValue&, std::uint32_t) { },	// Unknown
 		[] (DatumValue&, std::uint32_t) { },	// Integer
 		[] (DatumValue&, std::uint32_t) { },	// Float
@@ -32,7 +32,7 @@ namespace AnonymousEngine
 		[] (DatumValue&, std::uint32_t) { }		// RTTI*
 	};
 
-	const std::function<bool(const Datum::DatumValue&, const Datum::DatumValue&, std::uint32_t)> Datum::mComparators[7] = {
+	const std::function<bool(const Datum::DatumValue&, const Datum::DatumValue&, std::uint32_t)> Datum::mComparators[] = {
 		[] (const DatumValue&, const DatumValue&, std::uint32_t) { return true; },		// Unknown
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.intValue[index] == rhs.intValue[index]; },			// Integer
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.floatValue[index] == rhs.floatValue[index]; },		// Float
@@ -42,7 +42,7 @@ namespace AnonymousEngine
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.rttiPtrValue[index] == rhs.rttiPtrValue[index]; }	// RTTI*
 	};
 
-	const std::function<void(Datum::DatumValue&, const Datum::DatumValue&, std::uint32_t)> Datum::mCloners[7] = {
+	const std::function<void(Datum::DatumValue&, const Datum::DatumValue&, std::uint32_t)> Datum::mCloners[] = {
 		[] (DatumValue&, const DatumValue&, std::uint32_t) { },		// Unknown
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.intValue[index] = rhs.intValue[index]; },			// Integer
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.floatValue[index] = rhs.floatValue[index]; },		// Float
@@ -52,7 +52,7 @@ namespace AnonymousEngine
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.rttiPtrValue[index] = rhs.rttiPtrValue[index]; }		// RTTI*
 	};
 
-	const std::function<void(const std::string&, Datum::DatumValue&, std::uint32_t)> Datum::mDeserializers[7] = {
+	const std::function<void(const std::string&, Datum::DatumValue&, std::uint32_t)> Datum::mDeserializers[] = {
 
 		[] (const std::string&, DatumValue&, std::uint32_t) {},		// Unknown
 		[] (const std::string& str, DatumValue& datum, std::uint32_t index) { datum.intValue[index] = std::stoi(str); },	// Integer
@@ -71,7 +71,7 @@ namespace AnonymousEngine
 		[] (const std::string& str, DatumValue& datum, std::uint32_t index) { datum.rttiPtrValue[index]->FromString(str); }	// RTTI*
 	};
 
-	const std::function<std::string(const Datum::DatumValue&, std::uint32_t)> Datum::mSerializers[7] = {
+	const std::function<std::string(const Datum::DatumValue&, std::uint32_t)> Datum::mSerializers[] = {
 		[] (const DatumValue&, std::uint32_t) { return ""; },		// Unknown
 		[] (const DatumValue& datum, std::uint32_t index) { return std::to_string(datum.intValue[index]); },			// Integer
 		[] (const DatumValue& datum, std::uint32_t index) { return std::to_string(datum.floatValue[index]); },		// Float

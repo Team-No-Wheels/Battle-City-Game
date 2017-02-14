@@ -20,7 +20,8 @@ namespace AnonymousEngine
 			Vector,
 			Matrix,
 			String,
-			RTTI
+			RTTI,
+			MaxTypes
 		};
 
 		/** Constructs a new vector and sets the type.
@@ -343,13 +344,13 @@ namespace AnonymousEngine
 		std::uint32_t mSize;
 		bool mIsExternal;
 
-		static const std::uint32_t mTypeSizes[7];
-		static const std::function<void(DatumValue&, std::uint32_t)> mDefaultConstructors[7];
-		static const std::function<void(DatumValue&, std::uint32_t)> mDestructors[7];
-		static const std::function<bool(const DatumValue&, const DatumValue&, std::uint32_t)> mComparators[7];
-		static const std::function<void(DatumValue&, const DatumValue&, std::uint32_t)> mCloners[7];
-		static const std::function<void(const std::string&, DatumValue&, std::uint32_t)> mDeserializers[7];
-		static const std::function<std::string(const DatumValue&, std::uint32_t)> mSerializers[7];
+		static const std::uint32_t mTypeSizes[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<void(DatumValue&, std::uint32_t)> mDefaultConstructors[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<void(DatumValue&, std::uint32_t)> mDestructors[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<bool(const DatumValue&, const DatumValue&, std::uint32_t)> mComparators[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<void(DatumValue&, const DatumValue&, std::uint32_t)> mCloners[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<void(const std::string&, DatumValue&, std::uint32_t)> mDeserializers[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<std::string(const DatumValue&, std::uint32_t)> mSerializers[static_cast<uint32_t>(DatumType::MaxTypes)];
 
 		// Checks if the passed type can be assigned to current datum. Throw exception otherwise
 		inline void ValidateType(DatumType type) const;

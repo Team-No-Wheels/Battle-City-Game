@@ -13,7 +13,10 @@ namespace UnitTestLibraryDesktop
 	public:
 		TEST_METHOD(TestDefaultConstructor)
 		{
-			DatumTestTemplate<std::uint32_t>::TestDefaultConstructor();
+			for (std::uint32_t index = static_cast<std::uint32_t>(DatumType::Unknown); index < static_cast<std::uint32_t>(DatumType::MaxTypes); ++index)
+			{
+				DatumTestTemplate<std::uint32_t>::TestDefaultConstructor(DatumType::Unknown);
+			}
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
