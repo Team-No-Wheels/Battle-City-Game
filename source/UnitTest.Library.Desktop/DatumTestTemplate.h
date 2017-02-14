@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CppUnitTestAssert.h"
-//#include "Datum.h"
+#include "Datum.h"
 
 namespace UnitTestLibraryDesktop
 {
@@ -13,8 +13,8 @@ namespace UnitTestLibraryDesktop
 	public:
 		static void TestDefaultConstructor()
 		{
-			//AnonymousEngine::Datum d;
-			//d;
+			AnonymousEngine::Datum d;
+			d;
 		}
 	};
 }

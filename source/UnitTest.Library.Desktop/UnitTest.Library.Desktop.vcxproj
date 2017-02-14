@@ -105,6 +105,7 @@
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MinimalRebuild>false</MinimalRebuild>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -128,6 +129,7 @@
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MinimalRebuild>false</MinimalRebuild>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,7 +153,7 @@
       <UseFullPaths>true</UseFullPaths>
       <TreatWarningAsError>true</TreatWarningAsError>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <DisableSpecificWarnings>4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4101;4201;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -180,7 +182,7 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <DisableSpecificWarnings>4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4101;4201;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
