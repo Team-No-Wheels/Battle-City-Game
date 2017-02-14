@@ -5,9 +5,9 @@
     <ClCompile Include="Pch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ClInclude Include="Pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Pch.h" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
