@@ -35,6 +35,9 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestSetType)
 		{
 			TestDatumForAllTypes(&DatumTest::SetTypeTest);
+			Datum d;
+			Assert::ExpectException<std::invalid_argument>([&d] { d.SetType(DatumType::Unknown); });
+			Assert::ExpectException<std::invalid_argument>([&d] { d.SetType(DatumType::MaxTypes); });
 		}
 
 		TEST_METHOD(TestCopyConstructor)

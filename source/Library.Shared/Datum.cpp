@@ -502,7 +502,7 @@ namespace AnonymousEngine
 
 	void Datum::ValidateType(DatumType type) const
 	{
-		if (!(mType == DatumType::Unknown || mType == type))
+		if (!(mType == DatumType::Unknown || mType == type) || type == DatumType::Unknown || type == DatumType::MaxTypes)
 		{
 			throw std::invalid_argument("Cannot modify the type of a Datum with an already set type");
 		}
