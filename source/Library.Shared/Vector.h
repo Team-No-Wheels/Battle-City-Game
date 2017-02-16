@@ -3,6 +3,7 @@
 #include <cstdint>
 #include "CapacityStrategy.h"
 #include "DefaultVectorCapacityStrategy.h"
+#include "../UnitTest.Library.Desktop/VectorIteratorTestTemplate.h"
 
 namespace AnonymousEngine
 {
@@ -60,9 +61,11 @@ namespace AnonymousEngine
 		};
 
 		/** Constructs a new vector
-		 *  @param capacity The initial capacity of the vector
+		 *  @param capacity The initial capacity of the vector. Default capacity is 3 elements
 		*/
-		Vector(std::uint32_t capacity = 3U);
+		Vector(std::uint32_t capacity = DefaultCapacity);
+
+		Vector(const std::initializer_list<T>& items);
 
 		/** Copy constructor to construct a copy of vector
 		*	@param vector The other list to create copy from
@@ -187,6 +190,8 @@ namespace AnonymousEngine
 
 		// copies data from one list to another. Used in copy constructor and assignment operator
 		void Copy(const Vector<T>& rhs);
+
+		const static std::uint32_t DefaultCapacity;
 	};
 }
 
