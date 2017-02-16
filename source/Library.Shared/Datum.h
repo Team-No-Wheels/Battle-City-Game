@@ -297,19 +297,20 @@ namespace AnonymousEngine
 			RTTI** rttiPtrValue;
 			void* voidPtr;
 		};
+
 	private:
 		DatumType mType;
 		DatumValue mData;
 		std::uint32_t mSize;
 		bool mIsExternal;
 
-		static const std::uint32_t mTypeSizes[static_cast<uint32_t>(DatumType::MaxTypes)];
-		static const std::function<void(DatumValue&, std::uint32_t)> mDefaultConstructors[static_cast<uint32_t>(DatumType::MaxTypes)];
-		static const std::function<void(DatumValue&, std::uint32_t)> mDestructors[static_cast<uint32_t>(DatumType::MaxTypes)];
-		static const std::function<bool(const DatumValue&, const DatumValue&, std::uint32_t)> mComparators[static_cast<uint32_t>(DatumType::MaxTypes)];
-		static const std::function<void(DatumValue&, const DatumValue&, std::uint32_t)> mCloners[static_cast<uint32_t>(DatumType::MaxTypes)];
-		static const std::function<void(const std::string&, DatumValue&, std::uint32_t)> mDeserializers[static_cast<uint32_t>(DatumType::MaxTypes)];
-		static const std::function<std::string(const DatumValue&, std::uint32_t)> mSerializers[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::uint32_t TypeSizes[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<void(DatumValue&, std::uint32_t)> DefaultConstructors[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<void(DatumValue&, std::uint32_t)> Destructors[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<bool(const DatumValue&, const DatumValue&, std::uint32_t)> Comparators[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<void(DatumValue&, const DatumValue&, std::uint32_t)> Cloners[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<void(const std::string&, DatumValue&, std::uint32_t)> Deserializers[static_cast<uint32_t>(DatumType::MaxTypes)];
+		static const std::function<std::string(const DatumValue&, std::uint32_t)> Serializers[static_cast<uint32_t>(DatumType::MaxTypes)];
 
 		// Checks if the passed type can be assigned to current datum. Throw exception otherwise
 		inline void ValidateType(DatumType type) const;

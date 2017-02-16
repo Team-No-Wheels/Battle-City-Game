@@ -3,7 +3,7 @@
 
 namespace AnonymousEngine
 {
-	const std::uint32_t Datum::mTypeSizes[] = {
+	const std::uint32_t Datum::TypeSizes[] = {
 		0,
 		sizeof(std::int32_t),
 		sizeof(float),
@@ -13,8 +13,8 @@ namespace AnonymousEngine
 		sizeof(RTTI*)
 	};
 
-	const std::function<void(Datum::DatumValue&, std::uint32_t)> Datum::mDefaultConstructors[] =  {
-		[] (DatumValue&, std::uint32_t) { },		// Unknown
+	const std::function<void(Datum::DatumValue&, std::uint32_t)> Datum::DefaultConstructors[] =  {
+		[] (DatumValue&, std::uint32_t) -> bool { throw std::runtime_error("Unsupported operation"); },	// Unknown
 		[] (DatumValue& datum, std::uint32_t index) { datum.intValue[index] = 0; },						// Integer
 		[] (DatumValue& datum, std::uint32_t index) { datum.floatValue[index] = 0.0f; },				// Float
 		[] (DatumValue& datum, std::uint32_t index) { new (&datum.strValue[index]) std::string(""); },	// String
@@ -23,18 +23,18 @@ namespace AnonymousEngine
 		[] (DatumValue& datum, std::uint32_t index) { datum.rttiPtrValue[index] = nullptr; }			// RTTI*
 	};
 
-	const std::function<void(Datum::DatumValue&, std::uint32_t)> Datum::mDestructors[] = {
+	const std::function<void(Datum::DatumValue&, std::uint32_t)> Datum::Destructors[] = {
 		[] (DatumValue&, std::uint32_t) { },	// Unknown
 		[] (DatumValue&, std::uint32_t) { },	// Integer
 		[] (DatumValue&, std::uint32_t) { },	// Float
-		[] (DatumValue& datum, std::uint32_t index) { index;  datum;  datum.strValue[index].~basic_string(); },		// String
+		[] (DatumValue& datum, std::uint32_t index) { datum.strValue[index].~basic_string(); },						// String
 		[] (DatumValue& datum, std::uint32_t index) { index;  datum;  datum.vecValue[index].~tvec4(); },			// Vec4
 		[] (DatumValue& datum, std::uint32_t index) { index;  datum;  datum.matValue[index].~tmat4x4(); },			// Mat4
 		[] (DatumValue&, std::uint32_t) { }		// RTTI*
 	};
 
-	const std::function<bool(const Datum::DatumValue&, const Datum::DatumValue&, std::uint32_t)> Datum::mComparators[] = {
-		[] (const DatumValue&, const DatumValue&, std::uint32_t) { return true; },		// Unknown
+	const std::function<bool(const Datum::DatumValue&, const Datum::DatumValue&, std::uint32_t)> Datum::Comparators[] = {
+		[] (const DatumValue&, const DatumValue&, std::uint32_t) -> bool { throw std::runtime_error("Unsupported operation"); },				// Unknown
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.intValue[index] == rhs.intValue[index]; },			// Integer
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.floatValue[index] == rhs.floatValue[index]; },		// Float
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.strValue[index] == rhs.strValue[index]; },			// String
@@ -43,8 +43,8 @@ namespace AnonymousEngine
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.rttiPtrValue[index] == rhs.rttiPtrValue[index]; }	// RTTI*
 	};
 
-	const std::function<void(Datum::DatumValue&, const Datum::DatumValue&, std::uint32_t)> Datum::mCloners[] = {
-		[] (DatumValue&, const DatumValue&, std::uint32_t) { },		// Unknown
+	const std::function<void(Datum::DatumValue&, const Datum::DatumValue&, std::uint32_t)> Datum::Cloners[] = {
+		[] (DatumValue&, const DatumValue&, std::uint32_t) { throw std::runtime_error("Unsupported operation"); },					// Unknown
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.intValue[index] = rhs.intValue[index]; },			// Integer
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.floatValue[index] = rhs.floatValue[index]; },		// Float
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.strValue[index] = rhs.strValue[index]; },			// String
@@ -53,13 +53,13 @@ namespace AnonymousEngine
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.rttiPtrValue[index] = rhs.rttiPtrValue[index]; }		// RTTI*
 	};
 
-	const std::function<void(const std::string&, Datum::DatumValue&, std::uint32_t)> Datum::mDeserializers[] = {
+	const std::function<void(const std::string&, Datum::DatumValue&, std::uint32_t)> Datum::Deserializers[] = {
 
-		[] (const std::string&, DatumValue&, std::uint32_t) {},		// Unknown
+		[] (const std::string&, DatumValue&, std::uint32_t) { throw std::runtime_error("Unsupported operation"); },			// Unknown
 		[] (const std::string& str, DatumValue& datum, std::uint32_t index) { datum.intValue[index] = std::stoi(str); },	// Integer
 		[] (const std::string& str, DatumValue& datum, std::uint32_t index) { datum.floatValue[index] = std::stof(str); },	// Float
 		[] (const std::string& str, DatumValue& datum, std::uint32_t index) { datum.strValue[index] = str; },				// String
-		[] (const std::string& str, DatumValue& datum, std::uint32_t index)													// Vec4
+		[] (const std::string& str, DatumValue& datum, std::uint32_t index)		// Vec4
 			{
 				glm::vec4& vector = datum.vecValue[index];
 				std::size_t tempPos;
@@ -72,7 +72,7 @@ namespace AnonymousEngine
 				pos += (tempPos + 1);
 				vector.w = std::stof(str.substr(pos), &tempPos);
 			},
-		[] (const std::string& str, DatumValue& datum, std::uint32_t index)													// Mat4
+		[] (const std::string& str, DatumValue& datum, std::uint32_t index)		// Mat4
 			{
 				glm::mat4& mat = datum.matValue[index];
 				float values[16];
@@ -85,11 +85,18 @@ namespace AnonymousEngine
 				}
 				mat = glm::make_mat4(values);
 			},
-		[] (const std::string& str, DatumValue& datum, std::uint32_t index) { datum.rttiPtrValue[index]->FromString(str); }	// RTTI*
+		[] (const std::string& str, DatumValue& datum, std::uint32_t index)  	// RTTI*
+			{
+				if (datum.rttiPtrValue == nullptr)
+				{
+					throw std::runtime_error("Unsupported operation on nullpointer");
+				}
+				datum.rttiPtrValue[index]->FromString(str);
+			}
 	};
 
-	const std::function<std::string(const Datum::DatumValue&, std::uint32_t)> Datum::mSerializers[] = {
-		[] (const DatumValue&, std::uint32_t) { return ""; },		// Unknown
+	const std::function<std::string(const Datum::DatumValue&, std::uint32_t)> Datum::Serializers[] = {
+		[] (const DatumValue&, std::uint32_t) -> std::string { throw std::runtime_error("Unsupported operation"); },// Unknown
 		[] (const DatumValue& datum, std::uint32_t index) { return std::to_string(datum.intValue[index]); },		// Integer
 		[] (const DatumValue& datum, std::uint32_t index) { return std::to_string(datum.floatValue[index]); },		// Float
 		[] (const DatumValue& datum, std::uint32_t index) { return datum.strValue[index]; },						// String
@@ -98,7 +105,7 @@ namespace AnonymousEngine
 				const glm::vec4& vector = datum.vecValue[index];
 				return std::to_string(vector.x) + "," + std::to_string(vector.y) + "," + std::to_string(vector.z) + "," + std::to_string(vector.w);
 			},
-		[] (const DatumValue& datum, std::uint32_t index)															// Mat4
+		[] (const DatumValue& datum, std::uint32_t index)		// Mat4
 			{
 				const glm::mat4& mat = datum.matValue[index];
 				const float *values = static_cast<const float*>(glm::value_ptr(mat));
@@ -109,7 +116,14 @@ namespace AnonymousEngine
 				}
 				return output;
 			},
-		[] (const DatumValue& datum, std::uint32_t index) { return datum.rttiPtrValue[index]->ToString(); }			// RTTI*
+		[] (const DatumValue& datum, std::uint32_t index)		// RTTI*
+			{
+				if (datum.rttiPtrValue == nullptr)
+				{
+					throw std::runtime_error("Unsupported operation on nullpointer");
+				}
+				return datum.rttiPtrValue[index]->ToString();
+			}
 	};
 
 	Datum::Datum(DatumType type) :
@@ -280,7 +294,7 @@ namespace AnonymousEngine
 		RaiseExceptionOnExternal();
 		if (mSize > 0)
 		{
-			mDestructors[static_cast<std::uint32_t>(mType)](mData, mSize-1);
+			Destructors[static_cast<std::uint32_t>(mType)](mData, mSize-1);
 			--mSize;
 			return true;
 		}
@@ -295,7 +309,7 @@ namespace AnonymousEngine
 		}
 		for(std::uint32_t index = 0; index < mSize; ++index)
 		{
-			if (!mComparators[static_cast<std::uint32_t>(mType)](mData, data.mData, index))
+			if (!Comparators[static_cast<std::uint32_t>(mType)](mData, data.mData, index))
 			{
 				return false;
 			}
@@ -425,17 +439,22 @@ namespace AnonymousEngine
 	void Datum::SetFromString(const std::string& stringData, std::uint32_t index)
 	{
 		ValidateIndex(index);
-		mDeserializers[static_cast<std::uint32_t>(mType)](stringData, mData, index);
+		Deserializers[static_cast<std::uint32_t>(mType)](stringData, mData, index);
 	}
 
 	std::string Datum::ToString(std::uint32_t index) const
 	{
 		ValidateIndex(index);
-		return mSerializers[static_cast<std::uint32_t>(mType)](mData, index);
+		return Serializers[static_cast<std::uint32_t>(mType)](mData, index);
 	}
 
 	void Datum::Resize(std::uint32_t newSize)
 	{
+		if (mType == DatumType::Unknown)
+		{
+			throw std::runtime_error("Unsupported operation on unknown type");
+		}
+
 		RaiseExceptionOnExternal();
 		if (newSize == 0)
 		{
@@ -445,12 +464,12 @@ namespace AnonymousEngine
 		{
 			for (std::uint32_t index = newSize; index < mSize; index++)
 			{
-				mDestructors[static_cast<std::uint32_t>(mType)](mData, index);
+				Destructors[static_cast<std::uint32_t>(mType)](mData, index);
 			}
-			mData.voidPtr = realloc(mData.voidPtr, mTypeSizes[static_cast<std::uint32_t>(mType)] * newSize);
+			mData.voidPtr = realloc(mData.voidPtr, TypeSizes[static_cast<std::uint32_t>(mType)] * newSize);
 			for (std::uint32_t index = mSize; index < newSize; index++)
 			{
-				mDefaultConstructors[static_cast<std::uint32_t>(mType)](mData, index);
+				DefaultConstructors[static_cast<std::uint32_t>(mType)](mData, index);
 			}
 		}
 		mSize = newSize;
@@ -467,7 +486,7 @@ namespace AnonymousEngine
 		{
 			for (std::uint32_t index = 0; index < mSize; ++index)
 			{
-				mDestructors[static_cast<std::uint32_t>(mType)](mData, index);
+				Destructors[static_cast<std::uint32_t>(mType)](mData, index);
 			}
 			free(mData.voidPtr);
 		}
@@ -527,7 +546,7 @@ namespace AnonymousEngine
 			Resize(datum.mSize);
 			for (std::uint32_t index = 0; index < datum.mSize; ++index)
 			{
-				mCloners[static_cast<std::uint32_t>(mType)](mData, datum.mData, index);
+				Cloners[static_cast<std::uint32_t>(mType)](mData, datum.mData, index);
 			}
 		}
 		mSize = datum.mSize;
