@@ -129,6 +129,13 @@ namespace AnonymousEngine
 		 */
 		Iterator Insert(EntryType& entry);
 
+		/** Insert an entry into the hashmap. This method would not overwrite any existing element with the same key
+		 *  @param entry The entry to insert into the hashmap
+		 *  @param hasInserted Boolean out parameter to indicate whether a new element was inserted or not
+		 *  @return An iterator to the inserted element or with the given key if an element already exists
+		 */
+		Iterator Insert(EntryType& entry, bool& hasInserted);
+
 		/** Insert an entry into the hashmap.
 		*   @param key The key of the element which should be removed from the hashmap
 		*   @return A boolean indicating whether the element was removed or not

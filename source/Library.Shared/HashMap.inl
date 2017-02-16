@@ -129,10 +129,19 @@ namespace AnonymousEngine
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
 	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Insert(EntryType& entry)
 	{
+		bool hasInserted;
+		return Insert(entry, hasInserted);
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Insert(EntryType& entry, bool& hasInserted)
+	{
 		Iterator it = Find(entry.first);
+		hasInserted = false;
 		if (it == end())
 		{
 			it = InsertEntry(entry.first, entry.second);
+			hasInserted = true;
 		}
 		return it;
 	}

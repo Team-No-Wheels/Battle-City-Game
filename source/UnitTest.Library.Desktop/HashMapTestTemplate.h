@@ -75,10 +75,13 @@ namespace UnitTestLibraryDesktop
 			MapType map;
 			map.Insert(pair1);
 			IteratorType it = map.Insert(pair2);
-			map.Insert(pair3);
+			bool hasInserted;
+			map.Insert(pair3, hasInserted);
+			Assert::IsTrue(hasInserted);
 			Assert::AreEqual(3U, map.Size());
 			Assert::IsTrue(pair1 == *map.Find(value1));
-			Assert::IsTrue(it == map.Insert(pair));
+			Assert::IsTrue(it == map.Insert(pair, hasInserted));
+			Assert::IsFalse(hasInserted);
 			Assert::IsTrue(*it == *map.Insert(pair));
 		}
 
