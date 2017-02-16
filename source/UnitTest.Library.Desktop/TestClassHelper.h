@@ -3,6 +3,9 @@
 #include "CppUnitTest.h"
 #include <cstdint>
 #include <random>
+#include "glm/mat4x4.hpp"
+#include "glm/vec4.hpp"
+#include "Foo.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -22,6 +25,12 @@ namespace UnitTestLibraryDesktop
 		void Teardown();
 
 		std::uint32_t GetRandomUInt32() const;
+		std::int32_t GetRandomInt32() const;
+		float GetRandomFloat() const;
+		std::string GetRandomString() const;
+		glm::vec4 GetRandomVec4() const;
+		glm::mat4 GetRandomMat4() const;
+		Foo GetRandomFoo() const;
 	protected:
 		_CrtMemState mStartMemState;
 		std::default_random_engine* mGenerator;

@@ -1,8 +1,10 @@
 #pragma once
 
+#include "RTTI.h"
+
 namespace UnitTestLibraryDesktop
 {
-	class Foo
+	class Foo : public AnonymousEngine::RTTI
 	{
 	public:
 		Foo();
@@ -13,8 +15,13 @@ namespace UnitTestLibraryDesktop
 
 		std::uint32_t Data() const;
 
-		~Foo();
+		virtual ~Foo();
 	private:
 		std::uint32_t* mData;
+
+		RTTI_DECLARATIONS(Foo, RTTI)
+
+		virtual std::string ToString() const override;
+		virtual void FromString(const std::string& str) override;
 	};
 }
