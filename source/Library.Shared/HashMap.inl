@@ -111,6 +111,16 @@ namespace AnonymousEngine
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	HashMap<TKey, TData, THashFunctor, TCompareFunctor>::HashMap(const std::initializer_list<EntryType>& entries) :
+		HashMap()
+	{
+		for (const auto& entry : entries)
+		{
+			Insert(entry);
+		}
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
 	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Find(const TKey& key) const
 	{
 		std::uint32_t index = CalculateIndex(key);
@@ -127,14 +137,14 @@ namespace AnonymousEngine
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
-	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Insert(EntryType& entry)
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Insert(const EntryType& entry)
 	{
 		bool hasInserted;
 		return Insert(entry, hasInserted);
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
-	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Insert(EntryType& entry, bool& hasInserted)
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Insert(const EntryType& entry, bool& hasInserted)
 	{
 		Iterator it = Find(entry.first);
 		hasInserted = false;

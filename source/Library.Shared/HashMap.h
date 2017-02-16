@@ -107,6 +107,11 @@ namespace AnonymousEngine
 		 */
 		explicit HashMap(std::uint32_t buckets = 13U);
 
+		/** Initializes a hashmap with values provided in an initializer list
+		 *  @param entries The initalizer list values that will be passed in
+		 */
+		HashMap(const std::initializer_list<EntryType>& entries);
+
 		/** Copy constructor. Defaults will suffice here
 		 *  @param rhs The hashmap to copy from
 		 */
@@ -127,14 +132,14 @@ namespace AnonymousEngine
 		 *  @param entry The entry to insert into the hashmap
 		 *  @return An iterator to the inserted element or with the given key if an element already exists
 		 */
-		Iterator Insert(EntryType& entry);
+		Iterator Insert(const EntryType& entry);
 
 		/** Insert an entry into the hashmap. This method would not overwrite any existing element with the same key
 		 *  @param entry The entry to insert into the hashmap
 		 *  @param hasInserted Boolean out parameter to indicate whether a new element was inserted or not
 		 *  @return An iterator to the inserted element or with the given key if an element already exists
 		 */
-		Iterator Insert(EntryType& entry, bool& hasInserted);
+		Iterator Insert(const EntryType& entry, bool& hasInserted);
 
 		/** Insert an entry into the hashmap.
 		*   @param key The key of the element which should be removed from the hashmap

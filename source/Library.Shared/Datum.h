@@ -27,7 +27,7 @@ namespace AnonymousEngine
 		/** Constructs a new vector and sets the type.
 		 *  @param type Type of the datum to create. Defaults to Unknown
 		 */
-		Datum(DatumType type = DatumType::Unknown);
+		explicit Datum(DatumType type = DatumType::Unknown);
 
 		/** Copy constructor to construct a copy of vector
 		 *  @param datum The other list to create copy from

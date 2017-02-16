@@ -21,6 +21,16 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(0U, map.Size());
 		}
 
+		static void TestInitializerListConstructor(const TKey& value1, const TKey& value2, const TKey& value3)
+		{
+			MapType map = {
+				{value1, 1U},
+				{value2, 2U},
+				{value3, 3U},
+			};
+			Assert::AreEqual(3U, map.Size());
+		}
+
 		static void TestCopyConstructor(const TKey& value1, const TKey& value2)
 		{
 			EntryType pair1(value1, 1U);
