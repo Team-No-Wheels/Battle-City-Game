@@ -25,7 +25,20 @@ namespace AnonymousEngine
 		return nullptr;
 	}
 
+	Datum* const Scope::Find(const std::string& name) const
+	{
+		name;
+		return nullptr;
+	}
+
 	Datum* Scope::Search(const std::string& name, Scope** foundScope)
+	{
+		name;
+		foundScope;
+		return nullptr;
+	}
+
+	Datum* const Scope::Search(const std::string& name, Scope** foundScope) const
 	{
 		name;
 		foundScope;
@@ -61,7 +74,19 @@ namespace AnonymousEngine
 		return nullptr;
 	}
 
+	Datum* const Scope::operator[](const std::string& name) const
+	{
+		name;
+		return nullptr;
+	}
+
 	Datum* Scope::operator[](const std::uint32_t index)
+	{
+		index;
+		return nullptr;
+	}
+
+	Datum* const Scope::operator[](const std::uint32_t index) const
 	{
 		index;
 		return nullptr;
