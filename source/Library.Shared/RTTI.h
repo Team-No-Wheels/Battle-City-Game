@@ -37,7 +37,7 @@ namespace AnonymousEngine
 		{
 			if (Is(T::TypeIdClass()))
 			{
-				return reinterpret_cast<T*>(this);
+				return reinterpret_cast<T*>(const_cast<RTTI*>(this));
 			}
 
 			return nullptr;

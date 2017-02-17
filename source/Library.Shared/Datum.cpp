@@ -1,5 +1,6 @@
-#include "Datum.h"
 #include <glm/gtc/type_ptr.hpp>
+#include "Datum.h"
+#include "Scope.h"
 
 namespace AnonymousEngine
 {
@@ -20,6 +21,7 @@ namespace AnonymousEngine
 		[] (DatumValue& datum, std::uint32_t index) { new (&datum.strValue[index]) std::string(""); },	// String
 		[] (DatumValue& datum, std::uint32_t index) { new (&datum.vecValue[index]) glm::vec4(); },		// Vec4
 		[] (DatumValue& datum, std::uint32_t index) { new (&datum.matValue[index]) glm::mat4(); },		// Mat4
+		[] (DatumValue& datum, std::uint32_t index) { datum.scopeValue[index] = nullptr; },				// Scope*
 		[] (DatumValue& datum, std::uint32_t index) { datum.rttiPtrValue[index] = nullptr; }			// RTTI*
 	};
 
@@ -30,6 +32,7 @@ namespace AnonymousEngine
 		[] (DatumValue& datum, std::uint32_t index) { datum.strValue[index].~basic_string(); },						// String
 		[] (DatumValue& datum, std::uint32_t index) { index;  datum;  datum.vecValue[index].~tvec4(); },			// Vec4
 		[] (DatumValue& datum, std::uint32_t index) { index;  datum;  datum.matValue[index].~tmat4x4(); },			// Mat4
+		[] (DatumValue&, std::uint32_t) { },		// Scope*
 		[] (DatumValue&, std::uint32_t) { }		// RTTI*
 	};
 
@@ -40,6 +43,7 @@ namespace AnonymousEngine
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.strValue[index] == rhs.strValue[index]; },			// String
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.vecValue[index] == rhs.vecValue[index]; },			// Vec4
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.matValue[index] == rhs.matValue[index]; },			// Mat4
+		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return *lhs.scopeValue[index] == *rhs.scopeValue[index]; },	// Scope*
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.rttiPtrValue[index] == rhs.rttiPtrValue[index]; }	// RTTI*
 	};
 
@@ -50,6 +54,7 @@ namespace AnonymousEngine
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.strValue[index] = rhs.strValue[index]; },			// String
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.vecValue[index] = rhs.vecValue[index]; },			// Vec4
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.matValue[index] = rhs.matValue[index]; },			// Mat4
+		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { *lhs.scopeValue[index] = *rhs.scopeValue[index]; },		// Scope*
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.rttiPtrValue[index] = rhs.rttiPtrValue[index]; }		// RTTI*
 	};
 
@@ -85,6 +90,7 @@ namespace AnonymousEngine
 				}
 				mat = glm::make_mat4(values);
 			},
+		[] (const std::string& str, DatumValue& datum, std::uint32_t index) { datum.scopeValue[index]->FromString(str); },  // Scope*
 		[] (const std::string& str, DatumValue& datum, std::uint32_t index)  	// RTTI*
 			{
 				if (datum.rttiPtrValue == nullptr)
@@ -116,6 +122,7 @@ namespace AnonymousEngine
 				}
 				return output;
 			},
+		[] (const DatumValue& datum, std::uint32_t index) { return datum.scopeValue[index]->ToString(); },  // Scope*
 		[] (const DatumValue& datum, std::uint32_t index)		// RTTI*
 			{
 				if (datum.rttiPtrValue == nullptr)
@@ -178,6 +185,13 @@ namespace AnonymousEngine
 		return (*this);
 	}
 
+	Datum& Datum::operator=(const glm::vec4& data)
+	{
+		InitializeScalar(DatumType::Vector);
+		mData.vecValue[0] = data;
+		return (*this);
+	}
+
 	Datum& Datum::operator=(const glm::mat4& data)
 	{
 		InitializeScalar(DatumType::Matrix);
@@ -185,10 +199,10 @@ namespace AnonymousEngine
 		return (*this);
 	}
 
-	Datum& Datum::operator=(const glm::vec4& data)
+	Datum& Datum::operator=(Scope* data)
 	{
-		InitializeScalar(DatumType::Vector);
-		mData.vecValue[0] = data;
+		InitializeScalar(DatumType::Scope);
+		mData.scopeValue[0] = data;
 		return (*this);
 	}
 
@@ -220,6 +234,13 @@ namespace AnonymousEngine
 		mData.strValue[index] = data;
 	}
 
+	void Datum::Set(const glm::vec4& data, const std::uint32_t index)
+	{
+		ValidateType(DatumType::Vector);
+		ValidateIndex(index);
+		mData.vecValue[index] = data;
+	}
+
 	void Datum::Set(const glm::mat4& data, const std::uint32_t index)
 	{
 		ValidateType(DatumType::Matrix);
@@ -227,11 +248,11 @@ namespace AnonymousEngine
 		mData.matValue[index] = data;
 	}
 
-	void Datum::Set(const glm::vec4& data, const std::uint32_t index)
+	void Datum::Set(Scope* data, const std::uint32_t index)
 	{
-		ValidateType(DatumType::Vector);
+		ValidateType(DatumType::Scope);
 		ValidateIndex(index);
-		mData.vecValue[index] = data;
+		mData.scopeValue[index] = data;
 	}
 
 	void Datum::Set(RTTI* data, const std::uint32_t index)
@@ -265,6 +286,14 @@ namespace AnonymousEngine
 		mData.strValue[mSize - 1] = data;
 	}
 
+	void Datum::PushBack(const glm::vec4& data)
+	{
+		RaiseExceptionOnExternal();
+		SetType(DatumType::Vector);
+		Resize(mSize + 1);
+		mData.vecValue[mSize - 1] = data;
+	}
+
 	void Datum::PushBack(const glm::mat4& data)
 	{
 		RaiseExceptionOnExternal();
@@ -273,12 +302,12 @@ namespace AnonymousEngine
 		mData.matValue[mSize - 1] = data;
 	}
 
-	void Datum::PushBack(const glm::vec4& data)
+	void Datum::PushBack(Scope* data)
 	{
 		RaiseExceptionOnExternal();
-		SetType(DatumType::Vector);
+		SetType(DatumType::Scope);
 		Resize(mSize + 1);
-		mData.vecValue[mSize - 1] = data;
+		mData.scopeValue[mSize - 1] = data;
 	}
 
 	void Datum::PushBack(RTTI* data)
@@ -344,6 +373,15 @@ namespace AnonymousEngine
 		return (*mData.strValue == data);
 	}
 
+	bool Datum::operator==(const glm::vec4& data) const
+	{
+		if (mType != DatumType::Vector || mSize != 1)
+		{
+			return false;
+		}
+		return (*mData.vecValue == data);
+	}
+
 	bool Datum::operator==(const glm::mat4& data) const
 	{
 		if (mType != DatumType::Matrix || mSize != 1)
@@ -353,13 +391,13 @@ namespace AnonymousEngine
 		return (*mData.matValue == data);
 	}
 
-	bool Datum::operator==(const glm::vec4& data) const
+	bool Datum::operator==(const Scope* data) const
 	{
-		if (mType != DatumType::Vector || mSize != 1)
+		if (mType != DatumType::Scope || mSize != 1)
 		{
 			return false;
 		}
-		return (*mData.vecValue == data);
+		return (mData.scopeValue[0]->Equals(data));
 	}
 
 	bool Datum::operator==(const RTTI* data) const
@@ -391,12 +429,17 @@ namespace AnonymousEngine
 		return !(*this == data);
 	}
 
+	bool Datum::operator!=(const glm::vec4& data) const
+	{
+		return !(*this == data);
+	}
+
 	bool Datum::operator!=(const glm::mat4& data) const
 	{
 		return !(*this == data);
 	}
 
-	bool Datum::operator!=(const glm::vec4& data) const
+	bool Datum::operator!=(const Scope* data) const
 	{
 		return !(*this == data);
 	}
@@ -421,14 +464,19 @@ namespace AnonymousEngine
 		SetExternalStorage(data, size, DatumType::String);
 	}
 
+	void Datum::SetStorage(glm::vec4* data, std::uint32_t size)
+	{
+		SetExternalStorage(data, size, DatumType::Vector);
+	}
+
 	void Datum::SetStorage(glm::mat4* data, std::uint32_t size)
 	{
 		SetExternalStorage(data, size, DatumType::Matrix);
 	}
 
-	void Datum::SetStorage(glm::vec4* data, std::uint32_t size)
+	void Datum::SetStorage(Scope** data, std::uint32_t size)
 	{
-		SetExternalStorage(data, size, DatumType::Vector);
+		SetExternalStorage(data, size, DatumType::Scope);
 	}
 
 	void Datum::SetStorage(RTTI** data, std::uint32_t size)

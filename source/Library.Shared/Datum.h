@@ -9,6 +9,8 @@
 
 namespace AnonymousEngine
 {
+	class Scope;
+
 	class Datum final
 	{
 	public:
@@ -20,6 +22,7 @@ namespace AnonymousEngine
 			String,
 			Vector,
 			Matrix,
+			Scope,
 			RTTI,
 			MaxTypes
 		};
@@ -75,6 +78,11 @@ namespace AnonymousEngine
 		 *  @return A reference to the current datum
 		 */
 		Datum& operator=(const glm::mat4& data);
+		/** Assigns the given Scope value to the datum
+		 *  @param data The data to assign
+		 *  @return A reference to the current datum
+		 */
+		Datum& operator=(Scope* data);
 		/** Assigns the given RTTI value to the datum
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
@@ -116,6 +124,13 @@ namespace AnonymousEngine
 		 *  @return A reference to the current datum
 		 */
 		void Set(const glm::mat4& data, const std::uint32_t index = 0);
+		/** Assigns the given Scope value to the datum at the specified index.
+		 *  Throws exception if index is out of range. index should be in the range [0, size)
+		 *  @param data The data to assign
+		 *  @param index The index to which the data is to be assigned.
+		 *  @return A reference to the current datum
+		 */
+		void Set(Scope* data, const std::uint32_t index = 0);
 		/** Assigns the given RTTI value to the datum at the specified index.
 		 *  Throws exception if index is out of range. index should be in the range [0, size)
 		 *  @param data The data to assign
@@ -156,6 +171,11 @@ namespace AnonymousEngine
 		 *  @return A reference to the current data that is pushed
 		 */
 		void PushBack(const glm::mat4& data);
+		/** Push a Scope value to the end of the datum
+		 *  @param data The data item to push to the back of the datum
+		 *  @return A reference to the current data that is pushed
+		 */
+		void PushBack(Scope* data);
 		/** Push an RTTI value to the end of the datum
 		 *  @param data The data item to push to the back of the datum
 		 *  @return A reference to the current data that is pushed
@@ -191,6 +211,10 @@ namespace AnonymousEngine
 		 *  @param data The string value to compare to
 		 */
 		bool operator==(const glm::mat4& data) const;
+		/** Check if the current datum and a Scope value is equal. If the datum is not a scalar, the result will be false
+		 *  @param data The Scope value to compare to
+		 */
+		bool operator==(const Scope* data) const;
 		/** Check if the current datum and an RTTI value is equal. If the datum is not a scalar, the result will be false
 		 *  @param data The RTTI value to compare to
 		 */
@@ -220,6 +244,10 @@ namespace AnonymousEngine
 		 *  @param data The string value to compare to
 		 */
 		bool operator!=(const glm::mat4& data) const;
+		/** Check if the current datum and a Scope value is not equal. If the datum is not a scalar, the result will be false
+		 *  @param data The Scope value to compare to
+		 */
+		bool operator!=(const Scope* data) const;
 		/** Check if the current datum and an RTTI value is not equal. If the datum is not a scalar, the result will be false
 		 *  @param data The RTTI value to compare to
 		 */
@@ -250,6 +278,11 @@ namespace AnonymousEngine
 		 *  @param size The number of elements in the external data array
 		 */
 		void SetStorage(glm::mat4* data, std::uint32_t size);
+		/** Set this datum to use an external Scope pointer array
+		 *  @param data The pointer to the external data
+		 *  @param size The number of elements in the external data array
+		 */
+		void SetStorage(Scope** data, std::uint32_t size);
 		/** Set this datum to use an external RTTI pointer array
 		 *  @param data The pointer to the external data
 		 *  @param size The number of elements in the external data array
@@ -294,6 +327,7 @@ namespace AnonymousEngine
 			glm::mat4* matValue;
 			glm::vec4* vecValue;
 			std::string* strValue;
+			Scope** scopeValue;
 			RTTI** rttiPtrValue;
 			void* voidPtr;
 		};

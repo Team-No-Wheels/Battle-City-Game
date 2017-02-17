@@ -2,6 +2,8 @@
 
 namespace AnonymousEngine
 {
+	RTTI_DEFINITIONS(Scope)
+
 	Scope::Scope() : mParent(nullptr)
 	{
 	}
@@ -79,6 +81,36 @@ namespace AnonymousEngine
 
 	Scope::~Scope()
 	{
+	}
+
+	bool Scope::Equals(const RTTI* rhs) const
+	{
+		if (this == rhs)
+		{
+			return true;
+		}
+
+		if (rhs == nullptr)
+		{
+			return false;
+		}
+
+		const Scope* scope = rhs->As<Scope>();
+		if (scope != nullptr)
+		{
+			return operator==(*scope);
+		}
+		return false;
+	}
+
+	std::string Scope::ToString() const
+	{
+		return "Scope";
+	}
+
+	void Scope::FromString(const std::string& str)
+	{
+		str;
 	}
 
 	void Scope::Copy(const Scope& rhs)

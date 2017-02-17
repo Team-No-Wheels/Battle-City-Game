@@ -2,11 +2,12 @@
 
 #include "Datum.h"
 #include "HashMap.h"
+#include "RTTI.h"
 #include "Vector.h"
 
 namespace AnonymousEngine
 {
-	class Scope
+	class Scope : public RTTI
 	{
 	public:
 		explicit Scope();
@@ -37,15 +38,22 @@ namespace AnonymousEngine
 
 		virtual ~Scope();
 
+		bool Equals(const RTTI* rhs) const override;
+		
+		std::string ToString() const override;
+		
+		void FromString(const std::string& str) override;
 	private:
 
 		HashMap<std::string, Datum> mData;
 		Vector<std::pair<std::string, Datum>*> mOrderVector;
-
 		Scope* mParent;
+		Datum mDatum;
 
 		void Copy(const Scope& rhs);
 		void Clear();
 		void Orphan(Scope& scope);
+
+		RTTI_DECLARATIONS(Scope, RTTI)
 	};
 }
