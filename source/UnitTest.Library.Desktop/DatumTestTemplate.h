@@ -77,6 +77,7 @@ namespace UnitTestLibraryDesktop
 			d1 = value1;
 			Datum d2(d1);
 			Assert::IsTrue(value1 == d2.Get<T>());
+			Assert::AreEqual(1U, d2.Size());
 		}
 
 		static void TestSet(const DatumType type, const T& value1, const T& value2, const DatumType anotherType)

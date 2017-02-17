@@ -5,13 +5,14 @@
 namespace AnonymousEngine
 {
 	const std::uint32_t Datum::TypeSizes[] = {
-		0,
-		sizeof(std::int32_t),
-		sizeof(float),
-		sizeof(std::string),
-		sizeof(glm::vec4),
-		sizeof(glm::mat4),
-		sizeof(RTTI*)
+		0,						// Unknown
+		sizeof(std::int32_t),	// Integer
+		sizeof(float),			// Float
+		sizeof(std::string),	// String
+		sizeof(glm::vec4),		// Vec4
+		sizeof(glm::mat4),		// Mat4
+		sizeof(Scope*),			// Scope*
+		sizeof(RTTI*)			// RTTI*
 	};
 
 	const std::function<void(Datum::DatumValue&, std::uint32_t)> Datum::DefaultConstructors[] =  {
@@ -32,7 +33,7 @@ namespace AnonymousEngine
 		[] (DatumValue& datum, std::uint32_t index) { datum.strValue[index].~basic_string(); },						// String
 		[] (DatumValue& datum, std::uint32_t index) { index;  datum;  datum.vecValue[index].~tvec4(); },			// Vec4
 		[] (DatumValue& datum, std::uint32_t index) { index;  datum;  datum.matValue[index].~tmat4x4(); },			// Mat4
-		[] (DatumValue&, std::uint32_t) { },		// Scope*
+		[] (DatumValue&, std::uint32_t) { },	// Scope*
 		[] (DatumValue&, std::uint32_t) { }		// RTTI*
 	};
 
@@ -54,7 +55,7 @@ namespace AnonymousEngine
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.strValue[index] = rhs.strValue[index]; },			// String
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.vecValue[index] = rhs.vecValue[index]; },			// Vec4
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.matValue[index] = rhs.matValue[index]; },			// Mat4
-		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { *lhs.scopeValue[index] = *rhs.scopeValue[index]; },		// Scope*
+		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.scopeValue[index] = rhs.scopeValue[index]; },		// Scope*
 		[] (DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { lhs.rttiPtrValue[index] = rhs.rttiPtrValue[index]; }		// RTTI*
 	};
 

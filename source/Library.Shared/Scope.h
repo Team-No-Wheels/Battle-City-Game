@@ -37,7 +37,7 @@ namespace AnonymousEngine
 		 *  @param name The key to search for in the current scop
 		 *  @return Address of the datum at that key. Returns nullptr if the key is not found
 		 */
-		Datum* const Find(const std::string& name) const;
+		const Datum* Find(const std::string& name) const;
 
 		/** Search for a key in the current scope. If not found in the current scope go up the
 		 *  chain until The key is found
@@ -51,7 +51,7 @@ namespace AnonymousEngine
 		 *  @param name The key to search for
 		 *  @foundScope Output parameter to store the address of the scope in which the key was found.
 		 */
-		Datum* const Search(const std::string& name, Scope** foundScope = nullptr) const;
+		const Datum* Search(const std::string& name, Scope** foundScope = nullptr) const;
 
 		/** Create a new Datum in the current scope at the given key. If the key exists already,
 		 *		return the address of the existing Datum
@@ -79,33 +79,33 @@ namespace AnonymousEngine
 		 */
 		const Scope* GetParent() const;
 
-		/** Get the address of the Datum at the given key in the current scope.
+		/** Get a reference to the Datum at the given key in the current scope.
 		 *  Works similar to Append, i.e. creates new Datum if no datum exists with the given key
 		 *  @param name The key to search for
 		 *  @return The address of the datum which was found / created
 		 */
-		Datum* operator[](const std::string& name);
+		Datum& operator[](const std::string& name);
 
-		/** Get the address of the Datum at the given key in the current scope.
-		 *  Returns null pointer if the key was not found
+		/** Get a reference to the Datum at the given key in the current scope.
+		 *  Throws an exception if key was not found in the scope
 		 *  @param name The key to search for
 		 *  @return The address of the datum which was found
 		 */
-		Datum* const operator[](const std::string& name) const;
+		const Datum& operator[](const std::string& name) const;
 
 		/** Get the address of the Datum at the given index in the current scope.
 		 *  Works similar to Append, i.e. creates new Datum if no datum exists with the given key
 		 *  @param index The index to search for
 		 *  @return The address of the datum which was found / created
 		 */
-		Datum* operator[](const std::uint32_t index);
+		Datum& operator[](const std::uint32_t index);
 
 		/** Get the address of the Datum at the given index in the current scope.
-		 *  Returns nullptr if the key was not found
+		 *  Throws an exception if key was not found in the scope
 		 *  @param index The index to search for
 		 *  @return The address of the datum which was found / created
 		 */
-		Datum* const operator[](const std::uint32_t index) const;
+		const Datum& operator[](const std::uint32_t index) const;
 
 		/** Check if two scopes are logically equivalent
 		 *  @param rhs The scope to compare the current scope to
@@ -141,20 +141,18 @@ namespace AnonymousEngine
 		void FromString(const std::string& str) override;
 	private:
 		// The child objects data map
-		HashMap<std::string, Datum> mData;
+		HashMap<std::string, Datum> mDatumMap;
 		// Ordered vector to store pointers to map entries in the order of insertion
-		Vector<std::pair<std::string, Datum>*> mOrderVector;
+		Vector<std::pair<const std::string, Datum>*> mOrderVector;
 		// The pointer to the current scope's parent
 		Scope* mParent;
-		// TODO: remove
-		Datum mDatum;
 
 		// Copies another scope to this scope. Used by copy constructor and assignment operator
 		void Copy(const Scope& rhs);
 		// Delete's all memory allocated by this scope. Also calls destructor on all the child objects
 		void Clear();
 		// Detach the given scope from its parent and take its ownership
-		void Orphan(Scope& scope);
+		static void Orphan(Scope& scope);
 
 		RTTI_DECLARATIONS(Scope, RTTI)
 	};
