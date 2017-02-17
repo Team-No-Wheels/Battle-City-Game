@@ -3,7 +3,6 @@
 #include <cstdint>
 #include "CapacityStrategy.h"
 #include "DefaultVectorCapacityStrategy.h"
-#include "../UnitTest.Library.Desktop/VectorIteratorTestTemplate.h"
 
 namespace AnonymousEngine
 {
