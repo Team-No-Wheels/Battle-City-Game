@@ -17,6 +17,7 @@ namespace AnonymousEngine
 	{
 		if (*this != rhs)
 		{
+			Clear();
 			Copy(rhs);
 		}
 		return (*this);
@@ -224,14 +225,8 @@ namespace AnonymousEngine
 				Datum& datum = pairPtr->second;
 				if (datum.Type() == Datum::DatumType::Scope)
 				{
-					for (std::uint32_t index = 0; index < datum.Size(); ++index)
-					{
-						Scope* childScope = datum.Get<Scope*>(index);
-						if (scope == *childScope)
-						{
-							// TODO: add remove method in datum
-						}
-					}
+					// removes the scope it was found in the datum
+					datum.Remove(&scope);
 				}
 			}
 			scope.mParent = nullptr;

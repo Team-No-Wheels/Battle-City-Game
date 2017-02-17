@@ -450,6 +450,19 @@ namespace AnonymousEngine
 		return !(*this == data);
 	}
 
+	bool Datum::Remove(Scope* scope)
+	{
+		for (std::uint32_t index = 0; index < mSize; ++index)
+		{
+			if (mData.scopeValue[index] == scope)
+			{
+				memmove(&mData.scopeValue[index], &mData.scopeValue[index + 1], (mSize - index - 1) * sizeof(Scope*));
+				return true;
+			}
+		}
+		return false;
+	}
+
 	void Datum::SetStorage(std::int32_t* data, std::uint32_t size)
 	{
 		SetExternalStorage(data, size, DatumType::Integer);

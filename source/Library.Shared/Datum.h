@@ -253,6 +253,12 @@ namespace AnonymousEngine
 		 */
 		bool operator!=(const RTTI* data) const;
 
+		/** Remove a scope from the current datum
+		 *  @param scope The scope to be removed
+		 *  @return A boolean indicating whether the element was removed or not
+		 */
+		bool Remove(Scope* scope);
+
 		/** Set this datum to use an external int array
 		 *  @param data The pointer to the external data
 		 *  @param size The number of elements in the external data array
