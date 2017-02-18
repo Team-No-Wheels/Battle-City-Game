@@ -39,6 +39,12 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(0U, vector.Size());
 		}
 
+		static void TestInitializerList(const T& value1, const T& value2, const T& value3)
+		{
+			AnonymousEngine::Vector<T> vector { value1, value2, value3 };
+			Assert::AreEqual(3U, vector.Size());
+		}
+
 		static void TestCopyConstructor(const T& value1, const T& value2, const T& value3, const T& value4)
 		{
 			AnonymousEngine::Vector<T> vector1;

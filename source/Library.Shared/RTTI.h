@@ -37,20 +37,27 @@ namespace AnonymousEngine
 		{
 			if (Is(T::TypeIdClass()))
 			{
-				return reinterpret_cast<T*>(this);
+				return reinterpret_cast<T*>(const_cast<RTTI*>(this));
 			}
 
 			return nullptr;
 		}
-
-		virtual std::string ToString() const = 0;
 
 		virtual bool Equals(const RTTI* rhs) const
 		{
 			return this == rhs;
 		}
 
-		virtual void FromString(const std::string& str) = 0;
+		virtual std::string ToString() const
+		{
+			throw std::runtime_error("Not implemented");
+		}
+
+		virtual void FromString(const std::string& str)
+		{
+			ANONYMOUS_UNREFERENCED(str);
+			throw std::runtime_error("Not implemented");
+		}
 	};
 
 #define RTTI_DECLARATIONS(Type, ParentType)																	 \

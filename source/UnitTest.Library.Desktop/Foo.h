@@ -21,7 +21,7 @@ namespace UnitTestLibraryDesktop
 
 		RTTI_DECLARATIONS(Foo, RTTI)
 
-		virtual std::string ToString() const override;
-		virtual void FromString(const std::string& str) override;
+		std::string ToString() const override;
+		void FromString(const std::string& str) override;
 	};
 }

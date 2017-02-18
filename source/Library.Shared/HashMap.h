@@ -17,7 +17,7 @@ namespace AnonymousEngine
 	public:
 		/** The type of each entry in the hashmap
 		*/
-		typedef std::pair<TKey, TData> EntryType;
+		typedef std::pair<const TKey, TData> EntryType;
 		/** The type of each chain in the hashmap bucket
 		*/
 		typedef SList<EntryType> ChainType;
@@ -107,6 +107,11 @@ namespace AnonymousEngine
 		 */
 		explicit HashMap(std::uint32_t buckets = 13U);
 
+		/** Initializes a hashmap with values provided in an initializer list
+		 *  @param entries The initalizer list values that will be passed in
+		 */
+		HashMap(const std::initializer_list<EntryType>& entries);
+
 		/** Copy constructor. Defaults will suffice here
 		 *  @param rhs The hashmap to copy from
 		 */
@@ -127,12 +132,19 @@ namespace AnonymousEngine
 		 *  @param entry The entry to insert into the hashmap
 		 *  @return An iterator to the inserted element or with the given key if an element already exists
 		 */
-		Iterator Insert(EntryType& entry);
+		Iterator Insert(const EntryType& entry);
+
+		/** Insert an entry into the hashmap. This method would not overwrite any existing element with the same key
+		 *  @param entry The entry to insert into the hashmap
+		 *  @param hasInserted Boolean out parameter to indicate whether a new element was inserted or not
+		 *  @return An iterator to the inserted element or with the given key if an element already exists
+		 */
+		Iterator Insert(const EntryType& entry, bool& hasInserted);
 
 		/** Insert an entry into the hashmap.
-		*   @param key The key of the element which should be removed from the hashmap
-		*   @return A boolean indicating whether the element was removed or not
-		*/
+		 *  @param key The key of the element which should be removed from the hashmap
+		 *  @return A boolean indicating whether the element was removed or not
+		 */
 		bool Remove(const TKey& key);
 
 		/** Returns a reference to the data element for a given key.
@@ -142,10 +154,10 @@ namespace AnonymousEngine
 		 */
 		TData& operator[](const TKey& key);
 		/** Returns a constant reference to the data element for a given key.
-		*  If the given key does not exist in the hashmap, this method throws an exception
-		*  @param key The key for which the element has to be retrieved
-		*  @returns A constant reference to the data for the given key
-		*/
+		 *  If the given key does not exist in the hashmap, this method throws an exception
+		 *  @param key The key for which the element has to be retrieved
+		 *  @returns A constant reference to the data for the given key
+		 */
 		const TData& operator[](const TKey& key) const;
 
 		/** Clears the contents of the hashmap
@@ -168,7 +180,7 @@ namespace AnonymousEngine
 		Iterator begin() const;
 		/** Return an iterator to the end of the hashmap. End doesn't point to anything inside the hashmap
 		 *  @return An iterator to the end of the hashmap
-		*/
+		 */
 		Iterator end() const;
 
 		/** Finalizes the hashmap. Default implementation suffices here.

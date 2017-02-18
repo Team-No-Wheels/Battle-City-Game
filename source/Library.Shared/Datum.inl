@@ -5,7 +5,7 @@ namespace AnonymousEngine
 	template<typename T>
 	T& Datum::Get(const std::uint32_t)
 	{
-		return *reinterpret_cast<T*>(mData.voidPtr);
+		throw std::runtime_error("Unsupported Datum type");
 	}
 
 	template <>
@@ -44,6 +44,13 @@ namespace AnonymousEngine
 	}
 
 	template <>
+	inline Scope*& Datum::Get<Scope*>(const std::uint32_t index)
+	{
+		ValidateIndex(index);
+		return mData.scopeValue[index];
+	}
+
+	template <>
 	inline RTTI*& Datum::Get<RTTI*>(const std::uint32_t index)
 	{
 		ValidateIndex(index);
@@ -53,42 +60,48 @@ namespace AnonymousEngine
 	template<typename T>
 	const T& Datum::Get(const std::uint32_t) const
 	{
-		return const_cast<const Datum*>(this)->Get<T>();
+		throw std::runtime_error("Unsupported Datum type");
 	}
 
 	template <>
 	inline const std::int32_t& Datum::Get<std::int32_t>(const std::uint32_t index) const
 	{
-		return const_cast<const Datum*>(this)->Get<std::int32_t>(index);
+		return const_cast<Datum*>(this)->Get<std::int32_t>(index);
 	}
 
 	template <>
 	inline const float& Datum::Get<float>(const std::uint32_t index) const
 	{
-		return const_cast<const Datum*>(this)->Get<float>(index);
+		return const_cast<Datum*>(this)->Get<float>(index);
 	}
 
 	template <>
 	inline const std::string& Datum::Get<std::string>(const std::uint32_t index) const
 	{
-		return const_cast<const Datum*>(this)->Get<std::string>(index);
+		return const_cast<Datum*>(this)->Get<std::string>(index);
 	}
 
 	template <>
 	inline const glm::mat4& Datum::Get<glm::mat4>(const std::uint32_t index) const
 	{
-		return const_cast<const Datum*>(this)->Get<glm::mat4>(index);
+		return const_cast<Datum*>(this)->Get<glm::mat4>(index);
 	}
 
 	template <>
 	inline const glm::vec4& Datum::Get<glm::vec4>(const std::uint32_t index) const
 	{
-		return const_cast<const Datum*>(this)->Get<glm::vec4>(index);
+		return const_cast<Datum*>(this)->Get<glm::vec4>(index);
+	}
+
+	template <>
+	inline Scope* const& Datum::Get<Scope*>(const std::uint32_t index) const
+	{
+		return const_cast<Datum*>(this)->Get<Scope*>(index);
 	}
 
 	template <>
 	inline RTTI* const& Datum::Get<RTTI*>(const std::uint32_t index) const
 	{
-		return const_cast<const Datum*>(this)->Get<RTTI*>(index);
+		return const_cast<Datum*>(this)->Get<RTTI*>(index);
 	}
 }

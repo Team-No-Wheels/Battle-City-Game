@@ -18,6 +18,16 @@ namespace UnitTestLibraryDesktop
 			VectorTestTemplate<Foo>::TestDefaultConstructor();
 		}
 
+		TEST_METHOD(TestInitializerList)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			std::uint32_t value3 = mHelper.GetRandomUInt32();
+			VectorTestTemplate<std::uint32_t>::TestInitializerList(value1, value2, value3);
+			VectorTestTemplate<std::uint32_t*>::TestInitializerList(&value1, &value2, &value3);
+			VectorTestTemplate<Foo>::TestInitializerList(Foo(value1), Foo(value2), Foo(value3));
+		}
+
 		TEST_METHOD(TestCopyConstructor)
 		{
 			std::uint32_t value1 = mHelper.GetRandomUInt32();

@@ -21,6 +21,16 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(0U, map.Size());
 		}
 
+		static void TestInitializerListConstructor(const TKey& value1, const TKey& value2, const TKey& value3)
+		{
+			MapType map = {
+				{value1, 1U},
+				{value2, 2U},
+				{value3, 3U},
+			};
+			Assert::AreEqual(3U, map.Size());
+		}
+
 		static void TestCopyConstructor(const TKey& value1, const TKey& value2)
 		{
 			EntryType pair1(value1, 1U);
@@ -75,10 +85,13 @@ namespace UnitTestLibraryDesktop
 			MapType map;
 			map.Insert(pair1);
 			IteratorType it = map.Insert(pair2);
-			map.Insert(pair3);
+			bool hasInserted;
+			map.Insert(pair3, hasInserted);
+			Assert::IsTrue(hasInserted);
 			Assert::AreEqual(3U, map.Size());
 			Assert::IsTrue(pair1 == *map.Find(value1));
-			Assert::IsTrue(it == map.Insert(pair));
+			Assert::IsTrue(it == map.Insert(pair, hasInserted));
+			Assert::IsFalse(hasInserted);
 			Assert::IsTrue(*it == *map.Insert(pair));
 		}
 
@@ -118,7 +131,7 @@ namespace UnitTestLibraryDesktop
 			const MapType map2(map1);
 			Assert::AreEqual(3U, map2.Size());
 			Assert::AreEqual(3U, map2[value3]);
-			Assert::ExpectException<std::out_of_range>([&map2, &value4] { map2[value4]; });
+			Assert::ExpectException<std::invalid_argument>([&map2, &value4] { map2[value4]; });
 		}
 
 		static void TestRemove(const TKey& value1, const TKey& value2, const TKey& value3, const TKey& value4)

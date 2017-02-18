@@ -1,3 +1,5 @@
+#include <algorithm>
+
 namespace AnonymousEngine
 {
 #pragma region IteratorMethods
@@ -60,11 +62,24 @@ namespace AnonymousEngine
 #pragma region VectorMethods
 
 	template <typename T>
+	const std::uint32_t Vector<T>::DefaultCapacity = 3U;
+
+	template <typename T>
 	Vector<T>::Vector(std::uint32_t capacity) :
 		mData(nullptr), mSize(0), mCapacity(0), mStrategy(nullptr), mDefaultStrategy(new DefaultVectorCapacityStrategy())
 	{
 		mStrategy = mDefaultStrategy;
 		Reserve(capacity);
+	}
+
+	template <typename T>
+	Vector<T>::Vector(const std::initializer_list<T>& items) :
+		Vector(std::max(static_cast<std::uint32_t>(items.size()), DefaultCapacity))
+	{
+		for (const auto& item : items)
+		{
+			PushBack(item);
+		}
 	}
 
 	template <typename T>

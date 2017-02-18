@@ -90,4 +90,11 @@ namespace UnitTestLibraryDesktop
 	{
 		return Foo(GetRandomUInt32());
 	}
+
+	AnonymousEngine::Scope TestClassHelper::GetRandomScope() const
+	{
+		AnonymousEngine::Scope s;
+		s.Append("int") = GetRandomInt32();
+		return s;
+	}
 }
