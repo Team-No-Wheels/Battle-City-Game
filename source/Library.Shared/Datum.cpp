@@ -44,7 +44,7 @@ namespace AnonymousEngine
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.strValue[index] == rhs.strValue[index]; },			// String
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.vecValue[index] == rhs.vecValue[index]; },			// Vec4
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.matValue[index] == rhs.matValue[index]; },			// Mat4
-		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return *lhs.scopeValue[index] == *rhs.scopeValue[index]; },	// Scope*
+		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.scopeValue[index]->Equals(rhs.scopeValue[index]); },// Scope*
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.rttiPtrValue[index] == rhs.rttiPtrValue[index]; }	// RTTI*
 	};
 
@@ -103,11 +103,11 @@ namespace AnonymousEngine
 	};
 
 	const std::function<std::string(const Datum::DatumValue&, std::uint32_t)> Datum::Serializers[] = {
-		[] (const DatumValue&, std::uint32_t) -> std::string { throw std::runtime_error("Unsupported operation"); },// Unknown
-		[] (const DatumValue& datum, std::uint32_t index) { return std::to_string(datum.intValue[index]); },		// Integer
-		[] (const DatumValue& datum, std::uint32_t index) { return std::to_string(datum.floatValue[index]); },		// Float
-		[] (const DatumValue& datum, std::uint32_t index) { return datum.strValue[index]; },						// String
-		[] (const DatumValue& datum, std::uint32_t index)															// Vec4
+		[] (const DatumValue&, std::uint32_t) -> std::string { throw std::runtime_error("Unsupported operation"); },	// Unknown
+		[] (const DatumValue& datum, std::uint32_t index) { return std::to_string(datum.intValue[index]); },			// Integer
+		[] (const DatumValue& datum, std::uint32_t index) { return std::to_string(datum.floatValue[index]); },			// Float
+		[] (const DatumValue& datum, std::uint32_t index) { return datum.strValue[index]; },							// String
+		[] (const DatumValue& datum, std::uint32_t index)																// Vec4
 			{
 				const glm::vec4& vector = datum.vecValue[index];
 				return std::to_string(vector.x) + "," + std::to_string(vector.y) + "," + std::to_string(vector.z) + "," + std::to_string(vector.w);
@@ -452,11 +452,13 @@ namespace AnonymousEngine
 
 	bool Datum::Remove(Scope* scope)
 	{
+		ValidateType(DatumType::Scope);
 		for (std::uint32_t index = 0; index < mSize; ++index)
 		{
 			if (mData.scopeValue[index] == scope)
 			{
 				memmove(&mData.scopeValue[index], &mData.scopeValue[index + 1], (mSize - index - 1) * sizeof(Scope*));
+				--mSize;
 				return true;
 			}
 		}
@@ -512,6 +514,11 @@ namespace AnonymousEngine
 
 	void Datum::Resize(std::uint32_t newSize)
 	{
+		if (mSize == newSize)
+		{
+			return;
+		}
+
 		if (mType == DatumType::Unknown)
 		{
 			throw std::runtime_error("Unsupported operation on unknown type");
@@ -522,7 +529,7 @@ namespace AnonymousEngine
 		{
 			Clear();
 		}
-		else if (mSize != newSize)
+		else
 		{
 			for (std::uint32_t index = newSize; index < mSize; index++)
 			{

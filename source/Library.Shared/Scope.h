@@ -151,8 +151,8 @@ namespace AnonymousEngine
 		void Copy(const Scope& rhs);
 		// Delete's all memory allocated by this scope. Also calls destructor on all the child objects
 		void Clear();
-		// Detach the given scope from its parent and take its ownership
-		static void Orphan(Scope& scope);
+		// Detach the current scope from its parent
+		void Orphan();
 
 		RTTI_DECLARATIONS(Scope, RTTI)
 	};

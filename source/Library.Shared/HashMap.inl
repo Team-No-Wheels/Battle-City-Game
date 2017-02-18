@@ -185,7 +185,7 @@ namespace AnonymousEngine
 		Iterator it = Find(key);
 		if (it == end())
 		{
-			std::invalid_argument("Key not found");
+			throw std::invalid_argument("Key not found");
 		}
 		return it->second;
 	}

@@ -76,10 +76,7 @@ namespace AnonymousEngine
 	Scope& Scope::AppendScope(const std::string& name)
 	{
 		Datum& datum = Append(name);
-		if (datum.Type() != Datum::DatumType::Scope)
-		{
-			throw std::runtime_error("A non scope datum exist in the current scope at the given key");
-		}
+		datum.SetType(Datum::DatumType::Scope);
 		Scope* scope = new Scope();
 		scope->mParent = this;
 		datum.PushBack(scope);
@@ -88,8 +85,9 @@ namespace AnonymousEngine
 
 	void Scope::Adopt(Scope& scope, const std::string& name)
 	{
-		Orphan(scope);
-		Append(name) = &scope;
+		scope.Orphan();
+		Append(name).PushBack(&scope);
+		scope.mParent = this;
 	}
 
 	const Scope* Scope::GetParent() const
@@ -184,7 +182,7 @@ namespace AnonymousEngine
 				Datum& datumToAppend = Append(key);
 				for (std::uint32_t index = 0; index < rhsDatum.Size(); ++index)
 				{
-					Scope* scope = new Scope(*rhsDatum.Get<Scope*>());
+					Scope* scope = new Scope(*rhsDatum.Get<Scope*>(index));
 					scope->mParent = this;
 					datumToAppend.PushBack(scope);
 				}
@@ -207,7 +205,6 @@ namespace AnonymousEngine
 				for (std::uint32_t index = 0; index < datum.Size(); ++index)
 				{
 					Scope* childScope = datum.Get<Scope*>(index);
-					childScope->Clear();
 					delete childScope;
 				}
 			}
@@ -216,20 +213,20 @@ namespace AnonymousEngine
 		mDatumMap.Clear();
 	}
 
-	void Scope::Orphan(Scope& scope)
+	void Scope::Orphan()
 	{
-		if (scope.mParent != nullptr)
+		if (mParent != nullptr)
 		{
-			for (const auto& pairPtr : scope.mParent->mOrderVector)
+			for (const auto& pairPtr : mParent->mOrderVector)
 			{
 				Datum& datum = pairPtr->second;
 				if (datum.Type() == Datum::DatumType::Scope)
 				{
 					// removes the scope it was found in the datum
-					datum.Remove(&scope);
+					datum.Remove(this);
 				}
 			}
-			scope.mParent = nullptr;
+			mParent = nullptr;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 #include "Pch.h"
 #include "Foo.h"
 #include "DatumTestTemplate.h"
+#include "Scope.h"
 #include "TestClassHelper.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -25,6 +26,9 @@ namespace UnitTestLibraryDesktop
 	TEST_CLASS(DatumTest)
 	{
 	public:
+		typedef AnonymousEngine::Datum Datum;
+		typedef Datum::DatumType DatumType;
+		typedef AnonymousEngine::Scope Scope;
 		typedef std::function<void(DatumType type)> TestMethodNoParam;
 
 		TEST_METHOD(TestDefaultConstructor)
@@ -50,6 +54,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestCopyConstructor(&f1, &f2);
+			Scope s1 = mHelper.GetRandomScope();
+			Scope s2 = mHelper.GetRandomScope();
+			DatumTestTemplate<Scope*>::TestCopyConstructor(&s1, &s2);
 		}
 
 		TEST_METHOD(TestAssignmentOperator)
@@ -62,6 +69,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestAssignmentOperator(&f1, &f2);
+			Scope s1 = mHelper.GetRandomScope();
+			Scope s2 = mHelper.GetRandomScope();
+			DatumTestTemplate<Scope*>::TestAssignmentOperator(&s1, &s2);
 		}
 
 		TEST_METHOD(TestAssignmentScalar)
@@ -74,6 +84,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestAssignmentScalar(DatumType::RTTI, &f1, &f2, DatumType::Float);
+			Scope s1 = mHelper.GetRandomScope();
+			Scope s2 = mHelper.GetRandomScope();
+			DatumTestTemplate<Scope*>::TestAssignmentScalar(DatumType::Scope, &s1, &s2, DatumType::Float);
 		}
 
 		TEST_METHOD(TestGet)
@@ -86,6 +99,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestGet(&f1, &f2);
+			Scope s1 = mHelper.GetRandomScope();
+			Scope s2 = mHelper.GetRandomScope();
+			DatumTestTemplate<Scope*>::TestGet(&s1, &s2);
 
 			DatumTestTemplate<std::int32_t>::TestConstantGet(mHelper.GetRandomInt32());
 			DatumTestTemplate<float>::TestConstantGet(mHelper.GetRandomFloat());
@@ -93,6 +109,7 @@ namespace UnitTestLibraryDesktop
 			DatumTestTemplate<glm::vec4>::TestConstantGet(mHelper.GetRandomVec4());
 			DatumTestTemplate<glm::mat4>::TestConstantGet(mHelper.GetRandomMat4());
 			DatumTestTemplate<RTTI*>::TestConstantGet(&f1);
+			DatumTestTemplate<Scope*>::TestConstantGet(&s1);
 		}
 
 		TEST_METHOD(TestSet)
@@ -105,6 +122,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestSet(DatumType::RTTI, &f1, &f2, DatumType::Float);
+			Scope s1 = mHelper.GetRandomScope();
+			Scope s2 = mHelper.GetRandomScope();
+			DatumTestTemplate<Scope*>::TestSet(DatumType::Scope, &s1, &s2, DatumType::Float);
 		}
 
 		TEST_METHOD(TestPushBack)
@@ -117,6 +137,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestPushBack(DatumType::RTTI, &f1, &f2);
+			Scope s1 = mHelper.GetRandomScope();
+			Scope s2 = mHelper.GetRandomScope();
+			DatumTestTemplate<Scope*>::TestPushBack(DatumType::Scope, &s1, &s2);
 		}
 
 		TEST_METHOD(TestResize)
@@ -129,6 +152,11 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestResize(DatumType::RTTI, &f1, &f2);
+			Scope s1 = mHelper.GetRandomScope();
+			Scope s2 = mHelper.GetRandomScope();
+			DatumTestTemplate<Scope*>::TestResize(DatumType::Scope, &s1, &s2);
+			Datum d;
+			Assert::ExpectException<std::runtime_error>([&d] { d.Resize(1U); });
 		}
 
 		TEST_METHOD(TestPopBack)
@@ -141,6 +169,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestPopBack(DatumType::RTTI, &f1, &f2);
+			Scope s1 = mHelper.GetRandomScope();
+			Scope s2 = mHelper.GetRandomScope();
+			DatumTestTemplate<Scope*>::TestPopBack(DatumType::Scope, &s1, &s2);
 		}
 
 		TEST_METHOD(TestEqualsOperator)
@@ -155,6 +186,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestEqualsOperator(&f1, &f2);
+			Scope s1 = mHelper.GetRandomScope();
+			Scope s2 = mHelper.GetRandomScope();
+			DatumTestTemplate<Scope*>::TestEqualsOperator(&s1, &s2);
 		}
 
 		TEST_METHOD(TestNotEqualsOperator)
@@ -169,6 +203,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestNotEqualsOperator(&f1, &f2);
+			Scope s1 = mHelper.GetRandomScope();
+			Scope s2 = mHelper.GetRandomScope();
+			DatumTestTemplate<Scope*>::TestNotEqualsOperator(&s1, &s2);
 		}
 
 		TEST_METHOD(TestSetStorage)
@@ -181,6 +218,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestSetStorage(DatumType::RTTI, &f1, &f2, DatumType::Float);
+			Scope s1 = mHelper.GetRandomScope();
+			Scope s2 = mHelper.GetRandomScope();
+			DatumTestTemplate<Scope*>::TestSetStorage(DatumType::Scope, &s1, &s2, DatumType::Float);
 		}
 
 		TEST_METHOD(TestToAndFromString)
@@ -289,6 +329,12 @@ namespace UnitTestLibraryDesktop
 		static bool Compare<RTTI*>(RTTI* const& a, RTTI* const& b)
 		{
 			return dynamic_cast<Foo*>(a)->Data() == dynamic_cast<Foo*>(b)->Data();
+		}
+
+		template<>
+		static bool Compare<Scope*>(Scope* const& a, Scope* const& b)
+		{
+			return a == b;
 		}
 
 		static TestClassHelper mHelper;

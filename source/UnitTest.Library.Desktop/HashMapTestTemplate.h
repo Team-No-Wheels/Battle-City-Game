@@ -131,7 +131,7 @@ namespace UnitTestLibraryDesktop
 			const MapType map2(map1);
 			Assert::AreEqual(3U, map2.Size());
 			Assert::AreEqual(3U, map2[value3]);
-			Assert::ExpectException<std::out_of_range>([&map2, &value4] { map2[value4]; });
+			Assert::ExpectException<std::invalid_argument>([&map2, &value4] { map2[value4]; });
 		}
 
 		static void TestRemove(const TKey& value1, const TKey& value2, const TKey& value3, const TKey& value4)

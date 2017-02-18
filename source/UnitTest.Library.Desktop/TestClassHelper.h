@@ -6,6 +6,7 @@
 #include "glm/mat4x4.hpp"
 #include "glm/vec4.hpp"
 #include "Foo.h"
+#include "Scope.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -31,6 +32,7 @@ namespace UnitTestLibraryDesktop
 		glm::vec4 GetRandomVec4() const;
 		glm::mat4 GetRandomMat4() const;
 		Foo GetRandomFoo() const;
+		AnonymousEngine::Scope GetRandomScope() const;
 	protected:
 		_CrtMemState mStartMemState;
 		std::default_random_engine* mGenerator;
