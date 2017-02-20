@@ -139,12 +139,19 @@ namespace AnonymousEngine
 		 */
 		void Set(RTTI* data, const std::uint32_t index = 0);
 
-		// Templated base implementation not to be used. Specializations are available as public methods
+		/** Get the data stored in the datum at the given index
+		 *  @param index The index of the data to be retrieved
+		 *  @return A reference to the data at the given index
+		 */
 		template<typename T>
-		T& Get(const std::uint32_t = 0);
+		T& Get(const std::uint32_t index = 0);
 
+		/** Get the data stored in the datum at the given index
+		 *  @param index The index of the data to be retrieved
+		 *  @return A constant reference to the data at the given index
+		 */
 		template<typename T>
-		const T& Get(const std::uint32_t = 0) const;
+		const T& Get(const std::uint32_t index = 0) const;
 
 		/** Push an int value to the end of the datum
 		 *  @param data The data item to pupsh to the back of the datum

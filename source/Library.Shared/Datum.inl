@@ -96,12 +96,12 @@ namespace AnonymousEngine
 	template <>
 	inline Scope* const& Datum::Get<Scope*>(const std::uint32_t index) const
 	{
-		return const_cast<Datum*>(this)->Get<Scope*>(index);
+		return const_cast<Scope*&>(const_cast<Datum*>(this)->Get<Scope*>(index));
 	}
 
 	template <>
 	inline RTTI* const& Datum::Get<RTTI*>(const std::uint32_t index) const
 	{
-		return const_cast<Datum*>(this)->Get<RTTI*>(index);
+		return const_cast<RTTI*&>(const_cast<Datum*>(this)->Get<RTTI*>(index));
 	}
 }
