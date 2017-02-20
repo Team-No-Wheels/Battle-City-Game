@@ -41,6 +41,26 @@ namespace UnitTestLibraryDesktop
 		delete mData;
 	}
 
+	bool Foo::Equals(const AnonymousEngine::RTTI * rhs) const
+	{
+		if (this == rhs)
+		{
+			return true;
+		}
+
+		if (rhs == nullptr)
+		{
+			return false;
+		}
+
+		const Foo* foo = rhs->As<Foo>();
+		if (foo != nullptr)
+		{
+			return operator==(*foo);
+		}
+		return false;
+	}
+
 	std::string Foo::ToString() const
 	{
 		return std::to_string(*mData);

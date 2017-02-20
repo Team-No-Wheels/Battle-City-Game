@@ -56,7 +56,6 @@ namespace UnitTestLibraryDesktop
 			Foo* foo = new Foo();
 			d3 = foo;
 			Assert::IsTrue(d3 == foo);
-			delete foo;
 
 			Datum& d4 = s["newInt"];
 			d4 = mHelper.GetRandomInt32();
@@ -67,6 +66,7 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(s[1U] == d3);
 			Assert::IsTrue(s[2U] == d4);
 			Assert::IsTrue(const_cast<const Scope&>(s)[2U] == d4);
+			delete foo;
 		}
 
 		TEST_METHOD(TestAppendScope)
@@ -208,12 +208,12 @@ namespace UnitTestLibraryDesktop
 			dInt2 = int2;
 
 			Assert::IsTrue(*scope["child"].Get<Scope*>() == childScope);
-			Assert::IsTrue(scope.Find("child") != nullptr);
+			Assert::IsNotNull(scope.Find("child"));
 			Assert::IsTrue(childScope.GetParent() == &scope);
 			Scope scope2;
 			scope2.Adopt(childScope, "newChild");
 			Assert::IsTrue(scope["child"].Size() == 0U);
-			Assert::IsTrue(scope2.Find("child") == nullptr);
+			Assert::IsNull(scope2.Find("child"));
 			Assert::IsTrue(*scope2["newChild"].Get<Scope*>() == childScope);
 			Assert::IsTrue(childScope.GetParent() == &scope2);
 			Assert::IsFalse(childScope.Equals(nullptr));
@@ -222,6 +222,25 @@ namespace UnitTestLibraryDesktop
 			Datum d;
 			d = &scope;
 			d.Remove(nullptr);
+
+			Assert::ExpectException<std::invalid_argument>([&scope] { scope.Adopt(scope, "test"); });
+		}
+
+		TEST_METHOD(TestRTTI)
+		{
+			Scope scope;
+			Scope* s = &scope;
+			RTTI* t = s;
+			Assert::IsTrue(s->Is(Scope::TypeIdClass()));
+			Assert::IsTrue(s->Is(s->TypeIdInstance()));
+			Assert::IsTrue(s->Is("Scope"));
+			Assert::IsFalse(s->Is(Foo::TypeIdClass()));
+			Assert::IsFalse(s->Is("Foo"));
+			Assert::IsNotNull(s->As<Scope>());
+			Assert::IsNull(t->As<Foo>());
+			Assert::IsNotNull(t->As<Scope>());
+			Assert::IsNotNull(t->QueryInterface(Scope::TypeIdClass()));
+			Assert::IsNull(t->QueryInterface(Foo::TypeIdClass()));
 		}
 
 		TEST_METHOD(TestToStringAndSetFromString)

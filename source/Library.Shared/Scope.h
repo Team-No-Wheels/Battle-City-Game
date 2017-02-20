@@ -11,6 +11,7 @@ namespace AnonymousEngine
 	 */
 	class Scope : public RTTI
 	{
+		RTTI_DECLARATIONS(Scope, RTTI)
 	public:
 		/** Default initialize a scope
 		 */
@@ -55,6 +56,7 @@ namespace AnonymousEngine
 
 		/** Create a new Datum in the current scope at the given key. If the key exists already,
 		 *		return the address of the existing Datum
+		 *	DO NOT use this method for appending a scope. Use AppendScope instead.
 		 *  @param name The key at which the Datum is to be created. 
 		 *	@return A reference to the datum added / found at the given key
 		 */
@@ -153,7 +155,5 @@ namespace AnonymousEngine
 		void Clear();
 		// Detach the current scope from its parent
 		void Orphan();
-
-		RTTI_DECLARATIONS(Scope, RTTI)
 	};
 }

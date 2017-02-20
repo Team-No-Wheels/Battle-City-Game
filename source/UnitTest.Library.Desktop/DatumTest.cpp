@@ -219,8 +219,10 @@ namespace UnitTestLibraryDesktop
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestSetStorage(DatumType::RTTI, &f1, &f2, DatumType::Float);
 			Scope s1 = mHelper.GetRandomScope();
-			Scope s2 = mHelper.GetRandomScope();
-			DatumTestTemplate<Scope*>::TestSetStorage(DatumType::Scope, &s1, &s2, DatumType::Float);
+			Scope* sPtr = &s1;
+			Datum d;
+			d.SetType(DatumType::Scope);
+			Assert::ExpectException<std::invalid_argument>([&d, &sPtr] { d.SetStorage(&sPtr, 1); });
 		}
 
 		TEST_METHOD(TestToAndFromString)

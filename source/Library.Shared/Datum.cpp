@@ -45,7 +45,14 @@ namespace AnonymousEngine
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.vecValue[index] == rhs.vecValue[index]; },			// Vec4
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.matValue[index] == rhs.matValue[index]; },			// Mat4
 		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.scopeValue[index]->Equals(rhs.scopeValue[index]); },// Scope*
-		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index) { return lhs.rttiPtrValue[index] == rhs.rttiPtrValue[index]; }	// RTTI*
+		[] (const DatumValue& lhs, const DatumValue& rhs, std::uint32_t index)  // RTTI*
+			{
+				if (lhs.rttiPtrValue[index] == nullptr)
+				{
+					return rhs.rttiPtrValue[index] == nullptr;
+				}
+				return lhs.rttiPtrValue[index]->Equals(rhs.rttiPtrValue[index]);
+			}
 	};
 
 	const std::function<void(Datum::DatumValue&, const Datum::DatumValue&, std::uint32_t)> Datum::Cloners[] = {
@@ -627,6 +634,10 @@ namespace AnonymousEngine
 		if (mType != type)
 		{
 			throw std::invalid_argument("Cannot modify the type of a Datum with an already set type");
+		}
+		if (type == DatumType::Scope)
+		{
+			throw std::invalid_argument("Cannot set storage to an external scope");
 		}
 		Clear();
 		mData.voidPtr = externalData;

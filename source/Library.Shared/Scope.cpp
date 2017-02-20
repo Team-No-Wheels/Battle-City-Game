@@ -85,6 +85,10 @@ namespace AnonymousEngine
 
 	void Scope::Adopt(Scope& scope, const std::string& name)
 	{
+		if (&scope == this)
+		{
+			throw std::invalid_argument("Cannot adopt yourself.");
+		}
 		scope.Orphan();
 		Append(name).PushBack(&scope);
 		scope.mParent = this;

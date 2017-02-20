@@ -21,6 +21,7 @@ namespace UnitTestLibraryDesktop
 
 		RTTI_DECLARATIONS(Foo, RTTI)
 
+		bool Equals(const AnonymousEngine::RTTI * rhs) const;
 		std::string ToString() const override;
 		void FromString(const std::string& str) override;
 	};
