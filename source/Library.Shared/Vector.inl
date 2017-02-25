@@ -262,7 +262,7 @@ namespace AnonymousEngine
 		{
 			mData[i].~T();
 		}
-		free(mData);
+		free(reinterpret_cast<void*>(mData));
 		mData = nullptr;
 		mSize = 0;
 		mCapacity = 0;

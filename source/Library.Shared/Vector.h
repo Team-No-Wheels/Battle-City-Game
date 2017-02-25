@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <initializer_list>
 #include "CapacityStrategy.h"
 #include "DefaultVectorCapacityStrategy.h"
 
@@ -64,6 +65,9 @@ namespace AnonymousEngine
 		*/
 		Vector(std::uint32_t capacity = DefaultCapacity);
 
+		/** Constrycts a vector from an initializer list
+		 *  @param items The initializer list from which the vector has to be initialized
+		 */
 		Vector(const std::initializer_list<T>& items);
 
 		/** Copy constructor to construct a copy of vector

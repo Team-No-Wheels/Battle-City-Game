@@ -11,7 +11,6 @@ namespace AnonymousEngine
 	 */
 	class Scope : public RTTI
 	{
-		RTTI_DECLARATIONS(Scope, RTTI)
 	public:
 		/** Default initialize a scope
 		 */
@@ -155,5 +154,7 @@ namespace AnonymousEngine
 		void Clear();
 		// Detach the current scope from its parent
 		void Orphan();
+
+		RTTI_DECLARATIONS(Scope, RTTI)
 	};
 }

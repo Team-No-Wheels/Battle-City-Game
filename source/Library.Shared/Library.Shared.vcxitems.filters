@@ -14,6 +14,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp">
       <Filter>Containers</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -43,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h">
       <Filter>Containers</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <initializer_list>
 #include <utility>
 #include "Compare.h"
 #include "HashFunctors.h"
