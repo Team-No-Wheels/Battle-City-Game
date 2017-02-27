@@ -15,10 +15,26 @@ namespace AnonymousEngine
 
 	Scope& Scope::operator=(const Scope& rhs)
 	{
-		if (*this != rhs)
+		if (this != &rhs)
 		{
 			Clear();
 			Copy(rhs);
+		}
+		return (*this);
+	}
+
+	Scope::Scope(Scope&& rhs) noexcept :
+		Scope()
+	{
+		Move(rhs);
+	}
+
+	Scope& Scope::operator=(Scope&& rhs) noexcept
+	{
+		if (*this != rhs)
+		{
+			Clear();
+			Move(rhs);
 		}
 		return (*this);
 	}
@@ -196,6 +212,14 @@ namespace AnonymousEngine
 				Append(key) = rhsDatum;
 			}
 		}
+		mParent = nullptr;
+	}
+
+	void Scope::Move(Scope& rhs)
+	{
+		mDatumMap = std::move(rhs.mDatumMap);
+		mOrderVector = std::move(rhs.mOrderVector);
+		rhs.Orphan();
 		mParent = nullptr;
 	}
 

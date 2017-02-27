@@ -33,9 +33,14 @@ namespace AnonymousEngine
 		explicit Datum(DatumType type = DatumType::Unknown);
 
 		/** Copy constructor to construct a copy of vector
-		 *  @param datum The other list to create copy from
+		 *  @param rhs The other datum to create copy from
 		 */
-		Datum(const Datum& datum);
+		Datum(const Datum& rhs);
+
+		/** Move constructor to construct a vector and move the data from the other
+		 *  @param rhs The other datum to move data from
+		 */
+		Datum(Datum&& rhs) noexcept;
 
 		/** Sets the type of the current datum
 		 *  @param type The type to set for the current datum
@@ -47,17 +52,22 @@ namespace AnonymousEngine
 		 */
 		DatumType Type() const;
 
-		/** Assignment operator to copy all the values from another vector
-		 *  @param datum The other vector to copy from
-		 *  @return A new instance of vector which is a copy of the passed vector
+		/** Copy assignment operator to copy all the values from another datum
+		 *  @param rhs The other datum to copy from
+		 *  @return A new instance of datum which is a copy of the passed datum
 		 */
-		Datum& operator=(const Datum& datum);
+		Datum& operator=(const Datum& rhs);
+		/** Move assignment operator to move all the values from another datum
+		 *  @param rhs The other datum to move from
+		 *  @return A reference to the current datum which has the new data
+		 */
+		Datum& operator=(Datum&& rhs) noexcept;
+
 		/** Assigns the given int value to the datum
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
 		 */
 		Datum& operator=(const std::int32_t& data);
-
 		/** Assigns the given float value to the datum
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
@@ -371,8 +381,11 @@ namespace AnonymousEngine
 		// Sets the type and resizes if not external type
 		inline void InitializeScalar(DatumType type);
 
-		// Copies data from one datum to another. Used in copy constructor and assignment operator
-		inline void Copy(const Datum& datum);
+		// Copies data from one datum to another. Used in copy constructor and copy assignment operator
+		inline void Copy(const Datum& rhs);
+
+		// Moves data from one datum to another. Used in move constructor and move assignment operator
+		inline void Move(Datum& rhs);
 
 		// Common method to set external storage based on type
 		inline void SetExternalStorage(void* externalData, std::uint32_t size, DatumType type);

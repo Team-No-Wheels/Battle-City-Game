@@ -26,7 +26,7 @@ namespace AnonymousEngine
 		};
 	public:
 		/** Iterator for SList class
-		*/
+		 */
 		class Iterator
 		{
 		public:
@@ -77,24 +77,35 @@ namespace AnonymousEngine
 		};
 
 		/** Constructs a new single linked list
-		*/
+		 */
 		explicit SList();
 
 		/** Copy constructor to construct a linked list copy of another list
-		 *	@param list The other list to create copy from
-		*/
-		SList(const SList<T>& list);
+		 *	@param rhs The other list to create copy from
+		 */
+		SList(const SList& rhs);
 
 		/** Assignment operator to copy all the values from another list
-		 *	@param list The other list to copy from
-		 *	@return A new instance of list which is a copy of the passed list
-		*/
-		SList<T>& operator=(const SList<T>& list);
+		 *	@param rhs The other list to copy from
+		 *	@return Reference to the current list after copy is complete
+		 */
+		SList& operator=(const SList& rhs);
+
+		/** Move constructor to build a new single linked list from another list
+		 *  @param rhs The other list to be moved
+		 */
+		SList(SList&& rhs) noexcept;
+
+		/** Assignment operator to move all the values from another list
+		 *	@param rhs The other list to move from
+		 *	@return Reference to the current list after move is complete
+		 */
+		SList& operator=(SList&& rhs) noexcept;
 
 		/** Push an item to the front of the list
 		 *	@param data The data item to push in the front of the list
 		 *	@return An iterator to the current data that is pushed
-		*/
+		 */
 		Iterator PushFront(const T& data);
 
 		/** Remove an item from the front of the list
@@ -176,7 +187,10 @@ namespace AnonymousEngine
 
 	private:
 		// Private method to create a copy of another list
-		inline void Copy(const SList<T>& list);
+		void Copy(const SList<T>& rhs);
+
+		// Private method to move the data from another list
+		void Move(SList<T>& rhs);
 
 		// Pointer to the first element in the list
 		Node* mFront;

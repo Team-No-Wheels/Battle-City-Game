@@ -101,6 +101,24 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
+	Vector<T>::Vector(Vector<T>&& rhs) noexcept :
+		Vector()
+	{
+		Move(rhs);
+	}
+
+	template <typename T>
+	Vector<T>& Vector<T>::operator=(Vector<T>&& rhs) noexcept
+	{
+		if (this != &rhs)
+		{
+			Clear();
+			Move(rhs);
+		}
+		return (*this);
+	}
+
+	template <typename T>
 	std::uint32_t Vector<T>::Size() const
 	{
 		return mSize;
@@ -296,6 +314,22 @@ namespace AnonymousEngine
 		{
 			PushBack(rhs.mData[i]);
 		}
+	}
+
+	template <typename T>
+	void AnonymousEngine::Vector<T>::Move(Vector<T>& rhs)
+	{
+		mData = rhs.mData;
+		mSize = rhs.mSize;
+		mCapacity = rhs.mCapacity;
+		mStrategy = rhs.mStrategy;
+		mDefaultStrategy = rhs.mDefaultStrategy;
+
+		mData = nullptr;
+		mSize = 0;
+		mCapacity = 0;
+		mStrategy = nullptr;
+		mDefaultStrategy = nullptr;
 	}
 
 #pragma endregion

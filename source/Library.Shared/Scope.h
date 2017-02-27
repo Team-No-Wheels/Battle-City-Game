@@ -27,6 +27,17 @@ namespace AnonymousEngine
 		 */
 		Scope& operator=(const Scope& rhs);
 
+		/** Move data from another scope and initialize a scope from that
+		 *  @param rhs The scope to move from
+		 */
+		Scope(Scope&& rhs) noexcept;
+
+		/** Mode and assign another scope into this
+		 *  @param rhs The scope to move data from
+		 *  @return The reference to the current scope
+		 */
+		Scope& operator=(Scope&& rhs) noexcept;
+
 		/** Find a given key in the current scope
 		 *  @param name The key to search for in the current scop
 		 *  @return Address of the datum at that key. Returns nullptr if the key is not found
@@ -148,8 +159,10 @@ namespace AnonymousEngine
 		// The pointer to the current scope's parent
 		Scope* mParent;
 
-		// Copies another scope to this scope. Used by copy constructor and assignment operator
+		// Copies another scope to this scope. Used by copy constructor and copy assignment operator
 		void Copy(const Scope& rhs);
+		// Moves another scope to this scope. Used by move constructor and move assignment operator
+		void Move(Scope& rhs);
 		// Delete's all memory allocated by this scope. Also calls destructor on all the child objects
 		void Clear();
 		// Detach the current scope from its parent

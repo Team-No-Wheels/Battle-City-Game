@@ -1,3 +1,4 @@
+
 namespace AnonymousEngine
 {
 #pragma region NodeMethods
@@ -77,18 +78,35 @@ namespace AnonymousEngine
 	}
 
 	template<typename T>
-	SList<T>::SList(const SList<T>& list) : SList()
+	SList<T>::SList(const SList& rhs) : SList()
 	{
-		Copy(list);
+		Copy(rhs);
 	}
 
 	template<typename T>
-	SList<T>& SList<T>::operator=(const SList<T>& list)
+	SList<T>& SList<T>::operator=(const SList& rhs)
 	{
-		if (this != &list)
+		if (this != &rhs)
 		{
 			Clear();
-			Copy(list);
+			Copy(rhs);
+		}
+		return *this;
+	}
+
+	template<typename T>
+	SList<T>::SList(SList&& rhs) noexcept
+	{
+		Move(rhs);
+	}
+
+	template <typename T>
+	SList<T>& SList<T>::operator=(SList&& rhs) noexcept
+	{
+		if (this != &rhs)
+		{
+			Clear();
+			Move(rhs);
 		}
 		return *this;
 	}
@@ -279,14 +297,26 @@ namespace AnonymousEngine
 		return false;
 	}
 
-	// This method is used by copy constructor and assignment operator to copy values from another list
+	// This method is used by copy constructor and copy assignment operator to copy values from another list
 	template<typename T>
-	void SList<T>::Copy(const SList<T>& list)
+	void SList<T>::Copy(const SList<T>& rhs)
 	{
-		for (Node* node = list.mFront; node != nullptr; node = node->mNext)
+		for (Node* node = rhs.mFront; node != nullptr; node = node->mNext)
 		{
 			PushBack(node->mData);
 		}
 	}
+
+	// This method is used by move constructor and move assignment operator to move values from another list
+	template<typename T>
+	void SList<T>::Move(SList<T>& rhs)
+	{
+		mFront = rhs.mFront;
+		mBack = rhs.mBack;
+		mSize = rhs.mSize;
+		rhs.mFront = rhs.mBack = nullptr;
+		rhs.mSize = 0;
+	}
+
 #pragma endregion 
 }

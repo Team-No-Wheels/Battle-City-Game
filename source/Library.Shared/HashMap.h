@@ -123,6 +123,16 @@ namespace AnonymousEngine
 		*/
 		HashMap& operator=(const HashMap& rhs) = default;
 
+		/** Move constructor. Defaults will suffice here
+		 *  @param rhs The hashmap to copy from
+		 */
+		HashMap(HashMap&& rhs) noexcept;
+		/** Move Assignment operator. Defaults will suffice here
+		 *  @param rhs The hashmap to assign from
+		 *  @return A reference to the current hashmap
+		 */
+		HashMap& operator=(HashMap&& rhs) noexcept;
+
 		/** Searches for a key in the hashmap and returns an iterator to the found element
 		 *  @param key The key to search for in the hashmap
 		 *  @return Iterator to the found key. Returns end() if the key is not found.
@@ -194,6 +204,9 @@ namespace AnonymousEngine
 
 		Iterator InsertEntry(const TKey& key, const TData& data);
 		std::uint32_t CalculateIndex(const TKey& key) const;
+
+		// internal method for move semantics
+		void Move(HashMap& rhs);
 	};
 }
 

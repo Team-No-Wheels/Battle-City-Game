@@ -147,9 +147,24 @@ namespace AnonymousEngine
 		mData.voidPtr = nullptr;
 	}
 
-	Datum::Datum(const Datum& datum)
+	Datum::Datum(const Datum& rhs)
 	{
-		Copy(datum);
+		Copy(rhs);
+	}
+
+	Datum::Datum(Datum&& rhs) noexcept
+	{
+		Move(rhs);
+	}
+
+	Datum& Datum::operator=(Datum&& rhs) noexcept
+	{
+		if (this != &rhs)
+		{
+			Clear();
+			Move(rhs);
+		}
+		return *this;
 	}
 
 	void Datum::SetType(DatumType type)
@@ -627,6 +642,19 @@ namespace AnonymousEngine
 		}
 		mSize = datum.mSize;
 		mIsExternal = datum.mIsExternal;
+	}
+
+	void Datum::Move(Datum& rhs)
+	{
+		mType = rhs.mType;
+		mData = rhs.mData;
+		mSize = rhs.mSize;
+		mIsExternal = rhs.mIsExternal;
+
+		rhs.mType = DatumType::Unknown;
+		rhs.mData.voidPtr = nullptr;
+		rhs.mSize = 0;
+		rhs.mIsExternal = false;
 	}
 
 	void Datum::SetExternalStorage(void* externalData, std::uint32_t size, DatumType type)
