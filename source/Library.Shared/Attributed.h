@@ -54,7 +54,7 @@ namespace AnonymousEngine
 		std::uint32_t mPrescribedAttributesAdded;
 
 		// Checks if attribute being added is a valid prescribed attribute
-		void ValidateAndUpdateAttribute(const std::string& name);
+		void ValidateAttribute(const std::string& name);
 		// Helper method to add internal attributes of all types
 		template <typename T>
 		void AppendInternalAttribute(const std::string&name, T& value, const Datum::DatumType type, const std::uint32_t size);

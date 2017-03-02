@@ -86,54 +86,54 @@ namespace AnonymousEngine
 
 	void Attributed::AddExternalAttribute(const std::string& name, std::int32_t& address, const std::uint32_t size)
 	{
-		ValidateAndUpdateAttribute(name);
+		ValidateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
 	void Attributed::AddExternalAttribute(const std::string& name, float& address, const std::uint32_t size)
 	{
-		ValidateAndUpdateAttribute(name);
+		ValidateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
 	void Attributed::AddExternalAttribute(const std::string& name, std::string& address, const std::uint32_t size)
 	{
-		ValidateAndUpdateAttribute(name);
+		ValidateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
 	void Attributed::AddExternalAttribute(const std::string& name, glm::vec4& address, const std::uint32_t size)
 	{
-		ValidateAndUpdateAttribute(name);
+		ValidateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
 	void Attributed::AddExternalAttribute(const std::string& name, glm::mat4& address, const std::uint32_t size)
 	{
-		ValidateAndUpdateAttribute(name);
+		ValidateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
 	void Attributed::AddExternalAttribute(const std::string& name, RTTI*& address, const std::uint32_t size)
 	{
-		ValidateAndUpdateAttribute(name);
+		ValidateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
 	template <typename T>
 	void Attributed::AppendInternalAttribute(const std::string&name, T& value, const Datum::DatumType type, const std::uint32_t size)
 	{
-		ValidateAndUpdateAttribute(name);
+		ValidateAttribute(name);
 		Datum& datum = Append(name);
-		datum.Resize(size);
 		datum.SetType(type);
+		datum.Resize(size);
 		for (std::uint32_t index = 0; index < size; ++index)
 		{
 			datum.Set(value, index);
 		}
 	}
 
-	void Attributed::ValidateAndUpdateAttribute(const std::string& name)
+	void Attributed::ValidateAttribute(const std::string& name)
 	{
 		// Check if all prescribed attributes are added. 
 		auto& prescribedAttributes = sPrescribedAttributes[TypeIdInstance()];
