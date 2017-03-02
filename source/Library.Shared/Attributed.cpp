@@ -5,13 +5,19 @@ namespace AnonymousEngine
 {
 	RTTI_DEFINITIONS(Attributed)
 
-	const std::uint32_t Attributed::sAuxiliaryBegin = InitializeAttributes();
+	const std::uint32_t Attributed::sAuxiliaryBegin = InitializePrescribedAttributeNames();
+	HashMap<std::uint64_t, Vector<std::string>> Attributed::sPrescribedAttributes = HashMap<std::uint64_t, Vector<std::string>>();
+
+	Attributed::Attributed() : mPrescribedAttributesAdded(0U)
+	{
+		AddInternalAttribute("This", static_cast<RTTI*>(this), 1U);
+	}
 
 	Attributed::~Attributed()
 	{
 	}
 
-	Attributed::Attributed(const Attributed&& rhs)
+	Attributed::Attributed(const Attributed&& rhs) noexcept
 	{
 		rhs;
 	}
@@ -50,102 +56,118 @@ namespace AnonymousEngine
 
 	void Attributed::AddInternalAttribute(const std::string& name, const std::int32_t value, const std::uint32_t size)
 	{
-		Datum& datum = Append(name);
-		datum.Resize(size);
-		datum.SetType(Datum::DatumType::Integer);
-		for (std::uint32_t index = 0; index < size; ++index)
-		{
-			datum.Set(value, index);
-		}
+		AppendInternalAttribute(name, value, Datum::DatumType::Integer, size);
 	}
 
 	void Attributed::AddInternalAttribute(const std::string& name, const float value, const std::uint32_t size)
 	{
-		Datum& datum = Append(name);
-		datum.Resize(size);
-		datum.SetType(Datum::DatumType::Float);
-		for (std::uint32_t index = 0; index < size; ++index)
-		{
-			datum.Set(value, index);
-		}
+		AppendInternalAttribute(name, value, Datum::DatumType::Float, size);
 	}
 
 	void Attributed::AddInternalAttribute(const std::string& name, const std::string& value, const std::uint32_t size)
 	{
-		Datum& datum = Append(name);
-		datum.Resize(size);
-		datum.SetType(Datum::DatumType::String);
-		for (std::uint32_t index = 0; index < size; ++index)
-		{
-			datum.Set(value, index);
-		}
+		AppendInternalAttribute(name, value, Datum::DatumType::String, size);
 	}
 
 	void Attributed::AddInternalAttribute(const std::string& name, const glm::vec4& value, const std::uint32_t size)
 	{
-		Datum& datum = Append(name);
-		datum.Resize(size);
-		datum.SetType(Datum::DatumType::Vector);
-		for (std::uint32_t index = 0; index < size; ++index)
-		{
-			datum.Set(value, index);
-		}
+		AppendInternalAttribute(name, value, Datum::DatumType::Vector, size);
 	}
 
 	void Attributed::AddInternalAttribute(const std::string& name, const glm::mat4& value, const std::uint32_t size)
 	{
-		Datum& datum = Append(name);
-		datum.Resize(size);
-		datum.SetType(Datum::DatumType::Matrix);
-		for (std::uint32_t index = 0; index < size; ++index)
-		{
-			datum.Set(value, index);
-		}
+		AppendInternalAttribute(name, value, Datum::DatumType::Matrix, size);
 	}
 
 	void Attributed::AddInternalAttribute(const std::string& name, RTTI* const value, const std::uint32_t size)
 	{
-		Datum& datum = Append(name);
-		datum.Resize(size);
-		datum.SetType(Datum::DatumType::RTTI);
-		for (std::uint32_t index = 0; index < size; ++index)
-		{
-			datum.Set(value, index);
-		}
+		AppendInternalAttribute(name, value, Datum::DatumType::RTTI, size);
 	}
 
 	void Attributed::AddExternalAttribute(const std::string& name, std::int32_t& address, const std::uint32_t size)
 	{
+		ValidateAndUpdateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
 	void Attributed::AddExternalAttribute(const std::string& name, float& address, const std::uint32_t size)
 	{
+		ValidateAndUpdateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
 	void Attributed::AddExternalAttribute(const std::string& name, std::string& address, const std::uint32_t size)
 	{
+		ValidateAndUpdateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
 	void Attributed::AddExternalAttribute(const std::string& name, glm::vec4& address, const std::uint32_t size)
 	{
+		ValidateAndUpdateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
 	void Attributed::AddExternalAttribute(const std::string& name, glm::mat4& address, const std::uint32_t size)
 	{
+		ValidateAndUpdateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
 	void Attributed::AddExternalAttribute(const std::string& name, RTTI*& address, const std::uint32_t size)
 	{
+		ValidateAndUpdateAttribute(name);
 		Append(name).SetStorage(&address, size);
 	}
 
-	std::uint32_t Attributed::InitializeAttributes()
+	template <typename T>
+	void Attributed::AppendInternalAttribute(const std::string&name, T& value, const Datum::DatumType type, const std::uint32_t size)
 	{
-		return sPrescribedAttributes[TypeIdClass()].Size();
+		ValidateAndUpdateAttribute(name);
+		Datum& datum = Append(name);
+		datum.Resize(size);
+		datum.SetType(type);
+		for (std::uint32_t index = 0; index < size; ++index)
+		{
+			datum.Set(value, index);
+		}
+	}
+
+	void Attributed::ValidateAndUpdateAttribute(const std::string& name)
+	{
+		// Check if all prescribed attributes are added. 
+		auto& prescribedAttributes = sPrescribedAttributes[TypeIdInstance()];
+		if (mPrescribedAttributesAdded < prescribedAttributes.Size())
+		{
+			// Since all prescribed attributes are not added, verify that the new attribute being added
+			// is in the prescribed attribute names list.
+			if (prescribedAttributes.Find(name) == prescribedAttributes.end())
+			{
+				throw std::invalid_argument("The attribute being added is not a valid prescribed attribute");
+			}
+			// new attribute being added is a valid prescribed attribute increment the mPrescribedAttributesAdded count
+			++mPrescribedAttributesAdded;
+		}
+	}
+
+	void Attributed::ValidateAllPrescribedAttributesAreAdded() const
+	{
+		if (mPrescribedAttributesAdded < sPrescribedAttributes[TypeIdInstance()].Size())
+		{
+			throw std::runtime_error("All the prescribed attributes are not added.");
+		}
+	}
+
+	void Attributed::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
+	{
+		prescribedAttributeNames.PushBack("This");
+	}
+
+	std::uint32_t Attributed::InitializePrescribedAttributeNames()
+	{
+		Vector<std::string>& prescribedAttributeNames = sPrescribedAttributes[TypeIdClass()];
+		prescribedAttributeNames.Reserve(1U);
+		AppendPrescribedAttributeNames(prescribedAttributeNames);
+		return prescribedAttributeNames.Size();
 	}
 }

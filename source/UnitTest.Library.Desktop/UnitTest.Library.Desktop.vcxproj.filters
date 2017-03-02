@@ -16,6 +16,9 @@
     <ClCompile Include="HashMapTest.cpp" />
     <ClCompile Include="DatumTest.cpp" />
     <ClCompile Include="ScopeTest.cpp" />
+    <ClCompile Include="AttributedFoo.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -34,6 +37,9 @@
     <ClInclude Include="VectorIteratorTestTemplate.h" />
     <ClInclude Include="HashMapTestTemplate.h" />
     <ClInclude Include="DatumTestTemplate.h" />
+    <ClInclude Include="AttributedFoo.h">
+      <Filter>SupportingClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SupportingClasses">
