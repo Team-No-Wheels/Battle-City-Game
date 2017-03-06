@@ -626,7 +626,6 @@ namespace AnonymousEngine
 
 	void Datum::Copy(const Datum& datum)
 	{
-		Clear();
 		mType = datum.mType;
 		if (datum.mIsExternal)
 		{

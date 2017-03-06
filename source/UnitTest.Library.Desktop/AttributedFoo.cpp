@@ -9,8 +9,8 @@ namespace UnitTestLibraryDesktop
 
 	AttributedFoo::AttributedFoo() : mInt(0U), mFloat(0.0f)
 	{
-		AddExternalAttribute("mInt", mInt, 1U);
-		AddExternalAttribute("mFloat", mFloat, 1U);
+		AddExternalAttribute("mInt", &mInt, 1U);
+		AddExternalAttribute("mFloat", &mFloat, 1U);
 		ValidateAllPrescribedAttributesAreAdded();
 	}
 

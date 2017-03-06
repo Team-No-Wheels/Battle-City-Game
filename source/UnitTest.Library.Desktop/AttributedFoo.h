@@ -11,7 +11,7 @@ namespace UnitTestLibraryDesktop
 		virtual ~AttributedFoo();
 
 	private:
-		int   mInt;
+		std::int32_t   mInt;
 		float mFloat;
 
 		ATTRIBUTED_DECLARATIONS()

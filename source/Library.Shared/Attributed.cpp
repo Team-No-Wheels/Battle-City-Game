@@ -28,7 +28,7 @@ namespace AnonymousEngine
 		return *this;
 	}
 
-	Datum& Attributed::AppendAuxiliaryAttribute(const std::string& name)
+	Datum& Attributed::AddAuxiliaryAttribute(const std::string& name)
 	{
 		return Append(name);
 	}
@@ -54,74 +54,87 @@ namespace AnonymousEngine
 		return (Find(name) != nullptr);
 	}
 
-	void Attributed::AddInternalAttribute(const std::string& name, const std::int32_t value, const std::uint32_t size)
+	Datum& Attributed::AddInternalAttribute(const std::string& name, const std::int32_t value, const std::uint32_t size)
 	{
-		AppendInternalAttribute(name, value, Datum::DatumType::Integer, size);
+		return AppendInternalAttribute<std::int32_t>(name, value, Datum::DatumType::Integer, size);
 	}
 
-	void Attributed::AddInternalAttribute(const std::string& name, const float value, const std::uint32_t size)
+	Datum& Attributed::AddInternalAttribute(const std::string& name, const float value, const std::uint32_t size)
 	{
-		AppendInternalAttribute(name, value, Datum::DatumType::Float, size);
+		return AppendInternalAttribute<float>(name, value, Datum::DatumType::Float, size);
 	}
 
-	void Attributed::AddInternalAttribute(const std::string& name, const std::string& value, const std::uint32_t size)
+	Datum& Attributed::AddInternalAttribute(const std::string& name, const std::string& value, const std::uint32_t size)
 	{
-		AppendInternalAttribute(name, value, Datum::DatumType::String, size);
+		return AppendInternalAttribute<std::string>(name, value, Datum::DatumType::String, size);
 	}
 
-	void Attributed::AddInternalAttribute(const std::string& name, const glm::vec4& value, const std::uint32_t size)
+	Datum& Attributed::AddInternalAttribute(const std::string& name, const glm::vec4& value, const std::uint32_t size)
 	{
-		AppendInternalAttribute(name, value, Datum::DatumType::Vector, size);
+		return AppendInternalAttribute<glm::vec4>(name, value, Datum::DatumType::Vector, size);
 	}
 
-	void Attributed::AddInternalAttribute(const std::string& name, const glm::mat4& value, const std::uint32_t size)
+	Datum& Attributed::AddInternalAttribute(const std::string& name, const glm::mat4& value, const std::uint32_t size)
 	{
-		AppendInternalAttribute(name, value, Datum::DatumType::Matrix, size);
+		return AppendInternalAttribute<glm::mat4>(name, value, Datum::DatumType::Matrix, size);
 	}
 
-	void Attributed::AddInternalAttribute(const std::string& name, RTTI* const value, const std::uint32_t size)
+	Datum& Attributed::AddInternalAttribute(const std::string& name, RTTI* const value, const std::uint32_t size)
 	{
-		AppendInternalAttribute(name, value, Datum::DatumType::RTTI, size);
+		return AppendInternalAttribute<RTTI*>(name, value, Datum::DatumType::RTTI, size);
 	}
 
-	void Attributed::AddExternalAttribute(const std::string& name, std::int32_t& address, const std::uint32_t size)
+	Datum& Attributed::AddExternalAttribute(const std::string& name, std::int32_t* address, const std::uint32_t size)
+	{
+		return AppendExternalAttribute<std::int32_t>(name, address, size);
+	}
+
+	Datum& Attributed::AddExternalAttribute(const std::string& name, float* address, const std::uint32_t size)
+	{
+		return AppendExternalAttribute<float>(name, address, size);
+	}
+
+	Datum& Attributed::AddExternalAttribute(const std::string& name, std::string* address, const std::uint32_t size)
+	{
+		return AppendExternalAttribute<std::string>(name, address, size);
+	}
+
+	Datum& Attributed::AddExternalAttribute(const std::string& name, glm::vec4* address, const std::uint32_t size)
+	{
+		return AppendExternalAttribute<glm::vec4>(name, address, size);
+	}
+
+	Datum& Attributed::AddExternalAttribute(const std::string& name, glm::mat4* address, const std::uint32_t size)
+	{
+		return AppendExternalAttribute<glm::mat4>(name, address, size);
+	}
+
+	Datum& Attributed::AddExternalAttribute(const std::string& name, RTTI** address, const std::uint32_t size)
+	{
+		return AppendExternalAttribute<RTTI*>(name, address, size);
+	}
+
+	void Attributed::AddNestedScope(const std::string& name, Scope& scope)
 	{
 		ValidateAttribute(name);
-		Append(name).SetStorage(&address, size);
+		Adopt(scope, name);
 	}
 
-	void Attributed::AddExternalAttribute(const std::string& name, float& address, const std::uint32_t size)
+	void Attributed::ValidateAllPrescribedAttributesAreAdded() const
 	{
-		ValidateAttribute(name);
-		Append(name).SetStorage(&address, size);
+		if (mPrescribedAttributesAdded < sPrescribedAttributes[TypeIdInstance()].Size())
+		{
+			throw std::runtime_error("All the prescribed attributes are not added.");
+		}
 	}
 
-	void Attributed::AddExternalAttribute(const std::string& name, std::string& address, const std::uint32_t size)
+	void Attributed::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 	{
-		ValidateAttribute(name);
-		Append(name).SetStorage(&address, size);
-	}
-
-	void Attributed::AddExternalAttribute(const std::string& name, glm::vec4& address, const std::uint32_t size)
-	{
-		ValidateAttribute(name);
-		Append(name).SetStorage(&address, size);
-	}
-
-	void Attributed::AddExternalAttribute(const std::string& name, glm::mat4& address, const std::uint32_t size)
-	{
-		ValidateAttribute(name);
-		Append(name).SetStorage(&address, size);
-	}
-
-	void Attributed::AddExternalAttribute(const std::string& name, RTTI*& address, const std::uint32_t size)
-	{
-		ValidateAttribute(name);
-		Append(name).SetStorage(&address, size);
+		prescribedAttributeNames.PushBack("This");
 	}
 
 	template <typename T>
-	void Attributed::AppendInternalAttribute(const std::string&name, T& value, const Datum::DatumType type, const std::uint32_t size)
+	Datum& Attributed::AppendInternalAttribute(const std::string&name, const T& value, const Datum::DatumType type, const std::uint32_t size)
 	{
 		ValidateAttribute(name);
 		Datum& datum = Append(name);
@@ -131,6 +144,16 @@ namespace AnonymousEngine
 		{
 			datum.Set(value, index);
 		}
+		return datum;
+	}
+
+	template <typename T>
+	Datum& Attributed::AppendExternalAttribute(const std::string&name, T* address, const std::uint32_t size)
+	{
+		ValidateAttribute(name);
+		Datum& datum = Append(name);
+		datum.SetStorage(address, size);
+		return datum;
 	}
 
 	void Attributed::ValidateAttribute(const std::string& name)
@@ -148,19 +171,6 @@ namespace AnonymousEngine
 			// new attribute being added is a valid prescribed attribute increment the mPrescribedAttributesAdded count
 			++mPrescribedAttributesAdded;
 		}
-	}
-
-	void Attributed::ValidateAllPrescribedAttributesAreAdded() const
-	{
-		if (mPrescribedAttributesAdded < sPrescribedAttributes[TypeIdInstance()].Size())
-		{
-			throw std::runtime_error("All the prescribed attributes are not added.");
-		}
-	}
-
-	void Attributed::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
-	{
-		prescribedAttributeNames.PushBack("This");
 	}
 
 	std::uint32_t Attributed::InitializePrescribedAttributeNames()
