@@ -5,10 +5,10 @@ namespace AnonymousEngine
 {
 	RTTI_DEFINITIONS(Attributed)
 
-	const std::uint32_t Attributed::sAuxiliaryBegin = InitializePrescribedAttributeNames();
 	HashMap<std::uint64_t, Vector<std::string>> Attributed::sPrescribedAttributes = HashMap<std::uint64_t, Vector<std::string>>();
 
-	Attributed::Attributed() : mPrescribedAttributesAdded(0U)
+	Attributed::Attributed() :
+		mPrescribedAttributesAdded(0U)
 	{
 		AddInternalAttribute("This", static_cast<RTTI*>(this), 1U);
 	}
@@ -39,7 +39,7 @@ namespace AnonymousEngine
 		Move(rhs);
 	}
 
-	Attributed& Attributed::operator=(Attributed&& rhs)
+	Attributed& Attributed::operator=(Attributed&& rhs) noexcept
 	{
 		if (this != &rhs)
 		{
@@ -52,11 +52,6 @@ namespace AnonymousEngine
 	Datum& Attributed::AddAuxiliaryAttribute(const std::string& name)
 	{
 		return Append(name);
-	}
-
-	std::uint32_t Attributed::AuxiliaryBegin()
-	{
-		return sAuxiliaryBegin;
 	}
 
 	bool Attributed::IsPrescribedAttribute(const std::string& name) const

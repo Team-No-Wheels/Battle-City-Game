@@ -19,8 +19,8 @@ namespace UnitTestLibraryDesktop
 		std::int32_t mInt;
 		float mFloat;
 
-		ATTRIBUTED_DECLARATIONS()
+		ATTRIBUTED_DECLARATIONS(AttributedFoo)
 
-		RTTI_DECLARATIONS(AttributedFoo, Attributed)
+		RTTI_DECLARATIONS(AttributedFoo, AnonymousEngine::Attributed)
 	};
 }
