@@ -266,8 +266,10 @@ namespace AnonymousEngine
 	void HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Move(HashMap& rhs)
 	{
 		mData = std::move(rhs.mData);
-		mSize = mSize;
+		mSize = rhs.mSize;
 		mBegin = rhs.mBegin;
+		mBegin.mChainIterator = mData[mBegin.mIndex].begin();
+		mBegin.mOwner = this;
 		rhs.mSize = 0;
 		rhs.mBegin = rhs.end();
 	}

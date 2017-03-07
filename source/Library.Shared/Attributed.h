@@ -94,7 +94,7 @@ namespace AnonymousEngine
 		 *  @value The value of the attribute
 		 *  @size The number of items in the attribute
 		 */
-		Datum& AddInternalAttribute(const std::string& name, const glm::mat4& value, const std::uint32_t size);\
+		Datum& AddInternalAttribute(const std::string& name, const glm::mat4& value, const std::uint32_t size);
 		/** Adds an internal attribute of type RTTI* with the given name, value and size
 		 *  @param name The name of the attribute to add
 		 *  @value The value of the attribute

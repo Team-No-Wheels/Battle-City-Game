@@ -4,7 +4,7 @@ namespace AnonymousEngine
 {
 	RTTI_DEFINITIONS(Scope)
 
-	Scope::Scope() : mParent(nullptr)
+	Scope::Scope() : mParent(nullptr), mParentDatumIndex(0)
 	{
 	}
 
@@ -23,7 +23,7 @@ namespace AnonymousEngine
 		return (*this);
 	}
 
-	/*Scope::Scope(Scope&& rhs) noexcept :
+	Scope::Scope(Scope&& rhs) noexcept :
 		Scope()
 	{
 		Move(rhs);
@@ -37,7 +37,7 @@ namespace AnonymousEngine
 			Move(rhs);
 		}
 		return (*this);
-	}*/
+	}
 
 	Datum* Scope::Find(const std::string& name)
 	{
@@ -95,6 +95,8 @@ namespace AnonymousEngine
 		datum.SetType(Datum::DatumType::Scope);
 		Scope* scope = new Scope();
 		scope->mParent = this;
+		scope->mParentKey = name;
+		scope->mParentDatumIndex = datum.Size();
 		datum.PushBack(scope);
 		return *(datum.Get<Scope*>(datum.Size() - 1));
 	}
@@ -106,8 +108,11 @@ namespace AnonymousEngine
 			throw std::invalid_argument("Cannot adopt yourself.");
 		}
 		scope.Orphan();
-		Append(name).PushBack(&scope);
+		Datum& datum = Append(name);
 		scope.mParent = this;
+		scope.mParentKey = name;
+		scope.mParentDatumIndex = datum.Size();
+		datum.PushBack(&scope);
 	}
 
 	const Scope* Scope::GetParent() const
@@ -204,6 +209,8 @@ namespace AnonymousEngine
 				{
 					Scope* scope = new Scope(*rhsDatum.Get<Scope*>(index));
 					scope->mParent = this;
+					scope->mParentKey = key;
+					scope->mParentDatumIndex = datumToAppend.Size();
 					datumToAppend.PushBack(scope);
 				}
 			}
@@ -213,14 +220,30 @@ namespace AnonymousEngine
 			}
 		}
 		mParent = nullptr;
+		mParentKey.clear();
+		mParentDatumIndex = 0;
 	}
 
 	void Scope::Move(Scope& rhs)
 	{
 		mDatumMap = std::move(rhs.mDatumMap);
 		mOrderVector = std::move(rhs.mOrderVector);
-		rhs.Orphan();
-		mParent = nullptr;
+		mParent = rhs.mParent;
+		mParentKey = rhs.mParentKey;
+		mParentDatumIndex = rhs.mParentDatumIndex;
+		(*mParent)[mParentKey].Set(this, mParentDatumIndex);
+
+		for (const auto pairPtr : rhs.mOrderVector)
+		{
+			const Datum& rhsDatum = pairPtr->second;
+			if (rhsDatum.Type() == Datum::DatumType::Scope)
+			{
+				for(std::uint32_t index = 0; index < rhsDatum.Size(); ++index)
+				{
+					rhsDatum.Get<Scope*>(index)->mParent = this;
+				}
+			}
+		}
 	}
 
 	void Scope::Clear()
@@ -245,16 +268,10 @@ namespace AnonymousEngine
 	{
 		if (mParent != nullptr)
 		{
-			for (const auto& pairPtr : mParent->mOrderVector)
-			{
-				Datum& datum = pairPtr->second;
-				if (datum.Type() == Datum::DatumType::Scope)
-				{
-					// removes the scope it was found in the datum
-					datum.Remove(this);
-				}
-			}
+			(*mParent)[mParentKey].Remove(this);
 			mParent = nullptr;
+			mParentKey.clear();
+			mParentDatumIndex = 0;
 		}
 	}
 }
