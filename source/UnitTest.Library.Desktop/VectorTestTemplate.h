@@ -14,6 +14,7 @@ namespace UnitTestLibraryDesktop
 	public:
 		TestCapacityStrategy() = default;
 		~TestCapacityStrategy() = default;
+
 		inline std::uint32_t operator()(std::uint32_t size, std::uint32_t capacity) const override
 		{
 			if (capacity == 0)
@@ -41,7 +42,7 @@ namespace UnitTestLibraryDesktop
 
 		static void TestInitializerList(const T& value1, const T& value2, const T& value3)
 		{
-			AnonymousEngine::Vector<T> vector { value1, value2, value3 };
+			AnonymousEngine::Vector<T> vector{value1, value2, value3};
 			Assert::AreEqual(3U, vector.Size());
 		}
 
@@ -78,6 +79,41 @@ namespace UnitTestLibraryDesktop
 			Assert::AreNotEqual(vector1.Size(), vector2.Size());
 			Assert::AreEqual(vector1.Capacity(), vector3.Capacity());
 			Assert::AreEqual(vector1.Size(), vector3.Size());
+		}
+
+		static void TestMoveConstructor(const T& value1, const T& value2, const T& value3, const T& value4)
+		{
+			AnonymousEngine::Vector<T> vector1;
+			vector1.PushBack(value1);
+			vector1.PushBack(value2);
+			std::uint32_t size = vector1.Size();
+			std::uint32_t capacity = vector1.Capacity();
+			AnonymousEngine::Vector<T> vector2(std::move(vector1));
+			Assert::AreEqual(capacity, vector2.Capacity());
+			Assert::AreEqual(size, vector2.Size());
+			vector1.PushBack(value3);
+			vector1.PushBack(value4);
+			Assert::AreEqual(size + 2U, vector2.Size());
+			Assert::IsFalse(vector1.PopBack());
+		}
+
+		static void TestMoveAssignmentOperator(const T& value1, const T& value2, const T& value3, const T& value4)
+		{
+			AnonymousEngine::Vector<T> vector1;
+			vector1.PushBack(value1);
+			vector1.PushBack(value2);
+			std::uint32_t size = vector1.Size();
+			std::uint32_t capacity = vector1.Capacity();
+			AnonymousEngine::Vector<T> vector2;
+			vector2.PushBack(value3);
+			Assert::AreEqual(1U, vector2.Size());
+			vector2 = std::move(vector1);
+			Assert::AreEqual(capacity, vector2.Capacity());
+			Assert::AreEqual(size, vector2.Size());
+			vector1.PushBack(value3);
+			vector1.PushBack(value4);
+			Assert::AreEqual(size + 2U, vector2.Size());
+			Assert::IsFalse(vector1.PopBack());
 		}
 
 		static void TestEmpty(const T& value)
@@ -124,7 +160,10 @@ namespace UnitTestLibraryDesktop
 		static void TestFront(const T& value1, const T& value2)
 		{
 			AnonymousEngine::Vector<T> vector;
-			Assert::ExpectException<std::out_of_range>([&vector] { vector.Front(); });
+			Assert::ExpectException<std::out_of_range>([&vector]
+				{
+					vector.Front();
+				});
 			vector.PushBack(value1);
 			Assert::AreEqual(value1, vector.Front());
 			vector.PushBack(value2);
@@ -135,13 +174,19 @@ namespace UnitTestLibraryDesktop
 			vector.Front() = value2;
 			Assert::AreEqual(value2, vector.Front());
 			vector.PopBack();
-			Assert::ExpectException<std::out_of_range>([&vector] { vector.Front(); });
+			Assert::ExpectException<std::out_of_range>([&vector]
+				{
+					vector.Front();
+				});
 		}
 
 		static void TestBack(const T& value1, const T& value2)
 		{
 			AnonymousEngine::Vector<T> vector;
-			Assert::ExpectException<std::out_of_range>([&vector] { vector.Back(); });
+			Assert::ExpectException<std::out_of_range>([&vector]
+				{
+					vector.Back();
+				});
 			vector.PushBack(value1);
 			Assert::AreEqual(value1, vector.Back());
 			vector.PushBack(value2);
@@ -152,7 +197,10 @@ namespace UnitTestLibraryDesktop
 			vector.Back() = value2;
 			Assert::AreEqual(value2, vector.Back());
 			vector.PopBack();
-			Assert::ExpectException<std::out_of_range>([&vector] { vector.Back(); });
+			Assert::ExpectException<std::out_of_range>([&vector]
+				{
+					vector.Back();
+				});
 		}
 
 		static void TestClear(const T& value)
@@ -195,7 +243,10 @@ namespace UnitTestLibraryDesktop
 			vector.PushBack(value2);
 			Assert::AreEqual(value1, vector[0]);
 			Assert::AreEqual(value2, vector[1]);
-			Assert::ExpectException<std::out_of_range>([&vector] { vector[vector.Size()]; });
+			Assert::ExpectException<std::out_of_range>([&vector]
+				{
+					vector[vector.Size()];
+				});
 			vector[1] = value1;
 			Assert::AreEqual(value1, const_cast<const AnonymousEngine::Vector<T>&>(vector)[1]);
 		}
@@ -243,7 +294,10 @@ namespace UnitTestLibraryDesktop
 			vector.PushBack(value3);
 			vector.PushBack(value4);
 			typename AnonymousEngine::Vector<T>::Iterator it;
-			Assert::ExpectException<std::invalid_argument>([&vector, &it] { vector.Remove(vector.begin(), it); });
+			Assert::ExpectException<std::invalid_argument>([&vector, &it]
+				{
+					vector.Remove(vector.begin(), it);
+				});
 			Assert::AreEqual(4U, vector.Size());
 			Assert::IsFalse(vector.Remove(vector.begin(), vector.begin()));
 			Assert::AreEqual(4U, vector.Size());

@@ -84,6 +84,7 @@ namespace UnitTestLibraryDesktop
 			AnonymousEngine::SList<T> list2(std::move(list1));
 			Assert::AreEqual(0U, list1.Size());
 			Assert::AreEqual(2U, list2.Size());
+			list1.PopFront();
 		}
 
 		static void TestMoveAssignmentOperatorSuccess(const T& value1, const T& value2)

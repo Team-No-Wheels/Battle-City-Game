@@ -99,9 +99,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestGet(&f1, &f2);
-			Scope s1 = mHelper.GetRandomScope();
+			/*Scope s1 = mHelper.GetRandomScope();
 			Scope s2 = mHelper.GetRandomScope();
-			DatumTestTemplate<Scope*>::TestGet(&s1, &s2);
+			DatumTestTemplate<Scope*>::TestGet(&s1, &s2);*/
 
 			DatumTestTemplate<std::int32_t>::TestConstantGet(mHelper.GetRandomInt32());
 			DatumTestTemplate<float>::TestConstantGet(mHelper.GetRandomFloat());
@@ -109,7 +109,7 @@ namespace UnitTestLibraryDesktop
 			DatumTestTemplate<glm::vec4>::TestConstantGet(mHelper.GetRandomVec4());
 			DatumTestTemplate<glm::mat4>::TestConstantGet(mHelper.GetRandomMat4());
 			DatumTestTemplate<RTTI*>::TestConstantGet(&f1);
-			DatumTestTemplate<Scope*>::TestConstantGet(&s1);
+			//DatumTestTemplate<Scope*>::TestConstantGet(&s1);
 		}
 
 		TEST_METHOD(TestSet)
@@ -122,9 +122,9 @@ namespace UnitTestLibraryDesktop
 			Foo f1 = mHelper.GetRandomFoo();
 			Foo f2 = mHelper.GetRandomFoo();
 			DatumTestTemplate<RTTI*>::TestSet(DatumType::RTTI, &f1, &f2, DatumType::Float);
-			Scope s1 = mHelper.GetRandomScope();
+			/*Scope s1 = mHelper.GetRandomScope();
 			Scope s2 = mHelper.GetRandomScope();
-			DatumTestTemplate<Scope*>::TestSet(DatumType::Scope, &s1, &s2, DatumType::Float);
+			DatumTestTemplate<Scope*>::TestSet(DatumType::Scope, &s1, &s2, DatumType::Float);*/
 		}
 
 		TEST_METHOD(TestPushBack)

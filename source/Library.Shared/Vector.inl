@@ -323,13 +323,13 @@ namespace AnonymousEngine
 		mSize = rhs.mSize;
 		mCapacity = rhs.mCapacity;
 		mStrategy = rhs.mStrategy;
-		mDefaultStrategy = rhs.mDefaultStrategy;
 
-		mData = nullptr;
-		mSize = 0;
-		mCapacity = 0;
-		mStrategy = nullptr;
-		mDefaultStrategy = nullptr;
+		rhs.mData = nullptr;
+		rhs.mSize = 0;
+		rhs.mCapacity = 0;
+		rhs.mStrategy = nullptr;
+		delete rhs.mDefaultStrategy;
+		rhs.mDefaultStrategy = nullptr;
 	}
 
 #pragma endregion

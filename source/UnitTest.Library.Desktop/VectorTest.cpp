@@ -50,6 +50,28 @@ namespace UnitTestLibraryDesktop
 			VectorTestTemplate<Foo>::TestAssignmentOperator(Foo(value1), Foo(value2), Foo(value3), Foo(value4));
 		}
 
+		TEST_METHOD(TestMoveConstructor)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			std::uint32_t value3 = mHelper.GetRandomUInt32();
+			std::uint32_t value4 = mHelper.GetRandomUInt32();
+			VectorTestTemplate<std::uint32_t>::TestMoveConstructor(value1, value2, value3, value4);
+			VectorTestTemplate<std::uint32_t*>::TestMoveConstructor(&value1, &value2, &value3, &value4);
+			VectorTestTemplate<Foo>::TestMoveConstructor(Foo(value1), Foo(value2), Foo(value3), Foo(value4));
+		}
+
+		TEST_METHOD(TestMoveAssignmentOperator)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			std::uint32_t value3 = mHelper.GetRandomUInt32();
+			std::uint32_t value4 = mHelper.GetRandomUInt32();
+			VectorTestTemplate<std::uint32_t>::TestMoveAssignmentOperator(value1, value2, value3, value4);
+			VectorTestTemplate<std::uint32_t*>::TestMoveAssignmentOperator(&value1, &value2, &value3, &value4);
+			VectorTestTemplate<Foo>::TestMoveAssignmentOperator(Foo(value1), Foo(value2), Foo(value3), Foo(value4));
+		}
+
 		TEST_METHOD(TestEmpty)
 		{
 			std::uint32_t value = mHelper.GetRandomUInt32();
