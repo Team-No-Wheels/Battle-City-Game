@@ -20,22 +20,22 @@ namespace AnonymousEngine
 		/** Initialize an attributed instance by copying values from another instance
 		 *  @param rhs The other instance to copy the values from
 		 */
-		Attributed(const Attributed& rhs) = default;
+		Attributed(const Attributed& rhs);
 		/** Initialize an attributed instance by moving values from another instance
 		 *  @param rhs The other instance to move the values from
 		 */
-		Attributed(const Attributed&& rhs) noexcept;
+		Attributed(Attributed&& rhs) noexcept;
 
 		/** Copy values from another instance to this
 		 *  @param rhs The other instance to copy the values from
 		 *  @return A reference to this instance
 		 */
-		Attributed& operator=(const Attributed& rhs) = default;
+		Attributed& operator=(const Attributed& rhs);
 		/** Move values from another instance to this
 		 *  @param rhs The other instance to move the values from
 		 *  @return A reference to this instance
 		 */
-		Attributed& operator=(const Attributed&& rhs);
+		Attributed& operator=(Attributed&& rhs);
 
 		/** Adds an auxiliary attribute to the current instance
 		 *  @param name The name of the auxiliary attribute to add
@@ -171,6 +171,12 @@ namespace AnonymousEngine
 	private:
 		// This instance variable is used to keep track of whether all prescribed attributes are added to the current instance
 		std::uint32_t mPrescribedAttributesAdded;
+
+		// Helper for copying data from another attributed class. Used by copy constructor and assignment
+		void Copy(const Attributed& rhs);
+
+		// Helper for moving data from another attributed class. Used by move constructor and assignment
+		void Move(Attributed& rhs);
 
 		// Helper method to add internal attributes of all types
 		template <typename T>

@@ -196,6 +196,24 @@ namespace AnonymousEngine
 		throw std::runtime_error("Unsupported operation");
 	}
 
+	void Scope::Clear()
+	{
+		for (const auto& pairPtr : mOrderVector)
+		{
+			Datum& datum = pairPtr->second;
+			if (datum.Type() == Datum::DatumType::Scope)
+			{
+				for (std::uint32_t index = 0; index < datum.Size(); ++index)
+				{
+					Scope* childScope = datum.Get<Scope*>(index);
+					delete childScope;
+				}
+			}
+		}
+		mOrderVector.Clear();
+		mDatumMap.Clear();
+	}
+
 	void Scope::Copy(const Scope& rhs)
 	{
 		for (const auto pairPtr : rhs.mOrderVector)
@@ -244,24 +262,6 @@ namespace AnonymousEngine
 				}
 			}
 		}
-	}
-
-	void Scope::Clear()
-	{
-		for (const auto& pairPtr : mOrderVector)
-		{
-			Datum& datum = pairPtr->second;
-			if (datum.Type() == Datum::DatumType::Scope)
-			{
-				for (std::uint32_t index = 0; index < datum.Size(); ++index)
-				{
-					Scope* childScope = datum.Get<Scope*>(index);
-					delete childScope;
-				}
-			}
-		}
-		mOrderVector.Clear();
-		mDatumMap.Clear();
 	}
 
 	void Scope::Orphan()

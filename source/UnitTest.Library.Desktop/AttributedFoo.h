@@ -10,8 +10,13 @@ namespace UnitTestLibraryDesktop
 		AttributedFoo();
 		virtual ~AttributedFoo();
 
+		AttributedFoo(const AttributedFoo& rhs);
+		AttributedFoo(AttributedFoo&& rhs) noexcept;
+
+		AttributedFoo& operator=(const AttributedFoo& rhs);
+		AttributedFoo& operator=(AttributedFoo&& rhs) noexcept;
 	private:
-		std::int32_t   mInt;
+		std::int32_t mInt;
 		float mFloat;
 
 		ATTRIBUTED_DECLARATIONS()

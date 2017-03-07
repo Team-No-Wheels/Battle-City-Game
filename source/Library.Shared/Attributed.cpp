@@ -17,14 +17,35 @@ namespace AnonymousEngine
 	{
 	}
 
-	Attributed::Attributed(const Attributed&& rhs) noexcept
+	Attributed::Attributed(const Attributed& rhs) :
+		Scope(rhs)
 	{
-		rhs;
+		Copy(rhs);
 	}
 
-	Attributed& Attributed::operator=(const Attributed&& rhs)
+	Attributed& Attributed::operator=(const Attributed& rhs)
 	{
-		rhs;
+		if (this != &rhs)
+		{
+			Scope::operator=(rhs);
+			Copy(rhs);
+		}
+		return *this;
+	}
+
+	Attributed::Attributed(Attributed&& rhs) noexcept :
+		Scope(std::move(rhs))
+	{
+		Move(rhs);
+	}
+
+	Attributed& Attributed::operator=(Attributed&& rhs)
+	{
+		if (this != &rhs)
+		{
+			Scope::operator=(std::move(rhs));
+			Move(rhs);
+		}
 		return *this;
 	}
 
@@ -131,6 +152,18 @@ namespace AnonymousEngine
 	void Attributed::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 	{
 		prescribedAttributeNames.PushBack("This");
+	}
+
+	void Attributed::Copy(const Attributed& rhs)
+	{
+		mPrescribedAttributesAdded = rhs.mPrescribedAttributesAdded;
+		operator[]("This") = this;
+	}
+
+	void Attributed::Move(Attributed& rhs)
+	{
+		mPrescribedAttributesAdded = rhs.mPrescribedAttributesAdded;
+		operator[]("This") = this;
 	}
 
 	template <typename T>

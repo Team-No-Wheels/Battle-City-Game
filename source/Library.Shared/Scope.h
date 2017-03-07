@@ -151,11 +151,20 @@ namespace AnonymousEngine
 		 *  @param str The string to parse and read values from
 		 */
 		void FromString(const std::string& str) override;
-	private:
-		// The child objects data map
+
+		/** Clear all entries in the scope
+		 */
+		void Clear();
+
+	protected:
+		/** The child objects data map
+		 */
 		HashMap<std::string, Datum> mDatumMap;
-		// Ordered vector to store pointers to map entries in the order of insertion
+		/** Ordered vector to store pointers to map entries in the order of insertion
+		 */
 		Vector<std::pair<const std::string, Datum>*> mOrderVector;
+
+	private:
 		// The pointer to the current scope's parent
 		Scope* mParent;
 		// Stores the key against which the parent has stored this scope
@@ -167,8 +176,6 @@ namespace AnonymousEngine
 		void Copy(const Scope& rhs);
 		// Moves another scope to this scope. Used by move constructor and move assignment operator
 		void Move(Scope& rhs);
-		// Delete's all memory allocated by this scope. Also calls destructor on all the child objects
-		void Clear();
 		// Detach the current scope from its parent
 		void Orphan();
 
