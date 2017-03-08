@@ -2,12 +2,6 @@
 
 namespace AnonymousEngine
 {
-	template<typename T>
-	T& Datum::Get(const std::uint32_t)
-	{
-		throw std::runtime_error("Unsupported Datum type");
-	}
-
 	template <>
 	inline std::int32_t& Datum::Get<std::int32_t>(const std::uint32_t index)
 	{
@@ -55,12 +49,6 @@ namespace AnonymousEngine
 	{
 		ValidateIndex(index);
 		return mData.rttiPtrValue[index];
-	}
-
-	template<typename T>
-	const T& Datum::Get(const std::uint32_t) const
-	{
-		throw std::runtime_error("Unsupported Datum type");
 	}
 
 	template <>
