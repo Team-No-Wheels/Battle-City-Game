@@ -30,13 +30,13 @@ namespace AnonymousEngine
 		/** Move data from another scope and initialize a scope from that
 		 *  @param rhs The scope to move from
 		 */
-		//Scope(Scope&& rhs) noexcept;
+		Scope(Scope&& rhs) noexcept;
 
 		/** Mode and assign another scope into this
 		 *  @param rhs The scope to move data from
 		 *  @return The reference to the current scope
 		 */
-		//Scope& operator=(Scope&& rhs) noexcept;
+		Scope& operator=(Scope&& rhs) noexcept;
 
 		/** Find a given key in the current scope
 		 *  @param name The key to search for in the current scop

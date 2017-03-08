@@ -42,32 +42,34 @@ namespace UnitTestLibraryDesktop
 
 		static void TestCopyConstructor(const T& value1, const T& value2)
 		{
-			Datum d1;
-			d1 = const_cast<T&>(value1);
-			d1.PushBack(const_cast<T&>(value2));
-			Datum d2(d1);
-			Assert::IsTrue(d1 == d2);
+			Datum* d1 = new Datum();
+			*d1 = const_cast<T&>(value1);
+			d1->PushBack(const_cast<T&>(value2));
+			Datum d2(*d1);
+			Assert::IsTrue(*d1 == d2);
+			Assert::AreEqual(d1->Size(), d2.Size());
+			Assert::AreEqual(d1->Type(), d2.Type());
+			delete d1;
 			Assert::IsTrue(value1 == d2.Get<T>());
 			Assert::IsTrue(value2 == d2.Get<T>(1U));
-			Assert::AreEqual(d1.Size(), d2.Size());
-			Assert::AreEqual(d1.Type(), d2.Type());
 		}
 
 		static void TestAssignmentOperator(const T& value1, const T& value2)
 		{
-			Datum d1;
-			d1 = const_cast<T&>(value1);
-			d1.PushBack(const_cast<T&>(value2));
+			Datum* d1 = new Datum();
+			*d1 = const_cast<T&>(value1);
+			d1->PushBack(const_cast<T&>(value2));
 			Datum d2;
 			d2 = const_cast<T&>(value2);
-			Assert::IsFalse(d1 == d2);
+			Assert::IsFalse(*d1 == d2);
 			Assert::IsTrue(value2 == d2.Get<T>());
-			d2 = d1;
-			Assert::IsTrue(d1 == d2);
+			d2 = *d1;
+			Assert::IsTrue(*d1 == d2);
+			Assert::AreEqual(d1->Size(), d2.Size());
+			Assert::AreEqual(d1->Type(), d2.Type());
+			delete d1;
 			Assert::IsTrue(value1 == d2.Get<T>());
 			Assert::IsTrue(value2 == d2.Get<T>(1U));
-			Assert::AreEqual(d1.Size(), d2.Size());
-			Assert::AreEqual(d1.Type(), d2.Type());
 		}
 
 		static void TestMoveConstructor(const T& value1, const T& value2)

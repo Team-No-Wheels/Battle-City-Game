@@ -239,6 +239,10 @@ namespace AnonymousEngine
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
 	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::end() const
 	{
+		if (mData.Size() == 0)
+		{
+			return Iterator(mData.Size(), ChainIterator(), const_cast<HashMap*>(this));
+		}
 		return Iterator(mData.Size(), mData[mData.Size() - 1].end(), const_cast<HashMap*>(this));
 	}
 

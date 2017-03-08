@@ -23,7 +23,7 @@ namespace AnonymousEngine
 		return (*this);
 	}
 
-	/*Scope::Scope(Scope&& rhs) noexcept :
+	Scope::Scope(Scope&& rhs) noexcept :
 		Scope()
 	{
 		Move(rhs);
@@ -37,7 +37,7 @@ namespace AnonymousEngine
 			Move(rhs);
 		}
 		return (*this);
-	}*/
+	}
 
 	Datum* Scope::Find(const std::string& name)
 	{
@@ -228,7 +228,7 @@ namespace AnonymousEngine
 					Scope* scope = new Scope(rhsDatum.Get<Scope>(index));
 					scope->mParent = this;
 					scope->mParentKey = key;
-					scope->mParentDatumIndex = datumToAppend.Size();
+					scope->mParentDatumIndex = index;
 					datumToAppend.PushBack(*scope);
 				}
 			}
@@ -249,19 +249,26 @@ namespace AnonymousEngine
 		mParent = rhs.mParent;
 		mParentKey = rhs.mParentKey;
 		mParentDatumIndex = rhs.mParentDatumIndex;
-		(*mParent)[mParentKey].Set(this, mParentDatumIndex);
-
-		for (const auto pairPtr : rhs.mOrderVector)
+		if (mParent != nullptr)
 		{
-			const Datum& rhsDatum = pairPtr->second;
-			if (rhsDatum.Type() == Datum::DatumType::Scope)
+			(*mParent)[mParentKey].Set(this, mParentDatumIndex);
+		}
+
+		for (auto pairPtr : mOrderVector)
+		{
+			Datum& datum = pairPtr->second;
+			if (datum.Type() == Datum::DatumType::Scope)
 			{
-				for(std::uint32_t index = 0; index < rhsDatum.Size(); ++index)
+				for(std::uint32_t index = 0; index < datum.Size(); ++index)
 				{
-					rhsDatum.Get<Scope*>(index)->mParent = this;
+					datum.Get<Scope>(index).mParent = this;
 				}
 			}
 		}
+
+		rhs.mParent = nullptr;
+		rhs.mParentKey.clear();
+		rhs.mParentDatumIndex = 0;
 	}
 
 	void Scope::Orphan()
