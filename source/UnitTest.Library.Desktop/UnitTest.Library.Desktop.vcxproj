@@ -197,6 +197,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AttributedBar.cpp" />
     <ClCompile Include="AttributedFoo.cpp" />
     <ClCompile Include="DatumTest.cpp" />
     <ClCompile Include="Foo.cpp" />
@@ -226,6 +227,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AttributedBar.h" />
     <ClInclude Include="AttributedFoo.h" />
     <ClInclude Include="DatumTestTemplate.h" />
     <ClInclude Include="Foo.h" />

@@ -152,13 +152,13 @@ namespace AnonymousEngine
 	void Attributed::Copy(const Attributed& rhs)
 	{
 		mPrescribedAttributesAdded = rhs.mPrescribedAttributesAdded;
-		operator[]("This") = this;
+		(*this)["This"] = this;
 	}
 
 	void Attributed::Move(Attributed& rhs)
 	{
 		mPrescribedAttributesAdded = rhs.mPrescribedAttributesAdded;
-		operator[]("This") = this;
+		(*this)["This"] = this;
 	}
 
 	template <typename T>

@@ -7,26 +7,35 @@ namespace UnitTestLibraryDesktop
 
 	RTTI_DEFINITIONS(AttributedFoo)
 
-	AttributedFoo::AttributedFoo()
-	 : mInt(0U), mFloat(0.0f)
+	AttributedFoo::AttributedFoo() :
+		mInt(0), mFloat(0.0f), mNestedScope(new Scope())
 	{
-		AddExternalAttribute("mInt", &mInt, 1U);
-		AddExternalAttribute("mFloat", &mFloat, 1U);
+		AddExternalAttribute("mInt", &mInt, 1);
+		AddExternalAttribute("mFloat", &mFloat, 1);
+		AddExternalAttribute("mString", &mString, 1);
+		AddExternalAttribute("mVec4", &mVec4, 1);
+		AddExternalAttribute("mMat4", &mMat4, 1);
+		AddNestedScope("mNestedScope", *mNestedScope);
+
+		AddExternalAttribute("mIntArray", mIntArray, ArraySize);
+		AddExternalAttribute("mFloatArray", mFloatArray, ArraySize);
+		AddExternalAttribute("mStringArray", mStringArray, ArraySize);
+		AddExternalAttribute("mVec4Array", mVec4Array, ArraySize);
+		AddExternalAttribute("mMat4Array", mMat4Array, ArraySize);
+		AddExternalAttribute("mRTTIArray", mRTTIArray, ArraySize);
 		ValidateAllPrescribedAttributesAreAdded();
 	}
 
-	AttributedFoo::~AttributedFoo()
-	{
-	}
-
 	AttributedFoo::AttributedFoo(const AttributedFoo& rhs) :
-		Attributed(rhs), mInt(rhs.mInt), mFloat(rhs.mFloat)
+		Attributed(rhs), mInt(rhs.mInt), mFloat(rhs.mFloat), mNestedScope(nullptr)
 	{
+		Copy(rhs);
 	}
 
 	AttributedFoo::AttributedFoo(AttributedFoo&& rhs) noexcept :
-		Attributed(std::move(rhs)), mInt(rhs.mInt), mFloat(rhs.mFloat)
+		Attributed(std::move(rhs)), mInt(rhs.mInt), mFloat(rhs.mFloat), mNestedScope(nullptr)
 	{
+		Move(rhs);
 	}
 
 	AttributedFoo& AttributedFoo::operator=(const AttributedFoo& rhs)
@@ -34,10 +43,7 @@ namespace UnitTestLibraryDesktop
 		if (this != &rhs)
 		{
 			Attributed::operator=(rhs);
-			mInt = rhs.mInt;
-			mFloat = rhs.mFloat;
-			operator[]("mInt").SetStorage(&mInt, 1);
-			operator[]("mFloat").SetStorage(&mFloat, 1);
+			Copy(rhs);
 		}
 		return *this;
 	}
@@ -47,12 +53,63 @@ namespace UnitTestLibraryDesktop
 		if (this != &rhs)
 		{
 			Attributed::operator=(std::move(rhs));
-			mInt = rhs.mInt;
-			mFloat = rhs.mFloat;
-			operator[]("mInt").SetStorage(&mInt, 1);
-			operator[]("mFloat").SetStorage(&mFloat, 1);
+			Move(rhs);
 		}
 		return *this;
+	}
+
+	void AttributedFoo::Copy(const AttributedFoo& rhs)
+	{
+		mInt = rhs.mInt;
+		mFloat = rhs.mFloat;
+		mString = rhs.mString;
+		mVec4 = rhs.mVec4;
+		mMat4 = rhs.mMat4;
+		mNestedScope = rhs.mNestedScope;
+		memcpy(mIntArray, rhs.mIntArray, sizeof(std::int32_t) * ArraySize);
+		memcpy(mFloatArray, rhs.mFloatArray, sizeof(float) * ArraySize);
+		for(std::uint32_t index = 0; index < ArraySize; ++index)
+		{
+			mStringArray[index] = rhs.mStringArray[index];
+		}
+		memcpy(mVec4Array, rhs.mVec4Array, sizeof(glm::vec4) * ArraySize);
+		memcpy(mMat4Array, rhs.mMat4Array, sizeof(glm::mat4) * ArraySize);
+		memcpy(mRTTIArray, rhs.mRTTIArray, sizeof(RTTI*) * ArraySize);
+		FixupPrescribedAttributes();
+	}
+
+	void AttributedFoo::Move(AttributedFoo& rhs)
+	{
+		mInt = rhs.mInt;
+		mFloat = rhs.mFloat;
+		mString = std::move(rhs.mString);
+		mVec4 = std::move(rhs.mVec4);
+		mMat4 = std::move(rhs.mMat4);
+		mNestedScope = rhs.mNestedScope;
+		memmove(mIntArray, rhs.mIntArray, sizeof(std::int32_t) * ArraySize);
+		memmove(mFloatArray, rhs.mFloatArray, sizeof(float) * ArraySize);
+		memmove(mStringArray, rhs.mStringArray, sizeof(float) * ArraySize);
+		memmove(mVec4Array, rhs.mVec4Array, sizeof(glm::vec4) * ArraySize);
+		memmove(mMat4Array, rhs.mMat4Array, sizeof(glm::mat4) * ArraySize);
+		memmove(mRTTIArray, rhs.mRTTIArray, sizeof(RTTI*) * ArraySize);
+		FixupPrescribedAttributes();
+	}
+
+	void AttributedFoo::FixupPrescribedAttributes()
+	{
+		(*this)["this"].Set(this);
+		(*this)["mInt"].SetStorage(&mInt, 1);
+		(*this)["mFloat"].SetStorage(&mFloat, 1);
+		(*this)["mString"].SetStorage(&mString, 1);
+		(*this)["mVec4"].SetStorage(&mVec4, 1);
+		(*this)["mMat4"].SetStorage(&mMat4, 1);
+		mNestedScope = &(*this)["mNestedScope"].Get<Scope>();
+		(*this)["mIntArray"].SetStorage(mIntArray, ArraySize);
+		(*this)["mFloatArray"].SetStorage(mFloatArray, ArraySize);
+		(*this)["mStringArray"].SetStorage(mStringArray, ArraySize);
+		(*this)["mVec4Array"].SetStorage(mVec4Array, ArraySize);
+		(*this)["mMat4Array"].SetStorage(mMat4Array, ArraySize);
+		(*this)["mRTTIArray"].SetStorage(mRTTIArray, ArraySize);
 	}
 
 	void AttributedFoo::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
@@ -60,5 +117,15 @@ namespace UnitTestLibraryDesktop
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 		prescribedAttributeNames.PushBack("mInt");
 		prescribedAttributeNames.PushBack("mFloat");
+		prescribedAttributeNames.PushBack("mString");
+		prescribedAttributeNames.PushBack("mVec4");
+		prescribedAttributeNames.PushBack("mMat4");
+		prescribedAttributeNames.PushBack("mNestedScope");
+		prescribedAttributeNames.PushBack("mIntArray");
+		prescribedAttributeNames.PushBack("mFloatArray");
+		prescribedAttributeNames.PushBack("mStringArray");
+		prescribedAttributeNames.PushBack("mVec4Array");
+		prescribedAttributeNames.PushBack("mMat4Array");
+		prescribedAttributeNames.PushBack("mRTTIArray");
 	}
 }

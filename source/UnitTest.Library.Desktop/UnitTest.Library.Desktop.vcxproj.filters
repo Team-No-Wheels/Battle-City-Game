@@ -19,6 +19,9 @@
     <ClCompile Include="AttributedFoo.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
+    <ClCompile Include="AttributedBar.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -38,6 +41,9 @@
     <ClInclude Include="HashMapTestTemplate.h" />
     <ClInclude Include="DatumTestTemplate.h" />
     <ClInclude Include="AttributedFoo.h">
+      <Filter>SupportingClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="AttributedBar.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
   </ItemGroup>
