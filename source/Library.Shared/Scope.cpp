@@ -97,8 +97,8 @@ namespace AnonymousEngine
 		scope->mParent = this;
 		scope->mParentKey = name;
 		scope->mParentDatumIndex = datum.Size();
-		datum.PushBack(scope);
-		return *(datum.Get<Scope*>(datum.Size() - 1));
+		datum.PushBack(*scope);
+		return datum.Get<Scope>(datum.Size() - 1);
 	}
 
 	void Scope::Adopt(Scope& scope, const std::string& name)
@@ -112,7 +112,7 @@ namespace AnonymousEngine
 		scope.mParent = this;
 		scope.mParentKey = name;
 		scope.mParentDatumIndex = datum.Size();
-		datum.PushBack(&scope);
+		datum.PushBack(scope);
 	}
 
 	const Scope* Scope::GetParent() const
@@ -205,8 +205,8 @@ namespace AnonymousEngine
 			{
 				for (std::uint32_t index = 0; index < datum.Size(); ++index)
 				{
-					Scope* childScope = datum.Get<Scope*>(index);
-					delete childScope;
+					Scope& childScope = datum.Get<Scope>(index);
+					delete &childScope;
 				}
 			}
 		}
@@ -225,11 +225,11 @@ namespace AnonymousEngine
 				Datum& datumToAppend = Append(key);
 				for (std::uint32_t index = 0; index < rhsDatum.Size(); ++index)
 				{
-					Scope* scope = new Scope(*rhsDatum.Get<Scope*>(index));
+					Scope* scope = new Scope(rhsDatum.Get<Scope>(index));
 					scope->mParent = this;
 					scope->mParentKey = key;
 					scope->mParentDatumIndex = datumToAppend.Size();
-					datumToAppend.PushBack(scope);
+					datumToAppend.PushBack(*scope);
 				}
 			}
 			else

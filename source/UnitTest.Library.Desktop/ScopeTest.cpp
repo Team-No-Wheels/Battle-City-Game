@@ -82,7 +82,7 @@ namespace UnitTestLibraryDesktop
 			Datum &d2 = childScope.Append("childTest");
 			d2 = value2;
 			Datum& d = scope.Append("child");
-
+			
 			Assert::AreEqual(DatumType::Integer, d2.Type());
 			Assert::IsTrue(d2 == value2);
 			Assert::IsTrue(childScope.GetParent() == const_cast<const Scope*>(&scope));
@@ -125,22 +125,22 @@ namespace UnitTestLibraryDesktop
 			Scope newScope(scope);
 			Assert::IsTrue(newScope.Append("int") == dInt1);
 			Assert::IsTrue(newScope.Append("string") == dStr1);
-			Scope& newChildScope = *newScope.Append("child").Get<Scope*>();
-			Scope& newChildScope2 = *newScope.Append("child").Get<Scope*>(1U);
+			Scope& newChildScope = newScope.Append("child").Get<Scope>();
+			Scope& newChildScope2 = newScope.Append("child").Get<Scope>(1U);
 			Assert::IsTrue(newChildScope.Append("childInt") == dInt2);
 			Assert::IsTrue(newChildScope2.Append("child2Int") == dInt3);
-			Scope& newGrandChildScope = *newChildScope.Append("grandChild").Get<Scope*>();
+			Scope& newGrandChildScope = newChildScope.Append("grandChild").Get<Scope>();
 			Assert::IsTrue(newGrandChildScope.Append("grandChildInt") == dInt4);
 
 			Scope copyScope;
 			copyScope = scope;
 			Assert::IsTrue(copyScope.Append("int") == dInt1);
 			Assert::IsTrue(copyScope.Append("string") == dStr1);
-			Scope& copyChildScope = *copyScope.Append("child").Get<Scope*>();
-			Scope& copyChildScope2 = *copyScope.Append("child").Get<Scope*>(1U);
+			Scope& copyChildScope = copyScope.Append("child").Get<Scope>();
+			Scope& copyChildScope2 = copyScope.Append("child").Get<Scope>(1U);
 			Assert::IsTrue(copyChildScope.Append("childInt") == dInt2);
 			Assert::IsTrue(copyChildScope2.Append("child2Int") == dInt3);
-			Scope& copyGrandChildScope = *copyChildScope.Append("grandChild").Get<Scope*>();
+			Scope& copyGrandChildScope = copyChildScope.Append("grandChild").Get<Scope>();
 			Assert::IsTrue(copyGrandChildScope.Append("grandChildInt") == dInt4);
 		}
 
@@ -207,14 +207,14 @@ namespace UnitTestLibraryDesktop
 			Datum &dInt2 = childScope.Append("int");
 			dInt2 = int2;
 
-			Assert::IsTrue(*scope["child"].Get<Scope*>() == childScope);
+			Assert::IsTrue(scope["child"].Get<Scope>() == childScope);
 			Assert::IsNotNull(scope.Find("child"));
 			Assert::IsTrue(childScope.GetParent() == &scope);
 			Scope scope2;
 			scope2.Adopt(childScope, "newChild");
 			Assert::IsTrue(scope["child"].Size() == 0U);
 			Assert::IsNull(scope2.Find("child"));
-			Assert::IsTrue(*scope2["newChild"].Get<Scope*>() == childScope);
+			Assert::IsTrue(scope2["newChild"].Get<Scope>() == childScope);
 			Assert::IsTrue(childScope.GetParent() == &scope2);
 			Assert::IsFalse(childScope.Equals(nullptr));
 			Foo f;
