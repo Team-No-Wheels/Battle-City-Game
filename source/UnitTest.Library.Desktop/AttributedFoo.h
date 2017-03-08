@@ -36,7 +36,7 @@ namespace UnitTestLibraryDesktop
 		void Move(AttributedFoo& rhs);
 		void FixupPrescribedAttributes();
 
-		ATTRIBUTED_DECLARATIONS(AttributedFoo)
+		ATTRIBUTED_DECLARATIONS()
 
 		RTTI_DECLARATIONS(AttributedFoo, AnonymousEngine::Attributed)
 	};

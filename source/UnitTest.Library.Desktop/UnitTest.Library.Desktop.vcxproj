@@ -199,6 +199,7 @@
   <ItemGroup>
     <ClCompile Include="AttributedBar.cpp" />
     <ClCompile Include="AttributedFoo.cpp" />
+    <ClCompile Include="AttributedTest.cpp" />
     <ClCompile Include="DatumTest.cpp" />
     <ClCompile Include="Foo.cpp" />
     <ClCompile Include="HashFunctorsTest.cpp" />

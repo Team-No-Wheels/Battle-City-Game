@@ -22,6 +22,7 @@
     <ClCompile Include="AttributedBar.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
+    <ClCompile Include="AttributedTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />

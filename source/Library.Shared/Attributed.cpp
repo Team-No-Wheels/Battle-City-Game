@@ -5,7 +5,7 @@ namespace AnonymousEngine
 {
 	RTTI_DEFINITIONS(Attributed)
 
-	HashMap<std::uint64_t, Vector<std::string>> Attributed::sPrescribedAttributes = HashMap<std::uint64_t, Vector<std::string>>();
+	const std::uint32_t Attributed::sPrescribedAttributeCount = InitializePrescribedAttributeNames();
 
 	Attributed::Attributed() :
 		mPrescribedAttributesAdded(0U)
@@ -64,7 +64,7 @@ namespace AnonymousEngine
 
 	bool Attributed::IsPrescribedAttribute(const std::string& name) const
 	{
-		auto prescribedAttributes = sPrescribedAttributes[TypeIdInstance()];
+		auto prescribedAttributes = PrescribedAttributesNamesCache(TypeIdInstance());
 		return prescribedAttributes.Find(name) != prescribedAttributes.end();
 	}
 
@@ -80,17 +80,17 @@ namespace AnonymousEngine
 
 	const Vector<std::string>& Attributed::PrescribedAttributes() const
 	{
-		return sPrescribedAttributes[TypeIdInstance()];
+		return PrescribedAttributesNamesCache(TypeIdInstance());
 	}
 
 	const Vector<std::string>& Attributed::AuxiliaryAttributes() const
 	{
-		return sPrescribedAttributes[TypeIdInstance()];
+		return PrescribedAttributesNamesCache(TypeIdInstance());
 	}
 
 	const Vector<std::string>& Attributed::Attributes() const
 	{
-		return sPrescribedAttributes[TypeIdInstance()];
+		return PrescribedAttributesNamesCache(TypeIdInstance());
 	}
 
 	Datum& Attributed::AddInternalAttribute(const std::string& name, const std::int32_t value, const std::uint32_t size)
@@ -161,10 +161,16 @@ namespace AnonymousEngine
 
 	void Attributed::ValidateAllPrescribedAttributesAreAdded() const
 	{
-		if (mPrescribedAttributesAdded < sPrescribedAttributes[TypeIdInstance()].Size())
+		if (mPrescribedAttributesAdded < PrescribedAttributesNamesCache(TypeIdInstance()).Size())
 		{
 			throw std::runtime_error("All the prescribed attributes are not added.");
 		}
+	}
+
+	Vector<std::string>& Attributed::PrescribedAttributesNamesCache(std::uint64_t typeId)
+	{
+		static HashMap<std::uint64_t, Vector<std::string>> sPrescribedAttributes;
+		return sPrescribedAttributes[typeId];
 	}
 
 	void Attributed::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
@@ -187,7 +193,7 @@ namespace AnonymousEngine
 	template <typename T>
 	Datum& Attributed::AppendInternalAttribute(const std::string&name, const T& value, const Datum::DatumType type, const std::uint32_t size)
 	{
-		ValidateAttribute(name);
+		//ValidateAttribute(name);
 		Datum& datum = Append(name);
 		datum.SetType(type);
 		datum.Resize(size);
@@ -210,7 +216,7 @@ namespace AnonymousEngine
 	void Attributed::ValidateAttribute(const std::string& name)
 	{
 		// Check if all prescribed attributes are added. 
-		auto& prescribedAttributes = sPrescribedAttributes[TypeIdInstance()];
+		auto& prescribedAttributes = PrescribedAttributesNamesCache(TypeIdInstance());
 		if (mPrescribedAttributesAdded < prescribedAttributes.Size())
 		{
 			// Since all prescribed attributes are not added, verify that the new attribute being added
@@ -226,7 +232,7 @@ namespace AnonymousEngine
 
 	std::uint32_t Attributed::InitializePrescribedAttributeNames()
 	{
-		Vector<std::string>& prescribedAttributeNames = sPrescribedAttributes[TypeIdClass()];
+		Vector<std::string>& prescribedAttributeNames = PrescribedAttributesNamesCache(TypeIdClass());
 		prescribedAttributeNames.Reserve(1U);
 		AppendPrescribedAttributeNames(prescribedAttributeNames);
 		return prescribedAttributeNames.Size();

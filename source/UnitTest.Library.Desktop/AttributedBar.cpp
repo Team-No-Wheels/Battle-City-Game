@@ -3,7 +3,7 @@
 
 namespace UnitTestLibraryDesktop
 {
-	ATTRIBUTED_DEFINITIONS(AttributedBar, 2U)
+	ATTRIBUTED_DEFINITIONS(AttributedBar, 6U)
 
 	RTTI_DEFINITIONS(AttributedBar)
 

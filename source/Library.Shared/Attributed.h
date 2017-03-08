@@ -172,6 +172,10 @@ namespace AnonymousEngine
 		 */
 		void ValidateAllPrescribedAttributesAreAdded() const;
 
+		/** Returns a reference to the vector which stores the list of all prescribed attributes
+		*/
+		static Vector<std::string>& PrescribedAttributesNamesCache(std::uint64_t typeId);
+
 		/** Appends the names of the prescribed attributes of this class to the attribute names list static hashmap.
 		 *  This method should be redefined in all the descendants of Attributed class
 		 *  For child classes call Parent::AppendPrescribedAttributes and pass reference to prescribed attributes
@@ -180,14 +184,9 @@ namespace AnonymousEngine
 		 */
 		static void AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames);
 
-		/** Stores the starting index of the auxiliary attributes
-		 *  This is equivalent to the total number of prescribed attributes
-		 *  Each of the descendants of attributed redefines this variable (part of the attributed macros)
+		/** The total number of prescribed attributes for this class
 		 */
-		static std::uint32_t sAuxiliaryBegin;
-		/** This hashmap stores a list of prescribed attribute names for attributed class and all its descendants
-		 */
-		static HashMap<std::uint64_t, Vector<std::string>> sPrescribedAttributes;
+		static const std::uint32_t sPrescribedAttributeCount;
 	private:
 		// This instance variable is used to keep track of whether all prescribed attributes are added to the current instance
 		std::uint32_t mPrescribedAttributesAdded;
@@ -209,50 +208,32 @@ namespace AnonymousEngine
 		// Checks if attribute being added is a valid prescribed attribute
 		void ValidateAttribute(const std::string& name);
 
-		// Initializes the sAuxiliaryBegin count by appending all prescribed names to the list
+		// Appendss all prescribed names of the class to the static hashmap
 		// Each of the descendants of attributed redefines this method(part of the attributed macros)
 		static std::uint32_t InitializePrescribedAttributeNames();
 
 		RTTI_DECLARATIONS(Attributed, Scope)
-
-		// Mimics static constructor functionality
-		friend class StaticConstructor;
-		class StaticConstructor
-		{
-			StaticConstructor()
-			{
-				InitializePrescribedAttributeNames();
-			}
-		};
-		static StaticConstructor construct;
 	};
 
 // This macro needs to be added to any class declaration that falls under the Attribute hierrarchy
-#define ATTRIBUTED_DECLARATIONS(Type)																						\
+#define ATTRIBUTED_DECLARATIONS()																							\
 		protected:                                                                                                          \
 			/* For child classes call Parent::AppendPrescribedAttributes and pass reference to prescribed attributes */     \
 			/* list of child class before adding the child class attribute names to the list                         */     \
 			static void AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames);     \
+			/** Count of prescribed attributes in this class */                                                             \
+			static const std::uint32_t sPrescribedAttributeCount;                                                           \
 		private:                                                                                                            \
-			static std::uint32_t InitializePrescribedAttributeNames();                                                      \
-			/* Mimics static constructor functionality */                                                                   \
-			friend class Type##StaticConstructor;                                                                           \
-			class Type##StaticConstructor                                                                                   \
-			{                                                                                                               \
-				Type##StaticConstructor()                                                                                   \
-				{                                                                                                           \
-					InitializePrescribedAttributeNames();                                                                   \
-				}                                                                                                           \
-			};                                                                                                              \
-			static Type##StaticConstructor construct;
+			static std::uint32_t InitializePrescribedAttributeNames();
 
 // This macro needs to be added to any class definition that falls under the Attribute hierrarchy
 #define ATTRIBUTED_DEFINITIONS(Type, MemberAttributeCount)																	\
 	std::uint32_t Type::InitializePrescribedAttributeNames()                                                                \
 	{                                                                                                                       \
-		AnonymousEngine::Vector<std::string>& prescribedAttributeNames = sPrescribedAttributes[TypeIdClass()];              \
-		prescribedAttributeNames.Reserve(sPrescribedAttributes[Parent::TypeIdClass()].Size() + MemberAttributeCount);       \
+		AnonymousEngine::Vector<std::string>& prescribedAttributeNames = PrescribedAttributesNamesCache(TypeIdClass());     \
+		prescribedAttributeNames.Reserve(Parent::sPrescribedAttributeCount + MemberAttributeCount);                         \
 		AppendPrescribedAttributeNames(prescribedAttributeNames);                                                           \
 		return prescribedAttributeNames.Size();                                                                             \
-	}
+	}                                                                                                                       \
+	const std::uint32_t Type::sPrescribedAttributeCount = Type::InitializePrescribedAttributeNames();
 }

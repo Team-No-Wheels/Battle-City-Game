@@ -27,7 +27,7 @@ namespace UnitTestLibraryDesktop
 		void Move(AttributedBar& rhs);
 		void FixupPrescribedAttributes();
 
-		ATTRIBUTED_DECLARATIONS(AttributedBar)
+		ATTRIBUTED_DECLARATIONS()
 
 		RTTI_DECLARATIONS(AttributedBar, AttributedFoo)
 	};
