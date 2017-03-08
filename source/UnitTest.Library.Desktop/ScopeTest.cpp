@@ -221,7 +221,6 @@ namespace UnitTestLibraryDesktop
 			Assert::IsFalse(childScope.Equals(&f));
 			Datum d;
 			d = &scope;
-			d.Remove(nullptr);
 
 			Assert::ExpectException<std::invalid_argument>([&scope] { scope.Adopt(scope, "test"); });
 		}

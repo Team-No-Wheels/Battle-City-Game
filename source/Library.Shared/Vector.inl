@@ -102,7 +102,7 @@ namespace AnonymousEngine
 
 	template <typename T>
 	Vector<T>::Vector(Vector<T>&& rhs) noexcept :
-		Vector()
+		mDefaultStrategy(new DefaultVectorCapacityStrategy())
 	{
 		Move(rhs);
 	}
@@ -322,14 +322,19 @@ namespace AnonymousEngine
 		mData = rhs.mData;
 		mSize = rhs.mSize;
 		mCapacity = rhs.mCapacity;
-		mStrategy = rhs.mStrategy;
-
+		if (rhs.mStrategy == rhs.mDefaultStrategy)
+		{
+			mStrategy = mDefaultStrategy;
+		}
+		else
+		{
+			mStrategy = rhs.mStrategy;
+		}
+		
 		rhs.mData = nullptr;
 		rhs.mSize = 0;
 		rhs.mCapacity = 0;
-		rhs.mStrategy = nullptr;
-		delete rhs.mDefaultStrategy;
-		rhs.mDefaultStrategy = nullptr;
+		rhs.mStrategy = rhs.mDefaultStrategy;
 	}
 
 #pragma endregion

@@ -83,37 +83,39 @@ namespace UnitTestLibraryDesktop
 
 		static void TestMoveConstructor(const T& value1, const T& value2, const T& value3, const T& value4)
 		{
-			AnonymousEngine::Vector<T> vector1;
-			vector1.PushBack(value1);
-			vector1.PushBack(value2);
-			std::uint32_t size = vector1.Size();
-			std::uint32_t capacity = vector1.Capacity();
-			AnonymousEngine::Vector<T> vector2(std::move(vector1));
+			AnonymousEngine::Vector<T>* vector1 = new AnonymousEngine::Vector<T>();
+			vector1->PushBack(value1);
+			vector1->PushBack(value2);
+			std::uint32_t size = vector1->Size();
+			std::uint32_t capacity = vector1->Capacity();
+			AnonymousEngine::Vector<T> vector2 = std::move(*vector1);
+			delete vector1;
+
 			Assert::AreEqual(capacity, vector2.Capacity());
 			Assert::AreEqual(size, vector2.Size());
-			vector1.PushBack(value3);
-			vector1.PushBack(value4);
+			vector2.PushBack(value3);
+			vector2.PushBack(value4);
 			Assert::AreEqual(size + 2U, vector2.Size());
-			Assert::IsFalse(vector1.PopBack());
 		}
 
 		static void TestMoveAssignmentOperator(const T& value1, const T& value2, const T& value3, const T& value4)
 		{
-			AnonymousEngine::Vector<T> vector1;
-			vector1.PushBack(value1);
-			vector1.PushBack(value2);
-			std::uint32_t size = vector1.Size();
-			std::uint32_t capacity = vector1.Capacity();
+			AnonymousEngine::Vector<T>* vector1 = new AnonymousEngine::Vector<T>();
+			vector1->PushBack(value1);
+			vector1->PushBack(value2);
+			std::uint32_t size = vector1->Size();
+			std::uint32_t capacity = vector1->Capacity();
 			AnonymousEngine::Vector<T> vector2;
+
 			vector2.PushBack(value3);
 			Assert::AreEqual(1U, vector2.Size());
-			vector2 = std::move(vector1);
+			vector2 = std::move(*vector1);
+			delete vector1;
+
 			Assert::AreEqual(capacity, vector2.Capacity());
 			Assert::AreEqual(size, vector2.Size());
-			vector1.PushBack(value3);
-			vector1.PushBack(value4);
-			Assert::AreEqual(size + 2U, vector2.Size());
-			Assert::IsFalse(vector1.PopBack());
+			vector2.PushBack(value4);
+			Assert::AreEqual(size + 1U, vector2.Size());
 		}
 
 		static void TestEmpty(const T& value)

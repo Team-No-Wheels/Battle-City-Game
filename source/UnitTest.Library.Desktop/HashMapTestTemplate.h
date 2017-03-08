@@ -58,6 +58,43 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(*map1.begin() == *map2.begin());
 		}
 
+		static void TestMoveConstructor(const TKey& value1, const TKey& value2)
+		{
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			MapType *map1 = new MapType();
+			map1->Insert(pair1);
+			map1->Insert(pair2);
+			Assert::AreEqual(2U, map1->Size());
+			std::uint32_t size = map1->Size();
+			auto value = *(map1->begin());
+			MapType map2(std::move(*map1));
+			delete map1;
+
+			Assert::AreEqual(size, map2.Size());
+			Assert::IsTrue(value == *map2.begin());
+		}
+
+		static void TestMoveAssignmentOperator(const TKey& value1, const TKey& value2)
+		{
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			MapType *map1 = new MapType();
+			map1->Insert(pair1);
+			map1->Insert(pair2);
+			Assert::AreEqual(2U, map1->Size());
+			std::uint32_t size = map1->Size();
+			auto value = *(map1->begin());
+			
+			MapType map2;
+			map2.Insert(pair1);
+			map2 = std::move(*map1);
+			delete map1;
+
+			Assert::AreEqual(size, map2.Size());
+			Assert::IsTrue(value == *map2.begin());
+		}
+
 		static void TestFind(const TKey& value1, const TKey& value2, const TKey& value3)
 		{
 			EntryType pair1(value1, 1U);

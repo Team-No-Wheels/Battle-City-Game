@@ -222,10 +222,10 @@ namespace AnonymousEngine
 		return (*this);
 	}
 
-	Datum& Datum::operator=(Scope* data)
+	Datum& Datum::operator=(Scope& data)
 	{
 		InitializeScalar(DatumType::Scope);
-		mData.scopeValue[0] = data;
+		mData.scopeValue[0] = &data;
 		return (*this);
 	}
 
@@ -271,11 +271,11 @@ namespace AnonymousEngine
 		mData.matValue[index] = data;
 	}
 
-	void Datum::Set(Scope* data, const std::uint32_t index)
+	void Datum::Set(Scope& data, const std::uint32_t index)
 	{
 		ValidateType(DatumType::Scope);
 		ValidateIndex(index);
-		mData.scopeValue[index] = data;
+		mData.scopeValue[index] = &data;
 	}
 
 	void Datum::Set(RTTI* data, const std::uint32_t index)
@@ -325,12 +325,12 @@ namespace AnonymousEngine
 		mData.matValue[mSize - 1] = data;
 	}
 
-	void Datum::PushBack(Scope* data)
+	void Datum::PushBack(Scope& data)
 	{
 		RaiseExceptionOnExternal();
 		SetType(DatumType::Scope);
 		Resize(mSize + 1);
-		mData.scopeValue[mSize - 1] = data;
+		mData.scopeValue[mSize - 1] = &data;
 	}
 
 	void Datum::PushBack(RTTI* data)
@@ -414,13 +414,13 @@ namespace AnonymousEngine
 		return (*mData.matValue == data);
 	}
 
-	bool Datum::operator==(const Scope* data) const
+	bool Datum::operator==(const Scope& data) const
 	{
 		if (mType != DatumType::Scope || mSize != 1)
 		{
 			return false;
 		}
-		return (mData.scopeValue[0]->Equals(data));
+		return (mData.scopeValue[0]->Equals(&data));
 	}
 
 	bool Datum::operator==(const RTTI* data) const
@@ -462,9 +462,9 @@ namespace AnonymousEngine
 		return !(*this == data);
 	}
 
-	bool Datum::operator!=(const Scope* data) const
+	bool Datum::operator!=(const Scope& data) const
 	{
-		return !(*this == data);
+		return !(*this == &data);
 	}
 
 	bool Datum::operator!=(const RTTI* data) const
@@ -472,12 +472,12 @@ namespace AnonymousEngine
 		return !(*this == data);
 	}
 
-	bool Datum::Remove(Scope* scope)
+	bool Datum::Remove(Scope& scope)
 	{
 		ValidateType(DatumType::Scope);
 		for (std::uint32_t index = 0; index < mSize; ++index)
 		{
-			if (mData.scopeValue[index] == scope)
+			if (mData.scopeValue[index] == &scope)
 			{
 				memmove(&mData.scopeValue[index], &mData.scopeValue[index + 1], (mSize - index - 1) * sizeof(Scope*));
 				--mSize;

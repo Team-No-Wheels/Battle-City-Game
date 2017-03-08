@@ -57,8 +57,8 @@ namespace UnitTestLibraryDesktop
 			std::uint32_t value3 = mHelper.GetRandomUInt32();
 			std::uint32_t value4 = mHelper.GetRandomUInt32();
 			VectorTestTemplate<std::uint32_t>::TestMoveConstructor(value1, value2, value3, value4);
-			VectorTestTemplate<std::uint32_t*>::TestMoveConstructor(&value1, &value2, &value3, &value4);
-			VectorTestTemplate<Foo>::TestMoveConstructor(Foo(value1), Foo(value2), Foo(value3), Foo(value4));
+			/*VectorTestTemplate<std::uint32_t*>::TestMoveConstructor(&value1, &value2, &value3, &value4);
+			VectorTestTemplate<Foo>::TestMoveConstructor(Foo(value1), Foo(value2), Foo(value3), Foo(value4));*/
 		}
 
 		TEST_METHOD(TestMoveAssignmentOperator)

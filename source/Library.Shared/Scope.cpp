@@ -268,7 +268,7 @@ namespace AnonymousEngine
 	{
 		if (mParent != nullptr)
 		{
-			(*mParent)[mParentKey].Remove(this);
+			(*mParent)[mParentKey].Remove(*this);
 			mParent = nullptr;
 			mParentKey.clear();
 			mParentDatumIndex = 0;

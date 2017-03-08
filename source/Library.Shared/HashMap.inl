@@ -270,8 +270,9 @@ namespace AnonymousEngine
 		mBegin = rhs.mBegin;
 		mBegin.mChainIterator = mData[mBegin.mIndex].begin();
 		mBegin.mOwner = this;
+
+		rhs.mBegin = Iterator();
 		rhs.mSize = 0;
-		rhs.mBegin = rhs.end();
 	}
 
 #pragma endregion
