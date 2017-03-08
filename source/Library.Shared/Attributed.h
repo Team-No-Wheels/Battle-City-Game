@@ -15,7 +15,7 @@ namespace AnonymousEngine
 		Attributed();
 		/** Destroy the attributed instance
 		 */
-		virtual ~Attributed();
+		virtual ~Attributed() = default;
 
 		/** Initialize an attributed instance by copying values from another instance
 		 *  @param rhs The other instance to copy the values from
@@ -36,6 +36,17 @@ namespace AnonymousEngine
 		 *  @return A reference to this instance
 		 */
 		Attributed& operator=(Attributed&& rhs) noexcept;
+
+		/** Check if the current attributed instance is equal to another instance
+		 *  @param rhs The attributed instance to compare against
+		 *  @return A boolean indicating whether the two instances are equal or not
+		 */
+		bool operator==(const Attributed& rhs) const;
+		/** Check if the current attributed instance is not equal to another instance
+		 *  @param rhs The attributed instance to compare against
+		 *  @return A boolean indicating whether the two instances are not equal or not
+		 */
+		bool operator!=(const Attributed& rhs) const;
 
 		/** Adds an auxiliary attribute to the current instance
 		 *  @param name The name of the auxiliary attribute to add
@@ -58,6 +69,19 @@ namespace AnonymousEngine
 		 *  @return A boolean indicating whether the given name corresponds to an attribute or not
 		 */
 		bool IsAttribute(const std::string& name) const;
+
+		/** Get the list of all prescribed attribute names
+		 *  @return Reference to a vector containing all the prescribed attribute names
+		 */
+		const Vector<std::string>& PrescribedAttributes() const;
+		/** Get the list of all auxiliary attribute names
+		 *  @return Reference to a vector containing all the auxiliary attribute names
+		 */
+		const Vector<std::string>& AuxiliaryAttributes() const;
+		/** Get the list of all attribute names
+		 *  @return Reference to a vector containing all the attribute names
+		 */
+		const Vector<std::string>& Attributes() const;
 	protected:
 		// In the constructor of a derived class add all the prescribed attributes first. "This" is added automatically
 

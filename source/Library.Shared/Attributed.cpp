@@ -10,11 +10,7 @@ namespace AnonymousEngine
 	Attributed::Attributed() :
 		mPrescribedAttributesAdded(0U)
 	{
-		AddInternalAttribute("This", static_cast<RTTI*>(this), 1U);
-	}
-
-	Attributed::~Attributed()
-	{
+		AddInternalAttribute("this", static_cast<RTTI*>(this), 1U);
 	}
 
 	Attributed::Attributed(const Attributed& rhs) :
@@ -49,6 +45,18 @@ namespace AnonymousEngine
 		return *this;
 	}
 
+	bool Attributed::operator==(const Attributed& rhs) const
+	{
+		rhs;
+		return false;
+	}
+
+	bool Attributed::operator!=(const Attributed& rhs) const
+	{
+		rhs;
+		return true;
+	}
+
 	Datum& Attributed::AddAuxiliaryAttribute(const std::string& name)
 	{
 		return Append(name);
@@ -68,6 +76,21 @@ namespace AnonymousEngine
 	bool Attributed::IsAttribute(const std::string& name) const
 	{
 		return (Find(name) != nullptr);
+	}
+
+	const Vector<std::string>& Attributed::PrescribedAttributes() const
+	{
+		return sPrescribedAttributes[TypeIdInstance()];
+	}
+
+	const Vector<std::string>& Attributed::AuxiliaryAttributes() const
+	{
+		return sPrescribedAttributes[TypeIdInstance()];
+	}
+
+	const Vector<std::string>& Attributed::Attributes() const
+	{
+		return sPrescribedAttributes[TypeIdInstance()];
 	}
 
 	Datum& Attributed::AddInternalAttribute(const std::string& name, const std::int32_t value, const std::uint32_t size)
@@ -146,19 +169,19 @@ namespace AnonymousEngine
 
 	void Attributed::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 	{
-		prescribedAttributeNames.PushBack("This");
+		prescribedAttributeNames.PushBack("this");
 	}
 
 	void Attributed::Copy(const Attributed& rhs)
 	{
 		mPrescribedAttributesAdded = rhs.mPrescribedAttributesAdded;
-		(*this)["This"] = this;
+		(*this)["this"] = this;
 	}
 
 	void Attributed::Move(Attributed& rhs)
 	{
 		mPrescribedAttributesAdded = rhs.mPrescribedAttributesAdded;
-		(*this)["This"] = this;
+		(*this)["this"] = this;
 	}
 
 	template <typename T>

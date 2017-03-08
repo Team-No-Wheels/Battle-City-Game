@@ -14,7 +14,7 @@ namespace AnonymousEngine
 	public:
 		/** Default initialize a scope
 		 */
-		explicit Scope();
+		Scope();
 
 		/** Deep copy another scope and initialize a scope from that
 		 *  @param rhs The scope to copy from
