@@ -44,10 +44,10 @@ namespace AnonymousEngine
 	}
 
 	template <>
-	inline Scope*& Datum::Get<Scope*>(const std::uint32_t index)
+	inline Scope& Datum::Get<Scope>(const std::uint32_t index)
 	{
 		ValidateIndex(index);
-		return mData.scopeValue[index];
+		return *mData.scopeValue[index];
 	}
 
 	template <>
@@ -94,9 +94,9 @@ namespace AnonymousEngine
 	}
 
 	template <>
-	inline Scope* const& Datum::Get<Scope*>(const std::uint32_t index) const
+	inline const Scope& Datum::Get<Scope>(const std::uint32_t index) const
 	{
-		return const_cast<Scope*&>(const_cast<Datum*>(this)->Get<Scope*>(index));
+		return const_cast<Datum*>(this)->Get<Scope>(index);
 	}
 
 	template <>

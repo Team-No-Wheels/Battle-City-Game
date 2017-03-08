@@ -2,7 +2,6 @@
 
 #include "CppUnitTestAssert.h"
 #include "Datum.h"
-#include <cmath>
 
 namespace UnitTestLibraryDesktop
 {
@@ -19,10 +18,10 @@ namespace UnitTestLibraryDesktop
 		static void TestAssignmentScalar(const DatumType type, const T& value1, const T& value2, const DatumType anotherType)
 		{
 			Datum d;
-			d = value1;
+			d = const_cast<T&>(value1);
 			Assert::AreEqual(type, d.Type());
 			Assert::AreEqual(1U, d.Size());
-			d = value2;
+			d = const_cast<T&>(value2);
 			Assert::AreEqual(type, d.Type());
 			Assert::AreEqual(1U, d.Size());
 			Assert::ExpectException<std::invalid_argument>([&d, &anotherType] { d.SetType(anotherType); });
@@ -31,11 +30,11 @@ namespace UnitTestLibraryDesktop
 		static void TestGet(const T& value1, const T& value2)
 		{
 			Datum d;
-			d = value1;
+			d = const_cast<T&>(value1);
 			Assert::IsTrue(value1 == d.Get<T>());
-			d = value2;
+			d = const_cast<T&>(value2);
 			Assert::IsTrue(value2 == d.Get<T>());
-			d.PushBack(value1);
+			d.PushBack(const_cast<T&>(value1));
 			Assert::AreEqual(2U, d.Size());
 			Assert::IsTrue(value2 == d.Get<T>());
 			Assert::IsTrue(value1 == d.Get<T>(1U));
@@ -44,8 +43,8 @@ namespace UnitTestLibraryDesktop
 		static void TestCopyConstructor(const T& value1, const T& value2)
 		{
 			Datum d1;
-			d1 = value1;
-			d1.PushBack(value2);
+			d1 = const_cast<T&>(value1);
+			d1.PushBack(const_cast<T&>(value2));
 			Datum d2(d1);
 			Assert::IsTrue(d1 == d2);
 			Assert::IsTrue(value1 == d2.Get<T>());
@@ -57,10 +56,10 @@ namespace UnitTestLibraryDesktop
 		static void TestAssignmentOperator(const T& value1, const T& value2)
 		{
 			Datum d1;
-			d1 = value1;
-			d1.PushBack(value2);
+			d1 = const_cast<T&>(value1);
+			d1.PushBack(const_cast<T&>(value2));
 			Datum d2;
-			d2 = value2;
+			d2 = const_cast<T&>(value2);
 			Assert::IsFalse(d1 == d2);
 			Assert::IsTrue(value2 == d2.Get<T>());
 			d2 = d1;
@@ -71,10 +70,44 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(d1.Type(), d2.Type());
 		}
 
+		static void TestMoveConstructor(const T& value1, const T& value2)
+		{
+			Datum* d1 = new Datum();
+			(*d1) = const_cast<T&>(value1);
+			d1->PushBack(const_cast<T&>(value2));
+			std::uint32_t size = d1->Size();
+			DatumType type = d1->Type();
+			Datum d2(std::move(*d1));
+			delete d1;
+
+			Assert::IsTrue(value1 == d2.Get<T>());
+			Assert::IsTrue(value2 == d2.Get<T>(1U));
+			Assert::AreEqual(size, d2.Size());
+			Assert::AreEqual(type, d2.Type());
+		}
+
+		static void TestMoveAssignmentOperator(const T& value1, const T& value2)
+		{
+			Datum* d1 = new Datum();
+			(*d1) = const_cast<T&>(value1);
+			d1->PushBack(const_cast<T&>(value2));
+			std::uint32_t size = d1->Size();
+			DatumType type = d1->Type();
+			Datum d2;
+			d2.PushBack(const_cast<T&>(value2));
+			d2 = std::move(*d1);
+			delete d1;
+
+			Assert::IsTrue(value1 == d2.Get<T>());
+			Assert::IsTrue(value2 == d2.Get<T>(1U));
+			Assert::AreEqual(size, d2.Size());
+			Assert::AreEqual(type, d2.Type());
+		}
+
 		static void TestConstantGet(const T& value1)
 		{
 			Datum d1;
-			d1 = value1;
+			d1 = const_cast<T&>(value1);
 			Datum d2(d1);
 			Assert::IsTrue(value1 == d2.Get<T>());
 			Assert::AreEqual(1U, d2.Size());
@@ -83,21 +116,21 @@ namespace UnitTestLibraryDesktop
 		static void TestSet(const DatumType type, const T& value1, const T& value2, const DatumType anotherType)
 		{
 			Datum d;
-			d = value1;
+			d = const_cast<T&>(value1);
 			Assert::AreEqual(type, d.Type());
 			Assert::AreEqual(1U, d.Size());
-			d.Set(value2);
+			d.Set(const_cast<T&>(value2));
 			Assert::AreEqual(type, d.Type());
 			Assert::AreEqual(1U, d.Size());
 			Assert::ExpectException<std::invalid_argument>([&d, &anotherType] { d.SetType(anotherType); });
-			d.Set(value1);
+			d.Set(const_cast<T&>(value1));
 			Assert::AreEqual(1U, d.Size());
-			Assert::ExpectException<std::out_of_range>([&d, &value2] { d.Set(value2, 1); });
-			d.PushBack(value1);
+			Assert::ExpectException<std::out_of_range>([&d, &value2] { d.Set(const_cast<T&>(value2), 1); });
+			d.PushBack(const_cast<T&>(value1));
 			Assert::AreEqual(2U, d.Size());
 			Assert::IsTrue(value1 == d.Get<T>());
 			Assert::IsTrue(value1 == d.Get<T>(1U));
-			d.Set(value2, 1U);
+			d.Set(const_cast<T&>(value2), 1U);
 			Assert::IsTrue(value1 == d.Get<T>());
 			Assert::IsTrue(value2 == d.Get<T>(1U));
 			Assert::AreEqual(2U, d.Size());
@@ -106,13 +139,13 @@ namespace UnitTestLibraryDesktop
 		static void TestPushBack(const DatumType type, const T& value1, const T& value2)
 		{
 			Datum d;
-			d.PushBack(value1);
+			d.PushBack(const_cast<T&>(value1));
 			Assert::AreEqual(type, d.Type());
 			Assert::AreEqual(1U, d.Size());
-			d = value1;
+			d = const_cast<T&>(value1);
 			Assert::AreEqual(type, d.Type());
 			Assert::AreEqual(1U, d.Size());
-			d.PushBack(value2);
+			d.PushBack(const_cast<T&>(value2));
 			Assert::AreEqual(type, d.Type());
 			Assert::AreEqual(2U, d.Size());
 			Assert::IsTrue(value1 == d.Get<T>(0));
@@ -122,13 +155,13 @@ namespace UnitTestLibraryDesktop
 		static void TestResize(const DatumType type, const T& value1, const T& value2)
 		{
 			Datum d;
-			d.PushBack(value1);
-			d.PushBack(value2);
+			d.PushBack(const_cast<T&>(value1));
+			d.PushBack(const_cast<T&>(value2));
 			Assert::AreEqual(type, d.Type());
 			Assert::AreEqual(2U, d.Size());
 			d.Resize(3U);
 			Assert::AreEqual(3U, d.Size());
-			d.Set(value1, 2U);
+			d.Set(const_cast<T&>(value1), 2U);
 			Assert::IsTrue(value1 == d.Get<T>(0));
 			Assert::IsTrue(value2 == d.Get<T>(1));
 			Assert::IsTrue(value1 == d.Get<T>(2));
@@ -143,8 +176,8 @@ namespace UnitTestLibraryDesktop
 		{
 			Datum d;
 			Assert::IsFalse(d.PopBack());
-			d.PushBack(value1);
-			d.PushBack(value2);
+			d.PushBack(const_cast<T&>(value1));
+			d.PushBack(const_cast<T&>(value2));
 			Assert::AreEqual(type, d.Type());
 			Assert::AreEqual(2U, d.Size());
 			Assert::IsTrue(value1 == d.Get<T>(0));
@@ -161,17 +194,17 @@ namespace UnitTestLibraryDesktop
 		static void TestEqualsOperator(const T& value1, const T& value2)
 		{
 			Datum d1;
-			d1 = value1;
+			d1 = const_cast<T&>(value1);
 			Datum d2;
-			d2 = value2;
+			d2 = const_cast<T&>(value2);
 			Assert::IsTrue(d1 == value1);
 			Assert::IsTrue(d2 == value2);
 			Assert::IsFalse(d2 == value1);
 			Assert::IsFalse(d1 == value2);
 			Assert::IsFalse(d1 == d2);
-			d2 = value1;
+			d2 = const_cast<T&>(value1);
 			Assert::IsTrue(d2 == d1);
-			d2.PushBack(value1);
+			d2.PushBack(const_cast<T&>(value1));
 			Assert::IsFalse(d2 == d1);
 			Assert::IsFalse(d2 == value1);
 			Assert::IsFalse(d2 == value2);
@@ -180,16 +213,16 @@ namespace UnitTestLibraryDesktop
 		static void TestNotEqualsOperator(const T& value1, const T& value2)
 		{
 			Datum d1;
-			d1 = value1;
+			d1 = const_cast<T&>(value1);
 			Datum d2;
-			d2 = value2;
+			d2 = const_cast<T&>(value2);
 			Assert::IsFalse(d1 != value1);
 			Assert::IsFalse(d2 != value2);
 			Assert::IsTrue(d2 != value1);
 			Assert::IsTrue(d1 != value2);
-			d2 = value1;
+			d2 = const_cast<T&>(value1);
 			Assert::IsFalse(d2 != d1);
-			d2.PushBack(value1);
+			d2.PushBack(const_cast<T&>(value1));
 			Assert::IsTrue(d2 != d1);
 			Assert::IsTrue(d2 != value1);
 			Assert::IsTrue(d2 != value2);
@@ -231,6 +264,7 @@ namespace UnitTestLibraryDesktop
 			d1 = value1;
 			d1 = d;
 			Assert::IsTrue(d == d1);
+			Assert::AreEqual(2U, d1.Size());
 			d1.Clear();
 			Assert::AreEqual(0U, d1.Size());
 			d1 = value1;

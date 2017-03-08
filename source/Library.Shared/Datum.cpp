@@ -148,23 +148,15 @@ namespace AnonymousEngine
 	}
 
 	Datum::Datum(const Datum& rhs)
+		: Datum()
 	{
 		Copy(rhs);
 	}
 
 	Datum::Datum(Datum&& rhs) noexcept
+		: Datum()
 	{
 		Move(rhs);
-	}
-
-	Datum& Datum::operator=(Datum&& rhs) noexcept
-	{
-		if (this != &rhs)
-		{
-			Clear();
-			Move(rhs);
-		}
-		return *this;
 	}
 
 	void Datum::SetType(DatumType type)
@@ -178,13 +170,24 @@ namespace AnonymousEngine
 		return mType;
 	}
 
-	Datum& Datum::operator=(const Datum& datum)
+	Datum& Datum::operator=(const Datum& rhs)
 	{
-		if (&datum != this)
+		if (this != &rhs)
 		{
-			Copy(datum);
+			Clear();
+			Copy(rhs);
 		}
 		return (*this);
+	}
+
+	Datum& Datum::operator=(Datum&& rhs) noexcept
+	{
+		if (this != &rhs)
+		{
+			Clear();
+			Move(rhs);
+		}
+		return *this;
 	}
 
 	Datum& Datum::operator=(const std::int32_t& data)
@@ -464,7 +467,7 @@ namespace AnonymousEngine
 
 	bool Datum::operator!=(const Scope& data) const
 	{
-		return !(*this == &data);
+		return !(*this == data);
 	}
 
 	bool Datum::operator!=(const RTTI* data) const
@@ -624,23 +627,23 @@ namespace AnonymousEngine
 		}
 	}
 
-	void Datum::Copy(const Datum& datum)
+	void Datum::Copy(const Datum& rhs)
 	{
-		mType = datum.mType;
-		if (datum.mIsExternal)
+		mType = rhs.mType;
+		mIsExternal = rhs.mIsExternal;
+		if (mIsExternal)
 		{
-			mData = datum.mData;
+			mData = rhs.mData;
+			mSize = rhs.mSize;
 		}
 		else
 		{
-			Resize(datum.mSize);
-			for (std::uint32_t index = 0; index < datum.mSize; ++index)
+			Resize(rhs.mSize);
+			for (std::uint32_t index = 0; index < rhs.mSize; ++index)
 			{
-				Cloners[static_cast<std::uint32_t>(mType)](mData, datum.mData, index);
+				Cloners[static_cast<std::uint32_t>(mType)](mData, rhs.mData, index);
 			}
 		}
-		mSize = datum.mSize;
-		mIsExternal = datum.mIsExternal;
 	}
 
 	void Datum::Move(Datum& rhs)

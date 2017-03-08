@@ -23,7 +23,7 @@ namespace AnonymousEngine
 		return (*this);
 	}
 
-	Scope::Scope(Scope&& rhs) noexcept :
+	/*Scope::Scope(Scope&& rhs) noexcept :
 		Scope()
 	{
 		Move(rhs);
@@ -37,7 +37,7 @@ namespace AnonymousEngine
 			Move(rhs);
 		}
 		return (*this);
-	}
+	}*/
 
 	Datum* Scope::Find(const std::string& name)
 	{
