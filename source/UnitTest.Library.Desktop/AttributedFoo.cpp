@@ -65,7 +65,6 @@ namespace UnitTestLibraryDesktop
 		mString = rhs.mString;
 		mVec4 = rhs.mVec4;
 		mMat4 = rhs.mMat4;
-		mNestedScope = rhs.mNestedScope;
 		memcpy(mIntArray, rhs.mIntArray, sizeof(std::int32_t) * ArraySize);
 		memcpy(mFloatArray, rhs.mFloatArray, sizeof(float) * ArraySize);
 		for(std::uint32_t index = 0; index < ArraySize; ++index)
@@ -85,7 +84,6 @@ namespace UnitTestLibraryDesktop
 		mString = std::move(rhs.mString);
 		mVec4 = std::move(rhs.mVec4);
 		mMat4 = std::move(rhs.mMat4);
-		mNestedScope = rhs.mNestedScope;
 		memmove(mIntArray, rhs.mIntArray, sizeof(std::int32_t) * ArraySize);
 		memmove(mFloatArray, rhs.mFloatArray, sizeof(float) * ArraySize);
 		memmove(mStringArray, rhs.mStringArray, sizeof(float) * ArraySize);

@@ -15,8 +15,8 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestDefaultConstructor)
 		{
 			Attributed attributed;
-			/*AttributedFoo foo;
-			AttributedFoo bar;*/
+			AttributedFoo foo;
+			AttributedFoo bar;
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)

@@ -193,7 +193,7 @@ namespace AnonymousEngine
 	template <typename T>
 	Datum& Attributed::AppendInternalAttribute(const std::string&name, const T& value, const Datum::DatumType type, const std::uint32_t size)
 	{
-		//ValidateAttribute(name);
+		ValidateAttribute(name);
 		Datum& datum = Append(name);
 		datum.SetType(type);
 		datum.Resize(size);

@@ -661,7 +661,7 @@ namespace AnonymousEngine
 
 	void Datum::SetExternalStorage(void* externalData, std::uint32_t size, DatumType type)
 	{
-		if (mType != type)
+		if (mType != DatumType::Unknown && mType != type)
 		{
 			throw std::invalid_argument("Cannot modify the type of a Datum with an already set type");
 		}
