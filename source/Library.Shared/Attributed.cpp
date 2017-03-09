@@ -64,8 +64,6 @@ namespace AnonymousEngine
 
 	bool Attributed::IsPrescribedAttribute(const std::string& name) const
 	{
-		std::uint64_t id = TypeIdInstance();
-		id;
 		auto prescribedAttributes = PrescribedAttributesNamesCache(TypeIdInstance());
 		return prescribedAttributes.Find(name) != prescribedAttributes.end();
 	}
@@ -88,11 +86,10 @@ namespace AnonymousEngine
 	void Attributed::AuxiliaryAttributes(Vector<std::string>& auxiliaryAttributes) const
 	{
 		auxiliaryAttributes.Clear();
-		auxiliaryAttributes.Reserve(mOrderVector.Size());
+		auto& prescribedAttributes = PrescribedAttributesNamesCache(TypeIdInstance());
 		for (const auto& pair : mOrderVector)
 		{
-			auto& prescribedAttributes = PrescribedAttributesNamesCache(TypeIdInstance());
-			if (prescribedAttributes.Find(pair->first) != prescribedAttributes.end())
+			if (prescribedAttributes.Find(pair->first) == prescribedAttributes.end())
 			{
 				auxiliaryAttributes.PushBack(pair->first);
 			}
