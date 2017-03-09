@@ -83,19 +83,31 @@ namespace UnitTestLibraryDesktop
 
 		static void TestMoveConstructor(const T& value1, const T& value2, const T& value3, const T& value4)
 		{
+			TestCapacityStrategy strategy;
 			AnonymousEngine::Vector<T>* vector1 = new AnonymousEngine::Vector<T>();
+			AnonymousEngine::Vector<T>* vector3 = new AnonymousEngine::Vector<T>();
 			vector1->PushBack(value1);
 			vector1->PushBack(value2);
+			vector3->IncrementStrategy(&strategy);
+			vector3->PushBack(value1);
+			vector3->PushBack(value2);
 			std::uint32_t size = vector1->Size();
 			std::uint32_t capacity = vector1->Capacity();
 			AnonymousEngine::Vector<T> vector2 = std::move(*vector1);
+			AnonymousEngine::Vector<T> vector4 = std::move(*vector3);
 			delete vector1;
+			delete vector3;
 
 			Assert::AreEqual(capacity, vector2.Capacity());
 			Assert::AreEqual(size, vector2.Size());
 			vector2.PushBack(value3);
 			vector2.PushBack(value4);
 			Assert::AreEqual(size + 2U, vector2.Size());
+			Assert::AreEqual(capacity, vector4.Capacity());
+			Assert::AreEqual(size, vector4.Size());
+			vector4.PushBack(value3);
+			vector4.PushBack(value4);
+			Assert::AreEqual(size + 2U, vector4.Size());
 		}
 
 		static void TestMoveAssignmentOperator(const T& value1, const T& value2, const T& value3, const T& value4)
@@ -160,6 +172,13 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(3U, vector1.Size());
 			Assert::AreEqual(value1, vector1.Front());
 			Assert::AreEqual(value3, vector1.Back());
+			std::uint32_t size = vector1.Size();
+			for (std::uint32_t index = 0; index < 20; ++index)
+			{
+				vector2.PushBack(value2);
+			}
+			vector1.PushBack(vector2);
+			Assert::AreEqual(size + vector2.Size(), vector1.Size());
 		}
 
 		static void TestPopBack(const T& value1, const T& value2)
@@ -274,6 +293,10 @@ namespace UnitTestLibraryDesktop
 			vector2.PushBack(value2);
 			Assert::IsTrue(vector1 == vector2);
 			Assert::IsFalse(vector1 != vector2);
+			vector1.PushBack(value1);
+			vector2.PushBack(value2);
+			Assert::IsFalse(vector1 == vector2);
+			Assert::IsTrue(vector1 != vector2);
 		}
 
 		static void TestFind(const T& value1, const T& value2)
