@@ -82,7 +82,7 @@ namespace UnitTestLibraryDesktop
 			Datum &d2 = childScope.Append("childTest");
 			d2 = value2;
 			Datum& d = scope.Append("child");
-
+			
 			Assert::AreEqual(DatumType::Integer, d2.Type());
 			Assert::IsTrue(d2 == value2);
 			Assert::IsTrue(childScope.GetParent() == const_cast<const Scope*>(&scope));
@@ -125,22 +125,76 @@ namespace UnitTestLibraryDesktop
 			Scope newScope(scope);
 			Assert::IsTrue(newScope.Append("int") == dInt1);
 			Assert::IsTrue(newScope.Append("string") == dStr1);
-			Scope& newChildScope = *newScope.Append("child").Get<Scope*>();
-			Scope& newChildScope2 = *newScope.Append("child").Get<Scope*>(1U);
+			Scope& newChildScope = newScope.Append("child").Get<Scope>();
+			Scope& newChildScope2 = newScope.Append("child").Get<Scope>(1U);
 			Assert::IsTrue(newChildScope.Append("childInt") == dInt2);
 			Assert::IsTrue(newChildScope2.Append("child2Int") == dInt3);
-			Scope& newGrandChildScope = *newChildScope.Append("grandChild").Get<Scope*>();
+			Scope& newGrandChildScope = newChildScope.Append("grandChild").Get<Scope>();
 			Assert::IsTrue(newGrandChildScope.Append("grandChildInt") == dInt4);
 
 			Scope copyScope;
 			copyScope = scope;
 			Assert::IsTrue(copyScope.Append("int") == dInt1);
 			Assert::IsTrue(copyScope.Append("string") == dStr1);
-			Scope& copyChildScope = *copyScope.Append("child").Get<Scope*>();
-			Scope& copyChildScope2 = *copyScope.Append("child").Get<Scope*>(1U);
+			Scope& copyChildScope = copyScope.Append("child").Get<Scope>();
+			Scope& copyChildScope2 = copyScope.Append("child").Get<Scope>(1U);
 			Assert::IsTrue(copyChildScope.Append("childInt") == dInt2);
 			Assert::IsTrue(copyChildScope2.Append("child2Int") == dInt3);
-			Scope& copyGrandChildScope = *copyChildScope.Append("grandChild").Get<Scope*>();
+			Scope& copyGrandChildScope = copyChildScope.Append("grandChild").Get<Scope>();
+			Assert::IsTrue(copyGrandChildScope.Append("grandChildInt") == dInt4);
+		}
+
+		TEST_METHOD(TestMoveSemantics)
+		{
+			std::int32_t int1 = mHelper.GetRandomInt32();
+			std::string str1 = mHelper.GetRandomString();
+			Scope* scope = new Scope();
+			Datum& dInt1 = scope->Append("int");
+			dInt1 = int1;
+			Datum& dStr1 = scope->Append("string");
+			dStr1 = str1;
+
+			std::int32_t int2 = mHelper.GetRandomInt32();
+			Scope& childScope = scope->AppendScope("child");
+			Datum &dInt2 = childScope.Append("childInt");
+			dInt2 = int2;
+
+			std::int32_t int3 = mHelper.GetRandomInt32();
+			Scope& childScope2 = scope->AppendScope("child");
+			Datum& dInt3 = childScope2.Append("child2Int");
+			dInt3 = int3;
+
+			std::int32_t int4 = mHelper.GetRandomInt32();
+			Scope& grandChildScope = childScope.AppendScope("grandChild");
+			Datum &dInt4 = grandChildScope.Append("grandChildInt");
+			dInt4 = int4;
+
+			Scope* scope2 = new Scope(*scope);
+			Scope newScope(std::move(*scope));
+			delete scope;
+
+			Assert::IsTrue(newScope.Append("int") == dInt1);
+			Assert::IsTrue(newScope.Append("string") == dStr1);
+			Scope& newChildScope = newScope.Append("child").Get<Scope>();
+			Scope& newChildScope2 = newScope.Append("child").Get<Scope>(1U);
+			Assert::IsTrue(newChildScope.Append("childInt") == dInt2);
+			Assert::IsTrue(newChildScope2.Append("child2Int") == dInt3);
+			Scope& newGrandChildScope = newChildScope.Append("grandChild").Get<Scope>();
+			Assert::IsTrue(newGrandChildScope.Append("grandChildInt") == dInt4);
+			
+			Scope copyScope;
+			copyScope.Append("int") = dInt1;
+			copyScope.Append("string") = dStr1;
+			copyScope = std::move(*scope2);
+			delete scope2;
+			
+			Assert::IsTrue(copyScope.Append("int") == dInt1);
+			Assert::IsTrue(copyScope.Append("string") == dStr1);
+			Scope& copyChildScope = copyScope.Append("child").Get<Scope>();
+			Scope& copyChildScope2 = copyScope.Append("child").Get<Scope>(1U);
+			Assert::IsTrue(copyChildScope.Append("childInt") == dInt2);
+			Assert::IsTrue(copyChildScope2.Append("child2Int") == dInt3);
+			Scope& copyGrandChildScope = copyChildScope.Append("grandChild").Get<Scope>();
 			Assert::IsTrue(copyGrandChildScope.Append("grandChildInt") == dInt4);
 		}
 
@@ -207,21 +261,20 @@ namespace UnitTestLibraryDesktop
 			Datum &dInt2 = childScope.Append("int");
 			dInt2 = int2;
 
-			Assert::IsTrue(*scope["child"].Get<Scope*>() == childScope);
+			Assert::IsTrue(scope["child"].Get<Scope>() == childScope);
 			Assert::IsNotNull(scope.Find("child"));
 			Assert::IsTrue(childScope.GetParent() == &scope);
 			Scope scope2;
 			scope2.Adopt(childScope, "newChild");
 			Assert::IsTrue(scope["child"].Size() == 0U);
 			Assert::IsNull(scope2.Find("child"));
-			Assert::IsTrue(*scope2["newChild"].Get<Scope*>() == childScope);
+			Assert::IsTrue(scope2["newChild"].Get<Scope>() == childScope);
 			Assert::IsTrue(childScope.GetParent() == &scope2);
 			Assert::IsFalse(childScope.Equals(nullptr));
 			Foo f;
 			Assert::IsFalse(childScope.Equals(&f));
 			Datum d;
 			d = &scope;
-			d.Remove(nullptr);
 
 			Assert::ExpectException<std::invalid_argument>([&scope] { scope.Adopt(scope, "test"); });
 		}

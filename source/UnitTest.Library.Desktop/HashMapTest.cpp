@@ -73,13 +73,43 @@ namespace UnitTestLibraryDesktop
 			std::uint32_t value2 = mHelper.GetRandomUInt32();
 			std::string str1 = "hello1";
 			std::string str2 = "hello2";
-			HashMapTestTemplate<std::uint32_t>::TestCopyConstructor(value1, value2);
-			HashMapTestTemplate<std::uint32_t*>::TestCopyConstructor(&value1, &value2);
-			HashMapTestTemplate<const char*>::TestCopyConstructor(str1.c_str(), str2.c_str());
-			HashMapTestTemplate<char*>::TestCopyConstructor(const_cast<char*>(str1.c_str()), const_cast<char*>(str2.c_str()));
-			HashMapTestTemplate<std::string>::TestCopyConstructor(str1, str2);
-			HashMapTestTemplate<const std::string>::TestCopyConstructor(str1, str2);
-			HashMapTestTemplate<Foo>::TestCopyConstructor(Foo(value1), Foo(value2));
+			HashMapTestTemplate<std::uint32_t>::TestAssignmentOperator(value1, value2);
+			HashMapTestTemplate<std::uint32_t*>::TestAssignmentOperator(&value1, &value2);
+			HashMapTestTemplate<const char*>::TestAssignmentOperator(str1.c_str(), str2.c_str());
+			HashMapTestTemplate<char*>::TestAssignmentOperator(const_cast<char*>(str1.c_str()), const_cast<char*>(str2.c_str()));
+			HashMapTestTemplate<std::string>::TestAssignmentOperator(str1, str2);
+			HashMapTestTemplate<const std::string>::TestAssignmentOperator(str1, str2);
+			HashMapTestTemplate<Foo>::TestAssignmentOperator(Foo(value1), Foo(value2));
+		}
+
+		TEST_METHOD(TestMoveConstructor)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			HashMapTestTemplate<std::uint32_t>::TestMoveConstructor(value1, value2);
+			HashMapTestTemplate<std::uint32_t*>::TestMoveConstructor(&value1, &value2);
+			std::string str1 = "hello1";
+			std::string str2 = "hello2";
+			HashMapTestTemplate<const char*>::TestMoveConstructor(str1.c_str(), str2.c_str());
+			HashMapTestTemplate<char*>::TestMoveConstructor(const_cast<char*>(str1.c_str()), const_cast<char*>(str2.c_str()));
+			HashMapTestTemplate<std::string>::TestMoveConstructor(str1, str2);
+			HashMapTestTemplate<const std::string>::TestMoveConstructor(str1, str2);
+			HashMapTestTemplate<Foo>::TestMoveConstructor(Foo(value1), Foo(value2));
+		}
+
+		TEST_METHOD(TestMoveAssignmentOperator)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			std::string str1 = "hello1";
+			std::string str2 = "hello2";
+			HashMapTestTemplate<std::uint32_t>::TestMoveAssignmentOperator(value1, value2);
+			HashMapTestTemplate<std::uint32_t*>::TestMoveAssignmentOperator(&value1, &value2);
+			HashMapTestTemplate<const char*>::TestMoveAssignmentOperator(str1.c_str(), str2.c_str());
+			HashMapTestTemplate<char*>::TestMoveAssignmentOperator(const_cast<char*>(str1.c_str()), const_cast<char*>(str2.c_str()));
+			HashMapTestTemplate<std::string>::TestMoveAssignmentOperator(str1, str2);
+			HashMapTestTemplate<const std::string>::TestMoveAssignmentOperator(str1, str2);
+			HashMapTestTemplate<Foo>::TestMoveAssignmentOperator(Foo(value1), Foo(value2));
 		}
 
 		TEST_METHOD(TestFind)

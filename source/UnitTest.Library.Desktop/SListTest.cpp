@@ -43,6 +43,24 @@ namespace UnitTestLibraryDesktop
 			SListTestTemplate<Foo>::TestAssignmentOperatorSelfCopyPrevention(Foo(value1), Foo(value2));
 		}
 
+		TEST_METHOD(TestMoveConstructor)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			SListTestTemplate<std::uint32_t>::TestMoveConstructor(value1, value2);
+			SListTestTemplate<std::uint32_t*>::TestMoveConstructor(&value1, &value2);
+			SListTestTemplate<Foo>::TestMoveConstructor(Foo(value1), Foo(value2));
+		}
+
+		TEST_METHOD(TestMoveAssignmentOperatorSuccess)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			SListTestTemplate<std::uint32_t>::TestMoveAssignmentOperatorSuccess(value1, value2);
+			SListTestTemplate<std::uint32_t*>::TestMoveAssignmentOperatorSuccess(&value1, &value2);
+			SListTestTemplate<Foo>::TestMoveAssignmentOperatorSuccess(Foo(value1), Foo(value2));
+		}
+
 		TEST_METHOD(TestPushFront)
 		{
 			std::uint32_t value1 = mHelper.GetRandomUInt32();

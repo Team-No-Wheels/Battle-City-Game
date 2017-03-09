@@ -106,6 +106,8 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MinimalRebuild>false</MinimalRebuild>
       <DisableSpecificWarnings>4201</DisableSpecificWarnings>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -130,6 +132,8 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MinimalRebuild>false</MinimalRebuild>
       <DisableSpecificWarnings>4201</DisableSpecificWarnings>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -155,6 +159,8 @@
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <DisableSpecificWarnings>4101;4201;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -184,6 +190,8 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4101;4201;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -197,6 +205,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AttributedBar.cpp" />
+    <ClCompile Include="AttributedFoo.cpp" />
+    <ClCompile Include="AttributedTest.cpp" />
     <ClCompile Include="DatumTest.cpp" />
     <ClCompile Include="Foo.cpp" />
     <ClCompile Include="HashFunctorsTest.cpp" />
@@ -225,6 +236,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AttributedBar.h" />
+    <ClInclude Include="AttributedFoo.h" />
     <ClInclude Include="DatumTestTemplate.h" />
     <ClInclude Include="Foo.h" />
     <ClInclude Include="HashMapTestTemplate.h" />

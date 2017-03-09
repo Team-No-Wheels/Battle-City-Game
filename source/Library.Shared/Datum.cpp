@@ -147,9 +147,16 @@ namespace AnonymousEngine
 		mData.voidPtr = nullptr;
 	}
 
-	Datum::Datum(const Datum& datum)
+	Datum::Datum(const Datum& rhs)
+		: Datum()
 	{
-		Copy(datum);
+		Copy(rhs);
+	}
+
+	Datum::Datum(Datum&& rhs) noexcept
+		: Datum()
+	{
+		Move(rhs);
 	}
 
 	void Datum::SetType(DatumType type)
@@ -163,13 +170,24 @@ namespace AnonymousEngine
 		return mType;
 	}
 
-	Datum& Datum::operator=(const Datum& datum)
+	Datum& Datum::operator=(const Datum& rhs)
 	{
-		if (&datum != this)
+		if (this != &rhs)
 		{
-			Copy(datum);
+			Clear();
+			Copy(rhs);
 		}
 		return (*this);
+	}
+
+	Datum& Datum::operator=(Datum&& rhs) noexcept
+	{
+		if (this != &rhs)
+		{
+			Clear();
+			Move(rhs);
+		}
+		return *this;
 	}
 
 	Datum& Datum::operator=(const std::int32_t& data)
@@ -207,10 +225,10 @@ namespace AnonymousEngine
 		return (*this);
 	}
 
-	Datum& Datum::operator=(Scope* data)
+	Datum& Datum::operator=(Scope& data)
 	{
 		InitializeScalar(DatumType::Scope);
-		mData.scopeValue[0] = data;
+		mData.scopeValue[0] = &data;
 		return (*this);
 	}
 
@@ -256,11 +274,11 @@ namespace AnonymousEngine
 		mData.matValue[index] = data;
 	}
 
-	void Datum::Set(Scope* data, const std::uint32_t index)
+	void Datum::Set(Scope& data, const std::uint32_t index)
 	{
 		ValidateType(DatumType::Scope);
 		ValidateIndex(index);
-		mData.scopeValue[index] = data;
+		mData.scopeValue[index] = &data;
 	}
 
 	void Datum::Set(RTTI* data, const std::uint32_t index)
@@ -310,12 +328,12 @@ namespace AnonymousEngine
 		mData.matValue[mSize - 1] = data;
 	}
 
-	void Datum::PushBack(Scope* data)
+	void Datum::PushBack(Scope& data)
 	{
 		RaiseExceptionOnExternal();
 		SetType(DatumType::Scope);
 		Resize(mSize + 1);
-		mData.scopeValue[mSize - 1] = data;
+		mData.scopeValue[mSize - 1] = &data;
 	}
 
 	void Datum::PushBack(RTTI* data)
@@ -399,13 +417,13 @@ namespace AnonymousEngine
 		return (*mData.matValue == data);
 	}
 
-	bool Datum::operator==(const Scope* data) const
+	bool Datum::operator==(const Scope& data) const
 	{
 		if (mType != DatumType::Scope || mSize != 1)
 		{
 			return false;
 		}
-		return (mData.scopeValue[0]->Equals(data));
+		return (mData.scopeValue[0]->Equals(&data));
 	}
 
 	bool Datum::operator==(const RTTI* data) const
@@ -447,7 +465,7 @@ namespace AnonymousEngine
 		return !(*this == data);
 	}
 
-	bool Datum::operator!=(const Scope* data) const
+	bool Datum::operator!=(const Scope& data) const
 	{
 		return !(*this == data);
 	}
@@ -457,12 +475,12 @@ namespace AnonymousEngine
 		return !(*this == data);
 	}
 
-	bool Datum::Remove(Scope* scope)
+	bool Datum::Remove(Scope& scope)
 	{
 		ValidateType(DatumType::Scope);
 		for (std::uint32_t index = 0; index < mSize; ++index)
 		{
-			if (mData.scopeValue[index] == scope)
+			if (mData.scopeValue[index] == &scope)
 			{
 				memmove(&mData.scopeValue[index], &mData.scopeValue[index + 1], (mSize - index - 1) * sizeof(Scope*));
 				--mSize;
@@ -556,6 +574,11 @@ namespace AnonymousEngine
 		return mSize;
 	}
 
+	bool Datum::IsExternal() const
+	{
+		return mIsExternal;
+	}
+
 	void Datum::Clear()
 	{
 		if (!mIsExternal)
@@ -609,29 +632,41 @@ namespace AnonymousEngine
 		}
 	}
 
-	void Datum::Copy(const Datum& datum)
+	void Datum::Copy(const Datum& rhs)
 	{
-		Clear();
-		mType = datum.mType;
-		if (datum.mIsExternal)
+		mType = rhs.mType;
+		mIsExternal = rhs.mIsExternal;
+		if (mIsExternal)
 		{
-			mData = datum.mData;
+			mData = rhs.mData;
+			mSize = rhs.mSize;
 		}
 		else
 		{
-			Resize(datum.mSize);
-			for (std::uint32_t index = 0; index < datum.mSize; ++index)
+			Resize(rhs.mSize);
+			for (std::uint32_t index = 0; index < rhs.mSize; ++index)
 			{
-				Cloners[static_cast<std::uint32_t>(mType)](mData, datum.mData, index);
+				Cloners[static_cast<std::uint32_t>(mType)](mData, rhs.mData, index);
 			}
 		}
-		mSize = datum.mSize;
-		mIsExternal = datum.mIsExternal;
+	}
+
+	void Datum::Move(Datum& rhs)
+	{
+		mType = rhs.mType;
+		mData = rhs.mData;
+		mSize = rhs.mSize;
+		mIsExternal = rhs.mIsExternal;
+
+		rhs.mType = DatumType::Unknown;
+		rhs.mData.voidPtr = nullptr;
+		rhs.mSize = 0;
+		rhs.mIsExternal = false;
 	}
 
 	void Datum::SetExternalStorage(void* externalData, std::uint32_t size, DatumType type)
 	{
-		if (mType != type)
+		if (mType != DatumType::Unknown && mType != type)
 		{
 			throw std::invalid_argument("Cannot modify the type of a Datum with an already set type");
 		}

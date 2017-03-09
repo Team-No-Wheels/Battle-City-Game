@@ -83,19 +83,37 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
-	Vector<T>::Vector(const Vector<T>& rhs) :
+	Vector<T>::Vector(const Vector& rhs) :
 		Vector()
 	{
 		Copy(rhs);
 	}
 
 	template <typename T>
-	Vector<T>& Vector<T>::operator=(const Vector<T>& rhs)
+	Vector<T>& Vector<T>::operator=(const Vector& rhs)
 	{
 		if (this != &rhs)
 		{
 			Clear();
 			Copy(rhs);
+		}
+		return (*this);
+	}
+
+	template <typename T>
+	Vector<T>::Vector(Vector&& rhs) noexcept :
+		mDefaultStrategy(new DefaultVectorCapacityStrategy())
+	{
+		Move(rhs);
+	}
+
+	template <typename T>
+	Vector<T>& Vector<T>::operator=(Vector&& rhs) noexcept
+	{
+		if (this != &rhs)
+		{
+			Clear();
+			Move(rhs);
 		}
 		return (*this);
 	}
@@ -119,13 +137,30 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
-	void Vector<T>::PushBack(const T& data)
+	typename Vector<T>::Iterator Vector<T>::PushBack(const T& data)
 	{
 		if (mSize == mCapacity)
 		{
 			Reserve(mCapacity + (*mStrategy)(mSize, mCapacity));
 		}
-		new (&mData[mSize++]) T(data);
+		new (&mData[mSize]) T(data);
+		return Iterator(mSize++, this);
+	}
+
+	template <typename T>
+	typename Vector<T>::Iterator Vector<T>::PushBack(const Vector& vector)
+	{
+		if (mSize + vector.Size() > mCapacity)
+		{
+			Reserve(mSize + vector.Size());
+		}
+		Iterator it(mSize, this);
+
+		for (const auto& data : vector)
+		{
+			new (&mData[mSize++]) T(data);
+		}
+		return it;
 	}
 
 	template <typename T>
@@ -169,6 +204,29 @@ namespace AnonymousEngine
 	const T& Vector<T>::Back() const
 	{
 		return const_cast<const T&>(const_cast<Vector*>(this)->Back());
+	}
+
+	template <typename T>
+	bool Vector<T>::operator==(const Vector& rhs) const
+	{
+		if (mSize != rhs.mSize)
+		{
+			return false;
+		}
+		for (std::uint32_t index = 0; index < mSize; ++index)
+		{
+			if (mData[index] != rhs.mData[index])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	template <typename T>
+	bool Vector<T>::operator!=(const Vector& rhs) const
+	{
+		return !(*this == rhs);
 	}
 
 	template <typename T>
@@ -262,7 +320,7 @@ namespace AnonymousEngine
 		{
 			mData[i].~T();
 		}
-		free(mData);
+		free(reinterpret_cast<void*>(mData));
 		mData = nullptr;
 		mSize = 0;
 		mCapacity = 0;
@@ -296,6 +354,27 @@ namespace AnonymousEngine
 		{
 			PushBack(rhs.mData[i]);
 		}
+	}
+
+	template <typename T>
+	void AnonymousEngine::Vector<T>::Move(Vector<T>& rhs)
+	{
+		mData = rhs.mData;
+		mSize = rhs.mSize;
+		mCapacity = rhs.mCapacity;
+		if (rhs.mStrategy == rhs.mDefaultStrategy)
+		{
+			mStrategy = mDefaultStrategy;
+		}
+		else
+		{
+			mStrategy = rhs.mStrategy;
+		}
+		
+		rhs.mData = nullptr;
+		rhs.mSize = 0;
+		rhs.mCapacity = 0;
+		rhs.mStrategy = rhs.mDefaultStrategy;
 	}
 
 #pragma endregion

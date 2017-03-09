@@ -12,6 +12,7 @@ namespace UnitTestLibraryDesktop
 		Foo(const Foo& rhs);
 		Foo& operator=(const Foo& rhs);
 		bool operator==(const Foo& rhs) const;
+		bool operator!=(const Foo& rhs) const;
 
 		std::uint32_t Data() const;
 

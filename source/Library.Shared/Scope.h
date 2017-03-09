@@ -11,11 +11,10 @@ namespace AnonymousEngine
 	 */
 	class Scope : public RTTI
 	{
-		RTTI_DECLARATIONS(Scope, RTTI)
 	public:
 		/** Default initialize a scope
 		 */
-		explicit Scope();
+		Scope();
 
 		/** Deep copy another scope and initialize a scope from that
 		 *  @param rhs The scope to copy from
@@ -27,6 +26,17 @@ namespace AnonymousEngine
 		 *  @return The reference to the current scope
 		 */
 		Scope& operator=(const Scope& rhs);
+
+		/** Move data from another scope and initialize a scope from that
+		 *  @param rhs The scope to move from
+		 */
+		Scope(Scope&& rhs) noexcept;
+
+		/** Mode and assign another scope into this
+		 *  @param rhs The scope to move data from
+		 *  @return The reference to the current scope
+		 */
+		Scope& operator=(Scope&& rhs) noexcept;
 
 		/** Find a given key in the current scope
 		 *  @param name The key to search for in the current scop
@@ -141,19 +151,34 @@ namespace AnonymousEngine
 		 *  @param str The string to parse and read values from
 		 */
 		void FromString(const std::string& str) override;
-	private:
-		// The child objects data map
+
+		/** Clear all entries in the scope
+		 */
+		void Clear();
+
+	protected:
+		/** The child objects data map
+		 */
 		HashMap<std::string, Datum> mDatumMap;
-		// Ordered vector to store pointers to map entries in the order of insertion
+		/** Ordered vector to store pointers to map entries in the order of insertion
+		 */
 		Vector<std::pair<const std::string, Datum>*> mOrderVector;
+
+	private:
 		// The pointer to the current scope's parent
 		Scope* mParent;
+		// Stores the key against which the parent has stored this scope
+		std::string mParentKey;
+		// Stores the index of this scope within the parent scope's datum where this is stored
+		std::uint32_t mParentDatumIndex;
 
-		// Copies another scope to this scope. Used by copy constructor and assignment operator
+		// Copies another scope to this scope. Used by copy constructor and copy assignment operator
 		void Copy(const Scope& rhs);
-		// Delete's all memory allocated by this scope. Also calls destructor on all the child objects
-		void Clear();
+		// Moves another scope to this scope. Used by move constructor and move assignment operator
+		void Move(Scope& rhs);
 		// Detach the current scope from its parent
 		void Orphan();
+
+		RTTI_DECLARATIONS(Scope, RTTI)
 	};
 }

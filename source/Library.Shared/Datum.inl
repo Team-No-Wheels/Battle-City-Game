@@ -2,12 +2,6 @@
 
 namespace AnonymousEngine
 {
-	template<typename T>
-	T& Datum::Get(const std::uint32_t)
-	{
-		throw std::runtime_error("Unsupported Datum type");
-	}
-
 	template <>
 	inline std::int32_t& Datum::Get<std::int32_t>(const std::uint32_t index)
 	{
@@ -44,10 +38,10 @@ namespace AnonymousEngine
 	}
 
 	template <>
-	inline Scope*& Datum::Get<Scope*>(const std::uint32_t index)
+	inline Scope& Datum::Get<Scope>(const std::uint32_t index)
 	{
 		ValidateIndex(index);
-		return mData.scopeValue[index];
+		return *mData.scopeValue[index];
 	}
 
 	template <>
@@ -55,12 +49,6 @@ namespace AnonymousEngine
 	{
 		ValidateIndex(index);
 		return mData.rttiPtrValue[index];
-	}
-
-	template<typename T>
-	const T& Datum::Get(const std::uint32_t) const
-	{
-		throw std::runtime_error("Unsupported Datum type");
 	}
 
 	template <>
@@ -94,9 +82,9 @@ namespace AnonymousEngine
 	}
 
 	template <>
-	inline Scope* const& Datum::Get<Scope*>(const std::uint32_t index) const
+	inline const Scope& Datum::Get<Scope>(const std::uint32_t index) const
 	{
-		return const_cast<Scope*&>(const_cast<Datum*>(this)->Get<Scope*>(index));
+		return const_cast<Datum*>(this)->Get<Scope>(index);
 	}
 
 	template <>

@@ -33,9 +33,14 @@ namespace AnonymousEngine
 		explicit Datum(DatumType type = DatumType::Unknown);
 
 		/** Copy constructor to construct a copy of vector
-		 *  @param datum The other list to create copy from
+		 *  @param rhs The other datum to create copy from
 		 */
-		Datum(const Datum& datum);
+		Datum(const Datum& rhs);
+
+		/** Move constructor to construct a vector and move the data from the other
+		 *  @param rhs The other datum to move data from
+		 */
+		Datum(Datum&& rhs) noexcept;
 
 		/** Sets the type of the current datum
 		 *  @param type The type to set for the current datum
@@ -47,17 +52,22 @@ namespace AnonymousEngine
 		 */
 		DatumType Type() const;
 
-		/** Assignment operator to copy all the values from another vector
-		 *  @param datum The other vector to copy from
-		 *  @return A new instance of vector which is a copy of the passed vector
+		/** Copy assignment operator to copy all the values from another datum
+		 *  @param rhs The other datum to copy from
+		 *  @return A new instance of datum which is a copy of the passed datum
 		 */
-		Datum& operator=(const Datum& datum);
+		Datum& operator=(const Datum& rhs);
+		/** Move assignment operator to move all the values from another datum
+		 *  @param rhs The other datum to move from
+		 *  @return A reference to the current datum which has the new data
+		 */
+		Datum& operator=(Datum&& rhs) noexcept;
+
 		/** Assigns the given int value to the datum
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
 		 */
 		Datum& operator=(const std::int32_t& data);
-
 		/** Assigns the given float value to the datum
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
@@ -82,7 +92,7 @@ namespace AnonymousEngine
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
 		 */
-		Datum& operator=(Scope* data);
+		Datum& operator=(Scope& data);
 		/** Assigns the given RTTI value to the datum
 		 *  @param data The data to assign
 		 *  @return A reference to the current datum
@@ -130,7 +140,7 @@ namespace AnonymousEngine
 		 *  @param index The index to which the data is to be assigned.
 		 *  @return A reference to the current datum
 		 */
-		void Set(Scope* data, const std::uint32_t index = 0);
+		void Set(Scope& data, const std::uint32_t index = 0);
 		/** Assigns the given RTTI value to the datum at the specified index.
 		 *  Throws exception if index is out of range. index should be in the range [0, size)
 		 *  @param data The data to assign
@@ -182,7 +192,7 @@ namespace AnonymousEngine
 		 *  @param data The data item to push to the back of the datum
 		 *  @return A reference to the current data that is pushed
 		 */
-		void PushBack(Scope* data);
+		void PushBack(Scope& data);
 		/** Push an RTTI value to the end of the datum
 		 *  @param data The data item to push to the back of the datum
 		 *  @return A reference to the current data that is pushed
@@ -221,7 +231,7 @@ namespace AnonymousEngine
 		/** Check if the current datum and a Scope value is equal. If the datum is not a scalar, the result will be false
 		 *  @param data The Scope value to compare to
 		 */
-		bool operator==(const Scope* data) const;
+		bool operator==(const Scope& data) const;
 		/** Check if the current datum and an RTTI value is equal. If the datum is not a scalar, the result will be false
 		 *  @param data The RTTI value to compare to
 		 */
@@ -254,7 +264,7 @@ namespace AnonymousEngine
 		/** Check if the current datum and a Scope value is not equal. If the datum is not a scalar, the result will be false
 		 *  @param data The Scope value to compare to
 		 */
-		bool operator!=(const Scope* data) const;
+		bool operator!=(const Scope& data) const;
 		/** Check if the current datum and an RTTI value is not equal. If the datum is not a scalar, the result will be false
 		 *  @param data The RTTI value to compare to
 		 */
@@ -264,7 +274,7 @@ namespace AnonymousEngine
 		 *  @param scope The scope to be removed
 		 *  @return A boolean indicating whether the element was removed or not
 		 */
-		bool Remove(Scope* scope);
+		bool Remove(Scope& scope);
 
 		/** Set this datum to use an external int array
 		 *  @param data The pointer to the external data
@@ -325,6 +335,11 @@ namespace AnonymousEngine
 		 */
 		std::uint32_t Size() const;
 
+		/** Check if the current datum has an external storage or not
+		 *  @return A boolean indicating whether the current datum is external or not
+		 */
+		bool IsExternal() const;
+
 		/** Clear all the items from the vector
 		 */
 		void Clear();
@@ -371,8 +386,11 @@ namespace AnonymousEngine
 		// Sets the type and resizes if not external type
 		inline void InitializeScalar(DatumType type);
 
-		// Copies data from one datum to another. Used in copy constructor and assignment operator
-		inline void Copy(const Datum& datum);
+		// Copies data from one datum to another. Used in copy constructor and copy assignment operator
+		inline void Copy(const Datum& rhs);
+
+		// Moves data from one datum to another. Used in move constructor and move assignment operator
+		inline void Move(Datum& rhs);
 
 		// Common method to set external storage based on type
 		inline void SetExternalStorage(void* externalData, std::uint32_t size, DatumType type);

@@ -76,6 +76,28 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(list1Back, list1.Back());
 		}
 
+		static void TestMoveConstructor(const T& value1, const T& value2)
+		{
+			AnonymousEngine::SList<T> list1;
+			list1.PushFront(value1);
+			list1.PushFront(value2);
+			AnonymousEngine::SList<T> list2(std::move(list1));
+			Assert::AreEqual(0U, list1.Size());
+			Assert::AreEqual(2U, list2.Size());
+			list1.PopFront();
+		}
+
+		static void TestMoveAssignmentOperatorSuccess(const T& value1, const T& value2)
+		{
+			AnonymousEngine::SList<T> list1;
+			list1.PushFront(value1);
+			list1.PushFront(value2);
+			AnonymousEngine::SList<T> list2;
+			list2 = std::move(list1);
+			Assert::AreEqual(0U, list1.Size());
+			Assert::AreEqual(2U, list2.Size());
+		}
+
 		static void TestPushFront(const T& value1, const T& value2)
 		{
 			AnonymousEngine::SList<T> list;
