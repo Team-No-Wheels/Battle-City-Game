@@ -232,9 +232,14 @@ namespace UnitTestLibraryDesktop
 
 		static void TestSetStorage(const DatumType type, const T& value1, const T& value2, const DatumType anotherType)
 		{
-			Datum d;
 			T extValue1 = value1;
 			T extValue2 = value2;
+
+			Datum dFail;
+			dFail.SetType(anotherType);
+			Assert::ExpectException<std::invalid_argument>([&dFail, &extValue1] { dFail.SetStorage(&extValue1, 1U); });
+			
+			Datum d;
 			d.SetType(type);
 			Assert::IsFalse(d.IsExternal());
 			d.SetStorage(&extValue1, 1U);
