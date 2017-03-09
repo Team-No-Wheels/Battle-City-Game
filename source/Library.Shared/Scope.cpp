@@ -251,7 +251,7 @@ namespace AnonymousEngine
 		mParentDatumIndex = rhs.mParentDatumIndex;
 		if (mParent != nullptr)
 		{
-			(*mParent)[mParentKey].Set(this, mParentDatumIndex);
+			(*mParent)[mParentKey].Set(*this, mParentDatumIndex);
 		}
 
 		for (auto pairPtr : mOrderVector)

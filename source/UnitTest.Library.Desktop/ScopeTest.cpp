@@ -182,7 +182,7 @@ namespace UnitTestLibraryDesktop
 			Scope& newGrandChildScope = newChildScope.Append("grandChild").Get<Scope>();
 			Assert::IsTrue(newGrandChildScope.Append("grandChildInt") == dInt4);
 			
-			Scope copyScope;
+			Scope& copyScope = *(new Scope());
 			copyScope.Append("int") = dInt1;
 			copyScope.Append("string") = dStr1;
 			copyScope = std::move(*scope2);
@@ -196,6 +196,10 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(copyChildScope2.Append("child2Int") == dInt3);
 			Scope& copyGrandChildScope = copyChildScope.Append("grandChild").Get<Scope>();
 			Assert::IsTrue(copyGrandChildScope.Append("grandChildInt") == dInt4);
+
+			Scope s;
+			s.Adopt(copyScope, "test");
+			//Scope t = std::move(copyScope);
 		}
 
 		TEST_METHOD(TestFind)

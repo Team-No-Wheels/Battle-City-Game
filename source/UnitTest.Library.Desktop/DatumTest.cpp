@@ -142,6 +142,19 @@ namespace UnitTestLibraryDesktop
 			DatumTestTemplate<Scope>::TestConstantGet(s1);
 		}
 
+		TEST_METHOD(TestRemove)
+		{
+			Scope s1 = mHelper.GetRandomScope();
+			s1.Append("test") = mHelper.GetRandomInt32();
+			Scope& childScope1 = s1.AppendScope("testScope1");
+			childScope1.Append("testFloat1") = mHelper.GetRandomFloat();
+			Scope& childScope2 = s1.AppendScope("testScope2");
+			childScope2.Append("testInt2") = mHelper.GetRandomInt32();
+			Assert::IsFalse(s1["testScope1"].Remove(childScope2));
+			Assert::IsTrue(s1["testScope2"].Remove(childScope2));
+			delete &childScope2;
+		}
+
 		TEST_METHOD(TestSet)
 		{
 			DatumTestTemplate<std::int32_t>::TestSet(DatumType::Integer, mHelper.GetRandomInt32(), mHelper.GetRandomInt32(), DatumType::Float);
