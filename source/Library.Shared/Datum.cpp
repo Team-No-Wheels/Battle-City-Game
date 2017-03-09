@@ -574,6 +574,11 @@ namespace AnonymousEngine
 		return mSize;
 	}
 
+	bool Datum::IsExternal() const
+	{
+		return mIsExternal;
+	}
+
 	void Datum::Clear()
 	{
 		if (!mIsExternal)

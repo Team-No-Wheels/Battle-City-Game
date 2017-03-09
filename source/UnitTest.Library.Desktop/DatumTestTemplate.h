@@ -236,7 +236,9 @@ namespace UnitTestLibraryDesktop
 			T extValue1 = value1;
 			T extValue2 = value2;
 			d.SetType(type);
+			Assert::IsFalse(d.IsExternal());
 			d.SetStorage(&extValue1, 1U);
+			Assert::IsTrue(d.IsExternal());
 			Assert::AreEqual(type, d.Type());
 			Assert::AreEqual(1U, d.Size());
 			d = value2;

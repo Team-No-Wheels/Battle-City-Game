@@ -37,6 +37,17 @@ namespace AnonymousEngine
 		 */
 		Attributed& operator=(Attributed&& rhs) noexcept;
 
+		/** Check if the current attributed instance is equal to another instance
+		 *  @param rhs The attributed instance to compare against
+		 *  @return A boolean indicating whether the two instances are equal or not
+		 */
+		bool operator==(const Attributed& rhs) const;
+		/** Check if the current attributed instance is not equal to another instance
+		 *  @param rhs The attributed instance to compare against
+		 *  @return A boolean indicating whether the two instances are not equal or not
+		 */
+		bool operator!=(const Attributed& rhs) const;
+
 		/** Adds an auxiliary attribute to the current instance
 		 *  @param name The name of the auxiliary attribute to add
 		 *  @return A reference to the newly added attribute Datum

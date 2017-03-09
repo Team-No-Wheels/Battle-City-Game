@@ -18,6 +18,9 @@ namespace UnitTestLibraryDesktop
 		AttributedFoo& operator=(const AttributedFoo& rhs);
 		AttributedFoo& operator=(AttributedFoo&& rhs) noexcept;
 
+		bool operator==(const AttributedFoo& rhs) const;
+		bool operator!=(const AttributedFoo& rhs) const;
+
 		std::int32_t mInt;
 		float mFloat;
 		std::string mString;

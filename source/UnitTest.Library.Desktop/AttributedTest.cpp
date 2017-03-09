@@ -357,6 +357,53 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(&bar["mNestedScope"].Get<Scope>() == bar.mNestedScope);
 		}
 
+		TEST_METHOD(TestEquality)
+		{
+			Attributed att1, att2, att3;
+			AttributedFoo foo1, foo2, foo3, foo4;
+			AttributedBar bar1, bar2, bar3, bar4;
+
+			foo1.mInt = mHelper.GetRandomInt32();
+			foo1.mFloat = mHelper.GetRandomFloat();
+			foo1.mString = mHelper.GetRandomString();
+			foo1.mVec4 = mHelper.GetRandomVec4();
+			foo1.mMat4 = mHelper.GetRandomMat4();
+
+			bar1.mInt = mHelper.GetRandomInt32();
+			bar1.mFloat = mHelper.GetRandomFloat();
+			bar1.mString = mHelper.GetRandomString();
+			bar1.mVec4 = mHelper.GetRandomVec4();
+			bar1.mMat4 = mHelper.GetRandomMat4();
+
+			att2 = att1;
+			att3 = att1;
+			att3.Append("test");
+			Assert::IsTrue(att1 == att2);
+			Assert::IsFalse(att1 != att2);
+			Assert::IsFalse(att1 == att3);
+			Assert::IsTrue(att1 != att3);
+
+			foo2 = foo1;
+			foo3 = foo1;
+			foo3["mInt"] = mHelper.GetRandomInt32();
+			Assert::IsTrue(foo1 == foo2);
+			Assert::IsFalse(foo1 != foo2);
+			Assert::IsFalse(foo1 == foo3);
+			Assert::IsTrue(foo1 != foo3);
+			Assert::IsFalse(foo1 == foo4);
+			Assert::IsTrue(foo1 != foo4);
+
+			bar2 = bar1;
+			bar3 = bar1;
+			bar3["mInt"] = mHelper.GetRandomInt32();
+			Assert::IsTrue(bar1 == bar2);
+			Assert::IsFalse(bar1 != bar2);
+			Assert::IsFalse(bar1 == bar3);
+			Assert::IsTrue(bar1 != bar3);
+			Assert::IsFalse(bar1 == bar4);
+			Assert::IsTrue(bar1 != bar4);
+		}
+
 		TEST_CLASS_INITIALIZE(InitializeClass)
 		{
 			mHelper.BeginClass();

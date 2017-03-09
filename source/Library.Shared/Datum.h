@@ -335,6 +335,11 @@ namespace AnonymousEngine
 		 */
 		std::uint32_t Size() const;
 
+		/** Check if the current datum has an external storage or not
+		 *  @return A boolean indicating whether the current datum is external or not
+		 */
+		bool IsExternal() const;
+
 		/** Clear all the items from the vector
 		 */
 		void Clear();

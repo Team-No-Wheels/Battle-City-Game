@@ -45,6 +45,34 @@ namespace AnonymousEngine
 		return *this;
 	}
 
+	bool Attributed::operator==(const Attributed& rhs) const
+	{
+		if (rhs.mOrderVector.Size() != mOrderVector.Size())
+		{
+			return false;
+		}
+		std::uint32_t index = 0;
+		for(const auto& pair : mOrderVector)
+		{
+			if (pair->first == "this")
+			{
+				++index;
+				continue;
+			}
+			if (pair->second != rhs.mOrderVector[index]->second)
+			{
+				return false;
+			}
+			++index;
+		}
+		return true;
+	}
+
+	bool Attributed::operator!=(const Attributed& rhs) const
+	{
+		return !(*this == rhs);
+	}
+
 	Datum& Attributed::AddAuxiliaryAttribute(const std::string& name)
 	{
 		return Append(name);
@@ -74,7 +102,7 @@ namespace AnonymousEngine
 	void Attributed::AuxiliaryAttributes(Vector<std::string>& auxiliaryAttributes) const
 	{
 		auxiliaryAttributes.Clear();
-		auto& prescribedAttributes = PrescribedAttributesNamesCache(TypeIdInstance());
+		const auto& prescribedAttributes = PrescribedAttributesNamesCache(TypeIdInstance());
 		for (const auto& pair : mOrderVector)
 		{
 			if (prescribedAttributes.Find(pair->first) == prescribedAttributes.end())

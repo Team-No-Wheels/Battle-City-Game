@@ -51,6 +51,16 @@ namespace UnitTestLibraryDesktop
 		return *this;
 	}
 
+	bool AttributedBar::operator==(const AttributedBar& rhs) const
+	{
+		return (AttributedFoo::operator==(rhs));
+	}
+
+	bool AttributedBar::operator!=(const AttributedBar& rhs) const
+	{
+		return !(*this == rhs);
+	}
+
 	void AttributedBar::Copy(const AttributedBar& rhs)
 	{
 		mIntBar = rhs.mIntBar;

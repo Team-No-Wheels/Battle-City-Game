@@ -16,6 +16,9 @@ namespace UnitTestLibraryDesktop
 		AttributedBar& operator=(const AttributedBar& rhs);
 		AttributedBar& operator=(AttributedBar&& rhs) noexcept;
 
+		bool operator==(const AttributedBar& rhs) const;
+		bool operator!=(const AttributedBar& rhs) const;
+
 		std::int32_t mIntBar;
 		float mFloatBar;
 		std::string mStringBar;
