@@ -27,7 +27,7 @@ namespace UnitTestLibraryDesktop
 	}
 
 	AttributedFoo::AttributedFoo(const AttributedFoo& rhs) :
-		Attributed(rhs), mInt(rhs.mInt), mFloat(rhs.mFloat), mNestedScope(nullptr)
+		Attributed(rhs)
 	{
 		Copy(rhs);
 	}
@@ -71,8 +71,8 @@ namespace UnitTestLibraryDesktop
 		{
 			mStringArray[index] = rhs.mStringArray[index];
 		}
-		memcpy(mVec4Array, rhs.mVec4Array, sizeof(glm::vec4) * ArraySize);
-		memcpy(mMat4Array, rhs.mMat4Array, sizeof(glm::mat4) * ArraySize);
+		//memcpy(mVec4Array, rhs.mVec4Array, sizeof(glm::vec4) * ArraySize);
+		//memcpy(mMat4Array, rhs.mMat4Array, sizeof(glm::mat4) * ArraySize);
 		memcpy(mRTTIArray, rhs.mRTTIArray, sizeof(RTTI*) * ArraySize);
 		FixupPrescribedAttributes();
 	}
@@ -87,8 +87,8 @@ namespace UnitTestLibraryDesktop
 		memmove(mIntArray, rhs.mIntArray, sizeof(std::int32_t) * ArraySize);
 		memmove(mFloatArray, rhs.mFloatArray, sizeof(float) * ArraySize);
 		memmove(mStringArray, rhs.mStringArray, sizeof(float) * ArraySize);
-		memmove(mVec4Array, rhs.mVec4Array, sizeof(glm::vec4) * ArraySize);
-		memmove(mMat4Array, rhs.mMat4Array, sizeof(glm::mat4) * ArraySize);
+		//memmove(mVec4Array, rhs.mVec4Array, sizeof(glm::vec4) * ArraySize);
+		//memmove(mMat4Array, rhs.mMat4Array, sizeof(glm::mat4) * ArraySize);
 		memmove(mRTTIArray, rhs.mRTTIArray, sizeof(RTTI*) * ArraySize);
 		FixupPrescribedAttributes();
 	}

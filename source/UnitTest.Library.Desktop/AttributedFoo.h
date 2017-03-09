@@ -17,7 +17,7 @@ namespace UnitTestLibraryDesktop
 
 		AttributedFoo& operator=(const AttributedFoo& rhs);
 		AttributedFoo& operator=(AttributedFoo&& rhs) noexcept;
-	private:
+
 		std::int32_t mInt;
 		float mFloat;
 		std::string mString;
@@ -25,6 +25,7 @@ namespace UnitTestLibraryDesktop
 		glm::mat4 mMat4;
 		Scope* mNestedScope;
 
+	private:
 		std::int32_t mIntArray[ArraySize];
 		std::int32_t mFloatArray[ArraySize];
 		std::int32_t mStringArray[ArraySize];

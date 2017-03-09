@@ -11,6 +11,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTestLibraryDesktop
 {
 	typedef AnonymousEngine::Attributed Attributed;
+	typedef AnonymousEngine::Scope Scope;
 	typedef AnonymousEngine::Datum Datum;
 	typedef Datum::DatumType DatumType;
 	typedef AnonymousEngine::Vector<std::string> Vector;
@@ -199,6 +200,168 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(temp.IsEmpty());
 			bar2.AuxiliaryAttributes(temp);
 			Assert::IsTrue(temp.IsEmpty());
+		}
+
+		TEST_METHOD(TestCopySemantics)
+		{
+			Attributed attributed;
+			AttributedFoo foo;
+			AttributedBar bar;
+
+			std::uint32_t index = 0;
+			for (auto& name : AuxiliaryAttributes)
+			{
+				initializers[index](attributed.AddAuxiliaryAttribute(name));
+				initializers[index](foo.AddAuxiliaryAttribute(name + "Foo"));
+				initializers[index](bar.AddAuxiliaryAttribute(name + "Bar"));
+				++index;
+			}
+
+			Attributed attributed2 (attributed);
+			AttributedFoo foo2 (foo);
+			AttributedBar bar2 (bar);
+
+			Vector temp1, temp2;
+			attributed.Attributes(temp1);
+			attributed2.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+			foo.Attributes(temp1);
+			foo2.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+			bar.Attributes(temp1);
+			bar2.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+
+			Attributed attributed3;
+			attributed3 = attributed;
+			AttributedFoo foo3;
+			foo3 = foo;
+			AttributedBar bar3;
+			bar3 = bar;
+
+			attributed.Attributes(temp1);
+			attributed3.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+			foo.Attributes(temp1);
+			foo3.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+			bar.Attributes(temp1);
+			bar3.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+		}
+
+		TEST_METHOD(TestMoveSemantics)
+		{
+			Attributed attributed;
+			AttributedFoo foo;
+			AttributedBar bar;
+
+			std::uint32_t index = 0;
+			for (auto& name : AuxiliaryAttributes)
+			{
+				initializers[index](attributed.AddAuxiliaryAttribute(name));
+				initializers[index](foo.AddAuxiliaryAttribute(name + "Foo"));
+				initializers[index](bar.AddAuxiliaryAttribute(name + "Bar"));
+				++index;
+			}
+
+			Attributed attributedBackup = attributed;
+			AttributedFoo fooBackup = foo;
+			AttributedBar barBackup = bar;
+			Attributed attributedBackup2 = attributed;
+			AttributedFoo fooBackup2 = foo;
+			AttributedBar barBackup2 = bar;
+
+			Attributed attributed2(std::move(attributed));
+			AttributedFoo foo2(std::move(foo));
+			AttributedBar bar2 (std::move(bar));
+
+			Vector temp1, temp2;
+			attributedBackup.Attributes(temp1);
+			attributed2.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+			fooBackup.Attributes(temp1);
+			foo2.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+			barBackup.Attributes(temp1);
+			bar2.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+
+			Attributed attributed3;
+			attributed3 = std::move(attributedBackup);
+			AttributedFoo foo3;
+			foo3 = std::move(fooBackup);
+			AttributedBar bar3;
+			bar3 = std::move(barBackup);
+
+			attributedBackup2.Attributes(temp1);
+			attributed3.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+			fooBackup2.Attributes(temp1);
+			foo3.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+			barBackup2.Attributes(temp1);
+			bar3.Attributes(temp2);
+			Assert::IsTrue(temp1 == temp2);
+		}
+
+		TEST_METHOD(TestTwoWaySet)
+		{
+			AttributedFoo foo;
+			AttributedBar bar;
+
+			foo.mInt = mHelper.GetRandomInt32();
+			foo.mFloat = mHelper.GetRandomFloat();
+			foo.mString = mHelper.GetRandomString();
+			foo.mVec4 = mHelper.GetRandomVec4();
+			foo.mMat4 = mHelper.GetRandomMat4();
+
+			Assert::AreEqual(foo["mInt"].Get<std::int32_t>(), foo.mInt);
+			Assert::AreEqual(foo["mFloat"].Get<float>(), foo.mFloat);
+			Assert::AreEqual(foo["mString"].Get<std::string>(), foo.mString);
+			Assert::IsTrue(foo["mVec4"].Get<glm::vec4>() == foo.mVec4);
+			Assert::IsTrue(foo["mMat4"].Get<glm::mat4>() == foo.mMat4);
+			Assert::IsTrue(&foo["mNestedScope"].Get<Scope>() == foo.mNestedScope);
+
+			foo["mInt"] = mHelper.GetRandomInt32();
+			foo["mFloat"] = mHelper.GetRandomFloat();
+			foo["mString"] = mHelper.GetRandomString();
+			foo["mVec4"] = mHelper.GetRandomVec4();
+			foo["mMat4"] = mHelper.GetRandomMat4();
+
+			Assert::AreEqual(foo["mInt"].Get<std::int32_t>(), foo.mInt);
+			Assert::AreEqual(foo["mFloat"].Get<float>(), foo.mFloat);
+			Assert::AreEqual(foo["mString"].Get<std::string>(), foo.mString);
+			Assert::IsTrue(foo["mVec4"].Get<glm::vec4>() == foo.mVec4);
+			Assert::IsTrue(foo["mMat4"].Get<glm::mat4>() == foo.mMat4);
+			Assert::IsTrue(&foo["mNestedScope"].Get<Scope>() == foo.mNestedScope);
+
+			bar["mInt"] = mHelper.GetRandomInt32();
+			bar["mFloat"] = mHelper.GetRandomFloat();
+			bar["mString"] = mHelper.GetRandomString();
+			bar["mVec4"] = mHelper.GetRandomVec4();
+			bar["mMat4"] = mHelper.GetRandomMat4();
+
+			Assert::AreEqual(bar["mInt"].Get<std::int32_t>(), bar.mInt);
+			Assert::AreEqual(bar["mFloat"].Get<float>(), bar.mFloat);
+			Assert::AreEqual(bar["mString"].Get<std::string>(), bar.mString);
+			Assert::IsTrue(bar["mVec4"].Get<glm::vec4>() == bar.mVec4);
+			Assert::IsTrue(bar["mMat4"].Get<glm::mat4>() == bar.mMat4);
+			Assert::IsTrue(&bar["mNestedScope"].Get<Scope>() == bar.mNestedScope);
+
+			Assert::AreEqual(bar["mInt"].Get<std::int32_t>(), bar.mInt);
+			Assert::AreEqual(bar["mFloat"].Get<float>(), bar.mFloat);
+			Assert::AreEqual(bar["mString"].Get<std::string>(), bar.mString);
+			Assert::IsTrue(bar["mVec4"].Get<glm::vec4>() == bar.mVec4);
+			Assert::IsTrue(bar["mMat4"].Get<glm::mat4>() == bar.mMat4);
+			Assert::IsTrue(&bar["mNestedScope"].Get<Scope>() == bar.mNestedScope);
+		}
+
+		TEST_METHOD(TestEquality)
+		{
+			Attributed a;
+			AttributedFoo foo;
+			AttributedBar bar;
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)

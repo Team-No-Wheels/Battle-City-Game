@@ -15,7 +15,7 @@ namespace UnitTestLibraryDesktop
 
 		AttributedBar& operator=(const AttributedBar& rhs);
 		AttributedBar& operator=(AttributedBar&& rhs) noexcept;
-	private:
+
 		std::int32_t mIntBar;
 		float mFloatBar;
 		std::string mStringBar;
@@ -23,6 +23,7 @@ namespace UnitTestLibraryDesktop
 		glm::mat4 mMat4Bar;
 		Scope* mNestedScopeBar;
 
+	private:
 		void Copy(const AttributedBar& rhs);
 		void Move(AttributedBar& rhs);
 		void FixupPrescribedAttributes();
