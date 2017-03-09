@@ -357,13 +357,6 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(&bar["mNestedScope"].Get<Scope>() == bar.mNestedScope);
 		}
 
-		TEST_METHOD(TestEquality)
-		{
-			Attributed a;
-			AttributedFoo foo;
-			AttributedBar bar;
-		}
-
 		TEST_CLASS_INITIALIZE(InitializeClass)
 		{
 			mHelper.BeginClass();

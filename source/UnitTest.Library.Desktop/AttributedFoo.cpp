@@ -70,9 +70,9 @@ namespace UnitTestLibraryDesktop
 		for(std::uint32_t index = 0; index < ArraySize; ++index)
 		{
 			mStringArray[index] = rhs.mStringArray[index];
+			mVec4Array[index] = rhs.mVec4Array[index];
+			mMat4Array[index] = rhs.mMat4Array[index];
 		}
-		//memcpy(mVec4Array, rhs.mVec4Array, sizeof(glm::vec4) * ArraySize);
-		//memcpy(mMat4Array, rhs.mMat4Array, sizeof(glm::mat4) * ArraySize);
 		memcpy(mRTTIArray, rhs.mRTTIArray, sizeof(RTTI*) * ArraySize);
 		FixupPrescribedAttributes();
 	}
@@ -86,9 +86,12 @@ namespace UnitTestLibraryDesktop
 		mMat4 = std::move(rhs.mMat4);
 		memmove(mIntArray, rhs.mIntArray, sizeof(std::int32_t) * ArraySize);
 		memmove(mFloatArray, rhs.mFloatArray, sizeof(float) * ArraySize);
-		memmove(mStringArray, rhs.mStringArray, sizeof(float) * ArraySize);
-		//memmove(mVec4Array, rhs.mVec4Array, sizeof(glm::vec4) * ArraySize);
-		//memmove(mMat4Array, rhs.mMat4Array, sizeof(glm::mat4) * ArraySize);
+		for (std::uint32_t index = 0; index < ArraySize; ++index)
+		{
+			mStringArray[index] = std::move(rhs.mStringArray[index]);
+			mVec4Array[index] = std::move(rhs.mVec4Array[index]);
+			mMat4Array[index] = std::move(rhs.mMat4Array[index]);
+		}
 		memmove(mRTTIArray, rhs.mRTTIArray, sizeof(RTTI*) * ArraySize);
 		FixupPrescribedAttributes();
 	}

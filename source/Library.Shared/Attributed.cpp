@@ -45,18 +45,6 @@ namespace AnonymousEngine
 		return *this;
 	}
 
-	bool Attributed::operator==(const Attributed& rhs) const
-	{
-		rhs;
-		return false;
-	}
-
-	bool Attributed::operator!=(const Attributed& rhs) const
-	{
-		rhs;
-		return true;
-	}
-
 	Datum& Attributed::AddAuxiliaryAttribute(const std::string& name)
 	{
 		return Append(name);
