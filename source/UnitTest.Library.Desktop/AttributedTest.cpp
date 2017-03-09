@@ -121,6 +121,13 @@ namespace UnitTestLibraryDesktop
 				Assert::IsFalse(foo2.IsAuxiliaryAttribute(name + "Foo"));
 				Assert::IsFalse(bar2.IsAuxiliaryAttribute(name + "Bar"));
 			}
+
+			Assert::IsTrue(AttributedPrescribedAttributes == attributed.PrescribedAttributes());
+			Assert::IsTrue(AttributedPrescribedAttributes == attributed.PrescribedAttributes());
+			Assert::IsTrue(AttributedPrescribedAttributes == attributed.PrescribedAttributes());
+			Assert::IsTrue(AttributedPrescribedAttributes == attributed.PrescribedAttributes());
+			Assert::IsTrue(AttributedPrescribedAttributes == attributed.PrescribedAttributes());
+			Assert::IsTrue(AttributedPrescribedAttributes == attributed.PrescribedAttributes());
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)

@@ -75,13 +75,13 @@ namespace AnonymousEngine
 		 */
 		const Vector<std::string>& PrescribedAttributes() const;
 		/** Get the list of all auxiliary attribute names
-		 *  @return Reference to a vector containing all the auxiliary attribute names
+		 *  @param auxiliaryAttributes Reference to a vector which will be populated with the auxiliary attribute names
 		 */
-		const Vector<std::string>& AuxiliaryAttributes() const;
+		void AuxiliaryAttributes(Vector<std::string>& auxiliaryAttributes) const;
 		/** Get the list of all attribute names
-		 *  @return Reference to a vector containing all the attribute names
+		 *  @param attributes Reference to a vector containing all the attribute names
 		 */
-		const Vector<std::string>& Attributes() const;
+		void Attributes(Vector<std::string>& attributes) const;
 	protected:
 		// In the constructor of a derived class add all the prescribed attributes first. "This" is added automatically
 

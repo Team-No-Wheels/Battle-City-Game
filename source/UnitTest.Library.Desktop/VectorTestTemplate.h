@@ -144,6 +144,24 @@ namespace UnitTestLibraryDesktop
 			Assert::IsFalse(vector.IsEmpty());
 		}
 
+		static void TestPushBackVector(const T& value1, const T& value2, const T& value3)
+		{
+			AnonymousEngine::Vector<T> vector1;
+			AnonymousEngine::Vector<T> vector2;
+			AnonymousEngine::DefaultVectorCapacityStrategy strategy;
+			vector1.PushBack(value1);
+			Assert::AreEqual(1U, vector1.Size());
+			Assert::IsFalse(vector1.IsEmpty());
+			vector2.PushBack(value2);
+			vector2.PushBack(value3);
+			Assert::AreEqual(2U, vector2.Size());
+			Assert::IsFalse(vector2.IsEmpty());
+			vector1.PushBack(vector2);
+			Assert::AreEqual(3U, vector1.Size());
+			Assert::AreEqual(value1, vector1.Front());
+			Assert::AreEqual(value3, vector1.Back());
+		}
+
 		static void TestPopBack(const T& value1, const T& value2)
 		{
 			AnonymousEngine::Vector<T> vector;

@@ -85,14 +85,28 @@ namespace AnonymousEngine
 		return PrescribedAttributesNamesCache(TypeIdInstance());
 	}
 
-	const Vector<std::string>& Attributed::AuxiliaryAttributes() const
+	void Attributed::AuxiliaryAttributes(Vector<std::string>& auxiliaryAttributes) const
 	{
-		return PrescribedAttributesNamesCache(TypeIdInstance());
+		auxiliaryAttributes.Clear();
+		auxiliaryAttributes.Reserve(mOrderVector.Size());
+		for (const auto& pair : mOrderVector)
+		{
+			auto& prescribedAttributes = PrescribedAttributesNamesCache(TypeIdInstance());
+			if (prescribedAttributes.Find(pair->first) != prescribedAttributes.end())
+			{
+				auxiliaryAttributes.PushBack(pair->first);
+			}
+		}
 	}
 
-	const Vector<std::string>& Attributed::Attributes() const
+	void Attributed::Attributes(Vector<std::string>& attributes) const
 	{
-		return PrescribedAttributesNamesCache(TypeIdInstance());
+		attributes.Clear();
+		attributes.Reserve(mOrderVector.Size());
+		for (const auto& pair : mOrderVector)
+		{
+			attributes.PushBack(pair->first);
+		}
 	}
 
 	Datum& Attributed::AddInternalAttribute(const std::string& name, const std::int32_t value, const std::uint32_t size)

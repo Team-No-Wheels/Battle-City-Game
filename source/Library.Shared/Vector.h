@@ -73,30 +73,36 @@ namespace AnonymousEngine
 		/** Copy constructor to construct a copy of vector
 		 *	@param vector The other list to create copy from
 		 */
-		Vector(const Vector<T>& vector);
+		Vector(const Vector& vector);
 
 		/** Copy assignment operator to copy all the values from another vector
 		 *	@param vector The other vector to copy from
 		 *	@return A new instance of vector which is a copy of the passed vector
 		 */
-		Vector<T>& operator=(const Vector<T>& vector);
+		Vector& operator=(const Vector& vector);
 
 		/** Move constructor to construct a copy of vector and move the data
 		 *	@param vector The other list to create copy from
 		 */
-		Vector(Vector<T>&& vector) noexcept;
+		Vector(Vector&& vector) noexcept;
 
 		/** Move assignment operator to move all the values from another vector
 		 *	@param vector The other vector to copy from
 		 *	@return A new instance of vector which is a copy of the passed vector
 		 */
-		Vector<T>& operator=(Vector<T>&& vector) noexcept;
+		Vector& operator=(Vector&& vector) noexcept;
 
 		/** Push an item to the back of the vector
 		 *	@param data The data item to push to the back of the vector
 		 *	@return An iterator to the current data that is pushed
 		 */
-		void PushBack(const T& data);
+		Iterator PushBack(const T& data);
+
+		/** Push another vector to the back of the vector
+		 *	@param vector The other vector to push to the back of the vector
+		 *	@return An iterator to the start of the new data that is pushed
+		 */
+		Iterator PushBack(const Vector& vector);
 
 		/** Remove an item from the back of the vector
 		 */

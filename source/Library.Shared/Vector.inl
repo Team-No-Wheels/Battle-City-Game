@@ -83,14 +83,14 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
-	Vector<T>::Vector(const Vector<T>& rhs) :
+	Vector<T>::Vector(const Vector& rhs) :
 		Vector()
 	{
 		Copy(rhs);
 	}
 
 	template <typename T>
-	Vector<T>& Vector<T>::operator=(const Vector<T>& rhs)
+	Vector<T>& Vector<T>::operator=(const Vector& rhs)
 	{
 		if (this != &rhs)
 		{
@@ -101,14 +101,14 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
-	Vector<T>::Vector(Vector<T>&& rhs) noexcept :
+	Vector<T>::Vector(Vector&& rhs) noexcept :
 		mDefaultStrategy(new DefaultVectorCapacityStrategy())
 	{
 		Move(rhs);
 	}
 
 	template <typename T>
-	Vector<T>& Vector<T>::operator=(Vector<T>&& rhs) noexcept
+	Vector<T>& Vector<T>::operator=(Vector&& rhs) noexcept
 	{
 		if (this != &rhs)
 		{
@@ -137,13 +137,30 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
-	void Vector<T>::PushBack(const T& data)
+	typename Vector<T>::Iterator Vector<T>::PushBack(const T& data)
 	{
 		if (mSize == mCapacity)
 		{
 			Reserve(mCapacity + (*mStrategy)(mSize, mCapacity));
 		}
-		new (&mData[mSize++]) T(data);
+		new (&mData[mSize]) T(data);
+		return Iterator(mSize++, this);
+	}
+
+	template <typename T>
+	typename Vector<T>::Iterator Vector<T>::PushBack(const Vector& vector)
+	{
+		if (mSize + vector.Size() > mCapacity)
+		{
+			Reserve(mSize + vector.Size());
+		}
+		Iterator it(mSize, this);
+
+		for (const auto& data : vector)
+		{
+			new (&mData[mSize++]) T(data);
+		}
+		return it;
 	}
 
 	template <typename T>
