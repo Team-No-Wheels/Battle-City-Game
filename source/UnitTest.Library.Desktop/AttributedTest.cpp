@@ -24,6 +24,16 @@ namespace UnitTestLibraryDesktop
 			Attributed attributed;
 			AttributedFoo foo;
 			AttributedFoo bar;
+
+			Assert::ExpectException<std::invalid_argument>([]()
+			{
+				AttributedBar barValidateAttributeFail(AttributedBar::TestScenario::ValidateAttributeFail);
+			});
+
+			Assert::ExpectException<std::runtime_error>([]()
+			{
+				AttributedBar barValidateAllAttributesFail(AttributedBar::TestScenario::ValidateAllAttributesFail);
+			});
 		}
 
 		TEST_METHOD(TestPrescribedAttributes)
@@ -448,6 +458,7 @@ namespace UnitTestLibraryDesktop
 		"mVec4",
 		"mMat4",
 		"mNestedScope",
+		"mRtti",
 		"mIntArray",
 		"mFloatArray",
 		"mStringArray",
@@ -461,7 +472,12 @@ namespace UnitTestLibraryDesktop
 		"mStringBar",
 		"mVec4Bar",
 		"mMat4Bar",
-		"mNestedScopeBar"
+		"mNestedScopeBar",
+		"mIntBarInternal",
+		"mFloatBarInternal",
+		"mStringBarInternal",
+		"mVec4BarInternal",
+		"mMat4BarInternal"
 	};
 	const Vector AttributedTest::AuxiliaryAttributes = {
 		"testInt",

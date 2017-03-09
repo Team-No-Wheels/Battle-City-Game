@@ -7,7 +7,14 @@ namespace UnitTestLibraryDesktop
 	class AttributedBar : public AttributedFoo
 	{
 	public:
-		AttributedBar();
+		enum class TestScenario
+		{
+			Success,
+			ValidateAttributeFail,
+			ValidateAllAttributesFail
+		};
+
+		explicit AttributedBar(TestScenario scenario = TestScenario::Success);
 		virtual ~AttributedBar() = default;
 
 		AttributedBar(const AttributedBar& rhs);

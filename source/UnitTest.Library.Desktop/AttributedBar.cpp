@@ -7,7 +7,7 @@ namespace UnitTestLibraryDesktop
 
 	RTTI_DEFINITIONS(AttributedBar)
 
-	AttributedBar::AttributedBar() :
+	AttributedBar::AttributedBar(TestScenario scenario) :
 		mIntBar(0), mFloatBar(0.0f), mNestedScopeBar(new Scope())
 	{
 		AddExternalAttribute("mIntBar", &mIntBar, 1);
@@ -16,6 +16,22 @@ namespace UnitTestLibraryDesktop
 		AddExternalAttribute("mVec4Bar", &mVec4Bar, 1);
 		AddExternalAttribute("mMat4Bar", &mMat4Bar, 1);
 		AddNestedScope("mNestedScopeBar", *mNestedScopeBar);
+		AddInternalAttribute("mIntBarInternal", 1, 1);
+		AddInternalAttribute("mFloatBarInternal", 1.0f, 1);
+		AddInternalAttribute("mStringBarInternal", "AttributedBar", 1);
+		AddInternalAttribute("mVec4BarInternal", glm::vec4(), 1);
+
+		// validation fail scenario
+		if (scenario == TestScenario::ValidateAttributeFail)
+		{
+			AddInternalAttribute("dummy", 1, 1);
+		}
+
+		if (scenario != TestScenario::ValidateAllAttributesFail)
+		{
+			AddInternalAttribute("mMat4BarInternal", glm::mat4(), 1);
+		}
+
 		ValidateAllPrescribedAttributesAreAdded();
 	}
 
@@ -101,5 +117,10 @@ namespace UnitTestLibraryDesktop
 		prescribedAttributeNames.PushBack("mVec4Bar");
 		prescribedAttributeNames.PushBack("mMat4Bar");
 		prescribedAttributeNames.PushBack("mNestedScopeBar");
+		prescribedAttributeNames.PushBack("mIntBarInternal");
+		prescribedAttributeNames.PushBack("mFloatBarInternal");
+		prescribedAttributeNames.PushBack("mStringBarInternal");
+		prescribedAttributeNames.PushBack("mVec4BarInternal");
+		prescribedAttributeNames.PushBack("mMat4BarInternal");
 	}
 }

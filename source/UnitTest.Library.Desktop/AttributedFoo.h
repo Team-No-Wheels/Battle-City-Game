@@ -27,6 +27,7 @@ namespace UnitTestLibraryDesktop
 		glm::vec4 mVec4;
 		glm::mat4 mMat4;
 		Scope* mNestedScope;
+		RTTI* mRtti;
 
 	private:
 		std::int32_t mIntArray[ArraySize];

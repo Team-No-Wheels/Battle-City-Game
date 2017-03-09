@@ -1,14 +1,15 @@
 #include "Pch.h"
 #include "AttributedFoo.h"
+#include "Foo.h"
 
 namespace UnitTestLibraryDesktop
 {
 	ATTRIBUTED_DEFINITIONS(AttributedFoo)
 
-	RTTI_DEFINITIONS(AttributedFoo)
+		RTTI_DEFINITIONS(AttributedFoo)
 
-	AttributedFoo::AttributedFoo() :
-		mInt(0), mFloat(0.0f), mNestedScope(new Scope())
+		AttributedFoo::AttributedFoo() :
+		mInt(0), mFloat(0.0f), mNestedScope(new Scope()), mRtti(nullptr)
 	{
 		AddExternalAttribute("mInt", &mInt, 1);
 		AddExternalAttribute("mFloat", &mFloat, 1);
@@ -16,6 +17,7 @@ namespace UnitTestLibraryDesktop
 		AddExternalAttribute("mVec4", &mVec4, 1);
 		AddExternalAttribute("mMat4", &mMat4, 1);
 		AddNestedScope("mNestedScope", *mNestedScope);
+		AddExternalAttribute("mRtti", &mRtti, 1);
 
 		AddExternalAttribute("mIntArray", mIntArray, ArraySize);
 		AddExternalAttribute("mFloatArray", mFloatArray, ArraySize);
@@ -75,6 +77,7 @@ namespace UnitTestLibraryDesktop
 		mString = rhs.mString;
 		mVec4 = rhs.mVec4;
 		mMat4 = rhs.mMat4;
+		mRtti = rhs.mRtti;
 		memcpy(mIntArray, rhs.mIntArray, sizeof(std::int32_t) * ArraySize);
 		memcpy(mFloatArray, rhs.mFloatArray, sizeof(float) * ArraySize);
 		for(std::uint32_t index = 0; index < ArraySize; ++index)
@@ -94,6 +97,7 @@ namespace UnitTestLibraryDesktop
 		mString = std::move(rhs.mString);
 		mVec4 = std::move(rhs.mVec4);
 		mMat4 = std::move(rhs.mMat4);
+		mRtti = rhs.mRtti;
 		memmove(mIntArray, rhs.mIntArray, sizeof(std::int32_t) * ArraySize);
 		memmove(mFloatArray, rhs.mFloatArray, sizeof(float) * ArraySize);
 		for (std::uint32_t index = 0; index < ArraySize; ++index)
@@ -103,6 +107,7 @@ namespace UnitTestLibraryDesktop
 			mMat4Array[index] = std::move(rhs.mMat4Array[index]);
 		}
 		memmove(mRTTIArray, rhs.mRTTIArray, sizeof(RTTI*) * ArraySize);
+		rhs.mRtti = nullptr;
 		FixupPrescribedAttributes();
 	}
 
@@ -115,6 +120,7 @@ namespace UnitTestLibraryDesktop
 		(*this)["mVec4"].SetStorage(&mVec4, 1);
 		(*this)["mMat4"].SetStorage(&mMat4, 1);
 		mNestedScope = &(*this)["mNestedScope"].Get<Scope>();
+		(*this)["mRtti"].SetStorage(&mRtti, 1);
 		(*this)["mIntArray"].SetStorage(mIntArray, ArraySize);
 		(*this)["mFloatArray"].SetStorage(mFloatArray, ArraySize);
 		(*this)["mStringArray"].SetStorage(mStringArray, ArraySize);
@@ -132,6 +138,7 @@ namespace UnitTestLibraryDesktop
 		prescribedAttributeNames.PushBack("mVec4");
 		prescribedAttributeNames.PushBack("mMat4");
 		prescribedAttributeNames.PushBack("mNestedScope");
+		prescribedAttributeNames.PushBack("mRtti");
 		prescribedAttributeNames.PushBack("mIntArray");
 		prescribedAttributeNames.PushBack("mFloatArray");
 		prescribedAttributeNames.PushBack("mStringArray");
