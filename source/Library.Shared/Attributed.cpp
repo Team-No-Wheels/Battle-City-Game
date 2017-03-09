@@ -64,6 +64,8 @@ namespace AnonymousEngine
 
 	bool Attributed::IsPrescribedAttribute(const std::string& name) const
 	{
+		std::uint64_t id = TypeIdInstance();
+		id;
 		auto prescribedAttributes = PrescribedAttributesNamesCache(TypeIdInstance());
 		return prescribedAttributes.Find(name) != prescribedAttributes.end();
 	}

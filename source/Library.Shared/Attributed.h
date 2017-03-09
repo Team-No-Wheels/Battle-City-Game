@@ -216,24 +216,22 @@ namespace AnonymousEngine
 	};
 
 // This macro needs to be added to any class declaration that falls under the Attribute hierrarchy
-#define ATTRIBUTED_DECLARATIONS()																							\
-		protected:                                                                                                          \
-			/* For child classes call Parent::AppendPrescribedAttributes and pass reference to prescribed attributes */     \
-			/* list of child class before adding the child class attribute names to the list                         */     \
-			static void AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames);     \
-			/** Count of prescribed attributes in this class */                                                             \
-			static const std::uint32_t sPrescribedAttributeCount;                                                           \
-		private:                                                                                                            \
-			static std::uint32_t InitializePrescribedAttributeNames();
+#define ATTRIBUTED_DECLARATIONS(Type)																									\
+		protected:                                                                                                                      \
+			/* For child classes call Parent::AppendPrescribedAttributes and pass reference to prescribed attributes */                 \
+			/* list of child class before adding the child class attribute names to the list                         */                 \
+			static void AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames);                 \
+			/** Count of prescribed attributes in this class */                                                                         \
+			static const std::uint32_t sPrescribedAttributeCount;                                                                       \
+		private:                                                                                                                        \
+			static std::uint32_t Type::InitializePrescribedAttributeNames()                                                             \
+			{                                                                                                                           \
+				AnonymousEngine::Vector<std::string>& prescribedAttributeNames = PrescribedAttributesNamesCache(Type::TypeIdClass());   \
+				Type::AppendPrescribedAttributeNames(prescribedAttributeNames);                                                         \
+				return prescribedAttributeNames.Size();                                                                                 \
+			}                                                                                                                           \
 
 // This macro needs to be added to any class definition that falls under the Attribute hierrarchy
-#define ATTRIBUTED_DEFINITIONS(Type, MemberAttributeCount)																	\
-	std::uint32_t Type::InitializePrescribedAttributeNames()                                                                \
-	{                                                                                                                       \
-		AnonymousEngine::Vector<std::string>& prescribedAttributeNames = PrescribedAttributesNamesCache(TypeIdClass());     \
-		prescribedAttributeNames.Reserve(Parent::sPrescribedAttributeCount + MemberAttributeCount);                         \
-		AppendPrescribedAttributeNames(prescribedAttributeNames);                                                           \
-		return prescribedAttributeNames.Size();                                                                             \
-	}                                                                                                                       \
+#define ATTRIBUTED_DEFINITIONS(Type)																		\
 	const std::uint32_t Type::sPrescribedAttributeCount = Type::InitializePrescribedAttributeNames();
 }

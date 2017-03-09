@@ -3,30 +3,30 @@
 
 namespace UnitTestLibraryDesktop
 {
-	ATTRIBUTED_DEFINITIONS(AttributedBar, 6U)
+	ATTRIBUTED_DEFINITIONS(AttributedBar)
 
 	RTTI_DEFINITIONS(AttributedBar)
 
 	AttributedBar::AttributedBar() :
-		mInt(0), mFloat(0.0f), mNestedScope(new Scope())
+		mIntBar(0), mFloatBar(0.0f), mNestedScopeBar(new Scope())
 	{
-		AddExternalAttribute("mInt", &mInt, 1);
-		AddExternalAttribute("mFloat", &mFloat, 1);
-		AddExternalAttribute("mString", &mString, 1);
-		AddExternalAttribute("mVec4", &mVec4, 1);
-		AddExternalAttribute("mMat4", &mMat4, 1);
-		AddNestedScope("mNestedScope", *mNestedScope);
+		AddExternalAttribute("mIntBar", &mIntBar, 1);
+		AddExternalAttribute("mFloatBar", &mFloatBar, 1);
+		AddExternalAttribute("mStringBar", &mStringBar, 1);
+		AddExternalAttribute("mVec4Bar", &mVec4Bar, 1);
+		AddExternalAttribute("mMat4Bar", &mMat4Bar, 1);
+		AddNestedScope("mNestedScopeBar", *mNestedScopeBar);
 		ValidateAllPrescribedAttributesAreAdded();
 	}
 
 	AttributedBar::AttributedBar(const AttributedBar& rhs) :
-		AttributedFoo(rhs), mInt(rhs.mInt), mFloat(rhs.mFloat), mNestedScope(nullptr)
+		AttributedFoo(rhs), mIntBar(rhs.mIntBar), mFloatBar(rhs.mFloatBar), mNestedScopeBar(nullptr)
 	{
 		Copy(rhs);
 	}
 
 	AttributedBar::AttributedBar(AttributedBar&& rhs) noexcept :
-		AttributedFoo(std::move(rhs)), mInt(rhs.mInt), mFloat(rhs.mFloat), mNestedScope(nullptr)
+		AttributedFoo(std::move(rhs)), mIntBar(rhs.mIntBar), mFloatBar(rhs.mFloatBar), mNestedScopeBar(nullptr)
 	{
 		Move(rhs);
 	}
@@ -53,43 +53,43 @@ namespace UnitTestLibraryDesktop
 
 	void AttributedBar::Copy(const AttributedBar& rhs)
 	{
-		mInt = rhs.mInt;
-		mFloat = rhs.mFloat;
-		mString = rhs.mString;
-		mVec4 = rhs.mVec4;
-		mMat4 = rhs.mMat4;
+		mIntBar = rhs.mIntBar;
+		mFloatBar = rhs.mFloatBar;
+		mStringBar = rhs.mStringBar;
+		mVec4Bar = rhs.mVec4Bar;
+		mMat4Bar = rhs.mMat4Bar;
 		FixupPrescribedAttributes();
 	}
 
 	void AttributedBar::Move(AttributedBar& rhs)
 	{
-		mInt = rhs.mInt;
-		mFloat = rhs.mFloat;
-		mString = std::move(rhs.mString);
-		mVec4 = std::move(rhs.mVec4);
-		mMat4 = std::move(rhs.mMat4);
+		mIntBar = rhs.mIntBar;
+		mFloatBar = rhs.mFloatBar;
+		mStringBar = std::move(rhs.mStringBar);
+		mVec4Bar = std::move(rhs.mVec4Bar);
+		mMat4Bar = std::move(rhs.mMat4Bar);
 		FixupPrescribedAttributes();
 	}
 
 	void AttributedBar::FixupPrescribedAttributes()
 	{
 		(*this)["this"].Set(this);
-		(*this)["mInt"].SetStorage(&mInt, 1);
-		(*this)["mFloat"].SetStorage(&mFloat, 1);
-		(*this)["mString"].SetStorage(&mString, 1);
-		(*this)["mVec4"].SetStorage(&mVec4, 1);
-		(*this)["mMat4"].SetStorage(&mMat4, 1);
-		mNestedScope = &(*this)["mNestedScope"].Get<Scope>();
+		(*this)["mIntBar"].SetStorage(&mIntBar, 1);
+		(*this)["mFloatBar"].SetStorage(&mFloatBar, 1);
+		(*this)["mStringBar"].SetStorage(&mStringBar, 1);
+		(*this)["mVec4Bar"].SetStorage(&mVec4Bar, 1);
+		(*this)["mMat4Bar"].SetStorage(&mMat4Bar, 1);
+		mNestedScopeBar = &(*this)["mNestedScopeBar"].Get<Scope>();
 	}
 
 	void AttributedBar::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
-		prescribedAttributeNames.PushBack("mInt");
-		prescribedAttributeNames.PushBack("mFloat");
-		prescribedAttributeNames.PushBack("mString");
-		prescribedAttributeNames.PushBack("mVec4");
-		prescribedAttributeNames.PushBack("mMat4");
-		prescribedAttributeNames.PushBack("mNestedScope");
+		prescribedAttributeNames.PushBack("mIntBar");
+		prescribedAttributeNames.PushBack("mFloatBar");
+		prescribedAttributeNames.PushBack("mStringBar");
+		prescribedAttributeNames.PushBack("mVec4Bar");
+		prescribedAttributeNames.PushBack("mMat4Bar");
+		prescribedAttributeNames.PushBack("mNestedScopeBar");
 	}
 }

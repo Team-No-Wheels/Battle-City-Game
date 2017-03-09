@@ -3,7 +3,7 @@
 
 namespace UnitTestLibraryDesktop
 {
-	ATTRIBUTED_DEFINITIONS(AttributedFoo, 12U)
+	ATTRIBUTED_DEFINITIONS(AttributedFoo)
 
 	RTTI_DEFINITIONS(AttributedFoo)
 
