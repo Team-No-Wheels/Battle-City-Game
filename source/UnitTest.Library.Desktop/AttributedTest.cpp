@@ -53,9 +53,9 @@ namespace UnitTestLibraryDesktop
 				Assert::IsFalse(foo.IsPrescribedAttribute(name));
 				Assert::IsTrue(bar.IsPrescribedAttribute(name));
 			}
-			/*Assert::IsTrue(AttributedPrescribedAttributes == attributed.PrescribedAttributes());
 			Assert::IsTrue(AttributedPrescribedAttributes == attributed.PrescribedAttributes());
-			Assert::IsTrue(AttributedPrescribedAttributes == attributed.PrescribedAttributes());*/
+			Assert::IsTrue(AttributedPrescribedAttributes == attributed.PrescribedAttributes());
+			Assert::IsTrue(AttributedPrescribedAttributes == attributed.PrescribedAttributes());
 		}
 
 		TEST_METHOD(TestNonPrescribedAttributes)

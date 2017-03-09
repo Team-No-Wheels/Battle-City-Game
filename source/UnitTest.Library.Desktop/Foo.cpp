@@ -31,6 +31,11 @@ namespace UnitTestLibraryDesktop
 		return (*mData == *rhs.mData);
 	}
 
+	bool Foo::operator!=(const Foo& rhs) const
+	{
+		return !(*this == rhs);
+	}
+
 	std::uint32_t Foo::Data() const
 	{
 		return *mData;

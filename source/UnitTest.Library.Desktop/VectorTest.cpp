@@ -57,8 +57,8 @@ namespace UnitTestLibraryDesktop
 			std::uint32_t value3 = mHelper.GetRandomUInt32();
 			std::uint32_t value4 = mHelper.GetRandomUInt32();
 			VectorTestTemplate<std::uint32_t>::TestMoveConstructor(value1, value2, value3, value4);
-			/*VectorTestTemplate<std::uint32_t*>::TestMoveConstructor(&value1, &value2, &value3, &value4);
-			VectorTestTemplate<Foo>::TestMoveConstructor(Foo(value1), Foo(value2), Foo(value3), Foo(value4));*/
+			VectorTestTemplate<std::uint32_t*>::TestMoveConstructor(&value1, &value2, &value3, &value4);
+			VectorTestTemplate<Foo>::TestMoveConstructor(Foo(value1), Foo(value2), Foo(value3), Foo(value4));
 		}
 
 		TEST_METHOD(TestMoveAssignmentOperator)
@@ -131,6 +131,15 @@ namespace UnitTestLibraryDesktop
 			VectorTestTemplate<std::uint32_t>::TestIndexOfOperator(value1, value2);
 			VectorTestTemplate<std::uint32_t*>::TestIndexOfOperator(&value1, &value2);
 			VectorTestTemplate<Foo>::TestIndexOfOperator(Foo(value1), Foo(value2));
+		}
+
+		TEST_METHOD(TestEqualityOperators)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			VectorTestTemplate<std::uint32_t>::TestEqualityOperators(value1, value2);
+			VectorTestTemplate<std::uint32_t*>::TestEqualityOperators(&value1, &value2);
+			VectorTestTemplate<Foo>::TestEqualityOperators(Foo(value1), Foo(value2));
 		}
 
 		TEST_METHOD(TestFind)

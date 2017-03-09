@@ -137,6 +137,17 @@ namespace AnonymousEngine
 		 */
 		bool IsEmpty() const;
 
+		/** Checks if the two vectors are logically equivalent
+		 *  @param rhs The other vector to compare this vector to
+		 *  @return A boolean indicating whether the current vector is equal to the other vector or not
+		 */
+		bool operator==(const Vector& rhs) const;
+		/** Checks if the two vectors are logically not equivalent
+		 *  @param rhs The other vector to compare this vector to
+		 *  @return A boolean indicating whether the current vector is not equal to the other vector or not
+		 */
+		bool operator!=(const Vector& rhs) const;
+
 		/** Get the item at the given index
 		 *  @param index The index from which the data is to be retrieved
 		 *  @return The data at the given index

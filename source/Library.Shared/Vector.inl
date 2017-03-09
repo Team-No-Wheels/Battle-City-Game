@@ -190,6 +190,29 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
+	bool Vector<T>::operator==(const Vector& rhs) const
+	{
+		if (mSize != rhs.mSize)
+		{
+			return false;
+		}
+		for (std::uint32_t index = 0; index < mSize; ++index)
+		{
+			if (mData[index] != rhs.mData[index])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	template <typename T>
+	bool Vector<T>::operator!=(const Vector& rhs) const
+	{
+		return !(*this == rhs);
+	}
+
+	template <typename T>
 	T& Vector<T>::operator[](std::uint32_t index)
 	{
 		if (index >= mSize)

@@ -235,7 +235,6 @@ namespace UnitTestLibraryDesktop
 			Datum d;
 			T extValue1 = value1;
 			T extValue2 = value2;
-			Assert::ExpectException<std::invalid_argument>([&d, &extValue1] { d.SetStorage(&extValue1, 1U); });
 			d.SetType(type);
 			d.SetStorage(&extValue1, 1U);
 			Assert::AreEqual(type, d.Type());
