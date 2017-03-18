@@ -3,6 +3,7 @@
 #include <cstdint>
 #include "IXmlParseHelper.h"
 #include "Vector.h"
+#include "Attributed.h"
 
 namespace AnonymousEngine
 {
@@ -11,7 +12,7 @@ namespace AnonymousEngine
 		class XmlParseMaster
 		{
 		public:
-			class SharedData
+			class SharedData : public RTTI
 			{
 			public:
 				SharedData();
@@ -27,6 +28,8 @@ namespace AnonymousEngine
 			private:
 				XmlParseMaster* mParser;
 				std::uint32_t mDepth;
+
+				RTTI_DECLARATIONS(SharedData, RTTI)
 			};
 
 			XmlParseMaster();
@@ -49,6 +52,5 @@ namespace AnonymousEngine
 			std::string mFilename;
 			SharedData* mSharedData;
 		};
-
 	}
 }

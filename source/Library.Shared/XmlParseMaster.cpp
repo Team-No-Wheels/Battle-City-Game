@@ -6,6 +6,8 @@ namespace AnonymousEngine
 	{
 #pragma region SharedData Methods
 
+		RTTI_DEFINITIONS(XmlParseMaster::SharedData)
+
 		XmlParseMaster::SharedData::SharedData() : mParser(nullptr), mDepth(0)
 		{
 		}

@@ -23,6 +23,12 @@
       <Filter>SupportingClasses</Filter>
     </ClCompile>
     <ClCompile Include="AttributedTest.cpp" />
+    <ClCompile Include="TestSharedData.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="TestXmlParserHelper.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -45,6 +51,12 @@
       <Filter>SupportingClasses</Filter>
     </ClInclude>
     <ClInclude Include="AttributedBar.h">
+      <Filter>SupportingClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSharedData.h">
+      <Filter>SupportingClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="TestXmlParseHelper.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
   </ItemGroup>
