@@ -25,10 +25,7 @@ namespace UnitTestLibraryDesktop
 			std::string mName;
 			std::string mGame;
 
-			Category(const std::string& name, const std::string& game) :
-				mName(name), mGame(game)
-			{
-			}
+			Category(const std::string& name, const std::string& game);
 		};
 
 		std::string mName;

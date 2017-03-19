@@ -5,6 +5,11 @@ namespace UnitTestLibraryDesktop
 {
 	RTTI_DEFINITIONS(TestSharedData)
 
+	TestSharedData::Category::Category(const std::string& name, const std::string& game) :
+		mName(name), mGame(game)
+	{
+	}
+
 	TestSharedData::TestSharedData() :
 		mCurrentYear(0)
 	{
