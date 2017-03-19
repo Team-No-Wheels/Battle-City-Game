@@ -23,12 +23,8 @@ namespace UnitTestLibraryDesktop
 
 	private:
 		void ValidateInitialization() const;
-		static void HandleAwardElement(TestXmlParserHelper& instance, const AttributeMap& attributes);
-		static void HandleYearElement(TestXmlParserHelper& instance, const AttributeMap& attributes);
-		static void HandleCategoriesElement(TestXmlParserHelper& instance, const AttributeMap& attributes);
-		static void HandleCategoryElement(TestXmlParserHelper& instance, const AttributeMap& attributes);
 
 		TestSharedData* mData;
-		static TagHandlerMap TagHandlers;
+		static AnonymousEngine::Vector<std::string> SupportedTags;
 	};
 }

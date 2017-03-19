@@ -4,6 +4,7 @@
 #include <string>
 #include "HashMap.h"
 #include "Vector.h"
+#include "Scope.h"
 
 namespace UnitTestLibraryDesktop
 {
@@ -12,28 +13,19 @@ namespace UnitTestLibraryDesktop
 	class TestSharedData final : public SharedData
 	{
 	public:
-		TestSharedData();
+		TestSharedData() = default;
 		SharedData* Clone() const override;
 
-		void SetYear(std::uint32_t year);
-		void AppendCategoryToYear(const std::string& name, const std::string& game);
-
-
+		std::string& CurrentElementName();
+		AnonymousEngine::Scope& AwardWinners();
+		AnonymousEngine::Vector<AnonymousEngine::Scope*>& GetStack();
 	private:
-		struct Category
-		{
-			std::string mName;
-			std::string mGame;
-
-			Category(const std::string& name, const std::string& game);
-		};
-
-		std::string mName;
-		AnonymousEngine::HashMap<std::uint32_t, AnonymousEngine::Vector<struct Category>> mAwardsOverYears;
-		std::uint32_t mCurrentYear;
+		AnonymousEngine::Scope* mAwardWinners;
+		std::string mCurrentElementName;
+		AnonymousEngine::Vector<AnonymousEngine::Scope*> mStack;
 
 	public:
-		typedef AnonymousEngine::HashMap<std::uint32_t, AnonymousEngine::Vector<struct Category>> DataMap;
+		typedef AnonymousEngine::HashMap<std::string, AnonymousEngine::Vector<struct Category>> DataMap;
 
 		RTTI_DECLARATIONS(TestSharedData, SharedData)
 	};

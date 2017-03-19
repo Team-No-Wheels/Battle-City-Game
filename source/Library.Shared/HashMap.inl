@@ -18,12 +18,12 @@ namespace AnonymousEngine
 			throw std::invalid_argument("Uninitialized iterator");
 		}
 
-		if (*this == end())
+		if (*this == mOwner->end())
 		{
 			throw std::out_of_range("iterator out of range");
 		}
 
-		if (++mChainIterator == end())
+		if (++mChainIterator == mOwner->mData[mIndex].end())
 		{
 			for (++mIndex; mIndex < mOwner->mData.Size(); ++mIndex)
 			{

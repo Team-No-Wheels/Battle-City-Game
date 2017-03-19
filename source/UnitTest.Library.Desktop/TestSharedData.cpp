@@ -5,28 +5,23 @@ namespace UnitTestLibraryDesktop
 {
 	RTTI_DEFINITIONS(TestSharedData)
 
-	TestSharedData::Category::Category(const std::string& name, const std::string& game) :
-		mName(name), mGame(game)
-	{
-	}
-
-	TestSharedData::TestSharedData() :
-		mCurrentYear(0)
-	{
-	}
-
 	SharedData* TestSharedData::Clone() const
 	{
 		return new TestSharedData();
 	}
 
-	void TestSharedData::SetYear(std::uint32_t year)
+	std::string& TestSharedData::CurrentElementName()
 	{
-		mCurrentYear = year;
+		return mCurrentElementName;
 	}
 
-	void TestSharedData::AppendCategoryToYear(const std::string& name, const std::string& game)
+	AnonymousEngine::Scope& TestSharedData::AwardWinners()
 	{
-		mAwardsOverYears[mCurrentYear].PushBack(Category(name, game));
+		return *mAwardWinners;
+	}
+
+	AnonymousEngine::Vector<AnonymousEngine::Scope*>& TestSharedData::GetStack()
+	{
+		return mStack;
 	}
 }

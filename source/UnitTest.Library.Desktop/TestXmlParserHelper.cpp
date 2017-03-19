@@ -4,11 +4,11 @@
 
 namespace UnitTestLibraryDesktop
 {
-	TagHandlerMap TestXmlParserHelper::TagHandlers = {
-		{"award", HandleAwardElement},
-		{"year", HandleYearElement},
-		{"categories", HandleCategoriesElement},
-		{"category", HandleCategoryElement}
+	AnonymousEngine::Vector<std::string> TestXmlParserHelper::SupportedTags = {
+		"award",
+		"year",
+		"categories",
+		"category"
 	};
 
 	TestXmlParserHelper::TestXmlParserHelper() :
@@ -31,10 +31,17 @@ namespace UnitTestLibraryDesktop
 	bool TestXmlParserHelper::StartElementHandler(const std::string& name, const AttributeMap& attributes)
 	{
 		ValidateInitialization();
-		if (TagHandlers.ContainsKey(name))
+		mData->CurrentElementName() = name;
+		if (SupportedTags.Find(name) != SupportedTags.end())
 		{
+			AnonymousEngine::Scope* scope = new AnonymousEngine::Scope();
+			mData->GetStack().PushBack(scope);
 			mData->IncrementDepth();
-			TagHandlers[name](*this, attributes);
+			
+			for (const auto& attribute : attributes)
+			{
+				scope->Append(attribute.first) = attribute.second;
+			}
 			return true;
 		}
 		return false;
@@ -43,17 +50,32 @@ namespace UnitTestLibraryDesktop
 	bool TestXmlParserHelper::EndElementHandler(const std::string& name)
 	{
 		ValidateInitialization();
-		if (TagHandlers.ContainsKey(name))
+		bool didHandle = false;
+		if (SupportedTags.Find(name) != SupportedTags.end())
 		{
+			auto& stack = mData->GetStack();
+			AnonymousEngine::Scope* scope = stack.Back();
+			stack.PopBack();
 			mData->DecrementDepth();
-			return true;
+			if (mData->Depth() > 0)
+			{
+				stack.Back()->Adopt(*scope, mData->CurrentElementName());
+			}
+			else
+			{
+				mData->AwardWinners() = *scope;
+			}
+			didHandle = true;
 		}
-		return false;
+		mData->CurrentElementName().clear();
+		return didHandle;
 	}
 
-	void TestXmlParserHelper::CharDataHandler(const char*, std::uint32_t)
+	void TestXmlParserHelper::CharDataHandler(const char* buffer, std::uint32_t length)
 	{
 		ValidateInitialization();
+		auto& top = mData->GetStack().Back();
+		top->Append(mData->CurrentElementName()) = std::string(buffer, length);
 	}
 
 	IXmlParserHelper* TestXmlParserHelper::Clone()
@@ -69,23 +91,5 @@ namespace UnitTestLibraryDesktop
 		{
 			throw std::runtime_error("Data is not initialized");
 		}
-	}
-
-	void TestXmlParserHelper::HandleAwardElement(TestXmlParserHelper&, const AttributeMap&)
-	{
-	}
-
-	void TestXmlParserHelper::HandleYearElement(TestXmlParserHelper& instance, const AttributeMap& attributes)
-	{
-		instance.mData->SetYear(std::stoi(attributes["year"]));
-	}
-
-	void TestXmlParserHelper::HandleCategoriesElement(TestXmlParserHelper&, const AttributeMap&)
-	{
-	}
-
-	void TestXmlParserHelper::HandleCategoryElement(TestXmlParserHelper& instance, const AttributeMap& attributes)
-	{
-		instance.mData->AppendCategoryToYear(attributes["name"], attributes["game"]);
 	}
 }
