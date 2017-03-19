@@ -73,7 +73,7 @@ namespace AnonymousEngine
 			XmlParseMaster();
 			/** Releases any allocated resources by the parser
 			 */
-			~XmlParseMaster() = default;
+			~XmlParseMaster();
 			/** Creates a new instance of XmlParseMaster which has all the states of this instance
 			 *  The caller should take responsibility of freeing the memory of the new instance
 			 *  @return The cloned instance

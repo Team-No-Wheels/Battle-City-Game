@@ -15,9 +15,9 @@ namespace UnitTestLibraryDesktop
 		return mCurrentElementName;
 	}
 
-	AnonymousEngine::Scope& TestSharedData::AwardWinners()
+	AnonymousEngine::Scope*& TestSharedData::AwardWinners()
 	{
-		return *mAwardWinners;
+		return mAwardWinners;
 	}
 
 	AnonymousEngine::Vector<AnonymousEngine::Scope*>& TestSharedData::GetStack()

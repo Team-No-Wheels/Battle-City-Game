@@ -29,6 +29,7 @@
     <ClCompile Include="TestXmlParserHelper.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
+    <ClCompile Include="XmlParserTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />

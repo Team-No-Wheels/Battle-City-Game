@@ -16,6 +16,14 @@ namespace UnitTestLibraryDesktop
 	{
 	}
 
+	TestXmlParserHelper::~TestXmlParserHelper()
+	{
+		if (mData != nullptr && mData->AwardWinners() != nullptr)
+		{
+			delete mData->AwardWinners();
+		}
+	}
+
 	void TestXmlParserHelper::Initialize(SharedData& sharedData)
 	{
 		if (sharedData.Is(TestSharedData::TypeIdClass()))
@@ -37,11 +45,11 @@ namespace UnitTestLibraryDesktop
 			AnonymousEngine::Scope* scope = new AnonymousEngine::Scope();
 			mData->GetStack().PushBack(scope);
 			mData->IncrementDepth();
-			
-			for (const auto& attribute : attributes)
+			attributes;
+			/*for (const auto& attribute : attributes)
 			{
 				scope->Append(attribute.first) = attribute.second;
-			}
+			}*/
 			return true;
 		}
 		return false;
@@ -63,7 +71,7 @@ namespace UnitTestLibraryDesktop
 			}
 			else
 			{
-				mData->AwardWinners() = *scope;
+				mData->AwardWinners() = scope;
 			}
 			didHandle = true;
 		}
@@ -74,8 +82,11 @@ namespace UnitTestLibraryDesktop
 	void TestXmlParserHelper::CharDataHandler(const char* buffer, std::uint32_t length)
 	{
 		ValidateInitialization();
-		auto& top = mData->GetStack().Back();
-		top->Append(mData->CurrentElementName()) = std::string(buffer, length);
+		if (SupportedTags.Find(mData->CurrentElementName()) == SupportedTags.end())
+		{
+			auto& top = mData->GetStack().Back();
+			top->Append(mData->CurrentElementName()) = std::string(buffer, length);
+		}
 	}
 
 	IXmlParserHelper* TestXmlParserHelper::Clone()

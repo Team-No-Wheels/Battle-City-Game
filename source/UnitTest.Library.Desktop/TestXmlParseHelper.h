@@ -10,7 +10,7 @@ namespace UnitTestLibraryDesktop
 	typedef AnonymousEngine::HashMap<std::string, std::string> AttributeMap;
 	typedef const AnonymousEngine::HashMap<std::string, std::function<void(class TestXmlParserHelper&, const AttributeMap&)>> TagHandlerMap;
 
-	class TestXmlParserHelper final : IXmlParserHelper
+	class TestXmlParserHelper final : public IXmlParserHelper
 	{
 	public:
 		TestXmlParserHelper();
@@ -19,7 +19,7 @@ namespace UnitTestLibraryDesktop
 		bool EndElementHandler(const std::string& name) override;
 		void CharDataHandler(const char* buffer, std::uint32_t length) override;
 		IXmlParserHelper* Clone() override;
-		~TestXmlParserHelper() = default;
+		~TestXmlParserHelper();
 
 	private:
 		void ValidateInitialization() const;

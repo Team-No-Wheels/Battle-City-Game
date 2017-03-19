@@ -17,7 +17,7 @@ namespace UnitTestLibraryDesktop
 		SharedData* Clone() const override;
 
 		std::string& CurrentElementName();
-		AnonymousEngine::Scope& AwardWinners();
+		AnonymousEngine::Scope*& AwardWinners();
 		AnonymousEngine::Vector<AnonymousEngine::Scope*>& GetStack();
 	private:
 		AnonymousEngine::Scope* mAwardWinners;

@@ -63,6 +63,11 @@ namespace AnonymousEngine
 			XML_SetCharacterDataHandler(mParser, CharDataHandler);
 		}
 
+		XmlParseMaster::~XmlParseMaster()
+		{
+			XML_ParserFree(mParser);
+		}
+
 		XmlParseMaster* XmlParseMaster::Clone() const
 		{
 			XmlParseMaster* parser = new XmlParseMaster();
@@ -161,11 +166,10 @@ namespace AnonymousEngine
 		void XmlParseMaster::CharDataHandler(void* userData, const XML_Char* buffer, int length)
 		{
 			XmlParseMaster* parseMaster = reinterpret_cast<XmlParseMaster*>(userData);
-			if (parseMaster->mCurrentElementHelper == nullptr)
+			if (parseMaster->mCurrentElementHelper != nullptr)
 			{
-				throw std::runtime_error("CharDataHandler called without an associated start element.");
+				parseMaster->mCurrentElementHelper->CharDataHandler(buffer, length);
 			}
-			parseMaster->mCurrentElementHelper->CharDataHandler(buffer, length);
 		}
 
 		#pragma endregion
