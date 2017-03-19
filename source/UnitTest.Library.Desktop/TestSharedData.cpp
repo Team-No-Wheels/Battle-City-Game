@@ -7,11 +7,10 @@ namespace UnitTestLibraryDesktop
 
 	TestSharedData::TestSharedData()
 	{
-
 	}
 
-	SharedData* TestSharedData::Clone()
+	SharedData* TestSharedData::Clone() const
 	{
-		return this;
+		return new TestSharedData();
 	}
 }

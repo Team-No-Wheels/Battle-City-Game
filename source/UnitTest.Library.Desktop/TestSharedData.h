@@ -8,7 +8,7 @@ namespace UnitTestLibraryDesktop
 {
 	typedef AnonymousEngine::Parsers::XmlParseMaster::SharedData SharedData;
 
-	class TestSharedData : public SharedData
+	class TestSharedData final : public SharedData
 	{
 	public:
 		struct Category
@@ -24,7 +24,7 @@ namespace UnitTestLibraryDesktop
 		};
 
 		TestSharedData();
-		SharedData* Clone() override;
+		SharedData* Clone() const override;
 	
 	private:
 		std::string mName;
