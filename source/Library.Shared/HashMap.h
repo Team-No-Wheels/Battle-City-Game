@@ -183,7 +183,7 @@ namespace AnonymousEngine
 		 *  @param key The key to search in the hashmap
 		 *  @return A boolean indicating whether the key is present in the hashmap or not
 		 */
-		bool ContainsKey(const TKey& key);
+		bool ContainsKey(const TKey& key) const;
 
 		/** Return an iterator to the beginning of the hashmap
 		 *  @return An iterator to the beginning of the hashmap

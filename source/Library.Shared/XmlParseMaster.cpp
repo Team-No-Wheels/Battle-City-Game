@@ -1,6 +1,8 @@
 #include "XmlParseMaster.h"
 #include <fstream>
 #include "expat.h"
+#include "IXmlParseHelper.h"
+#include "HashMap.h"
 
 namespace AnonymousEngine
 {
@@ -127,7 +129,9 @@ namespace AnonymousEngine
 			HashMap<std::string, std::string> attributeMap;
 			for (std::uint32_t i = 0; attributes[i] != nullptr; i += 2)
 			{
-				attributeMap[std::string(attributes[i])] = attributes[i + 1];
+				std::string attribute(attributes[i]);
+				std::transform(attribute.begin(), attribute.end(), attribute.begin(), ::tolower);
+				attributeMap[attribute] = attributes[i + 1];
 			}
 
 			// walk the helper chain to handle the responsibility

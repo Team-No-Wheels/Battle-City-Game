@@ -214,7 +214,7 @@ namespace AnonymousEngine
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
-	bool HashMap<TKey, TData, THashFunctor, TCompareFunctor>::ContainsKey(const TKey& key)
+	bool HashMap<TKey, TData, THashFunctor, TCompareFunctor>::ContainsKey(const TKey& key) const
 	{
 		return (Find(key) != end());
 	}
