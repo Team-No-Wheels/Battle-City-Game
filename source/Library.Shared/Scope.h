@@ -91,6 +91,11 @@ namespace AnonymousEngine
 		 */
 		const Scope* GetParent() const;
 
+		/** Get the key against which the parent stores this scope
+		 *  @return The key against which the parent stores this scope
+		 */
+		std::string GetParentKey() const;
+
 		/** Get a reference to the Datum at the given key in the current scope.
 		 *  Works similar to Append, i.e. creates new Datum if no datum exists with the given key
 		 *  @param name The key to search for

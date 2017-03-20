@@ -120,6 +120,11 @@ namespace AnonymousEngine
 		return mParent;
 	}
 
+	std::string Scope::GetParentKey() const
+	{
+		return mParentKey;
+	}
+
 	Datum& Scope::operator[](const std::string& name)
 	{
 		return Append(name);
@@ -188,7 +193,20 @@ namespace AnonymousEngine
 
 	std::string Scope::ToString() const
 	{
-		return "Scope";
+		std::string output = "{";
+		for (const auto& entry : mOrderVector)
+		{
+			output.append(entry->first).append(":[");
+			for (std::uint32_t i = 0; i < entry->second.Size(); ++i)
+			{
+				output.append("{");
+				output.append(entry->second.ToString(i));
+				output.append("},");
+			}
+			output.append("],");
+		}
+		output.append("}");
+		return output;
 	}
 
 	void Scope::FromString(const std::string&)
