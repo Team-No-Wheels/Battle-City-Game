@@ -45,11 +45,10 @@ namespace UnitTestLibraryDesktop
 			AnonymousEngine::Scope* scope = new AnonymousEngine::Scope();
 			mData->GetStack().PushBack(scope);
 			mData->IncrementDepth();
-			attributes;
-			/*for (const auto& attribute : attributes)
+			for (const auto& attribute : attributes)
 			{
 				scope->Append(attribute.first) = attribute.second;
-			}*/
+			}
 			return true;
 		}
 		return false;

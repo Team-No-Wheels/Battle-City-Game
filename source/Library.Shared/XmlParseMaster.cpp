@@ -142,7 +142,9 @@ namespace AnonymousEngine
 			// walk the helper chain to handle the responsibility
 			for (auto& helper : parseMaster->mHelpers)
 			{
-				if (helper->StartElementHandler(name, attributeMap))
+				std::string tagName(name);
+				std::transform(tagName.begin(), tagName.end(), tagName.begin(), ::tolower);
+				if (helper->StartElementHandler(tagName, attributeMap))
 				{
 					parseMaster->mCurrentElementHelper = helper;
 					break;
@@ -155,7 +157,9 @@ namespace AnonymousEngine
 			XmlParseMaster* parseMaster = reinterpret_cast<XmlParseMaster*>(userData);
 			for (auto& helper : parseMaster->mHelpers)
 			{
-				if (helper->EndElementHandler(name))
+				std::string tagName(name);
+				std::transform(tagName.begin(), tagName.end(), tagName.begin(), ::tolower);
+				if (helper->EndElementHandler(tagName))
 				{
 					parseMaster->mCurrentElementHelper = nullptr;
 					break;
