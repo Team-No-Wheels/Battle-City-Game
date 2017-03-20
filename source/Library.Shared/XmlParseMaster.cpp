@@ -149,7 +149,7 @@ namespace AnonymousEngine
 			std::string bufferData = TrimString(std::string(buffer, length));
 			if (parseMaster->mCurrentElementHelper != nullptr && bufferData.size() > 0)
 			{
-				parseMaster->mCurrentElementHelper->CharDataHandler(*sharedData, buffer);
+				parseMaster->mCurrentElementHelper->CharDataHandler(*sharedData, std::string(buffer, length));
 			}
 		}
 

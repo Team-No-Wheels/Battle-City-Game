@@ -23,8 +23,14 @@ namespace UnitTestLibraryDesktop
 		~TestXmlParserHelper();
 
 	private:
-		std::string mCurrentElementName;
-		AnonymousEngine::Vector<AnonymousEngine::Scope*> mStack;
+		struct ParsingStackDataElement
+		{
+			std::string mElementName;
+			AnonymousEngine::Scope* mScope;
+			ParsingStackDataElement(std::string elementName, AnonymousEngine::Scope* scope = nullptr);
+		};
+
+		AnonymousEngine::Vector<ParsingStackDataElement> mStack;
 
 		static AnonymousEngine::Vector<std::string> SupportedTags;
 	};

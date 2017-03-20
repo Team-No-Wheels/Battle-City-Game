@@ -29,11 +29,11 @@ namespace UnitTestLibraryDesktop
 		{
 			return false;
 		}
-		mCurrentElementName = name;
+		mStack.PushBack(name);
 		if (SupportedTags.Find(name) != SupportedTags.end())
 		{
 			AnonymousEngine::Scope* scope = new AnonymousEngine::Scope();
-			mStack.PushBack(scope);
+			mStack.Back().mScope = scope;
 			sharedData.IncrementDepth();
 			for (const auto& attribute : attributes)
 			{
@@ -52,23 +52,20 @@ namespace UnitTestLibraryDesktop
 		}
 		if (SupportedTags.Find(name) != SupportedTags.end())
 		{
-			AnonymousEngine::Scope* scope = mStack.Back();
+			ParsingStackDataElement element = mStack.Back();
 			mStack.PopBack();
 			sharedData.DecrementDepth();
 			if (sharedData.Depth() > 0)
 			{
-				mStack.Back()->Adopt(*scope, mCurrentElementName);
+				mStack.Back().mScope->Adopt(*(element.mScope), element.mElementName);
 			}
 			else
 			{
 				TestSharedData* testSharedData = sharedData.As<TestSharedData>();
-				testSharedData->AwardWinners() = scope;
+				testSharedData->AwardWinners() = element.mScope;
 			}
-			//mCurrentElementName = scope->GetParentKey();
-			mCurrentElementName.clear();
 			return true;
 		}
-		mCurrentElementName.clear();
 		return false;
 	}
 
@@ -78,10 +75,11 @@ namespace UnitTestLibraryDesktop
 		{
 			return;
 		}
-		if (SupportedTags.Find(mCurrentElementName) == SupportedTags.end())
+		if (SupportedTags.Find(mStack.Back().mElementName) == SupportedTags.end())
 		{
-			auto& top = mStack.Back();
-			top->Append(mCurrentElementName) = buffer;
+			ParsingStackDataElement& charDataElement = mStack.Back();
+			mStack.PopBack();
+			mStack.Back().mScope->Append(charDataElement.mElementName) = buffer;
 		}
 	}
 
@@ -89,5 +87,10 @@ namespace UnitTestLibraryDesktop
 	{
 		TestXmlParserHelper* helper = new TestXmlParserHelper();
 		return helper;
+	}
+
+	TestXmlParserHelper::ParsingStackDataElement::ParsingStackDataElement(std::string elementName, AnonymousEngine::Scope* scope) :
+		mElementName(elementName), mScope(scope)
+	{
 	}
 }
