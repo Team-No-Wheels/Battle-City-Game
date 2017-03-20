@@ -77,7 +77,7 @@ namespace UnitTestLibraryDesktop
 		}
 		if (SupportedTags.Find(mStack.Back().mElementName) == SupportedTags.end())
 		{
-			ParsingStackDataElement& charDataElement = mStack.Back();
+			ParsingStackDataElement charDataElement = mStack.Back();
 			mStack.PopBack();
 			mStack.Back().mScope->Append(charDataElement.mElementName) = buffer;
 		}

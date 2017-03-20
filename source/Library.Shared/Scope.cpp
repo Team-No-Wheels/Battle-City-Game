@@ -195,16 +195,33 @@ namespace AnonymousEngine
 	std::string Scope::ToString() const
 	{
 		std::string output = "{";
+		std::uint32_t attributeIndex = 0;
 		for (const auto& entry : mOrderVector)
 		{
-			output.append(entry->first).append(":[");
+			std::uint32_t entrySize = entry->second.Size();
+			if (attributeIndex > 0)
+			{
+				output.append(", ");
+			}
+			output.append("\"").append(entry->first).append("\"").append((entrySize > 1) ? ": [" : ": ");
 			for (std::uint32_t i = 0; i < entry->second.Size(); ++i)
 			{
-				output.append("{");
+				if (entry->second.Type() != Datum::DatumType::Scope)
+				{
+					output.append((i == 0) ? "\"" : ", \"");
+				}
+				else if (i > 0)
+				{
+					output.append(", ");
+				}
 				output.append(entry->second.ToString(i));
-				output.append("},");
+				if (entry->second.Type() != Datum::DatumType::Scope)
+				{
+					output.append("\"");
+				}
 			}
-			output.append("],");
+			output.append((entrySize > 1) ? "]" : "");
+			++attributeIndex;
 		}
 		output.append("}");
 		return output;
