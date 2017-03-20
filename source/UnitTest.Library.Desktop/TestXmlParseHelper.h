@@ -7,6 +7,7 @@
 namespace UnitTestLibraryDesktop
 {
 	typedef AnonymousEngine::Parsers::IXmlParserHelper IXmlParserHelper;
+	typedef AnonymousEngine::Parsers::SharedData SharedData;
 	typedef AnonymousEngine::HashMap<std::string, std::string> AttributeMap;
 	typedef const AnonymousEngine::HashMap<std::string, std::function<void(class TestXmlParserHelper&, const AttributeMap&)>> TagHandlerMap;
 
@@ -14,17 +15,17 @@ namespace UnitTestLibraryDesktop
 	{
 	public:
 		TestXmlParserHelper();
-		void Initialize(SharedData& sharedData) override;
-		bool StartElementHandler(const std::string& name, const AttributeMap& attributes) override;
-		bool EndElementHandler(const std::string& name) override;
-		void CharDataHandler(const char* buffer, std::uint32_t length) override;
+		void Initialize() override;
+		bool StartElementHandler(SharedData& sharedData, const std::string& name, const AttributeMap& attributes) override;
+		bool EndElementHandler(SharedData& sharedData, const std::string& name) override;
+		void CharDataHandler(SharedData& sharedData, const std::string& buffer) override;
 		IXmlParserHelper* Clone() override;
 		~TestXmlParserHelper();
 
 	private:
-		void ValidateInitialization() const;
+		std::string mCurrentElementName;
+		AnonymousEngine::Vector<AnonymousEngine::Scope*> mStack;
 
-		TestSharedData* mData;
 		static AnonymousEngine::Vector<std::string> SupportedTags;
 	};
 }

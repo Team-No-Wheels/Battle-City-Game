@@ -98,7 +98,7 @@ namespace AnonymousEngine
 		scope->mParentKey = name;
 		scope->mParentDatumIndex = datum.Size();
 		datum.PushBack(*scope);
-		return datum.Get<Scope>(datum.Size() - 1);
+		return *scope;
 	}
 
 	void Scope::Adopt(Scope& scope, const std::string& name)
@@ -107,8 +107,9 @@ namespace AnonymousEngine
 		{
 			throw std::invalid_argument("Cannot adopt yourself.");
 		}
-		scope.Orphan();
 		Datum& datum = Append(name);
+		datum.SetType(Datum::DatumType::Scope);
+		scope.Orphan();
 		scope.mParent = this;
 		scope.mParentKey = name;
 		scope.mParentDatumIndex = datum.Size();

@@ -5,62 +5,19 @@
 #include "expat.h"
 #include "IXmlParseHelper.h"
 #include "HashMap.h"
+#include "SharedData.h"
 
 namespace AnonymousEngine
 {
 	namespace Parsers
 	{
-		#pragma region SharedDataDefinitions
-
-		RTTI_DEFINITIONS(XmlParseMaster::SharedData)
-
-		XmlParseMaster::SharedData::SharedData() : mParser(nullptr), mDepth(0)
-		{
-		}
-
-		XmlParseMaster::SharedData* XmlParseMaster::SharedData::Clone() const
-		{
-			SharedData* sharedData =  new SharedData();
-			sharedData->mDepth = mDepth;
-			sharedData->mParser = mParser;
-			return sharedData;
-		}
-
-		void XmlParseMaster::SharedData::SetXmlParseMaster(XmlParseMaster& parser)
-		{
-			mParser = &parser;
-		}
-
-		XmlParseMaster* XmlParseMaster::SharedData::GetXmlParseMaster() const
-		{
-			return mParser;
-		}
-
-		void XmlParseMaster::SharedData::IncrementDepth()
-		{
-			++mDepth;
-		}
-
-		void XmlParseMaster::SharedData::DecrementDepth()
-		{
-			--mDepth;
-		}
-
-		std::uint32_t XmlParseMaster::SharedData::Depth() const
-		{
-			return mDepth;
-		}
-
-		#pragma endregion
-
 		#pragma region XmlParseMasterDefinitions
 
 		const std::string XmlParseMaster::UTF8_ENCODING = "UTF-8";
 
 		XmlParseMaster::XmlParseMaster() :
-			mParser(XML_ParserCreate(UTF8_ENCODING.c_str())), mCurrentElementHelper(nullptr)
+			mParser(XML_ParserCreate(UTF8_ENCODING.c_str())), mCurrentElementHelper(nullptr), mSharedData(nullptr)
 		{
-			XML_SetUserData(mParser, this);
 			XML_SetElementHandler(mParser, StartElementHandler, EndElementHandler);
 			XML_SetCharacterDataHandler(mParser, CharDataHandler);
 		}
@@ -92,9 +49,9 @@ namespace AnonymousEngine
 			mHelpers.Remove(&helper);
 		}
 
-		void XmlParseMaster::Parse(const char* buffer, std::uint32_t length, bool isLastChunk)
+		void XmlParseMaster::Parse(const std::string& buffer, bool isLastChunk)
 		{
-			XML_Parse(mParser, buffer, length, isLastChunk);
+			XML_Parse(mParser, buffer.c_str(), static_cast<std::uint32_t>(buffer.size()), isLastChunk);
 		}
 
 		void XmlParseMaster::ParseFromFile(const std::string& filename)
@@ -109,7 +66,7 @@ namespace AnonymousEngine
 				in.seekg(0, std::ios::beg);
 				in.read(&contents[0], contents.size());
 				in.close();
-				Parse(contents.c_str(), static_cast<std::uint32_t>(contents.size()), true);
+				Parse(contents, true);
 			}
 		}
 
@@ -118,7 +75,7 @@ namespace AnonymousEngine
 			return mFilename;
 		}
 
-		XmlParseMaster::SharedData* XmlParseMaster::GetSharedData() const
+		SharedData* XmlParseMaster::GetSharedData() const
 		{
 			return mSharedData;
 		}
@@ -126,11 +83,26 @@ namespace AnonymousEngine
 		void XmlParseMaster::SetSharedData(SharedData& sharedData)
 		{
 			this->mSharedData = &sharedData;
+			XML_SetUserData(mParser, &sharedData);
+		}
+
+		void XmlParseMaster::ValidateParserState() const
+		{
+			if (mSharedData == nullptr)
+			{
+				throw std::runtime_error("Invalid parser state. Shared data is null");
+			}
+
+			if (mHelpers.Size() == 0)
+			{
+				throw std::runtime_error("Invalid parser state. There are no helpers attached");
+			}
 		}
 
 		void XmlParseMaster::StartElementHandler(void *userData, const XML_Char *name, const XML_Char **attributes)
 		{
-			XmlParseMaster* parseMaster = reinterpret_cast<XmlParseMaster*>(userData);
+			SharedData* sharedData = reinterpret_cast<SharedData*>(userData);
+			XmlParseMaster* parseMaster = sharedData->GetXmlParseMaster();
 
 			// prepare name and attribute data for helpers
 			HashMap<std::string, std::string> attributeMap;
@@ -146,7 +118,7 @@ namespace AnonymousEngine
 			{
 				std::string tagName(name);
 				std::transform(tagName.begin(), tagName.end(), tagName.begin(), ::tolower);
-				if (helper->StartElementHandler(tagName, attributeMap))
+				if (helper->StartElementHandler(*sharedData, tagName, attributeMap))
 				{
 					parseMaster->mCurrentElementHelper = helper;
 					break;
@@ -156,12 +128,13 @@ namespace AnonymousEngine
 
 		void XmlParseMaster::EndElementHandler(void *userData, const XML_Char *name)
 		{
-			XmlParseMaster* parseMaster = reinterpret_cast<XmlParseMaster*>(userData);
+			SharedData* sharedData = reinterpret_cast<SharedData*>(userData);
+			XmlParseMaster* parseMaster = sharedData->GetXmlParseMaster();
 			for (auto& helper : parseMaster->mHelpers)
 			{
 				std::string tagName(name);
 				std::transform(tagName.begin(), tagName.end(), tagName.begin(), ::tolower);
-				if (helper->EndElementHandler(tagName))
+				if (helper->EndElementHandler(*sharedData, tagName))
 				{
 					parseMaster->mCurrentElementHelper = nullptr;
 					break;
@@ -171,10 +144,12 @@ namespace AnonymousEngine
 
 		void XmlParseMaster::CharDataHandler(void* userData, const XML_Char* buffer, int length)
 		{
-			XmlParseMaster* parseMaster = reinterpret_cast<XmlParseMaster*>(userData);
-			if (parseMaster->mCurrentElementHelper != nullptr && TrimString(std::string(buffer, length)).size() > 0)
+			SharedData* sharedData = reinterpret_cast<SharedData*>(userData);
+			XmlParseMaster* parseMaster = sharedData->GetXmlParseMaster();
+			std::string bufferData = TrimString(std::string(buffer, length));
+			if (parseMaster->mCurrentElementHelper != nullptr && bufferData.size() > 0)
 			{
-				parseMaster->mCurrentElementHelper->CharDataHandler(buffer, length);
+				parseMaster->mCurrentElementHelper->CharDataHandler(*sharedData, buffer);
 			}
 		}
 

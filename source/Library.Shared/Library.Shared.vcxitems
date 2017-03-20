@@ -24,6 +24,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SharedData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SList.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Vector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CapacityStrategy.h" />
@@ -34,10 +35,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Compare.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HashFunctors.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)IXmlParseHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SharedData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp" />
   </ItemGroup>
   <ItemGroup>

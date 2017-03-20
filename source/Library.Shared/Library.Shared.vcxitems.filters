@@ -20,6 +20,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp">
       <Filter>Parsers</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IXmlParseHelper.cpp">
+      <Filter>Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SharedData.cpp">
+      <Filter>Parsers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -58,6 +64,9 @@
       <Filter>Parsers</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseMaster.h">
+      <Filter>Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SharedData.h">
       <Filter>Parsers</Filter>
     </ClInclude>
   </ItemGroup>

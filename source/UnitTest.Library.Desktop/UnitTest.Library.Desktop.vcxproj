@@ -118,6 +118,9 @@
       <OptimizeReferences>false</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)\TestData" "$(OutDir)\TestData" /I /R /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -144,6 +147,9 @@
       <OptimizeReferences>false</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)\TestData" "$(OutDir)\TestData" /I /R /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -177,6 +183,9 @@
     <ProjectReference>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)\TestData" "$(OutDir)\TestData" /I /R /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -205,6 +214,9 @@
       <AdditionalOptions>/OPT:NOLBR %(AdditionalOptions)</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)\TestData" "$(OutDir)\TestData" /I /R /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AttributedBar.cpp" />
@@ -255,6 +267,10 @@
     <ClInclude Include="ToStringTemplates.h" />
     <ClInclude Include="VectorIteratorTestTemplate.h" />
     <ClInclude Include="VectorTestTemplate.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="TestData\attributed.xml" />
+    <Xml Include="TestData\verbose.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

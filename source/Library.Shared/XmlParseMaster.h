@@ -2,72 +2,20 @@
 
 #include <cstdint>
 #include "expat.h"
-#include "RTTI.h"
+#include "IXmlParseHelper.h"
 #include "Vector.h"
+#include "RTTI.h"
+#include "SharedData.h"
 
 namespace AnonymousEngine
 {
 	namespace Parsers
 	{
-		class IXmlParserHelper;
-
 		/** This class handles XmlParsing workflow
-		 */
+		*/
 		class XmlParseMaster final
 		{
 		public:
-			/** This class stores the data that is the result of a parse operation.
-			 *  The class is meant to be derived from to define functionality for
-			 *  storing various data formats
-			 */
-			class SharedData : public RTTI
-			{
-			public:
-				/** Initializes a default constructed object of shared data
-				 */
-				SharedData();
-				/** Creates a new instance of SharedData which shares all state information from the current one
-				 *  The caller should take responsibility of freeing the memory of the new instance
-				 *  @return The cloned instance
-				 */
-				virtual SharedData* Clone() const;
-				/** Release any resource acquisitions
-				 */
-				virtual ~SharedData() = default;
-
-				/** Delete copy constructor since only clone is supported
-				 */
-				SharedData(const SharedData& rhs) = delete;
-				/** Delete copy assignment since only clone is supported
-				 */
-				SharedData& operator=(const SharedData& rhs) = delete;
-
-				/** Update the parser which is using this SharedData instance
-				 *  @param parser The parser which is using this shared data instance
-				 */
-				void SetXmlParseMaster(XmlParseMaster& parser);
-				/** Get the parser which is using this shared data instance
-				 *  @return The address of the parser which is using this shared data instance
-				 */
-				XmlParseMaster* GetXmlParseMaster() const;
-
-				/** Increments the depth of the element tree being parsed by one
-				 */
-				void IncrementDepth();
-				/** Decrements the depth of the element tree being parsed by one
-				 */
-				void DecrementDepth();
-				/** Get the depth of the current element being processed in the element tree
-				 */
-				std::uint32_t Depth() const;
-
-			private:
-				XmlParseMaster* mParser;
-				std::uint32_t mDepth;
-
-				RTTI_DECLARATIONS(SharedData, RTTI)
-			};
-
 			/** Initializes the parser
 			 */
 			XmlParseMaster();
@@ -98,10 +46,9 @@ namespace AnonymousEngine
 			
 			/** Parse an xml passed as a C-style character buffer
 			 *  @param buffer The buffer of characters read from the xml
-			 *  @param length Number of characters in the buffer
 			 *  @param isLastChunk Whether the current data is the last chunk from the xml
 			 */
-			void Parse(const char* buffer, std::uint32_t length, bool isLastChunk);
+			void Parse(const std::string& buffer, bool isLastChunk);
 			/** Parse an xml from a file
 			 *  @param filename The name of the xml file
 			 */
@@ -121,6 +68,8 @@ namespace AnonymousEngine
 			void SetSharedData(SharedData& sharedData);
 
 		private:
+			void ValidateParserState() const;
+
 			static void StartElementHandler(void* userData, const XML_Char* name, const XML_Char** attributes);
 			static void EndElementHandler(void* userData, const XML_Char* name);
 			static void CharDataHandler(void* userData, const XML_Char* buffer, int length);

@@ -11,40 +11,30 @@ namespace UnitTestLibraryDesktop
 		"category"
 	};
 
-	TestXmlParserHelper::TestXmlParserHelper() :
-		mData(nullptr)
+	TestXmlParserHelper::TestXmlParserHelper()
 	{
 	}
 
 	TestXmlParserHelper::~TestXmlParserHelper()
 	{
-		if (mData != nullptr && mData->AwardWinners() != nullptr)
-		{
-			delete mData->AwardWinners();
-		}
 	}
 
-	void TestXmlParserHelper::Initialize(SharedData& sharedData)
+	void TestXmlParserHelper::Initialize()
 	{
-		if (sharedData.Is(TestSharedData::TypeIdClass()))
-		{
-			mData = static_cast<TestSharedData*>(&sharedData);
-		}
-		else
-		{
-			throw std::runtime_error("Incorrect shared data type passed to initialize");
-		}
 	}
 
-	bool TestXmlParserHelper::StartElementHandler(const std::string& name, const AttributeMap& attributes)
+	bool TestXmlParserHelper::StartElementHandler(SharedData& sharedData, const std::string& name, const AttributeMap& attributes)
 	{
-		ValidateInitialization();
-		mData->CurrentElementName() = name;
+		if (!sharedData.Is(TestSharedData::TypeIdClass()))
+		{
+			return false;
+		}
+		mCurrentElementName = name;
 		if (SupportedTags.Find(name) != SupportedTags.end())
 		{
 			AnonymousEngine::Scope* scope = new AnonymousEngine::Scope();
-			mData->GetStack().PushBack(scope);
-			mData->IncrementDepth();
+			mStack.PushBack(scope);
+			sharedData.IncrementDepth();
 			for (const auto& attribute : attributes)
 			{
 				scope->Append(attribute.first) = attribute.second;
@@ -54,52 +44,50 @@ namespace UnitTestLibraryDesktop
 		return false;
 	}
 
-	bool TestXmlParserHelper::EndElementHandler(const std::string& name)
+	bool TestXmlParserHelper::EndElementHandler(SharedData& sharedData, const std::string& name)
 	{
-		ValidateInitialization();
+		if (!sharedData.Is(TestSharedData::TypeIdClass()))
+		{
+			return false;
+		}
 		if (SupportedTags.Find(name) != SupportedTags.end())
 		{
-			auto& stack = mData->GetStack();
-			AnonymousEngine::Scope* scope = stack.Back();
-			stack.PopBack();
-			mData->DecrementDepth();
-			if (mData->Depth() > 0)
+			AnonymousEngine::Scope* scope = mStack.Back();
+			mStack.PopBack();
+			sharedData.DecrementDepth();
+			if (sharedData.Depth() > 0)
 			{
-				stack.Back()->Adopt(*scope, mData->CurrentElementName());
+				mStack.Back()->Adopt(*scope, mCurrentElementName);
 			}
 			else
 			{
-				mData->AwardWinners() = scope;
+				TestSharedData* testSharedData = sharedData.As<TestSharedData>();
+				testSharedData->AwardWinners() = scope;
 			}
-			mData->CurrentElementName() = scope->GetParentKey();
+			//mCurrentElementName = scope->GetParentKey();
+			mCurrentElementName.clear();
 			return true;
 		}
-		mData->CurrentElementName().clear();
+		mCurrentElementName.clear();
 		return false;
 	}
 
-	void TestXmlParserHelper::CharDataHandler(const char* buffer, std::uint32_t length)
+	void TestXmlParserHelper::CharDataHandler(SharedData& sharedData, const std::string& buffer)
 	{
-		ValidateInitialization();
-		if (SupportedTags.Find(mData->CurrentElementName()) == SupportedTags.end())
+		if (!sharedData.Is(TestSharedData::TypeIdClass()))
 		{
-			auto& top = mData->GetStack().Back();
-			top->Append(mData->CurrentElementName()) = std::string(buffer, length);
+			return;
+		}
+		if (SupportedTags.Find(mCurrentElementName) == SupportedTags.end())
+		{
+			auto& top = mStack.Back();
+			top->Append(mCurrentElementName) = buffer;
 		}
 	}
 
 	IXmlParserHelper* TestXmlParserHelper::Clone()
 	{
 		TestXmlParserHelper* helper = new TestXmlParserHelper();
-		helper->mData = mData;
 		return helper;
-	}
-
-	void TestXmlParserHelper::ValidateInitialization() const
-	{
-		if (mData == nullptr)
-		{
-			throw std::runtime_error("Data is not initialized");
-		}
 	}
 }

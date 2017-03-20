@@ -8,21 +8,18 @@
 
 namespace UnitTestLibraryDesktop
 {
-	typedef AnonymousEngine::Parsers::XmlParseMaster::SharedData SharedData;
+	typedef AnonymousEngine::Parsers::SharedData SharedData;
 
 	class TestSharedData final : public SharedData
 	{
 	public:
-		TestSharedData() = default;
+		TestSharedData();
+		~TestSharedData();
 		SharedData* Clone() const override;
 
-		std::string& CurrentElementName();
 		AnonymousEngine::Scope*& AwardWinners();
-		AnonymousEngine::Vector<AnonymousEngine::Scope*>& GetStack();
 	private:
 		AnonymousEngine::Scope* mAwardWinners;
-		std::string mCurrentElementName;
-		AnonymousEngine::Vector<AnonymousEngine::Scope*> mStack;
 
 	public:
 		typedef AnonymousEngine::HashMap<std::string, AnonymousEngine::Vector<struct Category>> DataMap;

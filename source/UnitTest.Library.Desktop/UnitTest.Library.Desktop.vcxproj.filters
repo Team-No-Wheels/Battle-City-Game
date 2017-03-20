@@ -65,5 +65,16 @@
     <Filter Include="SupportingClasses">
       <UniqueIdentifier>{51d25af1-bd2d-4272-a2df-0d5959eacd13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TestData">
+      <UniqueIdentifier>{ad64508e-2085-4ae7-b8fa-a57f5d18e3ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="TestData\attributed.xml">
+      <Filter>TestData</Filter>
+    </Xml>
+    <Xml Include="TestData\verbose.xml">
+      <Filter>TestData</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
