@@ -1,4 +1,6 @@
 #include "XmlParseMaster.h"
+#include <algorithm>
+#include <cctype>
 #include <fstream>
 #include "expat.h"
 #include "IXmlParseHelper.h"
@@ -170,10 +172,17 @@ namespace AnonymousEngine
 		void XmlParseMaster::CharDataHandler(void* userData, const XML_Char* buffer, int length)
 		{
 			XmlParseMaster* parseMaster = reinterpret_cast<XmlParseMaster*>(userData);
-			if (parseMaster->mCurrentElementHelper != nullptr)
+			if (parseMaster->mCurrentElementHelper != nullptr && TrimString(std::string(buffer, length)).size() > 0)
 			{
 				parseMaster->mCurrentElementHelper->CharDataHandler(buffer, length);
 			}
+		}
+
+		std::string XmlParseMaster::TrimString(const std::string& string)
+		{
+			auto front = std::find_if_not(string.begin(), string.end(), [] (std::int32_t character) { return std::isspace(character); });
+			auto back = std::find_if_not(string.rbegin(), string.rend(), [](std::int32_t character) { return std::isspace(character); }).base();
+			return ((back <= front) ? std::string() : std::string(front, back));
 		}
 
 		#pragma endregion

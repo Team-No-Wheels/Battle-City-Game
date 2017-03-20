@@ -57,7 +57,6 @@ namespace UnitTestLibraryDesktop
 	bool TestXmlParserHelper::EndElementHandler(const std::string& name)
 	{
 		ValidateInitialization();
-		bool didHandle = false;
 		if (SupportedTags.Find(name) != SupportedTags.end())
 		{
 			auto& stack = mData->GetStack();
@@ -72,10 +71,11 @@ namespace UnitTestLibraryDesktop
 			{
 				mData->AwardWinners() = scope;
 			}
-			didHandle = true;
+			mData->CurrentElementName() = scope->GetParentKey();
+			return true;
 		}
 		mData->CurrentElementName().clear();
-		return didHandle;
+		return false;
 	}
 
 	void TestXmlParserHelper::CharDataHandler(const char* buffer, std::uint32_t length)

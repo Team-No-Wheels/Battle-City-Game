@@ -124,6 +124,7 @@ namespace AnonymousEngine
 			static void StartElementHandler(void* userData, const XML_Char* name, const XML_Char** attributes);
 			static void EndElementHandler(void* userData, const XML_Char* name);
 			static void CharDataHandler(void* userData, const XML_Char* buffer, int length);
+			static std::string TrimString(const std::string& string);
 
 			XML_Parser mParser;
 			Vector<IXmlParserHelper*> mHelpers;

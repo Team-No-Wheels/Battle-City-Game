@@ -26,15 +26,39 @@ namespace UnitTestLibraryDesktop
 			TestSharedData data1;
 			helper1.Initialize(data1);
 			parser1.AddHelper(helper1);
-			parser1.Parse(TestXml.c_str(), TestXml.size(), true);
+			parser1.Parse(TestXmlAttributed.c_str(), TestXmlAttributed.size(), true);
 			parser1.RemoveHelper(helper1);
+
+			std::string output = data1.AwardWinners()->ToString();
 
 			XmlParseMaster parser2;
 			TestXmlParserHelper helper2;
 			TestSharedData data2;
 			helper2.Initialize(data2);
 			parser2.AddHelper(helper2);
-			parser2.Parse(TestXml.c_str(), TestXml.size(), true);
+			parser2.Parse(TestXmlAttributed.c_str(), TestXmlAttributed.size(), true);
+
+			Assert::IsTrue(data2.AwardWinners()->Equals(data1.AwardWinners()));
+		}
+
+		TEST_METHOD(TestParseVerboseXml)
+		{
+			XmlParseMaster parser1;
+			TestXmlParserHelper helper1;
+			TestSharedData data1;
+			helper1.Initialize(data1);
+			parser1.AddHelper(helper1);
+			parser1.Parse(TestXmlVerbose.c_str(), TestXmlVerbose.size(), true);
+			parser1.RemoveHelper(helper1);
+
+			std::string output = data1.AwardWinners()->ToString();
+
+			XmlParseMaster parser2;
+			TestXmlParserHelper helper2;
+			TestSharedData data2;
+			helper2.Initialize(data2);
+			parser2.AddHelper(helper2);
+			parser2.Parse(TestXmlVerbose.c_str(), TestXmlVerbose.size(), true);
 
 			Assert::IsTrue(data2.AwardWinners()->Equals(data1.AwardWinners()));
 		}
@@ -60,11 +84,12 @@ namespace UnitTestLibraryDesktop
 		}
 
 		static TestClassHelper mHelper;
-		static std::string TestXml;
+		static std::string TestXmlAttributed;
+		static std::string TestXmlVerbose;
 	};
 
 	TestClassHelper XmlParserTest::mHelper;
-	std::string XmlParserTest::TestXml = "\
+	std::string XmlParserTest::TestXmlAttributed = "\
 		<award name=\"E3 Game Critics Awards\">\
 		<year value=\"2016\">\
 			<categories>\
@@ -86,4 +111,74 @@ namespace UnitTestLibraryDesktop
 			</categories>\
 		</year>\
 		</award>";
+
+	std::string XmlParserTest::TestXmlVerbose = "\
+	<award>\
+	<name>E3 Game Critics Awards</name>\
+	<year>\
+		<value>2016</value>\
+		<categories>\
+			<category>\
+				<name>Best of Show</name>\
+				<game>The Legend of Zelda: Breath of the Wild</game>\
+			</category>\
+			<category>\
+				<name>Best Original Game</name>\
+				<game>Horizon: Zero Dawn</game>\
+			</category>\
+			<category>\
+				<name>Best Console Game</name>\
+				<game>The Legend of Zelda: Breath of the Wild</game>\
+			</category>\
+			<category>\
+				<name>Best VR Game</name>\
+				<game>Batman: Arkham VR</game>\
+			</category>\
+			<category>\
+				<name>Best PC Game</name>\
+				<game>Civilization VI</game>\
+			</category>\
+			<category>\
+				<name>Best Hardware/Peripheral</name>\
+				<game>PlayStation VR</game>\
+			</category>\
+			<category>\
+				<name>Best Action Game</name>\
+				<game>Battlefield 1</game>\
+			</category>\
+			<category>\
+				<name>Best Action/Adventure Game</name>\
+				<game>The Legend of Zelda: Breath of the Wild</game>\
+			</category>\
+			<category>\
+				<name>Best Role-Playing Game</name>\
+				<game>Final Fantasy XV</game>\
+			</category>\
+			<category>\
+				<name>Best Racing Game</name>\
+				<game>Forza Horizon 3</game>\
+			</category>\
+			<category>\
+				<name>Best Sports Game</name>\
+				<game>Steep</game>\
+			</category>\
+			<category>\
+				<name>Best Family Game</name>\
+				<game>Skylanders: Imaginators</game>\
+			</category>\
+			<category>\
+				<name>Best Online Multiplayer</name>\
+				<game>Titanfall 2</game>\
+			</category>\
+			<category>\
+				<name>Best Independent Game</name>\
+				<game>Inside</game>\
+			</category>\
+			<category>\
+				<name>Special Commendation for Graphics</name>\
+				<game>God of War</game>\
+			</category>\
+		</categories>\
+	</year>\
+</award>";
 }
