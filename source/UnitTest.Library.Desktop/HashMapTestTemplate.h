@@ -150,6 +150,10 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(pair1.second == map.Find(value1)->second);
 			Assert::IsTrue(pair2.second == map.Find(value2)->second);
 			Assert::IsTrue(pair3.second == map.Find(value3)->second);
+
+			Assert::IsTrue(map.end() == map.begin().end());
+			IteratorType iterator;
+			Assert::IsTrue(iterator == iterator.end());
 		}
 
 		static void TestIndexOfOperator(const TKey& value1, const TKey& value2, const TKey& value3, const TKey& value4)

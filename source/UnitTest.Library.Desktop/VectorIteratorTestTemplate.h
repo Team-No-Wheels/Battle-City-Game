@@ -31,6 +31,10 @@ namespace UnitTestLibraryDesktop
 			Assert::AreNotEqual(vector.begin(), vector.end());
 			Assert::AreEqual(vector.end(), ++vector.begin());
 			Assert::ExpectException<std::out_of_range>([&vector] { ++vector.end(); });
+
+			Assert::IsTrue(vector.end() == vector.begin().end());
+			AnonymousEngine::Vector<T>::Iterator uninitializedIt;
+			Assert::IsTrue(uninitializedIt == uninitializedIt.end());
 		}
 
 		static void TestPostIncrementOperator(const T& value1, const T& value2)

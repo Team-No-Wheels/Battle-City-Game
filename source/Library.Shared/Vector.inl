@@ -57,6 +57,12 @@ namespace AnonymousEngine
 	{
 	}
 
+	template <typename T>
+	typename Vector<T>::Iterator Vector<T>::Iterator::end() const
+	{
+		return (mOwner != nullptr) ? mOwner->end() : Iterator();
+	}
+
 #pragma endregion
 
 #pragma region VectorMethods

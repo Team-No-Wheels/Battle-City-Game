@@ -52,6 +52,11 @@ namespace AnonymousEngine
 			 *  @returns A boolean indicating whether the two iterators are not equal
 			 */
 			bool operator!=(const Iterator& rhs) const;
+			
+			/** Gets the end iterator for the current vector
+			 *  @return The end iterator for the current vector
+			 */
+			Iterator end() const;
 		private:
 			std::uint32_t mIndex;
 			Vector<T>* mOwner;

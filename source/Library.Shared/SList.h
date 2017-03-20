@@ -31,43 +31,48 @@ namespace AnonymousEngine
 		{
 		public:
 			/** Default constructor. Initializes an empty iterator which doesn't point to anything
-			*/
+			 */
 			Iterator();
 
 			/** Initializes an iterator from the values of another iterator
-			*  @param rhs The iterator from which values are to be copied
-			*/
+			 *  @param rhs The iterator from which values are to be copied
+			 */
 			Iterator(const Iterator& rhs) = default;
 
 			/** Copies the values from another iterator to this iterator
-			*  @param rhs The iterator from which the values are to be copied
-			*/
+			 *  @param rhs The iterator from which the values are to be copied
+			 */
 			Iterator& operator=(const Iterator& rhs) = default;
 
 			/** Advances the iterator to the next location in the container
-			*  @returns The current iterator which now points to the next location in the container
-			*/
+			 *  @returns The current iterator which now points to the next location in the container
+			 */
 			Iterator& operator++();
 
 			/** Give an iterator which points to the current location in the container and advances the iterator to the next
-			*  location in the container
-			*/
+			 *  location in the container
+			 */
 			Iterator operator++(int);
 
 			/** Get the current value in the container that the iterator points to
-			*   @returns A constant reference to the value that the iterator points to
-			*/
+			 *  @returns A constant reference to the value that the iterator points to
+			 */
 			T& operator*() const;
 
 			/** Check if two iterators are equal
-			*   @returns A boolean indicating whether the two iterators are equal
-			*/
+			 *  @returns A boolean indicating whether the two iterators are equal
+			 */
 			bool operator==(const Iterator& rhs) const;
 
 			/** Check if two iterators are not equal
-			*   @returns A boolean indicating whether the two iterators are not equal
-			*/
+			 *  @returns A boolean indicating whether the two iterators are not equal
+			 */
 			bool operator!=(const Iterator& rhs) const;
+
+			/** Gets the end iterator for the current list
+			 *  @return The end iterator for the current list
+			 */
+			Iterator end() const;
 		private:
 			Node* mNode;
 			const SList<T>* mOwner;
