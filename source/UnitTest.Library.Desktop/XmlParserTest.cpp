@@ -31,20 +31,19 @@ namespace UnitTestLibraryDesktop
 				parser1.AddHelper(helper1);
 				parser1.Parse(xml, true);
 				parser1.RemoveHelper(helper1);
-				std::string output = data1.AwardWinners()->ToString();
+				std::string output1 = data1.AwardWinners()->ToString();
 
 				TestSharedData data2;
 				XmlParseMaster parser2;
 				data2.SetXmlParseMaster(parser2);
 				parser2.SetSharedData(data2);
 				TestXmlParserHelper helper2;
-				helper2.Initialize();
 				parser2.AddHelper(helper2);
 				parser2.Parse(xml, true);
-
 				std::string output2 = data2.AwardWinners()->ToString();
 
 				Assert::IsTrue(data2.AwardWinners()->Equals(data1.AwardWinners()));
+				Assert::AreEqual(output1, output2);
 			}
 		}
 
@@ -60,21 +59,47 @@ namespace UnitTestLibraryDesktop
 				parser1.AddHelper(helper1);
 				parser1.ParseFromFile(xmlFile);
 				parser1.RemoveHelper(helper1);
-				std::string output = data1.AwardWinners()->ToString();
+				std::string output1 = data1.AwardWinners()->ToString();
 
 				TestSharedData data2;
 				XmlParseMaster parser2;
 				data2.SetXmlParseMaster(parser2);
 				parser2.SetSharedData(data2);
 				TestXmlParserHelper helper2;
-				helper2.Initialize();
 				parser2.AddHelper(helper2);
 				parser2.ParseFromFile(xmlFile);
-
 				std::string output2 = data2.AwardWinners()->ToString();
 
 				Assert::IsTrue(data2.AwardWinners()->Equals(data1.AwardWinners()));
+				Assert::AreEqual(output1, output2);
 			}
+		}
+
+		TEST_METHOD(TestParseXmlFileTypesAndCompare)
+		{
+			TestSharedData data1;
+			XmlParseMaster parser1;
+			data1.SetXmlParseMaster(parser1);
+			parser1.SetSharedData(data1);
+			TestXmlParserHelper helper1;
+			parser1.AddHelper(helper1);
+			const std::string& xml1 = TestXmlStrings[0];
+			parser1.Parse(xml1, true);
+			parser1.RemoveHelper(helper1);
+			std::string output1 = data1.AwardWinners()->ToString();
+
+			TestSharedData data2;
+			XmlParseMaster parser2;
+			data2.SetXmlParseMaster(parser2);
+			parser2.SetSharedData(data2);
+			TestXmlParserHelper helper2;
+			parser2.AddHelper(helper2);
+			const std::string& xml2 = TestXmlStrings[1];
+			parser2.Parse(xml2, true);
+			std::string output2 = data2.AwardWinners()->ToString();
+
+			Assert::IsTrue(data2.AwardWinners()->Equals(data1.AwardWinners()));
+			Assert::AreEqual(output1, output2);
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
@@ -133,64 +158,64 @@ namespace UnitTestLibraryDesktop
 				<value>2016</value>\
 				<categories>\
 					<category>\
+						<game>The Legend of Zelda: Breath of the Wild</game>\
 						<name>Best of Show</name>\
-						<game>The Legend of Zelda: Breath of the Wild</game>\
 					</category>\
 					<category>\
-						<name>Best Original Game</name>\
 						<game>Horizon: Zero Dawn</game>\
+						<name>Best Original Game</name>\
 					</category>\
 					<category>\
+						<game>The Legend of Zelda: Breath of the Wild</game>\
 						<name>Best Console Game</name>\
-						<game>The Legend of Zelda: Breath of the Wild</game>\
 					</category>\
 					<category>\
-						<name>Best VR Game</name>\
 						<game>Batman: Arkham VR</game>\
+						<name>Best VR Game</name>\
 					</category>\
 					<category>\
-						<name>Best PC Game</name>\
 						<game>Civilization VI</game>\
+						<name>Best PC Game</name>\
 					</category>\
 					<category>\
-						<name>Best Hardware/Peripheral</name>\
 						<game>PlayStation VR</game>\
+						<name>Best Hardware/Peripheral</name>\
 					</category>\
 					<category>\
-						<name>Best Action Game</name>\
 						<game>Battlefield 1</game>\
+						<name>Best Action Game</name>\
 					</category>\
 					<category>\
-						<name>Best Action/Adventure Game</name>\
 						<game>The Legend of Zelda: Breath of the Wild</game>\
+						<name>Best Action/Adventure Game</name>\
 					</category>\
 					<category>\
-						<name>Best Role-Playing Game</name>\
 						<game>Final Fantasy XV</game>\
+						<name>Best Role-Playing Game</name>\
 					</category>\
 					<category>\
-						<name>Best Racing Game</name>\
 						<game>Forza Horizon 3</game>\
+						<name>Best Racing Game</name>\
 					</category>\
 					<category>\
-						<name>Best Sports Game</name>\
 						<game>Steep</game>\
+						<name>Best Sports Game</name>\
 					</category>\
 					<category>\
-						<name>Best Family Game</name>\
 						<game>Skylanders: Imaginators</game>\
+						<name>Best Family Game</name>\
 					</category>\
 					<category>\
-						<name>Best Online Multiplayer</name>\
 						<game>Titanfall 2</game>\
+						<name>Best Online Multiplayer</name>\
 					</category>\
 					<category>\
-						<name>Best Independent Game</name>\
 						<game>Inside</game>\
+						<name>Best Independent Game</name>\
 					</category>\
 					<category>\
-						<name>Special Commendation for Graphics</name>\
 						<game>God of War</game>\
+						<name>Special Commendation for Graphics</name>\
 					</category>\
 				</categories>\
 			</year>\
