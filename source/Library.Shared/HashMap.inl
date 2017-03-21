@@ -18,19 +18,24 @@ namespace AnonymousEngine
 			throw std::invalid_argument("Uninitialized iterator");
 		}
 
-		if (*this == end())
+		if (*this == mOwner->end())
 		{
 			throw std::out_of_range("iterator out of range");
 		}
 
-		if (++mChainIterator == end())
+		if (++mChainIterator == mChainIterator.end())
 		{
 			for (++mIndex; mIndex < mOwner->mData.Size(); ++mIndex)
 			{
 				if (mOwner->mData[mIndex].Size() > 0)
 				{
 					mChainIterator = mOwner->mData[mIndex].begin();
+					break;
 				}
+			}
+			if (mIndex == mOwner->mData.Size())
+			{
+				*this = end();
 			}
 		}
 		return (*this);
@@ -93,6 +98,12 @@ namespace AnonymousEngine
 	HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::Iterator(const std::uint32_t index, const ChainIterator& it, HashMap* owner) :
 		mIndex(index), mChainIterator(it), mOwner(owner)
 	{
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::end() const
+	{
+		return (mOwner != nullptr) ? mOwner->end() : Iterator();
 	}
 
 #pragma endregion
@@ -214,7 +225,7 @@ namespace AnonymousEngine
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
-	bool HashMap<TKey, TData, THashFunctor, TCompareFunctor>::ContainsKey(const TKey& key)
+	bool HashMap<TKey, TData, THashFunctor, TCompareFunctor>::ContainsKey(const TKey& key) const
 	{
 		return (Find(key) != end());
 	}

@@ -24,6 +24,10 @@ namespace UnitTestLibraryDesktop
 			{
 				Assert::AreEqual(values[i], *it++);
 			}
+
+			Assert::IsTrue(list.end() == it.end());
+			typename AnonymousEngine::SList<T>::Iterator uninitializedIt;
+			Assert::IsTrue(uninitializedIt == uninitializedIt.end());
 		}
 
 		static void TestCopyConstructor(const T& value)

@@ -98,7 +98,7 @@ namespace AnonymousEngine
 		scope->mParentKey = name;
 		scope->mParentDatumIndex = datum.Size();
 		datum.PushBack(*scope);
-		return datum.Get<Scope>(datum.Size() - 1);
+		return *scope;
 	}
 
 	void Scope::Adopt(Scope& scope, const std::string& name)
@@ -107,8 +107,9 @@ namespace AnonymousEngine
 		{
 			throw std::invalid_argument("Cannot adopt yourself.");
 		}
-		scope.Orphan();
 		Datum& datum = Append(name);
+		datum.SetType(Datum::DatumType::Scope);
+		scope.Orphan();
 		scope.mParent = this;
 		scope.mParentKey = name;
 		scope.mParentDatumIndex = datum.Size();
@@ -118,6 +119,11 @@ namespace AnonymousEngine
 	const Scope* Scope::GetParent() const
 	{
 		return mParent;
+	}
+
+	std::string Scope::GetParentKey() const
+	{
+		return mParentKey;
 	}
 
 	Datum& Scope::operator[](const std::string& name)
@@ -188,7 +194,37 @@ namespace AnonymousEngine
 
 	std::string Scope::ToString() const
 	{
-		return "Scope";
+		std::string output = "{";
+		std::uint32_t attributeIndex = 0;
+		for (const auto& entry : mOrderVector)
+		{
+			std::uint32_t entrySize = entry->second.Size();
+			if (attributeIndex > 0)
+			{
+				output.append(", ");
+			}
+			output.append("\"").append(entry->first).append("\"").append((entrySize > 1) ? ": [" : ": ");
+			for (std::uint32_t i = 0; i < entry->second.Size(); ++i)
+			{
+				if (entry->second.Type() != Datum::DatumType::Scope)
+				{
+					output.append((i == 0) ? "\"" : ", \"");
+				}
+				else if (i > 0)
+				{
+					output.append(", ");
+				}
+				output.append(entry->second.ToString(i));
+				if (entry->second.Type() != Datum::DatumType::Scope)
+				{
+					output.append("\"");
+				}
+			}
+			output.append((entrySize > 1) ? "]" : "");
+			++attributeIndex;
+		}
+		output.append("}");
+		return output;
 	}
 
 	void Scope::FromString(const std::string&)

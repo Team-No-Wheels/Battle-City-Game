@@ -1,0 +1,21 @@
+<award name="E3 Game Critics Awards">
+	<year value="2016">
+		<categories>
+			<category name="Best of Show" game="The Legend of Zelda: Breath of the Wild"/>
+			<category name="Best Original Game" game="Horizon: Zero Dawn"/>
+			<category name="Best Console Game" game="The Legend of Zelda: Breath of the Wild"/>
+			<category name="Best VR Game" game="Batman: Arkham VR"/>
+			<category name="Best PC Game" game="Civilization VI"/>
+			<category name="Best Hardware/Peripheral" game="PlayStation VR"/>
+			<category name="Best Action Game" game="Battlefield 1"/>
+			<category name="Best Action/Adventure Game" game="The Legend of Zelda: Breath of the Wild"/>
+			<category name="Best Role-Playing Game" game="Final Fantasy XV"/>
+			<category name="Best Racing Game" game="Forza Horizon 3"/>
+			<category name="Best Sports Game" game="Steep"/>
+			<category name="Best Family Game" game="Skylanders: Imaginators"/>
+			<category name="Best Online Multiplayer" game="Titanfall 2"/>
+			<category name="Best Independent Game" game="Inside"/>
+			<category name="Special Commendation for Graphics" game="God of War"/>
+		</categories>
+	</year>
+</award>

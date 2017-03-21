@@ -69,6 +69,12 @@ namespace AnonymousEngine
 	{
 		return !(*this == rhs);
 	}
+
+	template<typename T>
+	typename SList<T>::Iterator SList<T>::Iterator::end() const
+	{
+		return (mOwner != nullptr) ? mOwner->end() : Iterator();
+	}
 #pragma endregion 
 
 #pragma region SListMethods

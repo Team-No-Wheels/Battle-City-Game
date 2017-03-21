@@ -1,0 +1,68 @@
+<award>
+	<name>E3 Game Critics Awards</name>
+	<year>
+		<value>2016</value>
+		<categories>
+			<category>
+				<game>The Legend of Zelda: Breath of the Wild</game>
+				<name>Best of Show</name>
+			</category>
+			<category>
+				<game>Horizon: Zero Dawn</game>
+				<name>Best Original Game</name>
+			</category>
+			<category>
+				<game>The Legend of Zelda: Breath of the Wild</game>
+				<name>Best Console Game</name>
+			</category>
+			<category>
+				<game>Batman: Arkham VR</game>
+				<name>Best VR Game</name>
+			</category>
+			<category>
+				<game>Civilization VI</game>
+				<name>Best PC Game</name>
+			</category>
+			<category>
+				<game>PlayStation VR</game>
+				<name>Best Hardware/Peripheral</name>
+			</category>
+			<category>
+				<game>Battlefield 1</game>
+				<name>Best Action Game</name>
+			</category>
+			<category>
+				<game>The Legend of Zelda: Breath of the Wild</game>
+				<name>Best Action/Adventure Game</name>
+			</category>
+			<category>
+				<game>Final Fantasy XV</game>
+				<name>Best Role-Playing Game</name>
+			</category>
+			<category>
+				<game>Forza Horizon 3</game>
+				<name>Best Racing Game</name>
+			</category>
+			<category>
+				<game>Steep</game>
+				<name>Best Sports Game</name>
+			</category>
+			<category>
+				<game>Skylanders: Imaginators</game>
+				<name>Best Family Game</name>
+			</category>
+			<category>
+				<game>Titanfall 2</game>
+				<name>Best Online Multiplayer</name>
+			</category>
+			<category>
+				<game>Inside</game>
+				<name>Best Independent Game</name>
+			</category>
+			<category>
+				<game>God of War</game>
+				<name>Special Commendation for Graphics</name>
+			</category>
+		</categories>
+	</year>
+</award>

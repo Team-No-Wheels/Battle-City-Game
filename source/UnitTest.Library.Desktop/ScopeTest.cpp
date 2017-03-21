@@ -34,6 +34,7 @@ namespace UnitTestLibraryDesktop
 		{
 			Scope s;
 			Assert::IsTrue(nullptr == s.GetParent());
+			Assert::AreEqual(std::string(), s.GetParentKey());
 		}
 
 		TEST_METHOD(TestAppend)
@@ -86,11 +87,13 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(DatumType::Integer, d2.Type());
 			Assert::IsTrue(d2 == value2);
 			Assert::IsTrue(childScope.GetParent() == const_cast<const Scope*>(&scope));
+			Assert::AreEqual(std::string("child"), childScope.GetParentKey());
 			Assert::AreEqual(1U, d.Size());
 
 			Scope& childScope2 = scope.AppendScope("child");
 			Assert::IsTrue(childScope != childScope2);
 			Assert::IsTrue(childScope2.GetParent() == const_cast<const Scope*>(&scope));
+			Assert::AreEqual(std::string("child"), childScope2.GetParentKey());
 
 			Assert::AreEqual(2U, d.Size());
 			scope.AppendScope("child");
@@ -268,12 +271,14 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(scope["child"].Get<Scope>() == childScope);
 			Assert::IsNotNull(scope.Find("child"));
 			Assert::IsTrue(childScope.GetParent() == &scope);
+			Assert::AreEqual(std::string("child"), childScope.GetParentKey());
 			Scope scope2;
 			scope2.Adopt(childScope, "newChild");
 			Assert::IsTrue(scope["child"].Size() == 0U);
 			Assert::IsNull(scope2.Find("child"));
 			Assert::IsTrue(scope2["newChild"].Get<Scope>() == childScope);
 			Assert::IsTrue(childScope.GetParent() == &scope2);
+			Assert::AreEqual(std::string("newChild"), childScope.GetParentKey());
 			Assert::IsFalse(childScope.Equals(nullptr));
 			Foo f;
 			Assert::IsFalse(childScope.Equals(&f));

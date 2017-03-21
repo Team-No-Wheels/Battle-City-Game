@@ -92,6 +92,11 @@ namespace AnonymousEngine
 			*  @return False if both the iterators are same. True otherwise
 			*/
 			bool operator!=(const Iterator& rhs) const;
+
+			/** Gets the end iterator for the current hashmap
+			 *  @return The end iterator for the current hashmap
+			 */
+			Iterator end() const;
 		private:
 			std::uint32_t mIndex;
 			typename ChainType::Iterator mChainIterator;
@@ -183,7 +188,7 @@ namespace AnonymousEngine
 		 *  @param key The key to search in the hashmap
 		 *  @return A boolean indicating whether the key is present in the hashmap or not
 		 */
-		bool ContainsKey(const TKey& key);
+		bool ContainsKey(const TKey& key) const;
 
 		/** Return an iterator to the beginning of the hashmap
 		 *  @return An iterator to the beginning of the hashmap
