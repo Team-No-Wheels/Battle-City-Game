@@ -4,6 +4,9 @@
 
 namespace UnitTestLibraryDesktop
 {
+
+	RTTI_DEFINITIONS(TestXmlParserHelper)
+
 	AnonymousEngine::Vector<std::string> TestXmlParserHelper::SupportedTags = {
 		"award",
 		"year",
@@ -11,16 +14,9 @@ namespace UnitTestLibraryDesktop
 		"category"
 	};
 
-	TestXmlParserHelper::TestXmlParserHelper()
-	{
-	}
-
-	TestXmlParserHelper::~TestXmlParserHelper()
-	{
-	}
-
 	void TestXmlParserHelper::Initialize()
 	{
+		mStack.Clear();
 	}
 
 	bool TestXmlParserHelper::StartElementHandler(SharedData& sharedData, const std::string& name, const AttributeMap& attributes)
@@ -62,6 +58,7 @@ namespace UnitTestLibraryDesktop
 			else
 			{
 				TestSharedData* testSharedData = sharedData.As<TestSharedData>();
+				delete testSharedData->AwardWinners();
 				testSharedData->AwardWinners() = element.mScope;
 			}
 			return true;
@@ -69,12 +66,8 @@ namespace UnitTestLibraryDesktop
 		return false;
 	}
 
-	void TestXmlParserHelper::CharDataHandler(SharedData& sharedData, const std::string& buffer)
+	void TestXmlParserHelper::CharDataHandler(SharedData&, const std::string& buffer)
 	{
-		if (!sharedData.Is(TestSharedData::TypeIdClass()))
-		{
-			return;
-		}
 		if (SupportedTags.Find(mStack.Back().mElementName) == SupportedTags.end())
 		{
 			ParsingStackDataElement charDataElement = mStack.Back();

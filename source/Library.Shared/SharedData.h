@@ -52,7 +52,7 @@ namespace AnonymousEngine
 			*/
 			std::uint32_t Depth() const;
 
-		private:
+		protected:
 			XmlParseMaster* mParser;
 			std::uint32_t mDepth;
 

@@ -68,8 +68,6 @@ namespace AnonymousEngine
 			void SetSharedData(SharedData& sharedData);
 
 		private:
-			void ValidateParserState() const;
-
 			static void StartElementHandler(void* userData, const XML_Char* name, const XML_Char** attributes);
 			static void EndElementHandler(void* userData, const XML_Char* name);
 			static void CharDataHandler(void* userData, const XML_Char* buffer, int length);
@@ -80,6 +78,8 @@ namespace AnonymousEngine
 			IXmlParserHelper* mCurrentElementHelper;
 			std::string mFilename;
 			SharedData* mSharedData;
+
+			bool mIsClone;
 
 			static const std::string UTF8_ENCODING;
 		};

@@ -14,13 +14,13 @@ namespace UnitTestLibraryDesktop
 	class TestXmlParserHelper final : public IXmlParserHelper
 	{
 	public:
-		TestXmlParserHelper();
+		TestXmlParserHelper() = default;
 		void Initialize() override;
 		bool StartElementHandler(SharedData& sharedData, const std::string& name, const AttributeMap& attributes) override;
 		bool EndElementHandler(SharedData& sharedData, const std::string& name) override;
 		void CharDataHandler(SharedData& sharedData, const std::string& buffer) override;
 		IXmlParserHelper* Clone() override;
-		~TestXmlParserHelper();
+		~TestXmlParserHelper() = default;
 
 	private:
 		struct ParsingStackDataElement
@@ -33,5 +33,7 @@ namespace UnitTestLibraryDesktop
 		AnonymousEngine::Vector<ParsingStackDataElement> mStack;
 
 		static AnonymousEngine::Vector<std::string> SupportedTags;
+
+		RTTI_DECLARATIONS(TestXmlParserHelper, IXmlParserHelper)
 	};
 }

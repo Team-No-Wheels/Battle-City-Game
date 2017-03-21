@@ -8,7 +8,7 @@ namespace AnonymousEngine
 {
 	namespace Parsers
 	{
-		class IXmlParserHelper
+		class IXmlParserHelper : public RTTI
 		{
 		public:
 			/** Initialize the helper's state
@@ -40,6 +40,8 @@ namespace AnonymousEngine
 			/** Destructor to deallocate any memory
 			 */
 			virtual ~IXmlParserHelper() = default;
+
+			RTTI_DECLARATIONS(IXmlParserHelper, RTTI)
 		};
 	}
 }

@@ -11,12 +11,10 @@ namespace AnonymousEngine
 {
 	namespace Parsers
 	{
-		#pragma region XmlParseMasterDefinitions
-
 		const std::string XmlParseMaster::UTF8_ENCODING = "UTF-8";
 
 		XmlParseMaster::XmlParseMaster() :
-			mParser(XML_ParserCreate(UTF8_ENCODING.c_str())), mCurrentElementHelper(nullptr), mSharedData(nullptr)
+			mParser(XML_ParserCreate(UTF8_ENCODING.c_str())), mCurrentElementHelper(nullptr), mSharedData(nullptr), mIsClone(false)
 		{
 			XML_SetElementHandler(mParser, StartElementHandler, EndElementHandler);
 			XML_SetCharacterDataHandler(mParser, CharDataHandler);
@@ -25,27 +23,46 @@ namespace AnonymousEngine
 		XmlParseMaster::~XmlParseMaster()
 		{
 			XML_ParserFree(mParser);
+			if (mIsClone)
+			{
+				for(auto helper : mHelpers)
+				{
+					delete helper;
+				}
+				delete mSharedData;
+			}
 		}
 
 		XmlParseMaster* XmlParseMaster::Clone() const
 		{
 			XmlParseMaster* parser = new XmlParseMaster();
-			parser->mParser = mParser;
-			parser->mHelpers = mHelpers;
-			parser->mCurrentElementHelper = mCurrentElementHelper;
+			for (const auto& helper : mHelpers)
+			{
+				parser->AddHelper(*(helper->Clone()));
+			}
+			parser->mCurrentElementHelper = nullptr;
 			parser->mFilename = mFilename;
 			parser->mSharedData = mSharedData->Clone();
 			parser->mSharedData->SetXmlParseMaster(*parser);
+			parser->mIsClone = true;
 			return parser;
 		}
 
 		void XmlParseMaster::AddHelper(IXmlParserHelper& helper)
 		{
+			if (mIsClone)
+			{
+				throw std::runtime_error("Can't add helpers to a cloned parser");
+			}
 			mHelpers.PushBack(&helper);
 		}
 
 		void XmlParseMaster::RemoveHelper(IXmlParserHelper& helper)
 		{
+			if (mIsClone)
+			{
+				throw std::runtime_error("Can't remove helpers from a cloned parser");
+			}
 			mHelpers.Remove(&helper);
 		}
 
@@ -84,19 +101,6 @@ namespace AnonymousEngine
 		{
 			this->mSharedData = &sharedData;
 			XML_SetUserData(mParser, &sharedData);
-		}
-
-		void XmlParseMaster::ValidateParserState() const
-		{
-			if (mSharedData == nullptr)
-			{
-				throw std::runtime_error("Invalid parser state. Shared data is null");
-			}
-
-			if (mHelpers.Size() == 0)
-			{
-				throw std::runtime_error("Invalid parser state. There are no helpers attached");
-			}
 		}
 
 		void XmlParseMaster::StartElementHandler(void *userData, const XML_Char *name, const XML_Char **attributes)
@@ -159,7 +163,5 @@ namespace AnonymousEngine
 			auto back = std::find_if_not(string.rbegin(), string.rend(), [](std::int32_t character) { return std::isspace(character); }).base();
 			return ((back <= front) ? std::string() : std::string(front, back));
 		}
-
-		#pragma endregion
 	}
 }

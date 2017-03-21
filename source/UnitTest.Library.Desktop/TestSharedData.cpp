@@ -6,7 +6,7 @@ namespace UnitTestLibraryDesktop
 	RTTI_DEFINITIONS(TestSharedData)
 
 	TestSharedData::TestSharedData() :
-		mAwardWinners(nullptr)
+		mAwardWinners(new AnonymousEngine::Scope())
 	{
 	}
 
@@ -17,7 +17,11 @@ namespace UnitTestLibraryDesktop
 
 	SharedData* TestSharedData::Clone() const
 	{
-		return new TestSharedData();
+		TestSharedData* data = new TestSharedData();
+		data->mDepth = mDepth;
+		data->mParser = mParser;
+		*(data->mAwardWinners) = *mAwardWinners;
+		return data;
 	}
 
 	AnonymousEngine::Scope*& TestSharedData::AwardWinners()
