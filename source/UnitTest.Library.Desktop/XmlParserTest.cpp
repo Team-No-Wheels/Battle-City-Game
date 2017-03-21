@@ -32,6 +32,7 @@ namespace UnitTestLibraryDesktop
 				parser1.Parse(xml, true);
 				parser1.RemoveHelper(helper1);
 				std::string output1 = data1.AwardWinners()->ToString();
+				Assert::AreEqual(TestScopeDataString, output1);
 
 				TestSharedData data2;
 				XmlParseMaster parser2;
@@ -41,6 +42,7 @@ namespace UnitTestLibraryDesktop
 				parser2.AddHelper(helper2);
 				parser2.Parse(xml, true);
 				std::string output2 = data2.AwardWinners()->ToString();
+				Assert::AreEqual(TestScopeDataString, output2);
 
 				Assert::IsTrue(data2.AwardWinners()->Equals(data1.AwardWinners()));
 				Assert::AreEqual(output1, output2);
@@ -60,6 +62,7 @@ namespace UnitTestLibraryDesktop
 				parser1.ParseFromFile(xmlFile);
 				parser1.RemoveHelper(helper1);
 				std::string output1 = data1.AwardWinners()->ToString();
+				Assert::AreEqual(TestScopeDataString, output1);
 
 				TestSharedData data2;
 				XmlParseMaster parser2;
@@ -69,6 +72,7 @@ namespace UnitTestLibraryDesktop
 				parser2.AddHelper(helper2);
 				parser2.ParseFromFile(xmlFile);
 				std::string output2 = data2.AwardWinners()->ToString();
+				Assert::AreEqual(TestScopeDataString, output2);
 
 				Assert::IsTrue(data2.AwardWinners()->Equals(data1.AwardWinners()));
 				Assert::AreEqual(output1, output2);
@@ -87,6 +91,7 @@ namespace UnitTestLibraryDesktop
 			parser1.Parse(xml1, true);
 			parser1.RemoveHelper(helper1);
 			std::string output1 = data1.AwardWinners()->ToString();
+			Assert::AreEqual(TestScopeDataString, output1);
 
 			TestSharedData data2;
 			XmlParseMaster parser2;
@@ -97,6 +102,7 @@ namespace UnitTestLibraryDesktop
 			const std::string& xml2 = TestXmlStrings[1];
 			parser2.Parse(xml2, true);
 			std::string output2 = data2.AwardWinners()->ToString();
+			Assert::AreEqual(TestScopeDataString, output2);
 
 			Assert::IsTrue(data2.AwardWinners()->Equals(data1.AwardWinners()));
 			Assert::AreEqual(output1, output2);
@@ -125,6 +131,7 @@ namespace UnitTestLibraryDesktop
 		static TestClassHelper mHelper;
 		static const AnonymousEngine::Vector<std::string> TestXmlStrings;
 		static const AnonymousEngine::Vector<std::string> TestXmlFiles;
+		static const std::string TestScopeDataString;
 	};
 
 	TestClassHelper XmlParserTest::mHelper;
@@ -226,4 +233,6 @@ namespace UnitTestLibraryDesktop
 		"TestData/attributed.xml",
 		"TestData/verbose.xml"
 	};
+
+	const std::string XmlParserTest::TestScopeDataString = "{\"name\": \"E3 Game Critics Awards\", \"year\": {\"value\": \"2016\", \"categories\": {\"category\": [{\"game\": \"The Legend of Zelda: Breath of the Wild\", \"name\": \"Best of Show\"}, {\"game\": \"Horizon: Zero Dawn\", \"name\": \"Best Original Game\"}, {\"game\": \"The Legend of Zelda: Breath of the Wild\", \"name\": \"Best Console Game\"}, {\"game\": \"Batman: Arkham VR\", \"name\": \"Best VR Game\"}, {\"game\": \"Civilization VI\", \"name\": \"Best PC Game\"}, {\"game\": \"PlayStation VR\", \"name\": \"Best Hardware/Peripheral\"}, {\"game\": \"Battlefield 1\", \"name\": \"Best Action Game\"}, {\"game\": \"The Legend of Zelda: Breath of the Wild\", \"name\": \"Best Action/Adventure Game\"}, {\"game\": \"Final Fantasy XV\", \"name\": \"Best Role-Playing Game\"}, {\"game\": \"Forza Horizon 3\", \"name\": \"Best Racing Game\"}, {\"game\": \"Steep\", \"name\": \"Best Sports Game\"}, {\"game\": \"Skylanders: Imaginators\", \"name\": \"Best Family Game\"}, {\"game\": \"Titanfall 2\", \"name\": \"Best Online Multiplayer\"}, {\"game\": \"Inside\", \"name\": \"Best Independent Game\"}, {\"game\": \"God of War\", \"name\": \"Special Commendation for Graphics\"}]}}}";
 }
