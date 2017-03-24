@@ -44,7 +44,6 @@ namespace AnonymousEngine
 			}
 			parser->mCurrentElementHelper = nullptr;
 			parser->mFilename = mFilename;
-			parser->mSharedData->mParser = parser;
 			parser->mIsClone = true;
 			return parser;
 		}

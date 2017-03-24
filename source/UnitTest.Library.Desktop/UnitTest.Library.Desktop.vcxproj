@@ -241,8 +241,8 @@
     </ClCompile>
     <ClCompile Include="SlistIteratorTest.cpp" />
     <ClCompile Include="TestClassHelper.cpp" />
-    <ClCompile Include="TestSharedData.cpp" />
-    <ClCompile Include="TestXmlParserHelper.cpp" />
+    <ClCompile Include="FooSharedData.cpp" />
+    <ClCompile Include="FooXmlParserHelper.cpp" />
     <ClCompile Include="VectorIteratorTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="XmlParserTest.cpp" />
@@ -262,8 +262,8 @@
     <ClInclude Include="SListIteratorTestTemplate.h" />
     <ClInclude Include="SListTestTemplate.h" />
     <ClInclude Include="TestClassHelper.h" />
-    <ClInclude Include="TestSharedData.h" />
-    <ClInclude Include="TestXmlParseHelper.h" />
+    <ClInclude Include="FooSharedData.h" />
+    <ClInclude Include="FooXmlParseHelper.h" />
     <ClInclude Include="ToStringTemplates.h" />
     <ClInclude Include="VectorIteratorTestTemplate.h" />
     <ClInclude Include="VectorTestTemplate.h" />

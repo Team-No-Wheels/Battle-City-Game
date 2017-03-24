@@ -176,6 +176,18 @@ namespace AnonymousEngine
 		 */
 		const TData& operator[](const TKey& key) const;
 
+		/** Compares this hashmap with another hashmap
+		 *  @param rhs The other hashmap instance to compare to
+		 *  @return A boolean indicating whether this hashmap is equivalent to the other instance or not
+		 */
+		bool operator==(const HashMap& rhs) const;
+
+		/** Compares this hashmap with another hashmap
+		 *  @param rhs The other hashmap instance to compare to
+		 *  @return A boolean indicating whether this hashmap is not equivalent to the other instance or not
+		 */
+		bool operator!=(const HashMap& rhs) const;
+
 		/** Clears the contents of the hashmap
 		 */
 		void Clear();

@@ -7,8 +7,7 @@ namespace AnonymousEngine
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
 	HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::Iterator() :
 		mIndex(0), mOwner(nullptr)
-	{
-	}
+	{}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
 	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator& HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::operator++()
@@ -40,7 +39,7 @@ namespace AnonymousEngine
 		}
 		return (*this);
 	}
-	
+
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
 	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::operator++(int)
 	{
@@ -97,8 +96,7 @@ namespace AnonymousEngine
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
 	HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::Iterator(const std::uint32_t index, const ChainIterator& it, HashMap* owner) :
 		mIndex(index), mChainIterator(it), mOwner(owner)
-	{
-	}
+	{}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
 	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator::end() const
@@ -216,6 +214,35 @@ namespace AnonymousEngine
 			throw std::invalid_argument("Key not found");
 		}
 		return it->second;
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	bool HashMap<TKey, TData, THashFunctor, TCompareFunctor>::operator==(const HashMap& rhs) const
+	{
+		if (mSize != rhs.mSize)
+		{
+			return false;
+		}
+
+		for (const auto& entry : *this)
+		{
+			if (!rhs.ContainsKey(entry.first))
+			{
+				return false;
+			}
+
+			if (!((*this)[entry.first] == rhs[entry.first]))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
+	bool HashMap<TKey, TData, THashFunctor, TCompareFunctor>::operator!=(const HashMap& rhs) const
+	{
+		return !(*this == rhs);
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
