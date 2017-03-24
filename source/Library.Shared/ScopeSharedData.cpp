@@ -23,7 +23,6 @@ namespace AnonymousEngine
 		void ScopeSharedData::Initialize()
 		{
 			SharedData::Initialize();
-			delete mScope;
 			mScope = nullptr;
 		}
 	}

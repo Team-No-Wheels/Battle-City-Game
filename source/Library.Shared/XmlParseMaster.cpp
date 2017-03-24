@@ -133,6 +133,8 @@ namespace AnonymousEngine
 			SharedData* sharedData = reinterpret_cast<SharedData*>(userData);
 			XmlParseMaster* parseMaster = sharedData->GetXmlParseMaster();
 
+			sharedData->IncrementDepth();
+
 			// prepare name and attribute data for helpers
 			HashMap<std::string, std::string> attributeMap;
 			for (std::uint32_t i = 0; attributes[i] != nullptr; i += 2)
@@ -169,6 +171,7 @@ namespace AnonymousEngine
 					break;
 				}
 			}
+			sharedData->DecrementDepth();
 		}
 
 		void XmlParseMaster::CharDataHandler(void* userData, const XML_Char* buffer, int length)

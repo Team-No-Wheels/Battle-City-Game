@@ -31,7 +31,7 @@ namespace UnitTestLibraryDesktop
 				XmlParseMaster parser1(data1);
 				ScopeParserHelper helper1;
 				parser1.AddHelper(helper1);
-				parser1.Parse(xml, true);
+				parser1.Parse(xml);
 				parser1.RemoveHelper(helper1);
 				std::string output1 = data1.mScope->ToString();
 				Assert::AreEqual(TestScopeDataString, output1);
@@ -40,14 +40,29 @@ namespace UnitTestLibraryDesktop
 				XmlParseMaster parser2(data2);
 				ScopeParserHelper helper2;
 				parser2.AddHelper(helper2);
-				parser2.Parse(xml, true);
+				parser2.Parse(xml);
 				std::string output2 = data2.mScope->ToString();
 				Assert::AreEqual(TestScopeDataString, output2);
 
 				Assert::IsTrue(data2.mScope->Equals(data1.mScope));
 				Assert::AreEqual(output1, output2);
+				Assert::AreEqual(0U, data1.Depth());
+				Assert::AreEqual(0U, data2.Depth());
 				delete data1.mScope;
 				delete data2.mScope;
+			}
+		}
+
+		TEST_METHOD(TestParseInvalidXmlStrings)
+		{
+			for (const auto& xml : InvalidXmls)
+			{
+				ScopeSharedData data1;
+				XmlParseMaster parser1(data1);
+				ScopeParserHelper helper1;
+				parser1.AddHelper(helper1);
+				Assert::ExpectException<std::runtime_error>([&parser1, &xml] { parser1.Parse(xml); });
+				delete data1.mScope;
 			}
 		}
 
@@ -75,6 +90,8 @@ namespace UnitTestLibraryDesktop
 
 				Assert::IsTrue(data2.mScope->Equals(data1.mScope));
 				Assert::AreEqual(output1, output2);
+				Assert::AreEqual(0U, data1.Depth());
+				Assert::AreEqual(0U, data2.Depth());
 				delete data1.mScope;
 				delete data2.mScope;
 			}
@@ -96,6 +113,8 @@ namespace UnitTestLibraryDesktop
 			parser1.Parse(TestXmlStrings[0], true);
 			output = data1.mScope->ToString();
 			Assert::AreEqual(TestScopeDataString, output);
+			Assert::AreEqual(0U, data1.Depth());
+			Assert::AreEqual(0U, data2.Depth());
 			delete data1.mScope;
 			delete data2.mScope;
 		}
@@ -108,35 +127,8 @@ namespace UnitTestLibraryDesktop
 				XmlParseMaster parser1(data1);
 				ScopeParserHelper helper1;
 				parser1.AddHelper(helper1);
-				parser1.Parse(xml, true);
+				parser1.Parse(xml);
 			}
-		}
-
-		TEST_METHOD(TestParseXmlFileTypesAndCompare)
-		{
-			ScopeSharedData data1;
-			XmlParseMaster parser1(data1);
-			ScopeParserHelper helper1;
-			parser1.AddHelper(helper1);
-			const std::string& xml1 = TestXmlStrings[0];
-			parser1.Parse(xml1, true);
-			parser1.RemoveHelper(helper1);
-			std::string output1 = data1.mScope->ToString();
-			Assert::AreEqual(TestScopeDataString, output1);
-
-			ScopeSharedData data2;
-			XmlParseMaster parser2(data2);
-			ScopeParserHelper helper2;
-			parser2.AddHelper(helper2);
-			const std::string& xml2 = TestXmlStrings[1];
-			parser2.Parse(xml2, true);
-			std::string output2 = data2.mScope->ToString();
-			Assert::AreEqual(TestScopeDataString, output2);
-
-			Assert::IsTrue(data2.mScope->Equals(data1.mScope));
-			Assert::AreEqual(output1, output2);
-			delete data1.mScope;
-			delete data2.mScope;
 		}
 
 		TEST_METHOD(TestClone)
@@ -146,11 +138,13 @@ namespace UnitTestLibraryDesktop
 			ScopeParserHelper helper1;
 			parser1.AddHelper(helper1);
 			parser1.Parse(TestXmlStrings[0]);
+			Assert::AreEqual(0U, data1.Depth());
 
 			ScopeSharedData& data2 = *data1.Clone()->As<ScopeSharedData>();
 			Assert::AreEqual(data2.Depth(), data1.Depth());
 			AnonymousEngine::Scope& scope1 = *(data2.mScope);
 			AnonymousEngine::Scope& scope2 = *(data1.mScope);
+			Assert::AreEqual(0U, data2.Depth());
 			delete &data2;
 			Assert::IsTrue(scope1 == scope2);
 
@@ -195,6 +189,7 @@ namespace UnitTestLibraryDesktop
 
 		static TestClassHelper mHelper;
 		static const AnonymousEngine::Vector<std::string> TestXmlStrings;
+		static const AnonymousEngine::Vector<std::string> InvalidXmls;
 		static const AnonymousEngine::Vector<std::string> TestXmlFiles;
 		static const std::string TestScopeDataString;
 	};
@@ -209,7 +204,7 @@ namespace UnitTestLibraryDesktop
 					<integer name=\"age\" value=\"27\"/>\
 					<float name=\"attack\" value=\"10.5\"/>\
 					<vector name=\"position\" x=\"0.5\" y=\"10.2\" z=\"100.0\" w=\"1.0\"/>\
-					<matrix>\
+					<matrix name=\"transform\">\
 						<vector name=\"row1\" x=\"1.2\" y=\"10.2\" z=\"0.005\" w=\"1.0\"/>\
 						<vector name=\"row2\" x=\"3.6\" y=\"102\" z=\"0.01\" w=\"1.0\"/>\
 						<vector name=\"row3\" x=\"1000\" y=\"177.2\" z=\"101\" w=\"1.0\"/>\
@@ -231,9 +226,14 @@ namespace UnitTestLibraryDesktop
 		</scope>"
 	};
 
+	const AnonymousEngine::Vector<std::string> ScopeXmlParserTest::InvalidXmls = {
+		"<scope></scope>",
+		"<integer name=\"age\" value=\"10\"/>"
+	};
+
 	const AnonymousEngine::Vector<std::string> ScopeXmlParserTest::TestXmlFiles = {
 		"TestData/scope.xml"
 	};
 
-	const std::string ScopeXmlParserTest::TestScopeDataString = "{\"name\": \"E3 Game Critics Awards\", \"year\": {\"value\": \"2016\", \"categories\": {\"category\": [{\"game\": \"The Legend of Zelda: Breath of the Wild\", \"name\": \"Best of Show\"}, {\"game\": \"Horizon: Zero Dawn\", \"name\": \"Best Original Game\"}, {\"game\": \"The Legend of Zelda: Breath of the Wild\", \"name\": \"Best Console Game\"}, {\"game\": \"Batman: Arkham VR\", \"name\": \"Best VR Game\"}, {\"game\": \"Civilization VI\", \"name\": \"Best PC Game\"}, {\"game\": \"PlayStation VR\", \"name\": \"Best Hardware/Peripheral\"}, {\"game\": \"Battlefield 1\", \"name\": \"Best Action Game\"}, {\"game\": \"The Legend of Zelda: Breath of the Wild\", \"name\": \"Best Action/Adventure Game\"}, {\"game\": \"Final Fantasy XV\", \"name\": \"Best Role-Playing Game\"}, {\"game\": \"Forza Horizon 3\", \"name\": \"Best Racing Game\"}, {\"game\": \"Steep\", \"name\": \"Best Sports Game\"}, {\"game\": \"Skylanders: Imaginators\", \"name\": \"Best Family Game\"}, {\"game\": \"Titanfall 2\", \"name\": \"Best Online Multiplayer\"}, {\"game\": \"Inside\", \"name\": \"Best Independent Game\"}, {\"game\": \"God of War\", \"name\": \"Special Commendation for Graphics\"}]}}}";
+	const std::string ScopeXmlParserTest::TestScopeDataString = "{\"sector1\": {\"entity1\": {\"name\": \"hero\", \"age\": \"27\", \"attack\": \"10.500000\", \"position\": \"0.500000,10.200000,100.000000,1.000000\", \"transform\": \"1.200000,10.200000,0.005000,1.000000,3.600000,102.000000,0.010000,1.000000,1000.000000,177.199997,101.000000,1.000000,11.000000,13.600000,100.000351,1.000000\"}, \"entity2\": {\"name\": \"minion\", \"position\": \"50.400002,12.300000,10.000000,1.000000\"}}, \"sector2\": {\"entity100\": {\"name\": \"boss\", \"position\": \"77.040001,27.900000,20.000000,1.000000\"}}, \"sectors\": \"2\"}";
 }

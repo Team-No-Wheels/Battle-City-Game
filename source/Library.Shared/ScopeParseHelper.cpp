@@ -25,6 +25,7 @@ namespace AnonymousEngine
 			{"scope", HandleScopeEnd}
 		};
 
+		const std::string ScopeParseHelper::ROOT_TAG = "scope";
 		const std::string ScopeParseHelper::NAME = "name";
 		const std::string ScopeParseHelper::VALUE = "value";
 		const std::string ScopeParseHelper::VECTOR_X = "x";
@@ -44,7 +45,12 @@ namespace AnonymousEngine
 			{
 				return false;
 			}
-			sharedData.IncrementDepth();
+
+			if (sharedData.Depth() == 1 && name != ROOT_TAG)
+			{
+				throw std::runtime_error("Invalid root tag");
+			}
+
 			ScopeSharedData& data = *(sharedData.As<ScopeSharedData>());
 			StartElementHandlers[name](*this, data, attributes);
 			return true;
@@ -58,7 +64,6 @@ namespace AnonymousEngine
 			}
 			ScopeSharedData& data = *(sharedData.As<ScopeSharedData>());
 			EndElementHandlers[name](*this, data);
-			sharedData.DecrementDepth();
 			return true;
 		}
 
@@ -100,14 +105,16 @@ namespace AnonymousEngine
 				Datum datum;
 				datum.SetType(Datum::DatumType::Vector);
 				std::string toParse = attributes[VECTOR_X];
+				toParse.append(",");
 				toParse.append(attributes[VECTOR_Y]).append(",");
 				toParse.append(attributes[VECTOR_Z]).append(",");
 				toParse.append(attributes[VECTOR_W]);
+				datum.Resize(1U);
 				datum.SetFromString(toParse);
 
 				if (helper.mMatrixName.empty())
 				{
-					sharedData.mScope->Append(attributes[NAME]) = std::move(datum);
+					sharedData.mScope->Append(attributes[NAME]).PushBack(datum.Get<glm::vec4>());
 				}
 				else
 				{
@@ -116,10 +123,9 @@ namespace AnonymousEngine
 			}
 		}
 
-		void ScopeParseHelper::HandleMatrixStart(ScopeParseHelper& helper, ScopeSharedData& sharedData, const AttributeMap& attributes)
+		void ScopeParseHelper::HandleMatrixStart(ScopeParseHelper& helper, ScopeSharedData&, const AttributeMap& attributes)
 		{
 			ValidateRequiredAttributes(attributes);
-			sharedData.mScope->Append(attributes[NAME]);
 			helper.mMatrixName = attributes[NAME];
 		}
 
@@ -144,14 +150,17 @@ namespace AnonymousEngine
 
 		void ScopeParseHelper::HandleMatrixEnd(ScopeParseHelper& helper, ScopeSharedData& sharedData)
 		{
-			sharedData.mScope->Append(helper.mMatrixName) = glm::mat4(helper.mMatrixVectors[0].Get<glm::vec4>(),
-				helper.mMatrixVectors[1].Get<glm::vec4>(), helper.mMatrixVectors[2].Get<glm::vec4>(), helper.mMatrixVectors[3].Get<glm::vec4>());
+			sharedData.mScope->Append(helper.mMatrixName).PushBack(glm::mat4(helper.mMatrixVectors[0].Get<glm::vec4>(),
+				helper.mMatrixVectors[1].Get<glm::vec4>(), helper.mMatrixVectors[2].Get<glm::vec4>(), helper.mMatrixVectors[3].Get<glm::vec4>()));
 			helper.mMatrixName.clear();
 		}
 
 		void ScopeParseHelper::HandleScopeEnd(ScopeParseHelper&, ScopeSharedData& sharedData)
 		{
-			sharedData.mScope = const_cast<Scope*>(sharedData.mScope->GetParent());
+			if (sharedData.Depth() > 1)
+			{
+				sharedData.mScope = const_cast<Scope*>(sharedData.mScope->GetParent());
+			}
 		}
 
 		void ScopeParseHelper::ValidateRequiredAttributes(const AttributeMap& attributes)

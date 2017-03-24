@@ -5,7 +5,7 @@
 			<integer name="age" value="27"/>
 			<float name="attack" value="10.5"/>
 			<vector name="position" x="0.5" y="10.2" z="100.0" w="1.0"/>
-			<matrix>
+			<matrix name="transform">
 				<vector name="row1" x="1.2" y="10.2" z="0.005" w="1.0"/>
 				<vector name="row2" x="3.6" y="102" z="0.01" w="1.0"/>
 				<vector name="row3" x="1000" y="177.2" z="101" w="1.0"/>

@@ -31,7 +31,6 @@ namespace UnitTestLibraryDesktop
 		{
 			AnonymousEngine::Scope* scope = new AnonymousEngine::Scope();
 			mStack.Back().mScope = scope;
-			sharedData.IncrementDepth();
 			for (const auto& attribute : attributes)
 			{
 				scope->Append(attribute.first) = attribute.second;
@@ -51,8 +50,7 @@ namespace UnitTestLibraryDesktop
 		{
 			ParsingStackDataElement element = mStack.Back();
 			mStack.PopBack();
-			sharedData.DecrementDepth();
-			if (sharedData.Depth() > 0)
+			if (sharedData.Depth() > 1)
 			{
 				mStack.Back().mScope->Adopt(*(element.mScope), element.mElementName);
 			}

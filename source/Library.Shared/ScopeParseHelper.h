@@ -65,6 +65,8 @@ namespace AnonymousEngine
 
 			static const HashMap<std::string, StartHandlerFunction> StartElementHandlers;
 			static const HashMap<std::string, EndHandlerFunction> EndElementHandlers;
+			
+			static const std::string ROOT_TAG;
 			static const std::string NAME;
 			static const std::string VALUE;
 			static const std::string VECTOR_X;
