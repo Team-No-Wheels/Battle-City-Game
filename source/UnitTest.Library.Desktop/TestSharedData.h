@@ -17,6 +17,7 @@ namespace UnitTestLibraryDesktop
 		~TestSharedData();
 		SharedData* Clone() const override;
 
+		void Initialize() override;
 		AnonymousEngine::Scope*& AwardWinners();
 	private:
 		AnonymousEngine::Scope* mAwardWinners;

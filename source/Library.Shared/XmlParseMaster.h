@@ -18,7 +18,7 @@ namespace AnonymousEngine
 		public:
 			/** Initializes the parser
 			 */
-			XmlParseMaster();
+			XmlParseMaster(SharedData& sharedData);
 			/** Releases any allocated resources by the parser
 			 */
 			~XmlParseMaster();
@@ -46,9 +46,10 @@ namespace AnonymousEngine
 			
 			/** Parse an xml passed as a C-style character buffer
 			 *  @param buffer The buffer of characters read from the xml
+			 *  @param isFirstChunk Whether the current data is the first chunk from the xml
 			 *  @param isLastChunk Whether the current data is the last chunk from the xml
 			 */
-			void Parse(const std::string& buffer, bool isLastChunk);
+			void Parse(const std::string& buffer, bool isFirstChunk = true, bool isLastChunk = true);
 			/** Parse an xml from a file
 			 *  @param filename The name of the xml file
 			 */
@@ -67,7 +68,13 @@ namespace AnonymousEngine
 			 */
 			void SetSharedData(SharedData& sharedData);
 
+			/** Clear all parsing state so that the parse master is ready to parse new content
+			 */
+			void Reset();
+
 		private:
+			void Initialize();
+
 			static void StartElementHandler(void* userData, const XML_Char* name, const XML_Char** attributes);
 			static void EndElementHandler(void* userData, const XML_Char* name);
 			static void CharDataHandler(void* userData, const XML_Char* buffer, int length);

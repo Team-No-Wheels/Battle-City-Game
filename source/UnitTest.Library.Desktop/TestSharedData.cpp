@@ -24,6 +24,10 @@ namespace UnitTestLibraryDesktop
 		return data;
 	}
 
+	void TestSharedData::Initialize()
+	{
+	}
+
 	AnonymousEngine::Scope*& TestSharedData::AwardWinners()
 	{
 		return mAwardWinners;

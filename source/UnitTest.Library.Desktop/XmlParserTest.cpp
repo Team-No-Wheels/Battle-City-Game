@@ -13,9 +13,8 @@ namespace UnitTestLibraryDesktop
 	public:
 		TEST_METHOD(TestConstructor)
 		{
-			XmlParseMaster parser;
 			TestSharedData data;
-			parser.SetSharedData(data);
+			XmlParseMaster parser(data);
 			TestXmlParserHelper helper;
 			parser.AddHelper(helper);
 			parser.RemoveHelper(helper);
@@ -27,9 +26,7 @@ namespace UnitTestLibraryDesktop
 			for (const auto& xml : TestXmlStrings)
 			{
 				TestSharedData data1;
-				XmlParseMaster parser1;
-				data1.SetXmlParseMaster(parser1);
-				parser1.SetSharedData(data1);
+				XmlParseMaster parser1(data1);
 				TestXmlParserHelper helper1;
 				parser1.AddHelper(helper1);
 				parser1.Parse(xml, true);
@@ -38,9 +35,7 @@ namespace UnitTestLibraryDesktop
 				Assert::AreEqual(TestScopeDataString, output1);
 
 				TestSharedData data2;
-				XmlParseMaster parser2;
-				data2.SetXmlParseMaster(parser2);
-				parser2.SetSharedData(data2);
+				XmlParseMaster parser2(data2);
 				TestXmlParserHelper helper2;
 				parser2.AddHelper(helper2);
 				parser2.Parse(xml, true);
@@ -57,9 +52,7 @@ namespace UnitTestLibraryDesktop
 			for (const auto& xmlFile : TestXmlFiles)
 			{
 				TestSharedData data1;
-				XmlParseMaster parser1;
-				data1.SetXmlParseMaster(parser1);
-				parser1.SetSharedData(data1);
+				XmlParseMaster parser1(data1);
 				TestXmlParserHelper helper1;
 				parser1.AddHelper(helper1);
 				parser1.ParseFromFile(xmlFile);
@@ -69,9 +62,7 @@ namespace UnitTestLibraryDesktop
 				Assert::AreEqual(xmlFile, parser1.GetFileName());
 
 				TestSharedData data2;
-				XmlParseMaster parser2;
-				data2.SetXmlParseMaster(parser2);
-				parser2.SetSharedData(data2);
+				XmlParseMaster parser2(data2);
 				TestXmlParserHelper helper2;
 				parser2.AddHelper(helper2);
 				parser2.ParseFromFile(xmlFile);
@@ -86,9 +77,7 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestInitialize)
 		{
 			TestSharedData data1;
-			XmlParseMaster parser1;
-			data1.SetXmlParseMaster(parser1);
-			parser1.SetSharedData(data1);
+			XmlParseMaster parser1(data1);
 			TestXmlParserHelper helper1;
 			parser1.AddHelper(helper1);
 			parser1.Parse(TestXmlStrings[0], true);
@@ -108,9 +97,7 @@ namespace UnitTestLibraryDesktop
 			for (const auto& xml : TestXmlStrings)
 			{
 				SharedData data1;
-				XmlParseMaster parser1;
-				data1.SetXmlParseMaster(parser1);
-				parser1.SetSharedData(data1);
+				XmlParseMaster parser1(data1);
 				TestXmlParserHelper helper1;
 				parser1.AddHelper(helper1);
 				parser1.Parse(xml, true);
@@ -120,9 +107,7 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestParseXmlFileTypesAndCompare)
 		{
 			TestSharedData data1;
-			XmlParseMaster parser1;
-			data1.SetXmlParseMaster(parser1);
-			parser1.SetSharedData(data1);
+			XmlParseMaster parser1(data1);
 			TestXmlParserHelper helper1;
 			parser1.AddHelper(helper1);
 			const std::string& xml1 = TestXmlStrings[0];
@@ -132,9 +117,7 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(TestScopeDataString, output1);
 
 			TestSharedData data2;
-			XmlParseMaster parser2;
-			data2.SetXmlParseMaster(parser2);
-			parser2.SetSharedData(data2);
+			XmlParseMaster parser2(data2);
 			TestXmlParserHelper helper2;
 			parser2.AddHelper(helper2);
 			const std::string& xml2 = TestXmlStrings[1];
@@ -149,9 +132,7 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestClone)
 		{
 			TestSharedData data1;
-			XmlParseMaster parser1;
-			data1.SetXmlParseMaster(parser1);
-			parser1.SetSharedData(data1);
+			XmlParseMaster parser1(data1);
 			TestXmlParserHelper helper1;
 			parser1.AddHelper(helper1);
 
