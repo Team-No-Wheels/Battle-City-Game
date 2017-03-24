@@ -189,6 +189,7 @@ namespace AnonymousEngine
 		if (it != end())
 		{
 			mData[it.mIndex].Remove(*it);
+			--mSize;
 			return true;
 		}
 		return false;

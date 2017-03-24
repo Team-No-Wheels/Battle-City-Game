@@ -163,6 +163,23 @@ namespace UnitTestLibraryDesktop
 			HashMapTestTemplate<Foo>::TestDereferenceOperators(Foo(value1), Foo(value2), Foo(value3));
 		}
 
+		TEST_METHOD(TestEquality)
+		{
+			std::uint32_t value1 = mHelper.GetRandomUInt32();
+			std::uint32_t value2 = mHelper.GetRandomUInt32();
+			std::uint32_t value3 = mHelper.GetRandomUInt32();
+			std::string str1 = "hello1";
+			std::string str2 = "hello2";
+			std::string str3 = "hello3";
+			HashMapTestTemplate<std::uint32_t>::TestEquality(value1, value2, value3);
+			HashMapTestTemplate<std::uint32_t*>::TestEquality(&value1, &value2, &value3);
+			HashMapTestTemplate<const char*>::TestEquality(str1.c_str(), str2.c_str(), str3.c_str());
+			HashMapTestTemplate<char*>::TestEquality(const_cast<char*>(str1.c_str()), const_cast<char*>(str2.c_str()), const_cast<char*>(str3.c_str()));
+			HashMapTestTemplate<std::string>::TestEquality(str1, str2, str3);
+			HashMapTestTemplate<const std::string>::TestEquality(str1, str2, str3);
+			HashMapTestTemplate<Foo>::TestEquality(Foo(value1), Foo(value2), Foo(value3));
+		}
+
 		TEST_METHOD(TestIndexOfOperator)
 		{
 			std::uint32_t value1 = mHelper.GetRandomUInt32();
