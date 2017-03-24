@@ -152,14 +152,8 @@ namespace UnitTestLibraryDesktop
 			delete helper2;
 
 			XmlParseMaster* parser2 = parser1.Clone();
-			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]()
-			{
-				parser2->AddHelper(helper1);
-			});
-			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]()
-			{
-				parser2->RemoveHelper(helper1);
-			});
+			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]() { parser2->AddHelper(helper1); });
+			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]() { parser2->RemoveHelper(helper1); });
 			ScopeSharedData* parser2Data = parser2->GetSharedData()->As<ScopeSharedData>();
 			delete parser2Data->mScope;
 			delete parser2;

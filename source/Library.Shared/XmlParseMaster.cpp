@@ -16,10 +16,6 @@ namespace AnonymousEngine
 		XmlParseMaster::XmlParseMaster(SharedData& sharedData) :
 			mParser(XML_ParserCreate(UTF8_ENCODING.c_str())), mCurrentElementHelper(nullptr), mSharedData(&sharedData), mIsClone(false)
 		{
-			mSharedData->mParser = this;
-			XML_SetElementHandler(mParser, StartElementHandler, EndElementHandler);
-			XML_SetCharacterDataHandler(mParser, CharDataHandler);
-			XML_SetUserData(mParser, mSharedData);
 		}
 
 		XmlParseMaster::~XmlParseMaster()
@@ -77,9 +73,14 @@ namespace AnonymousEngine
 		{
 			if (isFirstChunk)
 			{
-				Initialize();
+				Reset();
 			}
-			XML_Parse(mParser, buffer.c_str(), static_cast<std::uint32_t>(buffer.size()), isLastChunk);
+
+			XML_Status status = XML_Parse(mParser, buffer.c_str(), static_cast<std::uint32_t>(buffer.size()), isLastChunk);
+			if (status != XML_STATUS_OK)
+			{
+				throw std::runtime_error(XML_ErrorString(XML_GetErrorCode(mParser)));
+			}
 		}
 
 		void XmlParseMaster::ParseFromFile(const std::string& filename)
@@ -114,9 +115,13 @@ namespace AnonymousEngine
 		void XmlParseMaster::Reset()
 		{
 			Initialize();
-			mFilename.clear();
 			mCurrentElementHelper = nullptr;
+			mSharedData->mParser = this;
+
 			XML_ParserReset(mParser, UTF8_ENCODING.c_str());
+			XML_SetElementHandler(mParser, StartElementHandler, EndElementHandler);
+			XML_SetCharacterDataHandler(mParser, CharDataHandler);
+			XML_SetUserData(mParser, mSharedData);
 		}
 
 		void XmlParseMaster::Initialize()
