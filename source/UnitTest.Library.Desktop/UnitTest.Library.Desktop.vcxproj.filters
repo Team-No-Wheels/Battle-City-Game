@@ -30,6 +30,7 @@
     <ClCompile Include="FooXmlParserHelper.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
+    <ClCompile Include="ScopeXmlParserTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />

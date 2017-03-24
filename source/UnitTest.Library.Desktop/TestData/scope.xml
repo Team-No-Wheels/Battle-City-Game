@@ -1,0 +1,27 @@
+<scope name="world">
+	<scope name="sector1">
+		<scope name="entity1">
+			<string name="name" value="hero"/>
+			<integer name="age" value="27"/>
+			<float name="attack" value="10.5"/>
+			<vector name="position" x="0.5" y="10.2" z="100.0" w="1.0"/>
+			<matrix>
+				<vector name="row1" x="1.2" y="10.2" z="0.005" w="1.0"/>
+				<vector name="row2" x="3.6" y="102" z="0.01" w="1.0"/>
+				<vector name="row3" x="1000" y="177.2" z="101" w="1.0"/>
+				<vector name="row4" x="11" y="13.6" z="100.00035" w="1.0"/>
+			</matrix>
+		</scope>
+		<scope name="entity2">
+			<string name="name" value="minion"/>
+			<vector name="position" x="50.4" y="12.3" z="10.0" w="1.0"/>
+		</scope>
+	</scope>
+	<scope name="sector2">
+		<scope name="entity100">
+			<string name="name" value="boss"/>
+			<vector name="position" x="77.04" y="27.9" z="20.0" w="1.0"/>
+		</scope>
+	</scope>
+	<integer name="sectors" value="2"/>
+</scope>
