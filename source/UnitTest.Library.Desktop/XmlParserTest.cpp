@@ -15,10 +15,26 @@ namespace UnitTestLibraryDesktop
 		{
 			FooSharedData data;
 			XmlParseMaster parser(data);
-			FooXmlParserHelper helper;
-			parser.AddHelper(helper);
-			parser.RemoveHelper(helper);
+			FooXmlParserHelper helper1, helper2;
+			parser.AddHelper(helper1);
+			Assert::ExpectException<std::runtime_error>([&parser, &helper2] { parser.AddHelper(helper2); });
+			parser.RemoveHelper(helper1);
 			Assert::IsTrue(&data == parser.GetSharedData());
+		}
+
+		TEST_METHOD(TestParseInvalidXml)
+		{
+			FooSharedData data1;
+			XmlParseMaster parser1(data1);
+			FooXmlParserHelper helper1;
+			parser1.AddHelper(helper1);
+			Assert::ExpectException<std::runtime_error>([&parser1] { parser1.Parse(TestXmlInvalid); });
+
+			FooSharedData data2;
+			XmlParseMaster parser2(data1);
+			FooXmlParserHelper helper2;
+			parser2.AddHelper(helper2);
+			Assert::ExpectException<std::runtime_error>([&parser2] { parser2.ParseFromFile(mHelper.GetRandomString()); });
 		}
 
 		TEST_METHOD(TestParseXmlStrings)
@@ -29,7 +45,7 @@ namespace UnitTestLibraryDesktop
 				XmlParseMaster parser1(data1);
 				FooXmlParserHelper helper1;
 				parser1.AddHelper(helper1);
-				parser1.Parse(xml, true);
+				parser1.Parse(xml);
 				parser1.RemoveHelper(helper1);
 				std::string output1 = data1.mAwardWinners->ToString();
 				Assert::AreEqual(TestScopeDataString, output1);
@@ -38,7 +54,7 @@ namespace UnitTestLibraryDesktop
 				XmlParseMaster parser2(data2);
 				FooXmlParserHelper helper2;
 				parser2.AddHelper(helper2);
-				parser2.Parse(xml, true);
+				parser2.Parse(xml);
 				std::string output2 = data2.mAwardWinners->ToString();
 				Assert::AreEqual(TestScopeDataString, output2);
 
@@ -106,7 +122,7 @@ namespace UnitTestLibraryDesktop
 				XmlParseMaster parser1(data1);
 				FooXmlParserHelper helper1;
 				parser1.AddHelper(helper1);
-				parser1.Parse(xml, true);
+				parser1.Parse(xml);
 			}
 		}
 
@@ -191,12 +207,15 @@ namespace UnitTestLibraryDesktop
 		}
 
 		static TestClassHelper mHelper;
+		static const std::string TestXmlInvalid;
 		static const AnonymousEngine::Vector<std::string> TestXmlStrings;
 		static const AnonymousEngine::Vector<std::string> TestXmlFiles;
 		static const std::string TestScopeDataString;
 	};
 
 	TestClassHelper XmlParserTest::mHelper;
+
+	const std::string XmlParserTest::TestXmlInvalid = "<award";
 
 	const AnonymousEngine::Vector<std::string> XmlParserTest::TestXmlStrings = {
 		"<award name=\"E3 Game Critics Awards\">\
