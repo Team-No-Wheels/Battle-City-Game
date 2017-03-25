@@ -109,14 +109,18 @@ namespace AnonymousEngine
 #pragma region HashMapMethods
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
 	HashMap<TKey, TData, THashFunctor, TCompareFunctor>::HashMap(std::uint32_t buckets) :
-		mData(BucketType(buckets)), mSize(0U), mBegin(Iterator())
+		mData(BucketType(buckets)), mSize(0U)
 	{
+		if (buckets == 0)
+		{
+			throw std::invalid_argument("Buckets can't be zero");
+		}
+
 		// push default constructed lists into all slots in the vector
 		for (std::uint32_t i = 0; i < buckets; ++i)
 		{
 			mData.PushBack(ChainType());
 		}
-		mBegin = end();
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
@@ -265,24 +269,28 @@ namespace AnonymousEngine
 		{
 			chainObject.Clear();
 		}
-		mBegin = end();
 		mSize = 0;
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
 	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::begin() const
 	{
-		return mBegin;
+		
+		for (std::uint32_t index = 0; index < mData.Size(); ++index)
+		{
+			if (mData[index].Size() > 0)
+			{
+				return Iterator(index, mData[index].begin(), const_cast<HashMap*>(this));
+			}
+		}
+		return end();
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
 	typename HashMap<TKey, TData, THashFunctor, TCompareFunctor>::Iterator HashMap<TKey, TData, THashFunctor, TCompareFunctor>::end() const
 	{
-		if (mData.Size() == 0)
-		{
-			return Iterator(mData.Size(), ChainIterator(), const_cast<HashMap*>(this));
-		}
-		return Iterator(mData.Size(), mData[mData.Size() - 1].end(), const_cast<HashMap*>(this));
+		std::uint32_t index = (mSize == 0) ? 0 : mData.Size() - 1;
+		return Iterator(mData.Size(), mData[index].end(), const_cast<HashMap*>(this));
 	}
 
 	template <typename TKey, typename TData, typename THashFunctor, typename TCompareFunctor>
@@ -291,10 +299,6 @@ namespace AnonymousEngine
 		std::uint32_t index = CalculateIndex(key);
 		ChainIterator it = mData[index].PushBack(std::make_pair(key, data));
 		++mSize;
-		if (index < mBegin.mIndex)
-		{
-			mBegin = Iterator(index, mData[index].begin(), this);
-		}
 		return Iterator(index, it, this);
 	}
 
@@ -310,11 +314,6 @@ namespace AnonymousEngine
 	{
 		mData = std::move(rhs.mData);
 		mSize = rhs.mSize;
-		mBegin = rhs.mBegin;
-		mBegin.mChainIterator = mData[mBegin.mIndex].begin();
-		mBegin.mOwner = this;
-
-		rhs.mBegin = Iterator();
 		rhs.mSize = 0;
 	}
 

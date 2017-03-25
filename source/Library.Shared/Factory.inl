@@ -22,7 +22,7 @@ namespace AnonymousEngine
 	{
 		if (Factories.ContainsKey(name))
 		{
-			Factories[name]->Create();
+			return Factories[name]->Create();
 		}
 		throw std::runtime_error("Not configured to create product : " + name);
 	}
@@ -43,9 +43,9 @@ namespace AnonymousEngine
 	void Factory<AbstractProductT>::Add(Factory<AbstractProductT>& factory)
 	{
 		std::string className = factory.ClassName();
-		if (Factories.ContainsKey(className))
+		if (Factories.ContainsKey(className) && !factory.Is(Factories[className]->TypeIdInstance()))
 		{
-			throw std::runtime_error("A factory is already registered for  class name = " + className);
+			throw std::runtime_error("A factory of different type is already registered for class name = " + className);
 		}
 		Factories[className] = &factory;
 	}

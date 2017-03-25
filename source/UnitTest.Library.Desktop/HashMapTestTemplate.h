@@ -19,8 +19,7 @@ namespace UnitTestLibraryDesktop
 		{
 			MapType map;
 			Assert::AreEqual(0U, map.Size());
-			MapType map2(0);
-			map2.end();
+			Assert::ExpectException<std::invalid_argument>([] { MapType map2(0); });
 		}
 
 		static void TestInitializerListConstructor(const TKey& value1, const TKey& value2, const TKey& value3)

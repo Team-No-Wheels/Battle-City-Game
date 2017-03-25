@@ -217,7 +217,6 @@ namespace AnonymousEngine
 	private:
 		BucketType mData;
 		std::uint32_t mSize;
-		Iterator mBegin;
 
 		Iterator InsertEntry(const TKey& key, const TData& data);
 		std::uint32_t CalculateIndex(const TKey& key) const;

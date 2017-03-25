@@ -81,5 +81,4 @@ namespace UnitTestLibraryDesktop
 	// Compiler warns for unreachable code here even though this is perfectly fine since it is a macro
 	#pragma warning(suppress: 4702)
 	CONCRETE_FACTORY_DEFINITIONS(RTTI, Foo);
-
 }
