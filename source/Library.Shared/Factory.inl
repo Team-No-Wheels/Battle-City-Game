@@ -4,8 +4,8 @@ namespace AnonymousEngine
 	template<typename AbstractProductT>
 	RTTI_DEFINITIONS(Factory<AbstractProductT>)
 
-		template <typename AbstractProductT>
-	typename Factory<AbstractProductT>::FactoryMap Factories;
+	template <typename AbstractProductT>
+	typename Factory<AbstractProductT>::FactoryMap Factory<AbstractProductT>::Factories = Factory<AbstractProductT>::FactoryMap();
 
 	template <typename AbstractProductT>
 	Factory<AbstractProductT>* Factory<AbstractProductT>::Find(const std::string& name)
@@ -47,7 +47,7 @@ namespace AnonymousEngine
 		{
 			throw std::runtime_error("A factory is already registered for  class name = " + className);
 		}
-		Factories[className] = factory;
+		Factories[className] = &factory;
 	}
 
 	template <typename AbstractProductT>

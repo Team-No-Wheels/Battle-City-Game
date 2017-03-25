@@ -30,29 +30,35 @@ namespace AnonymousEngine
 		RTTI_DECLARATIONS(Factory, RTTI)
 	};
 
-#define CONCRETE_FACTORY(AbstractProductT, ConcreteProductT)		\
-	class ConcreteProductT##Factory : Factory<AbstractProductT>     \
-	{                                                               \
-	public:                                                         \
-		ConcreteProductT##Factory()                                 \
-		{                                                           \
-			Add(*this);                                             \
-		}                                                           \
-		~ConcreteProductT##Factory()                                \
-		{                                                           \
-			Remove(*this);                                          \
-		}                                                           \
-		std::string ClassName() const override                      \
-		{                                                           \
-			return #ConcreteProductT;                               \
-		}                                                           \
-		AbstractProductT* Create() const override                   \
-		{                                                           \
-			AbstractProductT* product = new ConcreteProductT();     \
-			throw std::runtime_error("Created product was null");   \
-			return product;                                         \
-		}                                                           \
+#define CONCRETE_FACTORY_DECLARATIONS(AbstractProductT, ConcreteProductT)		\
+	class ConcreteProductT##Factory : Factory<AbstractProductT>                 \
+	{                                                                           \
+	public:                                                                     \
+		ConcreteProductT##Factory();                                            \
+		~ConcreteProductT##Factory();                                           \
+		std::string ClassName() const override;                                 \
+		AbstractProductT* Create() const override;                              \
 	};
+
+#define CONCRETE_FACTORY_DEFINITIONS(AbstractProductT, ConcreteProductT)		\
+		ConcreteProductT##Factory::ConcreteProductT##Factory()                  \
+		{                                                                       \
+			Add(*this);                                                         \
+		}                                                                       \
+		ConcreteProductT##Factory::~ConcreteProductT##Factory()                 \
+		{                                                                       \
+			Remove(*this);                                                      \
+		}                                                                       \
+		std::string ConcreteProductT##Factory::ClassName() const                \
+		{                                                                       \
+			return #ConcreteProductT;                                           \
+		}                                                                       \
+		AbstractProductT* ConcreteProductT##Factory::Create() const             \
+		{                                                                       \
+			AbstractProductT* product = new ConcreteProductT();                 \
+			throw std::runtime_error("Created product was null");               \
+			return product;                                                     \
+		}
 }
 
 #include "Factory.inl"

@@ -241,6 +241,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="SlistIteratorTest.cpp" />
+    <ClCompile Include="FactoryTest.cpp" />
     <ClCompile Include="TestClassHelper.cpp" />
     <ClCompile Include="FooSharedData.cpp" />
     <ClCompile Include="FooXmlParserHelper.cpp" />
