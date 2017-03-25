@@ -13,7 +13,7 @@ namespace AnonymousEngine
 		public:
 			/** Initialize the helper's state
 			 */
-			virtual void Initialize() = 0;
+			virtual void Initialize();
 
 			/** Method to handle start of an element
 			 *  @param name The name of the element

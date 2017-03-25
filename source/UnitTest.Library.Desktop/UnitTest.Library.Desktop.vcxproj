@@ -233,6 +233,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ScopeTest.cpp" />
+    <ClCompile Include="ScopeXmlParserTest.cpp" />
     <ClCompile Include="SListTest.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">pch.h</PrecompiledHeaderFile>
@@ -241,8 +242,8 @@
     </ClCompile>
     <ClCompile Include="SlistIteratorTest.cpp" />
     <ClCompile Include="TestClassHelper.cpp" />
-    <ClCompile Include="TestSharedData.cpp" />
-    <ClCompile Include="TestXmlParserHelper.cpp" />
+    <ClCompile Include="FooSharedData.cpp" />
+    <ClCompile Include="FooXmlParserHelper.cpp" />
     <ClCompile Include="VectorIteratorTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="XmlParserTest.cpp" />
@@ -262,14 +263,15 @@
     <ClInclude Include="SListIteratorTestTemplate.h" />
     <ClInclude Include="SListTestTemplate.h" />
     <ClInclude Include="TestClassHelper.h" />
-    <ClInclude Include="TestSharedData.h" />
-    <ClInclude Include="TestXmlParseHelper.h" />
+    <ClInclude Include="FooSharedData.h" />
+    <ClInclude Include="FooXmlParseHelper.h" />
     <ClInclude Include="ToStringTemplates.h" />
     <ClInclude Include="VectorIteratorTestTemplate.h" />
     <ClInclude Include="VectorTestTemplate.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="TestData\attributed.xml" />
+    <Xml Include="TestData\scope.xml" />
     <Xml Include="TestData\verbose.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

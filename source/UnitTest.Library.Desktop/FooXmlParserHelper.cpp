@@ -1,27 +1,28 @@
 #include "Pch.h"
-#include "TestXmlParseHelper.h"
+#include "FooXmlParseHelper.h"
 #include "XmlParseMaster.h"
+#include "FooSharedData.h"
 
 namespace UnitTestLibraryDesktop
 {
 
-	RTTI_DEFINITIONS(TestXmlParserHelper)
+	RTTI_DEFINITIONS(FooXmlParserHelper)
 
-	AnonymousEngine::Vector<std::string> TestXmlParserHelper::SupportedTags = {
+	AnonymousEngine::Vector<std::string> FooXmlParserHelper::SupportedTags = {
 		"award",
 		"year",
 		"categories",
 		"category"
 	};
 
-	void TestXmlParserHelper::Initialize()
+	void FooXmlParserHelper::Initialize()
 	{
 		mStack.Clear();
 	}
 
-	bool TestXmlParserHelper::StartElementHandler(SharedData& sharedData, const std::string& name, const AttributeMap& attributes)
+	bool FooXmlParserHelper::StartElementHandler(SharedData& sharedData, const std::string& name, const AttributeMap& attributes)
 	{
-		if (!sharedData.Is(TestSharedData::TypeIdClass()))
+		if (!sharedData.Is(FooSharedData::TypeIdClass()))
 		{
 			return false;
 		}
@@ -30,7 +31,6 @@ namespace UnitTestLibraryDesktop
 		{
 			AnonymousEngine::Scope* scope = new AnonymousEngine::Scope();
 			mStack.Back().mScope = scope;
-			sharedData.IncrementDepth();
 			for (const auto& attribute : attributes)
 			{
 				scope->Append(attribute.first) = attribute.second;
@@ -40,9 +40,9 @@ namespace UnitTestLibraryDesktop
 		return false;
 	}
 
-	bool TestXmlParserHelper::EndElementHandler(SharedData& sharedData, const std::string& name)
+	bool FooXmlParserHelper::EndElementHandler(SharedData& sharedData, const std::string& name)
 	{
-		if (!sharedData.Is(TestSharedData::TypeIdClass()))
+		if (!sharedData.Is(FooSharedData::TypeIdClass()))
 		{
 			return false;
 		}
@@ -50,23 +50,21 @@ namespace UnitTestLibraryDesktop
 		{
 			ParsingStackDataElement element = mStack.Back();
 			mStack.PopBack();
-			sharedData.DecrementDepth();
-			if (sharedData.Depth() > 0)
+			if (sharedData.Depth() > 1)
 			{
 				mStack.Back().mScope->Adopt(*(element.mScope), element.mElementName);
 			}
 			else
 			{
-				TestSharedData* testSharedData = sharedData.As<TestSharedData>();
-				delete testSharedData->AwardWinners();
-				testSharedData->AwardWinners() = element.mScope;
+				FooSharedData* testSharedData = sharedData.As<FooSharedData>();
+				testSharedData->mAwardWinners = element.mScope;
 			}
 			return true;
 		}
 		return false;
 	}
 
-	void TestXmlParserHelper::CharDataHandler(SharedData&, const std::string& buffer)
+	void FooXmlParserHelper::CharDataHandler(SharedData&, const std::string& buffer)
 	{
 		if (SupportedTags.Find(mStack.Back().mElementName) == SupportedTags.end())
 		{
@@ -76,13 +74,14 @@ namespace UnitTestLibraryDesktop
 		}
 	}
 
-	IXmlParserHelper* TestXmlParserHelper::Clone()
+	IXmlParserHelper* FooXmlParserHelper::Clone()
 	{
-		TestXmlParserHelper* helper = new TestXmlParserHelper();
+		FooXmlParserHelper* helper = new FooXmlParserHelper();
+		helper->mStack = mStack;
 		return helper;
 	}
 
-	TestXmlParserHelper::ParsingStackDataElement::ParsingStackDataElement(std::string elementName, AnonymousEngine::Scope* scope) :
+	FooXmlParserHelper::ParsingStackDataElement::ParsingStackDataElement(std::string elementName, AnonymousEngine::Scope* scope) :
 		mElementName(elementName), mScope(scope)
 	{
 	}

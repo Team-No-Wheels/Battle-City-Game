@@ -11,6 +11,8 @@ namespace UnitTestLibraryDesktop
 		AttributedFoo::AttributedFoo() :
 		mInt(0), mFloat(0.0f), mNestedScope(new Scope()), mRtti(nullptr)
 	{
+		memset(mRTTIArray, 0, ArraySize * sizeof(RTTI*));
+
 		AddExternalAttribute("mInt", &mInt, 1);
 		AddExternalAttribute("mFloat", &mFloat, 1);
 		AddExternalAttribute("mString", &mString, 1);

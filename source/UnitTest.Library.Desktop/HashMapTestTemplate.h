@@ -156,6 +156,46 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(iterator == iterator.end());
 		}
 
+		static void TestEquality(const TKey& value1, const TKey& value2, const TKey& value3)
+		{
+			EntryType pair1(value1, 1U);
+			EntryType pair2(value2, 2U);
+			EntryType pair3(value3, 3U);
+			MapType map1;
+			MapType map2;
+			map1.Insert(pair1);
+			map1.Insert(pair2);
+			map1.Insert(pair3);
+			Assert::IsFalse(map1 == map2);
+			Assert::IsTrue(map1 != map2);
+			map2.Insert(pair2);
+			map2.Insert(pair3);
+			map2.Insert(pair1);
+			Assert::IsFalse(map1 != map2);
+			Assert::IsTrue(map1 == map2);
+			map2.Remove(pair3.first);
+			Assert::IsFalse(map1 == map2);
+			Assert::IsTrue(map1 != map2);
+			map2.Insert(pair3);
+			Assert::IsFalse(map1 != map2);
+			Assert::IsTrue(map1 == map2);
+
+			map1.Clear();
+			map2.Clear();
+			map1.Insert(pair1);
+			map2.Insert(pair2);
+			Assert::IsFalse(map1 == map2);
+			Assert::IsTrue(map1 != map2);
+			map2.Insert(pair1);
+			map1.Insert(pair2);
+			Assert::IsFalse(map1 != map2);
+			Assert::IsTrue(map1 == map2);
+			map1.Insert(EntryType(value3, 10U));
+			map2.Insert(EntryType(value3, 11U));
+			Assert::IsFalse(map1 == map2);
+			Assert::IsTrue(map1 != map2);
+		}
+
 		static void TestIndexOfOperator(const TKey& value1, const TKey& value2, const TKey& value3, const TKey& value4)
 		{
 			EntryType pair1(value1, 1U);

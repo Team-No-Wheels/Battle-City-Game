@@ -1,6 +1,6 @@
 #include "Pch.h"
 #include "XmlParseMaster.h"
-#include "TestXmlParseHelper.h"
+#include "FooXmlParseHelper.h"
 #include "TestClassHelper.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -13,42 +13,55 @@ namespace UnitTestLibraryDesktop
 	public:
 		TEST_METHOD(TestConstructor)
 		{
-			XmlParseMaster parser;
-			TestSharedData data;
-			parser.SetSharedData(data);
-			TestXmlParserHelper helper;
-			parser.AddHelper(helper);
-			parser.RemoveHelper(helper);
+			FooSharedData data;
+			XmlParseMaster parser(data);
+			FooXmlParserHelper helper1, helper2;
+			parser.AddHelper(helper1);
+			Assert::ExpectException<std::runtime_error>([&parser, &helper2] { parser.AddHelper(helper2); });
+			parser.RemoveHelper(helper1);
 			Assert::IsTrue(&data == parser.GetSharedData());
+		}
+
+		TEST_METHOD(TestParseInvalidXml)
+		{
+			FooSharedData data1;
+			XmlParseMaster parser1(data1);
+			FooXmlParserHelper helper1;
+			parser1.AddHelper(helper1);
+			Assert::ExpectException<std::runtime_error>([&parser1] { parser1.Parse(TestXmlInvalid); });
+
+			FooSharedData data2;
+			XmlParseMaster parser2(data1);
+			FooXmlParserHelper helper2;
+			parser2.AddHelper(helper2);
+			Assert::ExpectException<std::runtime_error>([&parser2] { parser2.ParseFromFile(mHelper.GetRandomString()); });
 		}
 
 		TEST_METHOD(TestParseXmlStrings)
 		{
 			for (const auto& xml : TestXmlStrings)
 			{
-				TestSharedData data1;
-				XmlParseMaster parser1;
-				data1.SetXmlParseMaster(parser1);
-				parser1.SetSharedData(data1);
-				TestXmlParserHelper helper1;
+				FooSharedData data1;
+				XmlParseMaster parser1(data1);
+				FooXmlParserHelper helper1;
 				parser1.AddHelper(helper1);
-				parser1.Parse(xml, true);
+				parser1.Parse(xml);
 				parser1.RemoveHelper(helper1);
-				std::string output1 = data1.AwardWinners()->ToString();
+				std::string output1 = data1.mAwardWinners->ToString();
 				Assert::AreEqual(TestScopeDataString, output1);
 
-				TestSharedData data2;
-				XmlParseMaster parser2;
-				data2.SetXmlParseMaster(parser2);
-				parser2.SetSharedData(data2);
-				TestXmlParserHelper helper2;
+				FooSharedData data2;
+				XmlParseMaster parser2(data2);
+				FooXmlParserHelper helper2;
 				parser2.AddHelper(helper2);
-				parser2.Parse(xml, true);
-				std::string output2 = data2.AwardWinners()->ToString();
+				parser2.Parse(xml);
+				std::string output2 = data2.mAwardWinners->ToString();
 				Assert::AreEqual(TestScopeDataString, output2);
 
-				Assert::IsTrue(data2.AwardWinners()->Equals(data1.AwardWinners()));
+				Assert::IsTrue(data2.mAwardWinners->Equals(data1.mAwardWinners));
 				Assert::AreEqual(output1, output2);
+				delete data1.mAwardWinners;
+				delete data2.mAwardWinners;
 			}
 		}
 
@@ -56,51 +69,49 @@ namespace UnitTestLibraryDesktop
 		{
 			for (const auto& xmlFile : TestXmlFiles)
 			{
-				TestSharedData data1;
-				XmlParseMaster parser1;
-				data1.SetXmlParseMaster(parser1);
-				parser1.SetSharedData(data1);
-				TestXmlParserHelper helper1;
+				FooSharedData data1;
+				XmlParseMaster parser1(data1);
+				FooXmlParserHelper helper1;
 				parser1.AddHelper(helper1);
 				parser1.ParseFromFile(xmlFile);
 				parser1.RemoveHelper(helper1);
-				std::string output1 = data1.AwardWinners()->ToString();
+				std::string output1 = data1.mAwardWinners->ToString();
 				Assert::AreEqual(TestScopeDataString, output1);
 				Assert::AreEqual(xmlFile, parser1.GetFileName());
 
-				TestSharedData data2;
-				XmlParseMaster parser2;
-				data2.SetXmlParseMaster(parser2);
-				parser2.SetSharedData(data2);
-				TestXmlParserHelper helper2;
+				FooSharedData data2;
+				XmlParseMaster parser2(data2);
+				FooXmlParserHelper helper2;
 				parser2.AddHelper(helper2);
 				parser2.ParseFromFile(xmlFile);
-				std::string output2 = data2.AwardWinners()->ToString();
+				std::string output2 = data2.mAwardWinners->ToString();
 				Assert::AreEqual(TestScopeDataString, output2);
 
-				Assert::IsTrue(data2.AwardWinners()->Equals(data1.AwardWinners()));
+				Assert::IsTrue(data2.mAwardWinners->Equals(data1.mAwardWinners));
 				Assert::AreEqual(output1, output2);
+				delete data1.mAwardWinners;
+				delete data2.mAwardWinners;
 			}
 		}
 
 		TEST_METHOD(TestInitialize)
 		{
-			TestSharedData data1;
-			XmlParseMaster parser1;
-			data1.SetXmlParseMaster(parser1);
-			parser1.SetSharedData(data1);
-			TestXmlParserHelper helper1;
+			FooSharedData data1;
+			XmlParseMaster parser1(data1);
+			FooXmlParserHelper helper1;
 			parser1.AddHelper(helper1);
 			parser1.Parse(TestXmlStrings[0], true);
-			std::string output = data1.AwardWinners()->ToString();
+			std::string output = data1.mAwardWinners->ToString();
 			Assert::AreEqual(TestScopeDataString, output);
 
 			helper1.Initialize();
-			TestSharedData data2;
+			FooSharedData data2;
 			parser1.SetSharedData(data2);
 			parser1.Parse(TestXmlStrings[0], true);
-			output = data1.AwardWinners()->ToString();
+			output = data1.mAwardWinners->ToString();
 			Assert::AreEqual(TestScopeDataString, output);
+			delete data1.mAwardWinners;
+			delete data2.mAwardWinners;
 		}
 
 		TEST_METHOD(TestIncorrectSharedDataTypeGetsIgnored)
@@ -108,70 +119,71 @@ namespace UnitTestLibraryDesktop
 			for (const auto& xml : TestXmlStrings)
 			{
 				SharedData data1;
-				XmlParseMaster parser1;
-				data1.SetXmlParseMaster(parser1);
-				parser1.SetSharedData(data1);
-				TestXmlParserHelper helper1;
+				XmlParseMaster parser1(data1);
+				FooXmlParserHelper helper1;
 				parser1.AddHelper(helper1);
-				parser1.Parse(xml, true);
+				parser1.Parse(xml);
 			}
 		}
 
 		TEST_METHOD(TestParseXmlFileTypesAndCompare)
 		{
-			TestSharedData data1;
-			XmlParseMaster parser1;
-			data1.SetXmlParseMaster(parser1);
-			parser1.SetSharedData(data1);
-			TestXmlParserHelper helper1;
+			FooSharedData data1;
+			XmlParseMaster parser1(data1);
+			FooXmlParserHelper helper1;
 			parser1.AddHelper(helper1);
 			const std::string& xml1 = TestXmlStrings[0];
 			parser1.Parse(xml1, true);
 			parser1.RemoveHelper(helper1);
-			std::string output1 = data1.AwardWinners()->ToString();
+			std::string output1 = data1.mAwardWinners->ToString();
 			Assert::AreEqual(TestScopeDataString, output1);
 
-			TestSharedData data2;
-			XmlParseMaster parser2;
-			data2.SetXmlParseMaster(parser2);
-			parser2.SetSharedData(data2);
-			TestXmlParserHelper helper2;
+			FooSharedData data2;
+			XmlParseMaster parser2(data2);
+			FooXmlParserHelper helper2;
 			parser2.AddHelper(helper2);
 			const std::string& xml2 = TestXmlStrings[1];
 			parser2.Parse(xml2, true);
-			std::string output2 = data2.AwardWinners()->ToString();
+			std::string output2 = data2.mAwardWinners->ToString();
 			Assert::AreEqual(TestScopeDataString, output2);
 
-			Assert::IsTrue(data2.AwardWinners()->Equals(data1.AwardWinners()));
+			Assert::IsTrue(data2.mAwardWinners->Equals(data1.mAwardWinners));
 			Assert::AreEqual(output1, output2);
+			delete data1.mAwardWinners;
+			delete data2.mAwardWinners;
 		}
 
 		TEST_METHOD(TestClone)
 		{
-			TestSharedData data1;
-			XmlParseMaster parser1;
-			data1.SetXmlParseMaster(parser1);
-			parser1.SetSharedData(data1);
-			TestXmlParserHelper helper1;
+			FooSharedData data1;
+			XmlParseMaster parser1(data1);
+			FooXmlParserHelper helper1;
 			parser1.AddHelper(helper1);
+			parser1.Parse(TestXmlStrings[0]);
 
 			SharedData baseData;
 			SharedData* baseDataClone = baseData.Clone();
 			Assert::AreEqual(baseData.Depth(), baseDataClone->Depth());
 			delete baseDataClone;
 
-			TestSharedData* data2 = data1.Clone()->As<TestSharedData>();
-			Assert::AreEqual(data2->Depth(), data1.Depth());
-			Assert::IsTrue(*(data2->AwardWinners()) == *(data1.AwardWinners()));
-			delete data2;
-
-			TestXmlParserHelper* helper2 = helper1.Clone()->As<TestXmlParserHelper>();
+			FooSharedData& data2 = *data1.Clone()->As<FooSharedData>();
+			Assert::AreEqual(data2.Depth(), data1.Depth());
+			AnonymousEngine::Scope& scope1 = *(data2.mAwardWinners);
+			AnonymousEngine::Scope& scope2 = *(data1.mAwardWinners);
+			delete &data2;
+			Assert::IsTrue(scope1 == scope2);
+			
+			FooXmlParserHelper* helper2 = helper1.Clone()->As<FooXmlParserHelper>();
 			delete helper2;
 
 			XmlParseMaster* parser2 = parser1.Clone();
 			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]() { parser2->AddHelper(helper1); });
 			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]() { parser2->RemoveHelper(helper1); });
+			FooSharedData* parser2Data = parser2->GetSharedData()->As<FooSharedData>();
+			delete parser2Data->mAwardWinners;
 			delete parser2;
+			delete &scope1;
+			delete &scope2;
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
@@ -195,12 +207,15 @@ namespace UnitTestLibraryDesktop
 		}
 
 		static TestClassHelper mHelper;
+		static const std::string TestXmlInvalid;
 		static const AnonymousEngine::Vector<std::string> TestXmlStrings;
 		static const AnonymousEngine::Vector<std::string> TestXmlFiles;
 		static const std::string TestScopeDataString;
 	};
 
 	TestClassHelper XmlParserTest::mHelper;
+
+	const std::string XmlParserTest::TestXmlInvalid = "<award";
 
 	const AnonymousEngine::Vector<std::string> XmlParserTest::TestXmlStrings = {
 		"<award name=\"E3 Game Critics Awards\">\

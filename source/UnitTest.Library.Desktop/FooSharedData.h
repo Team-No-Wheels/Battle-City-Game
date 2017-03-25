@@ -10,20 +10,20 @@ namespace UnitTestLibraryDesktop
 {
 	typedef AnonymousEngine::Parsers::SharedData SharedData;
 
-	class TestSharedData final : public SharedData
+	class FooSharedData final : public SharedData
 	{
 	public:
-		TestSharedData();
-		~TestSharedData();
+		FooSharedData();
+		~FooSharedData() = default;
 		SharedData* Clone() const override;
 
-		AnonymousEngine::Scope*& AwardWinners();
-	private:
+		void Initialize() override;
+
+		// any allocated data is not deleted by this class
 		AnonymousEngine::Scope* mAwardWinners;
 
-	public:
 		typedef AnonymousEngine::HashMap<std::string, AnonymousEngine::Vector<struct Category>> DataMap;
 
-		RTTI_DECLARATIONS(TestSharedData, SharedData)
+		RTTI_DECLARATIONS(FooSharedData, SharedData)
 	};
 }

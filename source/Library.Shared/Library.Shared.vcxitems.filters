@@ -26,6 +26,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SharedData.cpp">
       <Filter>Parsers</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScopeSharedData.cpp">
+      <Filter>Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScopeParseHelper.cpp">
+      <Filter>Parsers\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -69,6 +75,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedData.h">
       <Filter>Parsers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScopeSharedData.h">
+      <Filter>Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScopeParseHelper.h">
+      <Filter>Parsers\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
@@ -76,6 +88,9 @@
     </Filter>
     <Filter Include="Parsers">
       <UniqueIdentifier>{e679a601-4adf-4200-ace2-f0699933835a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parsers\Helpers">
+      <UniqueIdentifier>{359e9ec9-e9d4-432d-bf8f-cdc91daa032c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

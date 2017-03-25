@@ -18,9 +18,9 @@ namespace AnonymousEngine
 			return sharedData;
 		}
 
-		void SharedData::SetXmlParseMaster(XmlParseMaster& parser)
+		void SharedData::Initialize()
 		{
-			mParser = &parser;
+			mDepth = 0;
 		}
 
 		XmlParseMaster* SharedData::GetXmlParseMaster() const
@@ -35,6 +35,10 @@ namespace AnonymousEngine
 
 		void SharedData::DecrementDepth()
 		{
+			if (mDepth == 0)
+			{
+				throw std::runtime_error("Decrement depth called when depth is 0");
+			}
 			--mDepth;
 		}
 

@@ -148,18 +148,7 @@ namespace AnonymousEngine
 
 	bool Scope::operator==(const Scope& rhs) const
 	{
-		if (mOrderVector.Size() != rhs.mOrderVector.Size())
-		{
-			return false;
-		}
-		for (std::uint32_t index = 0; index < mOrderVector.Size(); ++index)
-		{
-			if (mOrderVector[index]->first != rhs.mOrderVector[index]->first || mOrderVector[index]->second != rhs.mOrderVector[index]->second)
-			{
-				return false;
-			}
-		}
-		return true;
+		return (mDatumMap == rhs.mDatumMap);
 	}
 
 	bool Scope::operator!=(const Scope& rhs) const

@@ -33,10 +33,10 @@ namespace AnonymousEngine
 			*/
 			SharedData& operator=(const SharedData& rhs) = delete;
 
-			/** Update the parser which is using this SharedData instance
-			*  @param parser The parser which is using this shared data instance
-			*/
-			void SetXmlParseMaster(XmlParseMaster& parser);
+			/** Reset all state information so that the instance can be used for new parsing
+			 */
+			virtual void Initialize();
+
 			/** Get the parser which is using this shared data instance
 			*  @return The address of the parser which is using this shared data instance
 			*/
@@ -52,6 +52,7 @@ namespace AnonymousEngine
 			*/
 			std::uint32_t Depth() const;
 
+			friend XmlParseMaster;
 		protected:
 			XmlParseMaster* mParser;
 			std::uint32_t mDepth;

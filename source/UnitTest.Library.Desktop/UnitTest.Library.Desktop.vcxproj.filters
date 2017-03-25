@@ -23,13 +23,14 @@
       <Filter>SupportingClasses</Filter>
     </ClCompile>
     <ClCompile Include="AttributedTest.cpp" />
-    <ClCompile Include="TestSharedData.cpp">
-      <Filter>SupportingClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="TestXmlParserHelper.cpp">
-      <Filter>SupportingClasses</Filter>
-    </ClCompile>
     <ClCompile Include="XmlParserTest.cpp" />
+    <ClCompile Include="FooSharedData.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="FooXmlParserHelper.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="ScopeXmlParserTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -54,10 +55,10 @@
     <ClInclude Include="AttributedBar.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
-    <ClInclude Include="TestSharedData.h">
+    <ClInclude Include="FooSharedData.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
-    <ClInclude Include="TestXmlParseHelper.h">
+    <ClInclude Include="FooXmlParseHelper.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,6 +75,9 @@
       <Filter>TestData</Filter>
     </Xml>
     <Xml Include="TestData\verbose.xml">
+      <Filter>TestData</Filter>
+    </Xml>
+    <Xml Include="TestData\scope.xml">
       <Filter>TestData</Filter>
     </Xml>
   </ItemGroup>

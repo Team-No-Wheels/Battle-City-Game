@@ -31,11 +31,11 @@ namespace UnitTestLibraryDesktop
 
 	private:
 		std::int32_t mIntArray[ArraySize];
-		std::int32_t mFloatArray[ArraySize];
-		std::int32_t mStringArray[ArraySize];
-		std::int32_t mVec4Array[ArraySize];
-		std::int32_t mMat4Array[ArraySize];
-		std::int32_t mRTTIArray[ArraySize];
+		float mFloatArray[ArraySize];
+		std::string mStringArray[ArraySize];
+		glm::vec4 mVec4Array[ArraySize];
+		glm::mat4 mMat4Array[ArraySize];
+		RTTI* mRTTIArray[ArraySize];
 
 		void Copy(const AttributedFoo& rhs);
 		void Move(AttributedFoo& rhs);
