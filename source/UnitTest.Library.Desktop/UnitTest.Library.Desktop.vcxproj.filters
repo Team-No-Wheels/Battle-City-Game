@@ -32,6 +32,12 @@
     </ClCompile>
     <ClCompile Include="ScopeXmlParserTest.cpp" />
     <ClCompile Include="FactoryTest.cpp" />
+    <ClCompile Include="Bar.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="DerivedBar.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -60,6 +66,12 @@
       <Filter>SupportingClasses</Filter>
     </ClInclude>
     <ClInclude Include="FooXmlParseHelper.h">
+      <Filter>SupportingClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Bar.h">
+      <Filter>SupportingClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="DerivedBar.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
   </ItemGroup>

@@ -50,10 +50,10 @@ namespace AnonymousEngine
 		 */
 		static void Add(Factory<AbstractProductT>& factory);
 		/** Remove a factory against a product name
-		 *  @param factory The factory which is to be removed
+		 *  @param name The name of the product for which the factory is to be removed
 		 *  @return True if factory was removed, false otherwise
 		 */
-		static bool Remove(Factory<AbstractProductT>& factory);
+		static bool Remove(const std::string& name);
 	private:
 		static FactoryMap Factories;
 
@@ -79,7 +79,7 @@ namespace AnonymousEngine
 		}                                                                       \
 		ConcreteProductT##Factory::~ConcreteProductT##Factory()                 \
 		{                                                                       \
-			Remove(*this);                                                      \
+			Remove(ClassName());                                                \
 		}                                                                       \
 		std::string ConcreteProductT##Factory::ClassName() const                \
 		{                                                                       \

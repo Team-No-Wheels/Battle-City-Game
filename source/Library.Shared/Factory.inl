@@ -51,8 +51,8 @@ namespace AnonymousEngine
 	}
 
 	template <typename AbstractProductT>
-	bool Factory<AbstractProductT>::Remove(Factory<AbstractProductT>& factory)
+	bool Factory<AbstractProductT>::Remove(const std::string& name)
 	{
-		return Factories.Remove(factory.ClassName());
+		return Factories.Remove(name);
 	}
 }
