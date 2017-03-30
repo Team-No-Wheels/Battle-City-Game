@@ -59,7 +59,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h">
       <Filter>Containers</Filter>
     </ClInclude>
@@ -81,6 +80,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ScopeParseHelper.h">
       <Filter>Parsers\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
@@ -91,6 +96,9 @@
     </Filter>
     <Filter Include="Parsers\Helpers">
       <UniqueIdentifier>{359e9ec9-e9d4-432d-bf8f-cdc91daa032c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{f822b7cc-3c0b-4683-bff9-da063ca19d64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +119,9 @@
     </None>
     <None Include="$(MSBuildThisFileDirectory)Datum.inl">
       <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Factory.inl">
+      <Filter>Core</Filter>
     </None>
   </ItemGroup>
 </Project>

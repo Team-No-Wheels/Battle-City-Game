@@ -17,6 +17,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Compare.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HashFunctors.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultVectorCapacityStrategy.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HashMap.h" />
@@ -50,6 +51,7 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Compare.inl" />
     <None Include="$(MSBuildThisFileDirectory)Datum.inl" />
+    <None Include="$(MSBuildThisFileDirectory)Factory.inl" />
     <None Include="$(MSBuildThisFileDirectory)HashFunctors.inl" />
     <None Include="$(MSBuildThisFileDirectory)HashMap.inl" />
     <None Include="$(MSBuildThisFileDirectory)SList.inl" />

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RTTI.h"
+#include "Factory.h"
 
 namespace UnitTestLibraryDesktop
 {
@@ -26,4 +27,7 @@ namespace UnitTestLibraryDesktop
 		std::string ToString() const override;
 		void FromString(const std::string& str) override;
 	};
+
+	using namespace AnonymousEngine;
+	CONCRETE_FACTORY_DECLARATIONS(RTTI, Foo);
 }
