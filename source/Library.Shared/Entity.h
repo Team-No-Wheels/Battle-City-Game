@@ -31,8 +31,8 @@ namespace AnonymousEngine
 			void AdoptAction(Action& action);
 			void Update(WorldState& worldState);
 		private:
-			Datum* mActions;
 			std::string mName;
+			Datum* mActions;
 
 			static const std::string ActionsAttributeName;
 

@@ -11,10 +11,11 @@ namespace AnonymousEngine
 		const std::string World::SectorsAttributeName = "Sectors";
 
 		World::World(const std::string& name) :
-			mSectors(&AddDatumAttribute(SectorsAttributeName)), mName(name)
+			mName(name), mSectors(nullptr)
 		{
 			mSectors->SetType(Datum::DatumType::Scope);
 			AddExternalAttribute("mName", &mName, 1);
+			AddDatumAttribute(SectorsAttributeName, mSectors);
 		}
 
 		std::string World::Name() const
@@ -57,8 +58,8 @@ namespace AnonymousEngine
 		void World::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
-			prescribedAttributeNames.PushBack(SectorsAttributeName);
 			prescribedAttributeNames.PushBack("mName");
+			prescribedAttributeNames.PushBack(SectorsAttributeName);
 		}
 	}
 }

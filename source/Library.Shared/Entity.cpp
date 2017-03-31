@@ -15,10 +15,11 @@ namespace AnonymousEngine
 		const std::string Entity::ActionsAttributeName = "Actions";
 
 		Entity::Entity(const std::string& name) :
-			mActions(&AddDatumAttribute(ActionsAttributeName)), mName(name)
+			mName(name), mActions(nullptr)
 		{
 			mActions->SetType(Datum::DatumType::Scope);
 			AddExternalAttribute("mName", &mName, 1);
+			AddDatumAttribute(ActionsAttributeName, mActions);
 		}
 
 		std::string Entity::Name() const
@@ -67,8 +68,8 @@ namespace AnonymousEngine
 		void Entity::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
-			prescribedAttributeNames.PushBack(ActionsAttributeName);
 			prescribedAttributeNames.PushBack("mName");
+			prescribedAttributeNames.PushBack(ActionsAttributeName);
 		}
 	}
 }

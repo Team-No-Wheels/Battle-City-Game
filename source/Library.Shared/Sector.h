@@ -30,8 +30,8 @@ namespace AnonymousEngine
 			void AdoptEntity(Entity& entity);
 			void Update(WorldState& worldState);
 		private:
-			Datum* mEntities;
 			std::string mName;
+			Datum* mEntities;
 
 			static const std::string EntitiesAttributeName;
 

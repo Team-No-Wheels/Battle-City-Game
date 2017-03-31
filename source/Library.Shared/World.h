@@ -28,8 +28,8 @@ namespace AnonymousEngine
 			void AdoptSector(Sector& sector);
 			void Update(WorldState& worldState);
 		private:
-			Datum* mSectors;
 			std::string mName;
+			Datum* mSectors;
 
 			static const std::string SectorsAttributeName;
 

@@ -167,9 +167,9 @@ namespace AnonymousEngine
 
 		/** Creates an empty untyped attribute in the current attributed instance with the given name
 		 *  @param name The name of the datum to add
-		 *  @return A reference to the added datum
+		 *  @datum A reference to a datum pointer
 		 */
-		Datum& AddDatumAttribute(const std::string& name);
+		void AddDatumAttribute(const std::string& name, Datum*& datum);
 
 		/** Validate if all prescribed attributes are added to the current instance or not
 		 *  Checks if attribute being added is a valid prescribed attribute.

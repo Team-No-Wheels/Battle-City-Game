@@ -458,6 +458,7 @@ namespace UnitTestLibraryDesktop
 		"mVec4",
 		"mMat4",
 		"mNestedScope",
+		"mDatum",
 		"mRtti",
 		"mIntArray",
 		"mFloatArray",

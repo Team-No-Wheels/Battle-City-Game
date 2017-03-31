@@ -188,10 +188,10 @@ namespace AnonymousEngine
 		Adopt(scope, name);
 	}
 
-	Datum& Attributed::AddDatumAttribute(const std::string& name)
+	void Attributed::AddDatumAttribute(const std::string& name, Datum*& datum)
 	{
 		ValidateAttribute(name);
-		return Append(name);
+		datum = &Append(name);
 	}
 
 	void Attributed::ValidateAllPrescribedAttributesAreAdded() const

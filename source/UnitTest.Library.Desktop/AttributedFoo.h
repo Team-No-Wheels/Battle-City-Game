@@ -27,6 +27,7 @@ namespace UnitTestLibraryDesktop
 		glm::vec4 mVec4;
 		glm::mat4 mMat4;
 		Scope* mNestedScope;
+		AnonymousEngine::Datum* mDatum;
 		RTTI* mRtti;
 
 	private:

@@ -11,10 +11,11 @@ namespace AnonymousEngine
 		const std::string Sector::EntitiesAttributeName = "Entities";
 
 		Sector::Sector(const std::string& name) :
-			mEntities(&AddDatumAttribute(EntitiesAttributeName)), mName(name)
+			mName(name), mEntities(nullptr)
 		{
 			mEntities->SetType(Datum::DatumType::Scope);
 			AddExternalAttribute("mName", &mName, 1);
+			AddDatumAttribute(EntitiesAttributeName, mEntities);
 		}
 
 		std::string Sector::Name() const
@@ -63,8 +64,8 @@ namespace AnonymousEngine
 		void Sector::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
-			prescribedAttributeNames.PushBack(EntitiesAttributeName);
 			prescribedAttributeNames.PushBack("mName");
+			prescribedAttributeNames.PushBack(EntitiesAttributeName);
 		}
 	}
 }
