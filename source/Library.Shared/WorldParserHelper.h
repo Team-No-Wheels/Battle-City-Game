@@ -58,15 +58,10 @@ namespace AnonymousEngine
 			static void HandleActionStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
 			static void HandleListStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
 
-			static void HandleCommonEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
+			static void HandlePrimitivesEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
 			static void HandleMatrixEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
-			static void HandleWorldEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
-			static void HandleSectorEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
-			static void HandleEntityEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
-			static void HandleActionEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
+			static void HandleAttributedEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
 			static void HandleListEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
-
-			static void ValidateRequiredAttributes(const AttributeMap& attributes);
 
 			Vector<Datum> mMatrixVectors;
 			std::string mMatrixName;
@@ -75,8 +70,8 @@ namespace AnonymousEngine
 			static const HashMap<std::string, StartHandlerFunction> StartElementHandlers;
 			static const HashMap<std::string, EndHandlerFunction> EndElementHandlers;
 
-			static const std::string ROOT_TAG;
 			static const std::string NAME;
+			static const std::string CLASS;
 			static const std::string VALUE;
 			static const std::string VECTOR_X;
 			static const std::string VECTOR_Y;
