@@ -30,6 +30,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScopeSharedData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SList.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Vector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CapacityStrategy.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)World.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldSharedData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WorldState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseMaster.h" />
   </ItemGroup>
@@ -55,10 +57,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScopeSharedData.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldParserHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Sector.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SharedData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScopeParseHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)World.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldSharedData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WorldState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp" />
   </ItemGroup>

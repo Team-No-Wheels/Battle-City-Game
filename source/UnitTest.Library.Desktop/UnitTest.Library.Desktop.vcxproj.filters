@@ -65,15 +65,6 @@
     <ClCompile Include="WorldTest.cpp">
       <Filter>ContainerTests</Filter>
     </ClCompile>
-    <ClCompile Include="SectorTest.cpp">
-      <Filter>ContainerTests</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityTest.cpp">
-      <Filter>ContainerTests</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionTest.cpp">
-      <Filter>ContainerTests</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />

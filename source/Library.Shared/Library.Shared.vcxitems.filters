@@ -53,6 +53,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)WorldState.cpp">
       <Filter>Misc</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldSharedData.cpp">
+      <Filter>Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldParserHelper.cpp">
+      <Filter>Parsers\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -127,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)WorldState.h">
       <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldSharedData.h">
+      <Filter>Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h">
+      <Filter>Parsers\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
