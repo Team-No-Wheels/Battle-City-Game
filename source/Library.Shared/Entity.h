@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Attributed.h"
+#include "Factory.h"
 #include "WorldState.h"
 
 namespace AnonymousEngine
@@ -35,5 +36,12 @@ namespace AnonymousEngine
 
 			ATTRIBUTED_DECLARATIONS(Entity, Attributed)
 		};
+
+#define ENTITY_FACTORY_DECLARATIONS(ConcreteEntityT)		\
+	CONCRETE_FACTORY_DECLARATIONS(Entity, ConcreteEntityT)
+
+#define ENTITY_FACTORY_DEFINITIONS(ConcreteEntityT)		\
+	CONCRETE_FACTORY_DEFINITIONS(Entity, ConcreteEntityT)
+
 	}
 }

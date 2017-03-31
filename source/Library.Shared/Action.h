@@ -31,5 +31,12 @@ namespace AnonymousEngine
 
 			ATTRIBUTED_DECLARATIONS(Action, Attributed)
 		};
+
+#define ACTION_FACTORY_DECLARATIONS(ConcreteActionT)		\
+	CONCRETE_FACTORY_DECLARATIONS(Action, ConcreteActionT)
+
+#define ACTION_FACTORY_DEFINITIONS(ConcreteActionT)		\
+	CONCRETE_FACTORY_DEFINITIONS(Action, ConcreteActionT)
+
 	}
 }
