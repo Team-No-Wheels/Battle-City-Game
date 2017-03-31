@@ -89,7 +89,7 @@ namespace AnonymousEngine
 		/** Get the address of the parent of the current scope
 		 *  @return The address of the parent of the current scope
 		 */
-		const Scope* GetParent() const;
+		Scope* GetParent() const;
 
 		/** Get the key against which the parent stores this scope
 		 *  @return The key against which the parent stores this scope

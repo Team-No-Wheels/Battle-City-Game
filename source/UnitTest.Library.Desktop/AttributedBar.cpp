@@ -5,8 +5,6 @@ namespace UnitTestLibraryDesktop
 {
 	ATTRIBUTED_DEFINITIONS(AttributedBar)
 
-	RTTI_DEFINITIONS(AttributedBar)
-
 	AttributedBar::AttributedBar(TestScenario scenario) :
 		mIntBar(0), mFloatBar(0.0f), mNestedScopeBar(new Scope())
 	{

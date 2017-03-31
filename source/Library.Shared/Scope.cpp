@@ -116,7 +116,7 @@ namespace AnonymousEngine
 		datum.PushBack(scope);
 	}
 
-	const Scope* Scope::GetParent() const
+	Scope* Scope::GetParent() const
 	{
 		return mParent;
 	}

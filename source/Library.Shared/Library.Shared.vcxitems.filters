@@ -122,6 +122,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameTime.h">
       <Filter>Misc</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldState.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">

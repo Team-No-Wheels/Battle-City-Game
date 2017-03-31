@@ -4,12 +4,47 @@ namespace AnonymousEngine
 {
 	namespace Containers
 	{
-		Action::Action()
+		ATTRIBUTED_DEFINITIONS(Action)
+
+		const std::string Action::ActionsAttributeName = "Actions";
+
+		Action::Action(const std::string& name) :
+			mActions(&AddDatumAttribute(ActionsAttributeName)), mName(name)
 		{
+			mActions->SetType(Datum::DatumType::Scope);
+			AddExternalAttribute("mName", &mName, 1);
 		}
 
-		Action::~Action()
+		std::string Action::Name() const
 		{
+			return mName;
+		}
+
+		void Action::SetName(const std::string& name)
+		{
+			mName = name;
+		}
+
+		void Action::AdoptAction(Action& action)
+		{
+			Adopt(action, ActionsAttributeName);
+		}
+
+		void Action::Update(WorldState& worldState)
+		{
+			worldState.mAction = this;
+			for (std::uint32_t index = 0; index < mActions->Size(); ++index)
+			{
+				Action* action = static_cast<Action*>(mActions->Get<Scope*>(index));
+				action->Update(worldState);
+			};
+		}
+
+		void Action::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
+		{
+			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
+			prescribedAttributeNames.PushBack(ActionsAttributeName);
+			prescribedAttributeNames.PushBack("mName");
 		}
 	}
 }

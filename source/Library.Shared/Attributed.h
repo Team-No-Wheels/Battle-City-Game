@@ -159,12 +159,17 @@ namespace AnonymousEngine
 		 */
 		Datum& AddExternalAttribute(const std::string& name, RTTI** address, const std::uint32_t size);
 
-		/** Adds an external attribute of type integer with the given name, address and size
+		/** Adopts the given scope into current attributed instance
 		 *  @param name The name of the attribute to add
-		 *  @address The address of the attribute
-		 *  @size The number of items in the attribute
+		 *  @address The address of the scope to add
 		 */
 		void AddNestedScope(const std::string& name, Scope& scope);
+
+		/** Creates an empty untyped attribute in the current attributed instance with the given name
+		 *  @param name The name of the datum to add
+		 *  @return A reference to the added datum
+		 */
+		Datum& AddDatumAttribute(const std::string& name);
 
 		/** Validate if all prescribed attributes are added to the current instance or not
 		 *  Checks if attribute being added is a valid prescribed attribute.
@@ -216,7 +221,7 @@ namespace AnonymousEngine
 	};
 
 // This macro needs to be added to any class declaration that falls under the Attribute hierrarchy
-#define ATTRIBUTED_DECLARATIONS(Type)																									\
+#define ATTRIBUTED_DECLARATIONS(Type, ParentType)																						\
 		protected:                                                                                                                      \
 			/* For child classes call Parent::AppendPrescribedAttributes and pass reference to prescribed attributes */                 \
 			/* list of child class before adding the child class attribute names to the list                         */                 \
@@ -230,8 +235,12 @@ namespace AnonymousEngine
 				Type::AppendPrescribedAttributeNames(prescribedAttributeNames);                                                         \
 				return prescribedAttributeNames.Size();                                                                                 \
 			}                                                                                                                           \
+			RTTI_DECLARATIONS(Type, ParentType)
+
 
 // This macro needs to be added to any class definition that falls under the Attribute hierrarchy
 #define ATTRIBUTED_DEFINITIONS(Type)																		\
-	const std::uint32_t Type::sPrescribedAttributeCount = Type::InitializePrescribedAttributeNames();
+	const std::uint32_t Type::sPrescribedAttributeCount = Type::InitializePrescribedAttributeNames();       \
+	RTTI_DEFINITIONS(Type)
+
 }
