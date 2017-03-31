@@ -219,12 +219,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionTest.cpp" />
     <ClCompile Include="AttributedBar.cpp" />
     <ClCompile Include="AttributedFoo.cpp" />
     <ClCompile Include="AttributedTest.cpp" />
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="DatumTest.cpp" />
     <ClCompile Include="DerivedBar.cpp" />
+    <ClCompile Include="EntityTest.cpp" />
     <ClCompile Include="Foo.cpp" />
     <ClCompile Include="HashFunctorsTest.cpp" />
     <ClCompile Include="HashMapTest.cpp" />
@@ -236,6 +238,7 @@
     </ClCompile>
     <ClCompile Include="ScopeTest.cpp" />
     <ClCompile Include="ScopeXmlParserTest.cpp" />
+    <ClCompile Include="SectorTest.cpp" />
     <ClCompile Include="SListTest.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">pch.h</PrecompiledHeaderFile>
@@ -249,6 +252,7 @@
     <ClCompile Include="FooXmlParserHelper.cpp" />
     <ClCompile Include="VectorIteratorTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
+    <ClCompile Include="WorldTest.cpp" />
     <ClCompile Include="XmlParserTest.cpp" />
   </ItemGroup>
   <ItemGroup>
