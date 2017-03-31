@@ -10,6 +10,8 @@ namespace AnonymousEngine
 	{
 		ATTRIBUTED_DEFINITIONS(Entity)
 
+		ENTITY_FACTORY_DEFINITIONS(Entity);
+
 		const std::string Entity::ActionsAttributeName = "Actions";
 
 		Entity::Entity(const std::string& name) :
@@ -32,6 +34,19 @@ namespace AnonymousEngine
 		Sector& Entity::GetSector()
 		{
 			return *(static_cast<Sector*>(GetParent()));
+		}
+
+		Datum& Entity::Actions()
+		{
+			return (*mActions);
+		}
+
+		Action& Entity::CreateAction(const std::string& name, const std::string& className)
+		{
+			Action* action = Factory<Action>::Create(className);
+			action->SetName(name);
+			mActions->PushBack(action);
+			return (*action);
 		}
 
 		void Entity::AdoptAction(Action& action)

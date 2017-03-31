@@ -24,10 +24,10 @@ namespace AnonymousEngine
 			std::string Name() const;
 			void SetName(const std::string& name);
 
+			World& GetWorld();
 			Datum& Entities();
 			Entity& CreateEntity(const std::string& name, const std::string& className);
 			void AdoptEntity(Entity& entity);
-			World& GetWorld();
 			void Update(WorldState& worldState);
 		private:
 			Datum* mEntities;

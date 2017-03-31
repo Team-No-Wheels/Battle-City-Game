@@ -10,7 +10,7 @@ namespace AnonymousEngine
 		class Action : public Attributed
 		{
 		public:
-			Action(const std::string& name);
+			Action(const std::string& name = "");
 			virtual ~Action() = default;
 
 			Action(const Action&) = delete;
@@ -37,6 +37,8 @@ namespace AnonymousEngine
 
 #define ACTION_FACTORY_DEFINITIONS(ConcreteActionT)		\
 	CONCRETE_FACTORY_DEFINITIONS(Action, ConcreteActionT)
+
+		ACTION_FACTORY_DECLARATIONS(Action)
 
 	}
 }

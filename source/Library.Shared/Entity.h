@@ -14,7 +14,7 @@ namespace AnonymousEngine
 		class Entity : public Attributed
 		{
 		public:
-			Entity(const std::string& name);
+			Entity(const std::string& name = "");
 			~Entity() = default;
 
 			Entity(const Entity&) = delete;
@@ -26,6 +26,8 @@ namespace AnonymousEngine
 			void SetName(const std::string& name);
 
 			Sector& GetSector();
+			Datum& Actions();
+			Action& CreateAction(const std::string& name, const std::string& className);
 			void AdoptAction(Action& action);
 			void Update(WorldState& worldState);
 		private:
@@ -42,6 +44,8 @@ namespace AnonymousEngine
 
 #define ENTITY_FACTORY_DEFINITIONS(ConcreteEntityT)		\
 	CONCRETE_FACTORY_DEFINITIONS(Entity, ConcreteEntityT)
+
+		ENTITY_FACTORY_DECLARATIONS(Entity);
 
 	}
 }

@@ -27,6 +27,11 @@ namespace AnonymousEngine
 			mName = name;
 		}
 
+		World& Sector::GetWorld()
+		{
+			return *(static_cast<World*>(GetParent()));
+		}
+
 		Datum& Sector::Entities()
 		{
 			return (*mEntities);
@@ -34,8 +39,8 @@ namespace AnonymousEngine
 
 		Entity& Sector::CreateEntity(const std::string& name, const std::string& className)
 		{
-			className;
-			Entity* entity = new Entity(name);
+			Entity* entity = Factory<Entity>::Create(className);
+			entity->SetName(name);
 			mEntities->PushBack(entity);
 			return (*entity);
 		}
@@ -43,11 +48,6 @@ namespace AnonymousEngine
 		void Sector::AdoptEntity(Entity& entity)
 		{
 			Adopt(entity, EntitiesAttributeName);
-		}
-
-		World& Sector::GetWorld()
-		{
-			return *(static_cast<World*>(GetParent()));
 		}
 
 		void Sector::Update(WorldState& worldState)
