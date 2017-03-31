@@ -17,9 +17,9 @@ namespace AnonymousEngine
 		Entity::Entity(const std::string& name) :
 			mName(name), mActions(nullptr)
 		{
-			mActions->SetType(Datum::DatumType::Scope);
-			AddExternalAttribute("mName", &mName, 1);
+			AddExternalAttribute("Name", &mName, 1);
 			AddDatumAttribute(ActionsAttributeName, mActions);
+			mActions->SetType(Datum::DatumType::Scope);
 		}
 
 		std::string Entity::Name() const
@@ -34,6 +34,7 @@ namespace AnonymousEngine
 
 		Sector& Entity::GetSector()
 		{
+			assert(GetParent()->Is(Sector::TypeIdClass()));
 			return *(static_cast<Sector*>(GetParent()));
 		}
 
@@ -46,7 +47,7 @@ namespace AnonymousEngine
 		{
 			Action* action = Factory<Action>::Create(className);
 			action->SetName(name);
-			mActions->PushBack(action);
+			AdoptAction(*action);
 			return (*action);
 		}
 
@@ -57,19 +58,27 @@ namespace AnonymousEngine
 
 		void Entity::Update(WorldState& worldState)
 		{
+			assert(worldState.mWorld != nullptr);
+			assert(worldState.mSector == static_cast<Sector*>(GetParent()));
+			assert(worldState.mEntity == nullptr);
+
 			worldState.mEntity = this;
 			for (std::uint32_t index = 0; index < mActions->Size(); ++index)
 			{
-				Action* action = static_cast<Action*>(mActions->Get<Scope*>(index));
+				Action* action = static_cast<Action*>(&mActions->Get<Scope>(index));
 				action->Update(worldState);
 			};
+			worldState.mEntity = nullptr;
+
+			assert(worldState.mWorld != nullptr);
+			assert(worldState.mSector == static_cast<Sector*>(GetParent()));
 		}
 
 		void Entity::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
-			prescribedAttributeNames.PushBack("mName");
-			prescribedAttributeNames.PushBack(ActionsAttributeName);
+			prescribedAttributeNames.PushBack("Name");
+			prescribedAttributeNames.PushBack("Actions");
 		}
 	}
 }

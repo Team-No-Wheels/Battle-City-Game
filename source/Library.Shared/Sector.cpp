@@ -1,4 +1,6 @@
 #include "Sector.h"
+
+#include <cassert>
 #include "Entity.h"
 #include "World.h"
 
@@ -13,9 +15,9 @@ namespace AnonymousEngine
 		Sector::Sector(const std::string& name) :
 			mName(name), mEntities(nullptr)
 		{
-			mEntities->SetType(Datum::DatumType::Scope);
-			AddExternalAttribute("mName", &mName, 1);
+			AddExternalAttribute("Name", &mName, 1);
 			AddDatumAttribute(EntitiesAttributeName, mEntities);
+			mEntities->SetType(Datum::DatumType::Scope);
 		}
 
 		std::string Sector::Name() const
@@ -30,6 +32,7 @@ namespace AnonymousEngine
 
 		World& Sector::GetWorld()
 		{
+			assert(GetParent()->Is(World::TypeIdClass()));
 			return *(static_cast<World*>(GetParent()));
 		}
 
@@ -42,7 +45,7 @@ namespace AnonymousEngine
 		{
 			Entity* entity = Factory<Entity>::Create(className);
 			entity->SetName(name);
-			mEntities->PushBack(entity);
+			AdoptEntity(*entity);
 			return (*entity);
 		}
 
@@ -53,19 +56,25 @@ namespace AnonymousEngine
 
 		void Sector::Update(WorldState& worldState)
 		{
+			assert(worldState.mWorld == static_cast<World*>(GetParent()));
+			assert(worldState.mSector == nullptr);
+
 			worldState.mSector = this;
 			for (std::uint32_t index = 0; index < mEntities->Size(); ++index)
 			{
-				Entity* entity = static_cast<Entity*>(mEntities->Get<Scope*>(index));
+				Entity* entity = static_cast<Entity*>(&mEntities->Get<Scope>(index));
 				entity->Update(worldState);
 			};
+			worldState.mSector = nullptr;
+
+			assert(worldState.mWorld == static_cast<World*>(GetParent()));
 		}
 
 		void Sector::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
-			prescribedAttributeNames.PushBack("mName");
-			prescribedAttributeNames.PushBack(EntitiesAttributeName);
+			prescribedAttributeNames.PushBack("Name");
+			prescribedAttributeNames.PushBack("Entities");
 		}
 	}
 }

@@ -21,6 +21,8 @@ namespace AnonymousEngine
 			std::string Name() const;
 			void SetName(const std::string& name);
 
+			Datum& Actions();
+			Action& CreateAction(const std::string& name, const std::string& className);
 			void AdoptAction(Action& action);
 			virtual void Update(WorldState& worldState);
 		private:

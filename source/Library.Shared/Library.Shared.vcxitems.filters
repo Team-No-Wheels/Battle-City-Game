@@ -50,6 +50,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameTime.cpp">
       <Filter>Misc</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldState.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />

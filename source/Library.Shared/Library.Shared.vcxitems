@@ -59,6 +59,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SharedData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScopeParseHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)World.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp" />
   </ItemGroup>
   <ItemGroup>

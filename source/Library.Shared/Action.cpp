@@ -13,9 +13,9 @@ namespace AnonymousEngine
 		Action::Action(const std::string& name) :
 			mName(name), mActions(nullptr)
 		{
-			mActions->SetType(Datum::DatumType::Scope);
-			AddExternalAttribute("mName", &mName, 1);
+			AddExternalAttribute("Name", &mName, 1);
 			AddDatumAttribute(ActionsAttributeName, mActions);
+			mActions->SetType(Datum::DatumType::Scope);
 		}
 
 		std::string Action::Name() const
@@ -28,6 +28,19 @@ namespace AnonymousEngine
 			mName = name;
 		}
 
+		Datum& Action::Actions()
+		{
+			return (*mActions);
+		}
+
+		Action& Action::CreateAction(const std::string& name, const std::string& className)
+		{
+			Action* action = Factory<Action>::Create(className);
+			action->SetName(name);
+			AdoptAction(*action);
+			return (*action);
+		}
+
 		void Action::AdoptAction(Action& action)
 		{
 			Adopt(action, ActionsAttributeName);
@@ -35,19 +48,24 @@ namespace AnonymousEngine
 
 		void Action::Update(WorldState& worldState)
 		{
+			assert(worldState.mWorld != nullptr);
+
 			worldState.mAction = this;
 			for (std::uint32_t index = 0; index < mActions->Size(); ++index)
 			{
-				Action* action = static_cast<Action*>(mActions->Get<Scope*>(index));
+				Action* action = static_cast<Action*>(&mActions->Get<Scope>(index));
 				action->Update(worldState);
 			};
+			worldState.mAction = nullptr;
+
+			assert(worldState.mWorld != nullptr);
 		}
 
 		void Action::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
-			prescribedAttributeNames.PushBack("mName");
-			prescribedAttributeNames.PushBack(ActionsAttributeName);
+			prescribedAttributeNames.PushBack("Name");
+			prescribedAttributeNames.PushBack("Actions");
 		}
 	}
 }

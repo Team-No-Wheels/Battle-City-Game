@@ -1,4 +1,6 @@
 #include "World.h"
+
+#include <cassert>
 #include "Sector.h"
 #include "WorldState.h"
 
@@ -13,9 +15,9 @@ namespace AnonymousEngine
 		World::World(const std::string& name) :
 			mName(name), mSectors(nullptr)
 		{
-			mSectors->SetType(Datum::DatumType::Scope);
-			AddExternalAttribute("mName", &mName, 1);
+			AddExternalAttribute("Name", &mName, 1);
 			AddDatumAttribute(SectorsAttributeName, mSectors);
+			mSectors->SetType(Datum::DatumType::Scope);
 		}
 
 		std::string World::Name() const
@@ -36,7 +38,7 @@ namespace AnonymousEngine
 		Sector& World::CreateSector(const std::string& name)
 		{
 			Sector* sector = new Sector(name);
-			mSectors->PushBack(sector);
+			AdoptSector(*sector);
 			return (*sector);
 		}
 
@@ -47,19 +49,22 @@ namespace AnonymousEngine
 
 		void World::Update(WorldState& worldState)
 		{
+			assert(worldState.mWorld == nullptr);
+
 			worldState.mWorld = this;
 			for (std::uint32_t index = 0; index < mSectors->Size(); ++index)
 			{
-				Sector* sector = static_cast<Sector*>(mSectors->Get<Scope*>(index));
+				Sector* sector = static_cast<Sector*>(&mSectors->Get<Scope>(index));
 				sector->Update(worldState);
 			}
+			worldState.mWorld = nullptr;		
 		}
 
 		void World::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
-			prescribedAttributeNames.PushBack("mName");
-			prescribedAttributeNames.PushBack(SectorsAttributeName);
+			prescribedAttributeNames.PushBack("Name");
+			prescribedAttributeNames.PushBack("Sectors");
 		}
 	}
 }

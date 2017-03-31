@@ -1,5 +1,7 @@
 #pragma once
 
+#include "GameTime.h"
+
 namespace AnonymousEngine
 {
 	namespace Containers
@@ -8,12 +10,20 @@ namespace AnonymousEngine
 		class Sector;
 		class Entity;
 		class Action;
-		class GameTime;
 
 		/** Represents the current state of the processing in an update loop of the game
 		 */
-		struct WorldState
+		class WorldState
 		{
+		public:
+			/** Initialize a world state
+			 */
+			WorldState();
+
+			/** Free any allocated resources
+			 */
+			~WorldState() = default;
+
 			/** The current world that is being processed
 			 */
 			World* mWorld;
@@ -32,7 +42,7 @@ namespace AnonymousEngine
 
 			/** The current time information for the processing methods
 			 */
-			GameTime* mGameTime;
+			GameTime mGameTime;
 		};
 	}
 }

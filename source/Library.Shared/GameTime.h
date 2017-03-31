@@ -15,7 +15,7 @@ namespace AnonymousEngine
 		const std::chrono::milliseconds& TotalGameTime() const;
 		void SetTotalGameTime(const std::chrono::milliseconds& totalGameTime);
 
-		const std::chrono::milliseconds& ElapsedGameTime() const;		
+		const std::chrono::milliseconds& ElapsedGameTime() const;
 		void SetElapsedGameTime(const std::chrono::milliseconds& elapsedGameTime);
 
 	private:
