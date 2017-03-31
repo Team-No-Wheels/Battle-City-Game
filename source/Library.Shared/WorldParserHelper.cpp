@@ -10,13 +10,19 @@ namespace AnonymousEngine
 
 		RTTI_DEFINITIONS(WorldParserHelper)
 
-			const HashMap<std::string, WorldParserHelper::StartHandlerFunction> WorldParserHelper::StartElementHandlers = {
-				{"integer", HandleIntegerStart},
-				{"float", HandleFloatStart},
-				{"string", HandleStringStart},
-				{"vector", HandleVectorStart},
-				{"matrix", HandleMatrixStart},
-				{"scope", HandleScopeStart}
+		const HashMap<std::string, WorldParserHelper::StartHandlerFunction> WorldParserHelper::StartElementHandlers = {
+			{"integer", HandleIntegerStart},
+			{"float", HandleFloatStart},
+			{"string", HandleStringStart},
+			{"vector", HandleVectorStart},
+			{"matrix", HandleMatrixStart},
+			{"world", HandleWorldStart},
+			{"sectors", HandleListStart},
+			{"sector", HandleSectorStart},
+			{"entities", HandleListStart},
+			{"entity", HandleEntityStart},
+			{"actions", HandleListStart},
+			{"action", HandleActionStart}
 		};
 
 		const HashMap<std::string, WorldParserHelper::EndHandlerFunction> WorldParserHelper::EndElementHandlers = {
@@ -25,10 +31,15 @@ namespace AnonymousEngine
 			{"string", HandleCommonEnd},
 			{"vector", HandleCommonEnd},
 			{"matrix", HandleMatrixEnd},
-			{"scope", HandleScopeEnd}
+			{"world", HandleWorldEnd},
+			{"sectors", HandleListEnd},
+			{"sector", HandleSectorEnd},
+			{"entities", HandleListEnd},
+			{"entity", HandleEntityEnd},
+			{"actions", HandleListEnd},
+			{"action", HandleActionEnd}
 		};
 
-		const std::string WorldParserHelper::ROOT_TAG = "scope";
 		const std::string WorldParserHelper::NAME = "name";
 		const std::string WorldParserHelper::VALUE = "value";
 		const std::string WorldParserHelper::VECTOR_X = "x";
@@ -49,11 +60,7 @@ namespace AnonymousEngine
 				return false;
 			}
 
-			if (sharedData.Depth() == 1 && name != ROOT_TAG)
-			{
-				throw std::runtime_error("Invalid root tag");
-			}
-
+			mPreviousTagName = name;
 			WorldSharedData& data = *(sharedData.As<WorldSharedData>());
 			StartElementHandlers[name](*this, data, attributes);
 			return true;
@@ -73,7 +80,7 @@ namespace AnonymousEngine
 		void WorldParserHelper::HandleIntegerStart(WorldParserHelper&, WorldSharedData& sharedData, const AttributeMap& attributes)
 		{
 			ValidateRequiredAttributes(attributes);
-			Datum& datum = sharedData.mWorld->Append(attributes[NAME]);
+			Datum& datum = sharedData.mAttributed->Append(attributes[NAME]);
 			if (attributes.ContainsKey(VALUE))
 			{
 				datum.PushBack(std::stoi(attributes[VALUE]));
@@ -83,7 +90,7 @@ namespace AnonymousEngine
 		void WorldParserHelper::HandleFloatStart(WorldParserHelper&, WorldSharedData& sharedData, const AttributeMap& attributes)
 		{
 			ValidateRequiredAttributes(attributes);
-			Datum& datum = sharedData.mWorld->Append(attributes[NAME]);
+			Datum& datum = sharedData.mAttributed->Append(attributes[NAME]);
 			if (attributes.ContainsKey(VALUE))
 			{
 				datum.PushBack(std::stof(attributes[VALUE]));
@@ -93,7 +100,7 @@ namespace AnonymousEngine
 		void WorldParserHelper::HandleStringStart(WorldParserHelper&, WorldSharedData& sharedData, const AttributeMap& attributes)
 		{
 			ValidateRequiredAttributes(attributes);
-			Datum& datum = sharedData.mWorld->Append(attributes[NAME]);
+			Datum& datum = sharedData.mAttributed->Append(attributes[NAME]);
 			if (attributes.ContainsKey(VALUE))
 			{
 				datum.PushBack(attributes[VALUE]);
@@ -117,7 +124,7 @@ namespace AnonymousEngine
 
 				if (helper.mMatrixName.empty())
 				{
-					sharedData.mWorld->Append(attributes[NAME]).PushBack(datum.Get<glm::vec4>());
+					sharedData.mAttributed->Append(attributes[NAME]).PushBack(datum.Get<glm::vec4>());
 				}
 				else
 				{
@@ -132,38 +139,114 @@ namespace AnonymousEngine
 			helper.mMatrixName = attributes[NAME];
 		}
 
-		void WorldParserHelper::HandleScopeStart(WorldParserHelper&, WorldSharedData& sharedData, const AttributeMap& attributes)
+		void WorldParserHelper::HandleWorldStart(WorldParserHelper&, WorldSharedData& sharedData, const AttributeMap& attributes)
 		{
 			ValidateRequiredAttributes(attributes);
-			if (sharedData.mWorld == nullptr)
+			if (sharedData.mAttributed == nullptr)
 			{
-				sharedData.mWorld = new World(attributes["name"]);
+				sharedData.mAttributed = new World(attributes["name"]);
 			}
 			else
 			{
-				World& world = static_cast<World&>(sharedData.mWorld->AppendScope(attributes[NAME]));
-				sharedData.mWorld = &world;
+				World& world = static_cast<World&>(sharedData.mAttributed->AppendScope(attributes[NAME]));
+				sharedData.mAttributed = &world;
 			}
+		}
+
+		void WorldParserHelper::HandleSectorStart(WorldParserHelper&, WorldSharedData& sharedData, const AttributeMap& attributes)
+		{
+			ValidateRequiredAttributes(attributes);
+			if (sharedData.mAttributed == nullptr)
+			{
+				sharedData.mAttributed = new World(attributes["name"]);
+			}
+			else
+			{
+				World& world = static_cast<World&>(sharedData.mAttributed->AppendScope(attributes[NAME]));
+				sharedData.mAttributed = &world;
+			}
+		}
+
+		void WorldParserHelper::HandleEntityStart(WorldParserHelper&, WorldSharedData& sharedData, const AttributeMap& attributes)
+		{
+			ValidateRequiredAttributes(attributes);
+			if (sharedData.mAttributed == nullptr)
+			{
+				sharedData.mAttributed = new World(attributes["name"]);
+			}
+			else
+			{
+				World& world = static_cast<World&>(sharedData.mAttributed->AppendScope(attributes[NAME]));
+				sharedData.mAttributed = &world;
+			}
+		}
+
+		void WorldParserHelper::HandleActionStart(WorldParserHelper&, WorldSharedData& sharedData, const AttributeMap& attributes)
+		{
+			ValidateRequiredAttributes(attributes);
+			if (sharedData.mAttributed == nullptr)
+			{
+				sharedData.mAttributed = new World(attributes["name"]);
+			}
+			else
+			{
+				World& world = static_cast<World&>(sharedData.mAttributed->AppendScope(attributes[NAME]));
+				sharedData.mAttributed = &world;
+			}
+		}
+
+		void WorldParserHelper::HandleListStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap&)
+		{
+			sharedData.mListTag = helper.mPreviousTagName;
 		}
 
 		void WorldParserHelper::HandleCommonEnd(WorldParserHelper&, WorldSharedData&)
 		{
-			// do nothing for now
+			// do nothing
 		}
 
 		void WorldParserHelper::HandleMatrixEnd(WorldParserHelper& helper, WorldSharedData& sharedData)
 		{
-			sharedData.mWorld->Append(helper.mMatrixName).PushBack(glm::mat4(helper.mMatrixVectors[0].Get<glm::vec4>(),
+			sharedData.mAttributed->Append(helper.mMatrixName).PushBack(glm::mat4(helper.mMatrixVectors[0].Get<glm::vec4>(),
 				helper.mMatrixVectors[1].Get<glm::vec4>(), helper.mMatrixVectors[2].Get<glm::vec4>(), helper.mMatrixVectors[3].Get<glm::vec4>()));
 			helper.mMatrixName.clear();
 		}
 
-		void WorldParserHelper::HandleScopeEnd(WorldParserHelper&, WorldSharedData& sharedData)
+		void WorldParserHelper::HandleWorldEnd(WorldParserHelper&, WorldSharedData& sharedData)
 		{
 			if (sharedData.Depth() > 1)
 			{
-				sharedData.mWorld = static_cast<World*>(sharedData.mWorld->GetParent());
+				sharedData.mAttributed = static_cast<World*>(sharedData.mAttributed->GetParent());
 			}
+		}
+
+		void WorldParserHelper::HandleSectorEnd(WorldParserHelper&, WorldSharedData& sharedData)
+		{
+			if (sharedData.Depth() > 1)
+			{
+				sharedData.mAttributed = static_cast<World*>(sharedData.mAttributed->GetParent());
+			}
+		}
+
+		void WorldParserHelper::HandleEntityEnd(WorldParserHelper&, WorldSharedData& sharedData)
+		{
+			if (sharedData.Depth() > 1)
+			{
+				sharedData.mAttributed = static_cast<World*>(sharedData.mAttributed->GetParent());
+			}
+		}
+
+		void WorldParserHelper::HandleActionEnd(WorldParserHelper&, WorldSharedData& sharedData)
+		{
+			if (sharedData.Depth() > 1)
+			{
+				sharedData.mAttributed = static_cast<World*>(sharedData.mAttributed->GetParent());
+			}
+		}
+
+		void WorldParserHelper::HandleListEnd(WorldParserHelper&, WorldSharedData& sharedData)
+		{
+			sharedData.mListTag.clear();
 		}
 
 		void WorldParserHelper::ValidateRequiredAttributes(const AttributeMap& attributes)

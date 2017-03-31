@@ -1,7 +1,9 @@
 #pragma once
 
 #include "XmlParseMaster.h"
-#include "World.h"
+#include "WorldState.h"
+#include "Scope.h"
+#include "Attributed.h"
 
 namespace AnonymousEngine
 {
@@ -12,7 +14,7 @@ namespace AnonymousEngine
 		public:
 			/** Initialize the shared data
 			 */
-			WorldSharedData();
+			WorldSharedData() = default;
 			/** Deallocate resources
 			 */
 			~WorldSharedData() = default;
@@ -25,9 +27,13 @@ namespace AnonymousEngine
 			 */
 			void Initialize() override;
 
-			/** The scope data which will be populated with the result of parsing
+			/** The current attributed class that is being populated
 			 */
-			Containers::World* mWorld;
+			Attributed* mAttributed;
+
+			/** Keeps track of the parent list tag if the parsing is currently inside a list
+			 */
+			std::string mListTag;
 
 			friend class WorldParserHelper;
 

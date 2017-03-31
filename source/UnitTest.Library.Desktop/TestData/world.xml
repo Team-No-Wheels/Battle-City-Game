@@ -1,0 +1,48 @@
+<world name="Skyrim">
+	<integer name="Population" value="100000"/>
+	<sectors>
+		<sector name="Whiterun">
+			<string name="Jarl" value="Balgruuf the Greater"/>
+			<entities>
+				<entity name="Bannered Mare">
+					<string name="Owner" value="Hulda"/>
+					<integer name="Beds" value="10"/>
+					<float name="Price" value="20000.50"/>
+					<vector name="Location" x="0.5" y="10.2" z="100.0" w="1.0"/>
+					<matrix name="Transform">
+						<vector name="Row1" x="1.2" y="10.2" z="0.005" w="1.0"/>
+						<vector name="Row2" x="3.6" y="102" z="0.01" w="1.0"/>
+						<vector name="Row3" x="1000" y="177.2" z="101" w="1.0"/>
+						<vector name="Row4" x="11" y="13.6" z="100.00035" w="1.0"/>
+					</matrix>
+					<actions>
+						<action name="Init">
+							<integer name="Capacity" value="10"/>
+						</action>
+						<action name="Upgrade">
+							<integer name="Capacity" value="5"/>
+						</action>
+					</actions>
+				</entity>
+				<entity name="Dragonsreach">
+					<string name="Owner" value="Balgruuf the Greater"/>
+					<vector name="Location" x="50.4" y="12.3" z="10.0" w="1.0"/>
+				</entity>
+			</entities>
+		</sector>
+		<sector name="Winterhold">
+			<string name="Jarl" value="Korir"/>
+			<entities>
+				<entity name="College of Winterhold">
+					<string name="Arch-Mage" value="Savos Aren"/>
+					<vector name="Location" x="77.04" y="27.9" z="20.0" w="1.0"/>
+					<actions>
+						<action name="Init">
+							<integer name="MaxStudents" value="100"/>
+						</action>
+					</actions>
+				</entity>
+			</entities>
+		</sector>
+	</sectors>
+</world>
