@@ -1,10 +1,11 @@
 #include "WorldParserHelper.h"
-#include "WorldSharedData.h"
-#include "World.h"
-#include "Sector.h"
-#include "Entity.h"
-#include "Action.h"
+
 #include <cassert>
+#include "Action.h"
+#include "Entity.h"
+#include "Sector.h"
+#include "World.h"
+#include "WorldSharedData.h"
 
 #define ValidateRequiredAttributes(attributes) assert(attributes.ContainsKey(NAME))
 #define ValidateSharedDataNotNull(sharedData) assert(sharedData.mAttributed != nullptr)
@@ -33,7 +34,6 @@ namespace AnonymousEngine
 			{"entity", HandleEntityStart},
 			{"actions", HandleListStart},
 			{"action", HandleActionStart},
-			{"file", HandleFileStart}
 		};
 
 		const HashMap<std::string, WorldParserHelper::EndHandlerFunction> WorldParserHelper::EndElementHandlers = {
@@ -48,13 +48,13 @@ namespace AnonymousEngine
 			{"entities", HandleListEnd},
 			{"entity", HandleAttributedEnd},
 			{"actions", HandleListEnd},
-			{"action", HandleAttributedEnd},
-			{"file", HandleFileEnd}
+			{"action", HandleAttributedEnd}
 		};
 
 		const std::string WorldParserHelper::NAME = "name";
 		const std::string WorldParserHelper::CLASS = "class";
 		const std::string WorldParserHelper::VALUE = "value";
+		const std::string WorldParserHelper::INDEX = "index";
 		const std::string WorldParserHelper::VECTOR_X = "x";
 		const std::string WorldParserHelper::VECTOR_Y = "y";
 		const std::string WorldParserHelper::VECTOR_Z = "z";
@@ -90,15 +90,32 @@ namespace AnonymousEngine
 			return true;
 		}
 
+		template <typename T>
+		std::uint32_t WorldParserHelper::UpdateOrAddDatumValue(Datum& datum, const T& value, const AttributeMap& attributes)
+		{
+			if (datum.IsExternal())
+			{
+				std::uint32_t index = 0;
+				if (attributes.ContainsKey(INDEX))
+				{
+					index = std::stoul(attributes[INDEX]);
+				}
+				datum.Set(value, index);
+				return index;
+			}
+			else
+			{
+				datum.PushBack(value);
+				return datum.Size() - 1;
+			}
+		}
+
 		void WorldParserHelper::HandleIntegerStart(WorldSharedData& sharedData, const AttributeMap& attributes)
 		{
 			ValidateSharedDataNotNull(sharedData);
 			ValidateRequiredAttributes(attributes);
 			Datum& datum = sharedData.mAttributed->Append(attributes[NAME]);
-			if (attributes.ContainsKey(VALUE))
-			{
-				datum.PushBack(std::stoi(attributes[VALUE]));
-			}
+			UpdateOrAddDatumValue<std::int32_t>(datum, std::stoi(attributes[VALUE]), attributes);
 		}
 
 		void WorldParserHelper::HandleFloatStart(WorldSharedData& sharedData, const AttributeMap& attributes)
@@ -106,10 +123,7 @@ namespace AnonymousEngine
 			ValidateSharedDataNotNull(sharedData);
 			ValidateRequiredAttributes(attributes);
 			Datum& datum = sharedData.mAttributed->Append(attributes[NAME]);
-			if (attributes.ContainsKey(VALUE))
-			{
-				datum.PushBack(std::stof(attributes[VALUE]));
-			}
+			UpdateOrAddDatumValue<float>(datum, std::stof(attributes[VALUE]), attributes);
 		}
 
 		void WorldParserHelper::HandleStringStart(WorldSharedData& sharedData, const AttributeMap& attributes)
@@ -117,10 +131,7 @@ namespace AnonymousEngine
 			ValidateSharedDataNotNull(sharedData);
 			ValidateRequiredAttributes(attributes);
 			Datum& datum = sharedData.mAttributed->Append(attributes[NAME]);
-			if (attributes.ContainsKey(VALUE))
-			{
-				datum.PushBack(attributes[VALUE]);
-			}
+			UpdateOrAddDatumValue<std::string>(datum, attributes[VALUE], attributes);
 		}
 
 		void WorldParserHelper::HandleVectorStart(WorldSharedData& sharedData, const AttributeMap& attributes)
@@ -129,23 +140,24 @@ namespace AnonymousEngine
 			ValidateRequiredAttributes(attributes);
 			if (attributes.ContainsKey(VECTOR_X) && attributes.ContainsKey(VECTOR_Y) && attributes.ContainsKey(VECTOR_Z) && attributes.ContainsKey(VECTOR_W))
 			{
-				Datum datum;
-				datum.SetType(Datum::DatumType::Vector);
+				Datum tempValue;
+				tempValue.SetType(Datum::DatumType::Vector);
 				std::string toParse = attributes[VECTOR_X];
 				toParse.append(",");
 				toParse.append(attributes[VECTOR_Y]).append(",");
 				toParse.append(attributes[VECTOR_Z]).append(",");
 				toParse.append(attributes[VECTOR_W]);
-				datum.Resize(1U);
-				datum.SetFromString(toParse);
+				tempValue.Resize(1U);
+				tempValue.SetFromString(toParse);
 
 				if (sharedData.mMatrixName.empty())
 				{
-					sharedData.mAttributed->Append(attributes[NAME]).PushBack(datum.Get<glm::vec4>());
+					Datum& datum = sharedData.mAttributed->Append(attributes[NAME]);
+					UpdateOrAddDatumValue(datum, tempValue.Get<glm::vec4>(), attributes);
 				}
 				else
 				{
-					sharedData.mMatrixVectors.PushBack(datum);
+					sharedData.mMatrixVectors.PushBack(tempValue);
 				}
 			}
 		}
@@ -155,6 +167,7 @@ namespace AnonymousEngine
 			ValidateSharedDataNotNull(sharedData);
 			ValidateRequiredAttributes(attributes);
 			sharedData.mMatrixName = attributes[NAME];
+			sharedData.mMatrixIndex = UpdateOrAddDatumValue(sharedData.mAttributed->Append(attributes[NAME]), glm::mat4(), attributes);
 		}
 
 		void WorldParserHelper::HandleWorldStart(WorldSharedData& sharedData, const AttributeMap& attributes)
@@ -201,11 +214,6 @@ namespace AnonymousEngine
 			// do nothing
 		}
 
-		void WorldParserHelper::HandleFileStart(WorldSharedData&, const AttributeMap&)
-		{
-			// TODO: implement nested files
-		}
-
 		void WorldParserHelper::HandlePrimitivesEnd(WorldSharedData&)
 		{
 			// do nothing
@@ -213,8 +221,10 @@ namespace AnonymousEngine
 
 		void WorldParserHelper::HandleMatrixEnd(WorldSharedData& sharedData)
 		{
-			sharedData.mAttributed->Append(sharedData.mMatrixName).PushBack(glm::mat4(sharedData.mMatrixVectors[0].Get<glm::vec4>(),
-				sharedData.mMatrixVectors[1].Get<glm::vec4>(), sharedData.mMatrixVectors[2].Get<glm::vec4>(), sharedData.mMatrixVectors[3].Get<glm::vec4>()));
+			Datum& datum = sharedData.mAttributed->Append(sharedData.mMatrixName);
+			glm::mat4 matrix = glm::mat4(sharedData.mMatrixVectors[0].Get<glm::vec4>(), sharedData.mMatrixVectors[1].Get<glm::vec4>(),
+				sharedData.mMatrixVectors[2].Get<glm::vec4>(), sharedData.mMatrixVectors[3].Get<glm::vec4>());
+			datum.Set(matrix, sharedData.mMatrixIndex);
 			sharedData.mMatrixName.clear();
 		}
 
@@ -229,11 +239,6 @@ namespace AnonymousEngine
 		void WorldParserHelper::HandleListEnd(WorldSharedData&)
 		{
 			// do nothing
-		}
-
-		void WorldParserHelper::HandleFileEnd(WorldSharedData&)
-		{
-			// TODO: implement nested files
 		}
 	}
 }

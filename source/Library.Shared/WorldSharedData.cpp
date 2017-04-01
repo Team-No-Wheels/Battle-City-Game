@@ -8,7 +8,7 @@ namespace AnonymousEngine
 		RTTI_DEFINITIONS(WorldSharedData)
 
 		WorldSharedData::WorldSharedData() :
-			mAttributed(nullptr)
+			mAttributed(nullptr), mMatrixIndex(0)
 		{
 		}
 

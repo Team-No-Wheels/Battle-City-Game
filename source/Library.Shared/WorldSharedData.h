@@ -49,6 +49,10 @@ namespace AnonymousEngine
 			 */
 			std::string mMatrixName;
 
+			/** Stores the current matrix's index in the datum
+			 */
+			std::uint32_t mMatrixIndex;
+
 			friend class WorldParserHelper;
 
 			RTTI_DECLARATIONS(WorldSharedData, SharedData)

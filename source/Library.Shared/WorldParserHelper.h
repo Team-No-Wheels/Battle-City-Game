@@ -47,6 +47,9 @@ namespace AnonymousEngine
 			bool EndElementHandler(SharedData& sharedData, const std::string& name) override;
 
 		private:
+			template <typename T>
+			static std::uint32_t UpdateOrAddDatumValue(Datum& datum, const T& value, const AttributeMap& attributes);
+
 			static void HandleIntegerStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 			static void HandleFloatStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 			static void HandleStringStart(WorldSharedData& sharedData, const AttributeMap& attributes);
@@ -57,13 +60,11 @@ namespace AnonymousEngine
 			static void HandleEntityStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 			static void HandleActionStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 			static void HandleListStart(WorldSharedData& sharedData, const AttributeMap& attributes);
-			static void HandleFileStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 
 			static void HandlePrimitivesEnd(WorldSharedData& sharedData);
 			static void HandleMatrixEnd(WorldSharedData& sharedData);
 			static void HandleAttributedEnd(WorldSharedData& sharedData);
 			static void HandleListEnd(WorldSharedData& sharedData);
-			static void HandleFileEnd(WorldSharedData& sharedData);
 
 			static const HashMap<std::string, StartHandlerFunction> StartElementHandlers;
 			static const HashMap<std::string, EndHandlerFunction> EndElementHandlers;
@@ -71,6 +72,7 @@ namespace AnonymousEngine
 			static const std::string NAME;
 			static const std::string CLASS;
 			static const std::string VALUE;
+			static const std::string INDEX;
 			static const std::string VECTOR_X;
 			static const std::string VECTOR_Y;
 			static const std::string VECTOR_Z;
