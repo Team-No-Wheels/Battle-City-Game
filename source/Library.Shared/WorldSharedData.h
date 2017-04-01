@@ -14,10 +14,10 @@ namespace AnonymousEngine
 		public:
 			/** Initialize the shared data
 			 */
-			WorldSharedData() = default;
+			WorldSharedData();
 			/** Deallocate resources
 			 */
-			~WorldSharedData() = default;
+			~WorldSharedData();
 			/** Create a new instance which has exact same state as this object. The new object should be explicitly
 			 *  deleted by the user
 			 */
@@ -26,6 +26,9 @@ namespace AnonymousEngine
 			/** Initialize the state of this data object
 			 */
 			void Initialize() override;
+
+			Containers::World* ExtractWorld();
+		private:
 
 			/** The current attributed class that is being populated
 			 */

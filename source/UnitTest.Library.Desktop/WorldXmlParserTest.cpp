@@ -4,6 +4,7 @@
 #include "TestClassHelper.h"
 #include "Entity.h"
 #include "Action.h"
+#include "World.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -37,10 +38,12 @@ namespace UnitTestLibraryDesktop
 				parser.AddHelper(helper);
 				parser.ParseFromFile(xmlFile);
 				parser.RemoveHelper(helper);
-				std::string output1 = data.mAttributed->ToString();
+
+				Containers::World* world = data.ExtractWorld();
+				std::string output1 = world->ToString();
 				Assert::AreEqual(TestWorldDataString, output1);
 				Assert::AreEqual(xmlFile, parser.GetFileName());
-				delete data.mAttributed;
+				delete world;
 			}
 		}
 
