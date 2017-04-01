@@ -19,7 +19,7 @@ namespace UnitTestLibraryDesktop
 		bool StartElementHandler(SharedData& sharedData, const std::string& name, const AttributeMap& attributes) override;
 		bool EndElementHandler(SharedData& sharedData, const std::string& name) override;
 		void CharDataHandler(SharedData& sharedData, const std::string& buffer) override;
-		IXmlParserHelper* Clone() override;
+		IXmlParserHelper* Create() override;
 		~FooXmlParserHelper() = default;
 
 	private:

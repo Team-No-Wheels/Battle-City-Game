@@ -33,7 +33,13 @@ namespace AnonymousEngine
 		const std::string ScopeParseHelper::VECTOR_Z = "z";
 		const std::string ScopeParseHelper::VECTOR_W = "w";
 
-		IXmlParserHelper* ScopeParseHelper::Clone()
+		void ScopeParseHelper::Initialize()
+		{
+			mMatrixVectors.Clear();
+			mMatrixName.clear();
+		}
+
+		IXmlParserHelper* ScopeParseHelper::Create()
 		{
 			ScopeParseHelper* helper = new ScopeParseHelper();
 			return helper;

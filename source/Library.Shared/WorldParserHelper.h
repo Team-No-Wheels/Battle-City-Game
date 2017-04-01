@@ -32,7 +32,7 @@ namespace AnonymousEngine
 
 			/** Create another instance with same state as this one
 			 */
-			IXmlParserHelper* Clone() override;
+			IXmlParserHelper* Create() override;
 
 			/** Handles start element tags for all int, float, string, vec4, mat4 and scope
 			 *  @param sharedData The common shared data object which is modified by the helpers
@@ -57,11 +57,13 @@ namespace AnonymousEngine
 			static void HandleEntityStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 			static void HandleActionStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 			static void HandleListStart(WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleFileStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 
 			static void HandlePrimitivesEnd(WorldSharedData& sharedData);
 			static void HandleMatrixEnd(WorldSharedData& sharedData);
 			static void HandleAttributedEnd(WorldSharedData& sharedData);
 			static void HandleListEnd(WorldSharedData& sharedData);
+			static void HandleFileEnd(WorldSharedData& sharedData);
 
 			static const HashMap<std::string, StartHandlerFunction> StartElementHandlers;
 			static const HashMap<std::string, EndHandlerFunction> EndElementHandlers;

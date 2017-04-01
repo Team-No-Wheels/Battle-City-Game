@@ -33,9 +33,9 @@ namespace AnonymousEngine
 			 */
 			virtual void CharDataHandler(SharedData& sharedData, const std::string& buffer);
 
-			/** Clones this helper and returns another helper instance with the same state
+			/** Creates a new helper of this type
 			 */
-			virtual IXmlParserHelper* Clone() = 0;
+			virtual IXmlParserHelper* Create() = 0;
 
 			/** Destructor to deallocate any memory
 			 */

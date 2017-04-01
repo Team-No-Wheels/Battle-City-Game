@@ -33,7 +33,8 @@ namespace UnitTestLibraryDesktop
 				parser1.AddHelper(helper1);
 				parser1.Parse(xml);
 				parser1.RemoveHelper(helper1);
-				std::string output1 = data1.mScope->ToString();
+				Scope* scope1 = data1.ExtractScope();
+				std::string output1 = scope1->ToString();
 				Assert::AreEqual(TestScopeDataString, output1);
 
 				ScopeSharedData data2;
@@ -41,15 +42,16 @@ namespace UnitTestLibraryDesktop
 				ScopeParserHelper helper2;
 				parser2.AddHelper(helper2);
 				parser2.Parse(xml);
-				std::string output2 = data2.mScope->ToString();
+				Scope* scope2 = data2.ExtractScope();
+				std::string output2 = scope2->ToString();
 				Assert::AreEqual(TestScopeDataString, output2);
 
-				Assert::IsTrue(data2.mScope->Equals(data1.mScope));
+				Assert::IsTrue(scope2->Equals(scope1));
 				Assert::AreEqual(output1, output2);
 				Assert::AreEqual(0U, data1.Depth());
 				Assert::AreEqual(0U, data2.Depth());
-				delete data1.mScope;
-				delete data2.mScope;
+				delete scope1;
+				delete scope2;
 			}
 		}
 
@@ -62,7 +64,6 @@ namespace UnitTestLibraryDesktop
 				ScopeParserHelper helper1;
 				parser1.AddHelper(helper1);
 				Assert::ExpectException<std::runtime_error>([&parser1, &xml] { parser1.Parse(xml); });
-				delete data1.mScope;
 			}
 		}
 
@@ -76,7 +77,8 @@ namespace UnitTestLibraryDesktop
 				parser1.AddHelper(helper1);
 				parser1.ParseFromFile(xmlFile);
 				parser1.RemoveHelper(helper1);
-				std::string output1 = data1.mScope->ToString();
+				Scope* scope1 = data1.ExtractScope();
+				std::string output1 = scope1->ToString();
 				Assert::AreEqual(TestScopeDataString, output1);
 				Assert::AreEqual(xmlFile, parser1.GetFileName());
 
@@ -85,15 +87,16 @@ namespace UnitTestLibraryDesktop
 				ScopeParserHelper helper2;
 				parser2.AddHelper(helper2);
 				parser2.ParseFromFile(xmlFile);
-				std::string output2 = data2.mScope->ToString();
+				Scope* scope2 = data2.ExtractScope();
+				std::string output2 = scope2->ToString();
 				Assert::AreEqual(TestScopeDataString, output2);
 
-				Assert::IsTrue(data2.mScope->Equals(data1.mScope));
+				Assert::IsTrue(scope2->Equals(scope1));
 				Assert::AreEqual(output1, output2);
 				Assert::AreEqual(0U, data1.Depth());
 				Assert::AreEqual(0U, data2.Depth());
-				delete data1.mScope;
-				delete data2.mScope;
+				delete scope1;
+				delete scope2;
 			}
 		}
 
@@ -104,19 +107,20 @@ namespace UnitTestLibraryDesktop
 			ScopeParserHelper helper1;
 			parser1.AddHelper(helper1);
 			parser1.Parse(TestXmlStrings[0], true);
-			std::string output = data1.mScope->ToString();
+			Scope* scope1 = data1.ExtractScope();
+			std::string output = scope1->ToString();
 			Assert::AreEqual(TestScopeDataString, output);
 
-			helper1.Initialize();
 			ScopeSharedData data2;
 			parser1.SetSharedData(data2);
 			parser1.Parse(TestXmlStrings[0], true);
-			output = data1.mScope->ToString();
+			Scope* scope2 = data2.ExtractScope();
+			output = scope2->ToString();
 			Assert::AreEqual(TestScopeDataString, output);
 			Assert::AreEqual(0U, data1.Depth());
 			Assert::AreEqual(0U, data2.Depth());
-			delete data1.mScope;
-			delete data2.mScope;
+			delete scope1;
+			delete scope2;
 		}
 
 		TEST_METHOD(TestIncorrectSharedDataTypeGetsIgnored)
@@ -140,22 +144,22 @@ namespace UnitTestLibraryDesktop
 			parser1.Parse(TestXmlStrings[0]);
 			Assert::AreEqual(0U, data1.Depth());
 
-			ScopeSharedData& data2 = *data1.Clone()->As<ScopeSharedData>();
+			ScopeSharedData& data2 = *data1.Create()->As<ScopeSharedData>();
 			Assert::AreEqual(data2.Depth(), data1.Depth());
-			AnonymousEngine::Scope& scope1 = *(data2.mScope);
-			AnonymousEngine::Scope& scope2 = *(data1.mScope);
+			AnonymousEngine::Scope& scope1 = *(data1.ExtractScope());
+			AnonymousEngine::Scope& scope2 = *(data2.ExtractScope());
 			Assert::AreEqual(0U, data2.Depth());
 			delete &data2;
-			Assert::IsTrue(scope1 == scope2);
+			Assert::IsNull(&scope2);
 
-			ScopeParserHelper* helper2 = helper1.Clone()->As<ScopeParserHelper>();
+			ScopeParserHelper* helper2 = helper1.Create()->As<ScopeParserHelper>();
 			delete helper2;
 
 			XmlParseMaster* parser2 = parser1.Clone();
 			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]() { parser2->AddHelper(helper1); });
 			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]() { parser2->RemoveHelper(helper1); });
 			ScopeSharedData* parser2Data = parser2->GetSharedData()->As<ScopeSharedData>();
-			delete parser2Data->mScope;
+			parser2Data;
 			delete parser2;
 			delete &scope1;
 			delete &scope2;

@@ -74,7 +74,7 @@ namespace UnitTestLibraryDesktop
 		}
 	}
 
-	IXmlParserHelper* FooXmlParserHelper::Clone()
+	IXmlParserHelper* FooXmlParserHelper::Create()
 	{
 		FooXmlParserHelper* helper = new FooXmlParserHelper();
 		helper->mStack = mStack;

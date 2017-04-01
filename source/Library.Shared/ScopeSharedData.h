@@ -17,21 +17,27 @@ namespace AnonymousEngine
 			ScopeSharedData();
 			/** Deallocate resources
 			 */
-			~ScopeSharedData() = default;
+			~ScopeSharedData();
 			/** Create a new instance which has exact same state as this object. The new object should be explicitly
 			 *  deleted by the user
 			 */
-			SharedData* Clone() const override;
+			SharedData* Create() const override;
 
 			/** Initialize the state of this data object
 			 */
 			void Initialize() override;
 
+			/** Get the contained scope. This call transfers ownership of the memory to the user
+			 *  @return The contained scope
+			 */
+			Scope* ExtractScope();
+
+		private:
 			/** The scope data which will be populated with the result of parsing
 			 */
 			Scope* mScope;
 
-			friend class StandardTypesParseHelper;
+			friend class ScopeParseHelper;
 
 			RTTI_DECLARATIONS(ScopeSharedData, SharedData)
 		};

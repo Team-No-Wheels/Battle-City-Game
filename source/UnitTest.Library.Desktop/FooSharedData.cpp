@@ -10,7 +10,7 @@ namespace UnitTestLibraryDesktop
 	{
 	}
 
-	SharedData* FooSharedData::Clone() const
+	SharedData* FooSharedData::Create() const
 	{
 		FooSharedData* data = new FooSharedData();
 		data->mDepth = mDepth;

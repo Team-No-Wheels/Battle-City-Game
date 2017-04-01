@@ -17,13 +17,9 @@ namespace AnonymousEngine
 			delete mAttributed;
 		}
 
-		SharedData* WorldSharedData::Clone() const
+		SharedData* WorldSharedData::Create() const
 		{
-			WorldSharedData* data = new WorldSharedData();
-			data->mDepth = mDepth;
-			data->mParser = mParser;
-			data->mAttributed = mAttributed;
-			return data;
+			return new WorldSharedData();
 		}
 
 		void WorldSharedData::Initialize()

@@ -6,16 +6,14 @@ namespace AnonymousEngine
 	{
 		RTTI_DEFINITIONS(SharedData)
 
-		SharedData::SharedData() : mParser(nullptr), mDepth(0)
+		SharedData::SharedData() :
+			mParser(nullptr), mDepth(0)
 		{
 		}
 
-		SharedData* SharedData::Clone() const
+		SharedData* SharedData::Create() const
 		{
-			SharedData* sharedData = new SharedData();
-			sharedData->mDepth = mDepth;
-			sharedData->mParser = mParser;
-			return sharedData;
+			return new SharedData();
 		}
 
 		void SharedData::Initialize()

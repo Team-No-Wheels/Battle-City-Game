@@ -32,7 +32,8 @@ namespace AnonymousEngine
 			{"entities", HandleListStart},
 			{"entity", HandleEntityStart},
 			{"actions", HandleListStart},
-			{"action", HandleActionStart}
+			{"action", HandleActionStart},
+			{"file", HandleFileStart}
 		};
 
 		const HashMap<std::string, WorldParserHelper::EndHandlerFunction> WorldParserHelper::EndElementHandlers = {
@@ -47,7 +48,8 @@ namespace AnonymousEngine
 			{"entities", HandleListEnd},
 			{"entity", HandleAttributedEnd},
 			{"actions", HandleListEnd},
-			{"action", HandleAttributedEnd}
+			{"action", HandleAttributedEnd},
+			{"file", HandleFileEnd}
 		};
 
 		const std::string WorldParserHelper::NAME = "name";
@@ -58,7 +60,7 @@ namespace AnonymousEngine
 		const std::string WorldParserHelper::VECTOR_Z = "z";
 		const std::string WorldParserHelper::VECTOR_W = "w";
 
-		IXmlParserHelper* WorldParserHelper::Clone()
+		IXmlParserHelper* WorldParserHelper::Create()
 		{
 			WorldParserHelper* helper = new WorldParserHelper();
 			return helper;
@@ -199,6 +201,11 @@ namespace AnonymousEngine
 			// do nothing
 		}
 
+		void WorldParserHelper::HandleFileStart(WorldSharedData&, const AttributeMap&)
+		{
+			
+		}
+
 		void WorldParserHelper::HandlePrimitivesEnd(WorldSharedData&)
 		{
 			// do nothing
@@ -222,6 +229,11 @@ namespace AnonymousEngine
 		void WorldParserHelper::HandleListEnd(WorldSharedData&)
 		{
 			// do nothing
+		}
+
+		void WorldParserHelper::HandleFileEnd(WorldSharedData&)
+		{
+			
 		}
 	}
 }

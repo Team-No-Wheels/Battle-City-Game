@@ -81,7 +81,7 @@ namespace UnitTestLibraryDesktop
 			parser1.Parse(TestXmlFiles[0]);
 			Assert::AreEqual(0U, data1.Depth());
 
-			WorldSharedData& data2 = *data1.Clone()->As<WorldSharedData>();
+			WorldSharedData& data2 = *data1.Create()->As<WorldSharedData>();
 			Assert::AreEqual(data2.Depth(), data1.Depth());
 			AnonymousEngine::Scope& scope1 = *(data2.mAttributed);
 			AnonymousEngine::Scope& scope2 = *(data1.mAttributed);
@@ -89,10 +89,10 @@ namespace UnitTestLibraryDesktop
 			delete &data2;
 			Assert::IsTrue(scope1 == scope2);
 
-			WorldParserHelper* helper2 = helper1.Clone()->As<WorldParserHelper>();
+			WorldParserHelper* helper2 = helper1.Create()->As<WorldParserHelper>();
 			delete helper2;
 
-			XmlParseMaster* parser2 = parser1.Clone();
+			XmlParseMaster* parser2 = parser1.Create();
 			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]()
 			{
 				parser2->AddHelper(helper1);

@@ -29,10 +29,14 @@ namespace AnonymousEngine
 			/** Delete copy assignment operator
 			*/
 			ScopeParseHelper& operator=(const ScopeParseHelper&) = delete;
+
+			/** Initialize the helper's state
+			*/
+			void Initialize() override;
 			
 			/** Create another instance with same state as this one
 			 */
-			IXmlParserHelper* Clone() override;
+			IXmlParserHelper* Create() override;
 
 			/** Handles start element tags for all int, float, string, vec4, mat4 and scope
 			 *  @param sharedData The common shared data object which is modified by the helpers

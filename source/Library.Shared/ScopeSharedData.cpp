@@ -8,22 +8,30 @@ namespace AnonymousEngine
 
 		ScopeSharedData::ScopeSharedData() :
 			mScope(nullptr)
-		{	
+		{
 		}
 
-		SharedData* ScopeSharedData::Clone() const
+		ScopeSharedData::~ScopeSharedData()
 		{
-			ScopeSharedData* data = new ScopeSharedData();
-			data->mDepth = mDepth;
-			data->mParser = mParser;
-			data->mScope = (mScope == nullptr) ? nullptr : new AnonymousEngine::Scope(*mScope);
-			return data;
+			delete mScope;
+		}
+
+		SharedData* ScopeSharedData::Create() const
+		{
+			return new ScopeSharedData();
 		}
 
 		void ScopeSharedData::Initialize()
 		{
 			SharedData::Initialize();
+			delete mScope;
+		}
+
+		Scope* ScopeSharedData::ExtractScope()
+		{
+			Scope* scope = mScope;
 			mScope = nullptr;
+			return scope;
 		}
 	}
 }
