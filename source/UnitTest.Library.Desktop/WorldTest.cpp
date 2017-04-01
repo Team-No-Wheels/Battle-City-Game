@@ -98,7 +98,7 @@ namespace UnitTestLibraryDesktop
 			World world(mHelper.GetRandomString());
 			Assert::AreEqual(0U, world.Sectors().Size());
 			
-			for (std::uint32_t index = 0; index < (mHelper.GetRandomUInt32() % 10); ++index)
+			for (std::uint32_t index = 0; index < ((mHelper.GetRandomUInt32() % 10) + 1); ++index)
 			{
 				std::string name = mHelper.GetRandomString();
 				world.CreateSector(name);
@@ -115,7 +115,7 @@ namespace UnitTestLibraryDesktop
 			Sector& sector = world.CreateSector(mHelper.GetRandomString());
 			EntityFactory entityFactory;
 
-			for (std::uint32_t index = 0; index < (mHelper.GetRandomUInt32() % 10); ++index)
+			for (std::uint32_t index = 0; index < ((mHelper.GetRandomUInt32() % 10) + 1); ++index)
 			{
 				std::string name = mHelper.GetRandomString();
 				sector.CreateEntity(name, entityFactory.ClassName());
@@ -134,7 +134,7 @@ namespace UnitTestLibraryDesktop
 			Entity& entity = sector.CreateEntity(mHelper.GetRandomString(), entityFactory.ClassName());
 			ActionFactory actionFactory;
 
-			for (std::uint32_t index = 0; index < (mHelper.GetRandomUInt32() % 10); ++index)
+			for (std::uint32_t index = 0; index < ((mHelper.GetRandomUInt32() % 10) + 1); ++index)
 			{
 				std::string name = mHelper.GetRandomString();
 				entity.CreateAction(name, actionFactory.ClassName());
@@ -154,7 +154,7 @@ namespace UnitTestLibraryDesktop
 			ActionFactory actionFactory;
 			Action& action = entity.CreateAction(mHelper.GetRandomString(), actionFactory.ClassName());
 
-			for (std::uint32_t index = 0; index < (mHelper.GetRandomUInt32() % 10); ++index)
+			for (std::uint32_t index = 0; index < ((mHelper.GetRandomUInt32() % 10) + 1); ++index)
 			{
 				std::string name = mHelper.GetRandomString();
 				action.CreateAction(name, actionFactory.ClassName());
@@ -174,26 +174,26 @@ namespace UnitTestLibraryDesktop
 			clock.UpdateGameTime(state.mGameTime);
 			const std::uint32_t maxItems = 10;
 
-			PopulateSectors(world, (mHelper.GetRandomUInt32() % maxItems));
+			PopulateSectors(world, (mHelper.GetRandomUInt32() % maxItems) + 1);
 			for (std::uint32_t sectorIndex = 0; sectorIndex < world.Sectors().Size(); ++sectorIndex)
 			{
 				Sector* sector = static_cast<Sector*>(&world.Sectors().Get<Scope>(sectorIndex));
-				PopulateEntities(*sector, (mHelper.GetRandomUInt32() % maxItems));
+				PopulateEntities(*sector, (mHelper.GetRandomUInt32() % maxItems) + 1);
 
 				for (std::uint32_t entityIndex = 0; entityIndex < sector->Entities().Size(); ++entityIndex)
 				{
 					Entity* entity = static_cast<Entity*>(&sector->Entities().Get<Scope>(entityIndex));
-					PopulateActionsInEntity(*entity, (mHelper.GetRandomUInt32() % maxItems));
+					PopulateActionsInEntity(*entity, (mHelper.GetRandomUInt32() % maxItems) + 1);
 
 					for (std::uint32_t actionIndex = 0; actionIndex < entity->Actions().Size(); ++actionIndex)
 					{
 						Action* action = static_cast<Action*>(&entity->Actions().Get<Scope>(actionIndex));
-						PopulateActionsInAction(*action, (mHelper.GetRandomUInt32() % maxItems));
+						PopulateActionsInAction(*action, (mHelper.GetRandomUInt32() % maxItems) + 1);
 					}
 				}
 			}
 
-			for (std::uint32_t index = 0; index < (mHelper.GetRandomUInt32() % 10); ++index)
+			for (std::uint32_t index = 0; index < ((mHelper.GetRandomUInt32() % 10) + 1); ++index)
 			{
 				clock.UpdateGameTime(state.mGameTime);
 				Assert::IsTrue(clock.StartTime() <= clock.CurrentTime());

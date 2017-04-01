@@ -64,7 +64,7 @@ namespace AnonymousEngine
 
 		bool ScopeParseHelper::EndElementHandler(SharedData& sharedData, const std::string& name)
 		{
-			if (!sharedData.Is(ScopeSharedData::TypeIdClass()) || !StartElementHandlers.ContainsKey(name))
+			if (!sharedData.Is(ScopeSharedData::TypeIdClass()) || !EndElementHandlers.ContainsKey(name))
 			{
 				return false;
 			}

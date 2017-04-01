@@ -80,7 +80,7 @@ namespace AnonymousEngine
 
 		bool WorldParserHelper::EndElementHandler(SharedData& sharedData, const std::string& name)
 		{
-			if (!sharedData.Is(WorldSharedData::TypeIdClass()) || !StartElementHandlers.ContainsKey(name))
+			if (!sharedData.Is(WorldSharedData::TypeIdClass()) || !EndElementHandlers.ContainsKey(name))
 			{
 				return false;
 			}

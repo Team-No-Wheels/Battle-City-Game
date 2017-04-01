@@ -95,10 +95,25 @@ namespace UnitTestLibraryDesktop
 
 			XmlParseMaster* parser2 = parser1.Clone();
 			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]() { parser2->AddHelper(helper1); });
-			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]() { parser2->RemoveHelper(helper1); });
+			Assert::ExpectException<std::runtime_error>([&parser2, &helper1] () { parser2->RemoveHelper(helper1); });
 			WorldSharedData* parser2Data = parser2->GetSharedData()->As<WorldSharedData>();
 			parser2Data;
 			delete parser2;
+		}
+
+		TEST_METHOD(TestInvalidXmls)
+		{
+			Containers::EntityFactory entityFactory;
+			Containers::ActionFactory actionFactory;
+
+			WorldSharedData data;
+			XmlParseMaster parser(data);
+			WorldParserHelper helper;
+			parser.AddHelper(helper);
+			parser.Parse(InvalidXmls[0]);
+			Parsers::SharedData baseData;
+			parser.SetSharedData(baseData);
+			Assert::ExpectException<std::runtime_error>([&parser] () { parser.Parse(TestXmlFiles[0]); });
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
@@ -123,6 +138,7 @@ namespace UnitTestLibraryDesktop
 
 		static TestClassHelper mHelper;
 		static const AnonymousEngine::Vector<std::string> TestXmlFiles;
+		static const AnonymousEngine::Vector<std::string> InvalidXmls;
 		static const std::string TestWorldDataString;
 	};
 
@@ -130,6 +146,10 @@ namespace UnitTestLibraryDesktop
 
 	const AnonymousEngine::Vector<std::string> WorldXmlParserTest::TestXmlFiles = {
 		"TestData/world.xml"
+	};
+
+	const AnonymousEngine::Vector<std::string> WorldXmlParserTest::InvalidXmls = {
+		"<foo></foo>"
 	};
 
 	const std::string WorldXmlParserTest::TestWorldDataString = "{\"Name\": \"Skyrim\", \"Sectors\": [{\"Name\": \"Whiterun\", \"Entities\": [{\"Name\": \"Bannered Mare\", \"Actions\": [{\"Name\": \"Init\", \"Capacity\": \"10\"}, {\"Name\": \"Upgrade\", \"Capacity\": \"5\"}], \"Owner\": \"Hulda\", \"Beds\": \"10\", \"Price\": \"20000.500000\", \"Location\": \"0.500000,10.200000,100.000000,1.000000\", \"Transform\": \"1.200000,10.200000,0.005000,1.000000,3.600000,102.000000,0.010000,1.000000,1000.000000,177.199997,101.000000,1.000000,11.000000,13.600000,100.000351,1.000000\"}, {\"Name\": \"Dragonsreach\", \"Owner\": \"Balgruuf the Greater\", \"Location\": \"50.400002,12.300000,10.000000,1.000000\"}], \"Jarl\": \"Balgruuf the Greater\"}, {\"Name\": \"Winterhold\", \"Entities\": {\"Name\": \"College of Winterhold\", \"Actions\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Arch-Mage\": \"Savos Aren\", \"Location\": \"77.040001,27.900000,20.000000,1.000000\"}, \"Jarl\": \"Korir\"}], \"Population\": \"100000\"}";
