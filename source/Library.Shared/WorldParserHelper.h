@@ -13,8 +13,8 @@ namespace AnonymousEngine
 		{
 		public:
 			typedef AnonymousEngine::HashMap<std::string, std::string> AttributeMap;
-			typedef std::function<void(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes)> StartHandlerFunction;
-			typedef std::function<void(WorldParserHelper& helper, WorldSharedData& sharedData)> EndHandlerFunction;
+			typedef std::function<void(WorldSharedData& sharedData, const AttributeMap& attributes)> StartHandlerFunction;
+			typedef std::function<void(WorldSharedData& sharedData)> EndHandlerFunction;
 
 			/** Initialize an instance of this helper
 			 */
@@ -47,25 +47,21 @@ namespace AnonymousEngine
 			bool EndElementHandler(SharedData& sharedData, const std::string& name) override;
 
 		private:
-			static void HandleIntegerStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
-			static void HandleFloatStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
-			static void HandleStringStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
-			static void HandleVectorStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
-			static void HandleMatrixStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
-			static void HandleWorldStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
-			static void HandleSectorStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
-			static void HandleEntityStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
-			static void HandleActionStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
-			static void HandleListStart(WorldParserHelper& helper, WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleIntegerStart(WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleFloatStart(WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleStringStart(WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleVectorStart(WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleMatrixStart(WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleWorldStart(WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleSectorStart(WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleEntityStart(WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleActionStart(WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleListStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 
-			static void HandlePrimitivesEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
-			static void HandleMatrixEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
-			static void HandleAttributedEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
-			static void HandleListEnd(WorldParserHelper& helper, WorldSharedData& sharedData);
-
-			Vector<Datum> mMatrixVectors;
-			std::string mMatrixName;
-			std::string mPreviousTagName;
+			static void HandlePrimitivesEnd(WorldSharedData& sharedData);
+			static void HandleMatrixEnd(WorldSharedData& sharedData);
+			static void HandleAttributedEnd(WorldSharedData& sharedData);
+			static void HandleListEnd(WorldSharedData& sharedData);
 
 			static const HashMap<std::string, StartHandlerFunction> StartElementHandlers;
 			static const HashMap<std::string, EndHandlerFunction> EndElementHandlers;

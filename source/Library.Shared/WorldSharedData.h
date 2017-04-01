@@ -31,9 +31,17 @@ namespace AnonymousEngine
 			 */
 			Attributed* mAttributed;
 
-			/** Keeps track of the parent list tag if the parsing is currently inside a list
+			/** The stack for parsers to keep track of the element hierrarchy
 			 */
-			std::string mListTag;
+			Vector<std::string> mElementStack;
+			
+			/* The list of vectors for parsing a matrix
+			 */
+			Vector<Datum> mMatrixVectors;
+
+			/** The current matrix being processed
+			 */
+			std::string mMatrixName;
 
 			friend class WorldParserHelper;
 
