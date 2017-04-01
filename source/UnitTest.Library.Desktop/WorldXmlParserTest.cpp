@@ -49,63 +49,56 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestInitialize)
 		{
-			//Containers::EntityFactory entityFactory;
-			//Containers::ActionFactory actionFactory;
+			Containers::EntityFactory entityFactory;
+			Containers::ActionFactory actionFactory;
 
-			//WorldSharedData data1;
-			//XmlParseMaster parser1(data1);
-			//WorldParserHelper helper1;
-			//parser1.AddHelper(helper1);
-			//parser1.ParseFromFile(TestXmlFiles[0]);
-			//std::string output = data1.mAttributed->ToString();
-			////Assert::AreEqual(TestXmlFiles[0], output);
+			WorldSharedData data1;
+			XmlParseMaster parser1(data1);
+			WorldParserHelper helper1;
+			parser1.AddHelper(helper1);
+			parser1.ParseFromFile(TestXmlFiles[0]);
+			Containers::World* world1 = data1.ExtractWorld();
+			std::string output = world1->ToString();
+			Assert::AreEqual(TestWorldDataString, output);
 
-			//helper1.Initialize();
-			//WorldSharedData data2;
-			//parser1.SetSharedData(data2);
-			//parser1.ParseFromFile(TestXmlFiles[0]);
-			//output = data1.mAttributed->ToString();
-			////Assert::AreEqual(TestXmlFiles[0], output);
-			//Assert::AreEqual(0U, data1.Depth());
-			//Assert::AreEqual(0U, data2.Depth());
-			//delete data1.mAttributed;
-			//delete data2.mAttributed;
+			WorldSharedData data2;
+			parser1.SetSharedData(data2);
+			parser1.ParseFromFile(TestXmlFiles[0]);
+			Containers::World* world2 = data2.ExtractWorld();
+			output = world2->ToString();
+			Assert::AreEqual(TestWorldDataString, output);
+			Assert::AreEqual(0U, data1.Depth());
+			Assert::AreEqual(0U, data2.Depth());
+			delete world1;
+			delete world2;
 		}
 
 		TEST_METHOD(TestClone)
 		{
-			/*WorldSharedData data1;
+			Containers::EntityFactory entityFactory;
+			Containers::ActionFactory actionFactory;
+
+			WorldSharedData data1;
 			XmlParseMaster parser1(data1);
 			WorldParserHelper helper1;
 			parser1.AddHelper(helper1);
-			parser1.Parse(TestXmlFiles[0]);
+			parser1.ParseFromFile(TestXmlFiles[0]);
 			Assert::AreEqual(0U, data1.Depth());
 
 			WorldSharedData& data2 = *data1.Create()->As<WorldSharedData>();
 			Assert::AreEqual(data2.Depth(), data1.Depth());
-			AnonymousEngine::Scope& scope1 = *(data2.mAttributed);
-			AnonymousEngine::Scope& scope2 = *(data1.mAttributed);
 			Assert::AreEqual(0U, data2.Depth());
 			delete &data2;
-			Assert::IsTrue(scope1 == scope2);
 
 			WorldParserHelper* helper2 = helper1.Create()->As<WorldParserHelper>();
 			delete helper2;
 
-			XmlParseMaster* parser2 = parser1.Create();
-			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]()
-			{
-				parser2->AddHelper(helper1);
-			});
-			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]()
-			{
-				parser2->RemoveHelper(helper1);
-			});
+			XmlParseMaster* parser2 = parser1.Clone();
+			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]() { parser2->AddHelper(helper1); });
+			Assert::ExpectException<std::runtime_error>([&parser2, &helper1]() { parser2->RemoveHelper(helper1); });
 			WorldSharedData* parser2Data = parser2->GetSharedData()->As<WorldSharedData>();
-			delete parser2Data->mAttributed;
+			parser2Data;
 			delete parser2;
-			delete &scope1;
-			delete &scope2;*/
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
