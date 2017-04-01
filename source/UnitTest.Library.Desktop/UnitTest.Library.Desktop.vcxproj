@@ -278,6 +278,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="TestData\attributed.xml" />
+    <Xml Include="TestData\entities.xml" />
     <Xml Include="TestData\scope.xml" />
     <Xml Include="TestData\verbose.xml" />
     <Xml Include="TestData\world.xml" />

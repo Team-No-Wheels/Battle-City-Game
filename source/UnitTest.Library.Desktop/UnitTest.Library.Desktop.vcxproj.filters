@@ -144,5 +144,8 @@
     <Xml Include="TestData\world.xml">
       <Filter>TestData</Filter>
     </Xml>
+    <Xml Include="TestData\entities.xml">
+      <Filter>TestData</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

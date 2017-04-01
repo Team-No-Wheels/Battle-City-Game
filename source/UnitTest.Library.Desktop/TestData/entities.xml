@@ -1,0 +1,11 @@
+<entities>
+	<entity name="College of Winterhold" class="Entity">
+		<string name="Arch-Mage" value="Savos Aren"/>
+		<vector name="Location" x="77.04" y="27.9" z="20.0" w="1.0"/>
+		<actions>
+			<action name="Init" class="Action">
+				<integer name="MaxStudents" value="100"/>
+			</action>
+		</actions>
+	</entity>
+</entities>

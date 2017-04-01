@@ -203,7 +203,7 @@ namespace AnonymousEngine
 
 		void WorldParserHelper::HandleFileStart(WorldSharedData&, const AttributeMap&)
 		{
-			
+			// TODO: implement nested files
 		}
 
 		void WorldParserHelper::HandlePrimitivesEnd(WorldSharedData&)
@@ -233,7 +233,7 @@ namespace AnonymousEngine
 
 		void WorldParserHelper::HandleFileEnd(WorldSharedData&)
 		{
-			
+			// TODO: implement nested files
 		}
 	}
 }
