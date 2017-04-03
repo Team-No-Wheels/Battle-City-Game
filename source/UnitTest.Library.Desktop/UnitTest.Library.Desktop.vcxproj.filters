@@ -1,42 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="SListTest.cpp" />
     <ClCompile Include="Pch.cpp" />
     <ClCompile Include="Foo.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
-    <ClCompile Include="SlistIteratorTest.cpp" />
-    <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="TestClassHelper.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
-    <ClCompile Include="VectorIteratorTest.cpp" />
-    <ClCompile Include="HashFunctorsTest.cpp" />
-    <ClCompile Include="HashMapTest.cpp" />
-    <ClCompile Include="DatumTest.cpp" />
-    <ClCompile Include="ScopeTest.cpp" />
     <ClCompile Include="AttributedFoo.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
     <ClCompile Include="AttributedBar.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
-    <ClCompile Include="AttributedTest.cpp" />
-    <ClCompile Include="XmlParserTest.cpp" />
     <ClCompile Include="FooSharedData.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
     <ClCompile Include="FooXmlParserHelper.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
-    <ClCompile Include="ScopeXmlParserTest.cpp" />
-    <ClCompile Include="FactoryTest.cpp" />
     <ClCompile Include="Bar.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
     <ClCompile Include="DerivedBar.cpp">
       <Filter>SupportingClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="AttributedTest.cpp">
+      <Filter>ContainerTests</Filter>
+    </ClCompile>
+    <ClCompile Include="DatumTest.cpp">
+      <Filter>ContainerTests</Filter>
+    </ClCompile>
+    <ClCompile Include="HashFunctorsTest.cpp">
+      <Filter>ContainerTests</Filter>
+    </ClCompile>
+    <ClCompile Include="HashMapTest.cpp">
+      <Filter>ContainerTests</Filter>
+    </ClCompile>
+    <ClCompile Include="ScopeTest.cpp">
+      <Filter>ContainerTests</Filter>
+    </ClCompile>
+    <ClCompile Include="SlistIteratorTest.cpp">
+      <Filter>ContainerTests</Filter>
+    </ClCompile>
+    <ClCompile Include="SListTest.cpp">
+      <Filter>ContainerTests</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorIteratorTest.cpp">
+      <Filter>ContainerTests</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorTest.cpp">
+      <Filter>ContainerTests</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryTest.cpp">
+      <Filter>OtherTests</Filter>
+    </ClCompile>
+    <ClCompile Include="ScopeXmlParserTest.cpp">
+      <Filter>OtherTests</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlParserTest.cpp">
+      <Filter>OtherTests</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldTest.cpp">
+      <Filter>ContainerTests</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldXmlParserTest.cpp">
+      <Filter>OtherTests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,15 +77,9 @@
     <ClInclude Include="ToStringTemplates.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
-    <ClInclude Include="VectorTestTemplate.h" />
-    <ClInclude Include="SListIteratorTestTemplate.h" />
-    <ClInclude Include="SListTestTemplate.h" />
     <ClInclude Include="TestClassHelper.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
-    <ClInclude Include="VectorIteratorTestTemplate.h" />
-    <ClInclude Include="HashMapTestTemplate.h" />
-    <ClInclude Include="DatumTestTemplate.h" />
     <ClInclude Include="AttributedFoo.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
@@ -74,6 +98,24 @@
     <ClInclude Include="DerivedBar.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
+    <ClInclude Include="DatumTestTemplate.h">
+      <Filter>ContainerTests</Filter>
+    </ClInclude>
+    <ClInclude Include="HashMapTestTemplate.h">
+      <Filter>ContainerTests</Filter>
+    </ClInclude>
+    <ClInclude Include="SListIteratorTestTemplate.h">
+      <Filter>ContainerTests</Filter>
+    </ClInclude>
+    <ClInclude Include="SListTestTemplate.h">
+      <Filter>ContainerTests</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorIteratorTestTemplate.h">
+      <Filter>ContainerTests</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorTestTemplate.h">
+      <Filter>ContainerTests</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SupportingClasses">
@@ -81,6 +123,12 @@
     </Filter>
     <Filter Include="TestData">
       <UniqueIdentifier>{ad64508e-2085-4ae7-b8fa-a57f5d18e3ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContainerTests">
+      <UniqueIdentifier>{ec6366d8-a2d1-4f2f-90b8-19a4384fc3c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OtherTests">
+      <UniqueIdentifier>{1d779b78-a915-437e-8a1b-d3e780b68132}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +139,12 @@
       <Filter>TestData</Filter>
     </Xml>
     <Xml Include="TestData\scope.xml">
+      <Filter>TestData</Filter>
+    </Xml>
+    <Xml Include="TestData\world.xml">
+      <Filter>TestData</Filter>
+    </Xml>
+    <Xml Include="TestData\entities.xml">
       <Filter>TestData</Filter>
     </Xml>
   </ItemGroup>

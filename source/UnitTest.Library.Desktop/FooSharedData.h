@@ -15,7 +15,7 @@ namespace UnitTestLibraryDesktop
 	public:
 		FooSharedData();
 		~FooSharedData() = default;
-		SharedData* Clone() const override;
+		SharedData* Create() const override;
 
 		void Initialize() override;
 

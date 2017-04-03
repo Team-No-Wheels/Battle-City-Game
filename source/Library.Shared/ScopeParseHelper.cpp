@@ -33,7 +33,13 @@ namespace AnonymousEngine
 		const std::string ScopeParseHelper::VECTOR_Z = "z";
 		const std::string ScopeParseHelper::VECTOR_W = "w";
 
-		IXmlParserHelper* ScopeParseHelper::Clone()
+		void ScopeParseHelper::Initialize()
+		{
+			mMatrixVectors.Clear();
+			mMatrixName.clear();
+		}
+
+		IXmlParserHelper* ScopeParseHelper::Create()
 		{
 			ScopeParseHelper* helper = new ScopeParseHelper();
 			return helper;
@@ -58,7 +64,7 @@ namespace AnonymousEngine
 
 		bool ScopeParseHelper::EndElementHandler(SharedData& sharedData, const std::string& name)
 		{
-			if (!sharedData.Is(ScopeSharedData::TypeIdClass()) || !StartElementHandlers.ContainsKey(name))
+			if (!sharedData.Is(ScopeSharedData::TypeIdClass()) || !EndElementHandlers.ContainsKey(name))
 			{
 				return false;
 			}

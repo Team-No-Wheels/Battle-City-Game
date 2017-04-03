@@ -32,6 +32,33 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ScopeParseHelper.cpp">
       <Filter>Parsers\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)World.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sector.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Entity.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Action.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameTime.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldState.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldSharedData.cpp">
+      <Filter>Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldParserHelper.cpp">
+      <Filter>Parsers\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -86,6 +113,33 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)World.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sector.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Action.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameClock.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameTime.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldState.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldSharedData.h">
+      <Filter>Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h">
+      <Filter>Parsers\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
@@ -99,6 +153,9 @@
     </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{f822b7cc-3c0b-4683-bff9-da063ca19d64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{b0a89a71-260c-45f6-9e43-551a2828a234}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -33,10 +33,10 @@ namespace AnonymousEngine
 
 		XmlParseMaster* XmlParseMaster::Clone() const
 		{
-			XmlParseMaster* parser = new XmlParseMaster(*mSharedData->Clone());
+			XmlParseMaster* parser = new XmlParseMaster(*mSharedData->Create());
 			for (const auto& helper : mHelpers)
 			{
-				parser->AddHelper(*(helper->Clone()));
+				parser->AddHelper(*(helper->Create()));
 			}
 			parser->mCurrentElementHelper = nullptr;
 			parser->mFilename = mFilename;

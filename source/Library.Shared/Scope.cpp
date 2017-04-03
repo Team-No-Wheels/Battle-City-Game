@@ -116,7 +116,7 @@ namespace AnonymousEngine
 		datum.PushBack(scope);
 	}
 
-	const Scope* Scope::GetParent() const
+	Scope* Scope::GetParent() const
 	{
 		return mParent;
 	}
@@ -187,6 +187,11 @@ namespace AnonymousEngine
 		std::uint32_t attributeIndex = 0;
 		for (const auto& entry : mOrderVector)
 		{
+			if (entry->first == "this" || entry->second.Size() == 0)
+			{
+				continue;
+			}
+
 			std::uint32_t entrySize = entry->second.Size();
 			if (attributeIndex > 0)
 			{

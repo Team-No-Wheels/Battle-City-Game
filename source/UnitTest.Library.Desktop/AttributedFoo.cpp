@@ -6,9 +6,7 @@ namespace UnitTestLibraryDesktop
 {
 	ATTRIBUTED_DEFINITIONS(AttributedFoo)
 
-		RTTI_DEFINITIONS(AttributedFoo)
-
-		AttributedFoo::AttributedFoo() :
+	AttributedFoo::AttributedFoo() :
 		mInt(0), mFloat(0.0f), mNestedScope(new Scope()), mRtti(nullptr)
 	{
 		memset(mRTTIArray, 0, ArraySize * sizeof(RTTI*));
@@ -19,6 +17,7 @@ namespace UnitTestLibraryDesktop
 		AddExternalAttribute("mVec4", &mVec4, 1);
 		AddExternalAttribute("mMat4", &mMat4, 1);
 		AddNestedScope("mNestedScope", *mNestedScope);
+		AddDatumAttribute("mDatum", mDatum);
 		AddExternalAttribute("mRtti", &mRtti, 1);
 
 		AddExternalAttribute("mIntArray", mIntArray, ArraySize);
@@ -122,6 +121,7 @@ namespace UnitTestLibraryDesktop
 		(*this)["mVec4"].SetStorage(&mVec4, 1);
 		(*this)["mMat4"].SetStorage(&mMat4, 1);
 		mNestedScope = &(*this)["mNestedScope"].Get<Scope>();
+		mDatum = &(*this)["mDatum"];
 		(*this)["mRtti"].SetStorage(&mRtti, 1);
 		(*this)["mIntArray"].SetStorage(mIntArray, ArraySize);
 		(*this)["mFloatArray"].SetStorage(mFloatArray, ArraySize);
@@ -140,6 +140,7 @@ namespace UnitTestLibraryDesktop
 		prescribedAttributeNames.PushBack("mVec4");
 		prescribedAttributeNames.PushBack("mMat4");
 		prescribedAttributeNames.PushBack("mNestedScope");
+		prescribedAttributeNames.PushBack("mDatum");
 		prescribedAttributeNames.PushBack("mRtti");
 		prescribedAttributeNames.PushBack("mIntArray");
 		prescribedAttributeNames.PushBack("mFloatArray");

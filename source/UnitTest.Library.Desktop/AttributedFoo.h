@@ -27,6 +27,7 @@ namespace UnitTestLibraryDesktop
 		glm::vec4 mVec4;
 		glm::mat4 mMat4;
 		Scope* mNestedScope;
+		AnonymousEngine::Datum* mDatum;
 		RTTI* mRtti;
 
 	private:
@@ -41,8 +42,6 @@ namespace UnitTestLibraryDesktop
 		void Move(AttributedFoo& rhs);
 		void FixupPrescribedAttributes();
 
-		ATTRIBUTED_DECLARATIONS(AttributedFoo)
-
-		RTTI_DECLARATIONS(AttributedFoo, AnonymousEngine::Attributed)
+		ATTRIBUTED_DECLARATIONS(AttributedFoo, AnonymousEngine::Attributed)
 	};
 }

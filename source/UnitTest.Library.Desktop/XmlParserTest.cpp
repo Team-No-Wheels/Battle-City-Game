@@ -162,18 +162,18 @@ namespace UnitTestLibraryDesktop
 			parser1.Parse(TestXmlStrings[0]);
 
 			SharedData baseData;
-			SharedData* baseDataClone = baseData.Clone();
+			SharedData* baseDataClone = baseData.Create();
 			Assert::AreEqual(baseData.Depth(), baseDataClone->Depth());
 			delete baseDataClone;
 
-			FooSharedData& data2 = *data1.Clone()->As<FooSharedData>();
+			FooSharedData& data2 = *data1.Create()->As<FooSharedData>();
 			Assert::AreEqual(data2.Depth(), data1.Depth());
 			AnonymousEngine::Scope& scope1 = *(data2.mAwardWinners);
 			AnonymousEngine::Scope& scope2 = *(data1.mAwardWinners);
 			delete &data2;
 			Assert::IsTrue(scope1 == scope2);
 			
-			FooXmlParserHelper* helper2 = helper1.Clone()->As<FooXmlParserHelper>();
+			FooXmlParserHelper* helper2 = helper1.Create()->As<FooXmlParserHelper>();
 			delete helper2;
 
 			XmlParseMaster* parser2 = parser1.Clone();

@@ -21,7 +21,7 @@ namespace AnonymousEngine
 			*  The caller should take responsibility of freeing the memory of the new instance
 			*  @return The cloned instance
 			*/
-			virtual SharedData* Clone() const;
+			virtual SharedData* Create() const;
 			/** Release any resource acquisitions
 			*/
 			virtual ~SharedData() = default;
