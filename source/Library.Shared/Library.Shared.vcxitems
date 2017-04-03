@@ -15,9 +15,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Action.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Compare.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CreateAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClock.h" />
@@ -44,9 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Action.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Compare.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CreateAction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DestroyAction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Entity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameTime.cpp" />

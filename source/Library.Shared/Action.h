@@ -21,15 +21,9 @@ namespace AnonymousEngine
 			std::string Name() const;
 			void SetName(const std::string& name);
 
-			Datum& Actions();
-			Action& CreateAction(const std::string& name, const std::string& className);
-			void AdoptAction(Action& action);
-			virtual void Update(WorldState& worldState);
+			virtual void Update(WorldState& worldState) = 0;
 		private:
 			std::string mName;
-			Datum* mActions;
-
-			static const std::string ActionsAttributeName;
 
 			ATTRIBUTED_DECLARATIONS(Action, Attributed)
 		};
@@ -39,8 +33,6 @@ namespace AnonymousEngine
 
 #define ACTION_FACTORY_DEFINITIONS(ConcreteActionT)		\
 	CONCRETE_FACTORY_DEFINITIONS(Action, ConcreteActionT)
-
-		ACTION_FACTORY_DECLARATIONS(Action)
 
 	}
 }

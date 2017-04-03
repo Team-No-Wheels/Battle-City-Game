@@ -11,7 +11,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTestLibraryDesktop
 {
 	TEST_CLASS(WorldXmlParserTest)
-	{
+	{/*
 		typedef AnonymousEngine::Parsers::XmlParseMaster XmlParseMaster;
 		typedef AnonymousEngine::Parsers::WorldParserHelper WorldParserHelper;
 		typedef AnonymousEngine::Parsers::WorldSharedData WorldSharedData;
@@ -114,7 +114,7 @@ namespace UnitTestLibraryDesktop
 			Parsers::SharedData baseData;
 			parser.SetSharedData(baseData);
 			Assert::ExpectException<std::runtime_error>([&parser] () { parser.Parse(TestXmlFiles[0]); });
-		}
+		}*/
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
 		{

@@ -59,6 +59,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)WorldParserHelper.cpp">
       <Filter>Parsers\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CreateAction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DestroyAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -140,6 +143,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h">
       <Filter>Parsers\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CreateAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
