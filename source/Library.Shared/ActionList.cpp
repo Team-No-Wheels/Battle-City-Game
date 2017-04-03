@@ -6,8 +6,6 @@ namespace AnonymousEngine
 	{
 		ATTRIBUTED_DEFINITIONS(ActionList)
 
-		const std::string ActionList::ActionsAttributeName = "Actions";
-
 		ActionList::ActionList(const std::string& name) :
 			Action(name), mActions(nullptr)
 		{

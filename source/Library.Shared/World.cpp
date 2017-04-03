@@ -57,7 +57,17 @@ namespace AnonymousEngine
 				Sector* sector = static_cast<Sector*>(&mSectors->Get<Scope>(index));
 				sector->Update(worldState);
 			}
-			worldState.mWorld = nullptr;		
+
+			for (auto attributed : mGarbageQueue)
+			{
+				delete attributed;
+			}
+			worldState.mWorld = nullptr;
+		}
+
+		void World::MarkForDelete(Attributed& attributed)
+		{
+			mGarbageQueue.PushBack(&attributed);
 		}
 
 		void World::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)

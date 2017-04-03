@@ -27,9 +27,13 @@ namespace AnonymousEngine
 			Sector& CreateSector(const std::string& name);
 			void AdoptSector(Sector& sector);
 			void Update(WorldState& worldState);
+
+			void MarkForDelete(Attributed& attributed);
 		private:
 			std::string mName;
 			Datum* mSectors;
+
+			Vector<Attributed*> mGarbageQueue;
 
 			static const std::string SectorsAttributeName;
 

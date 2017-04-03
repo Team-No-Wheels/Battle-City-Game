@@ -24,8 +24,6 @@ namespace AnonymousEngine
 		private:
 			Datum* mActions;
 
-			static const std::string ActionsAttributeName;
-
 			ATTRIBUTED_DECLARATIONS(ActionList, Action)
 		};
 

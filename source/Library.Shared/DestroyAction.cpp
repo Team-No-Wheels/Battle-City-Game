@@ -1,4 +1,5 @@
 #include "DestroyAction.h"
+#include "World.h"
 
 namespace AnonymousEngine
 {
@@ -14,11 +15,9 @@ namespace AnonymousEngine
 		void DestroyAction::Update(WorldState& worldState)
 		{
 			assert(worldState.mWorld != nullptr);
-
 			worldState.mAction = this;
-			// TODO: implement action
+			worldState.mWorld->MarkForDelete(*this);
 			worldState.mAction = nullptr;
-
 			assert(worldState.mWorld != nullptr);
 		}
 

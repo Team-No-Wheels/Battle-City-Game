@@ -14,11 +14,9 @@ namespace AnonymousEngine
 		void CreateAction::Update(WorldState& worldState)
 		{
 			assert(worldState.mWorld != nullptr);
-
 			worldState.mAction = this;
-			// TODO: implement action
+			GetParent()->Adopt(*(Factory<Action>::Create(mClassName)), ActionsAttributeName);
 			worldState.mAction = nullptr;
-
 			assert(worldState.mWorld != nullptr);
 		}
 

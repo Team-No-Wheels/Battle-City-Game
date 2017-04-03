@@ -6,6 +6,8 @@ namespace AnonymousEngine
 	{
 		ATTRIBUTED_DEFINITIONS(Action)
 
+		const std::string Action::ActionsAttributeName = "Actions";
+
 		Action::Action(const std::string& name) :
 			mName(name)
 		{

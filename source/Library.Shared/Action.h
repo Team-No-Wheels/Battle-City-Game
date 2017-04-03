@@ -22,6 +22,10 @@ namespace AnonymousEngine
 			void SetName(const std::string& name);
 
 			virtual void Update(WorldState& worldState) = 0;
+
+		protected:
+			static const std::string ActionsAttributeName;
+
 		private:
 			std::string mName;
 
