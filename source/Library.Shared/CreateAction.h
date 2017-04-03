@@ -17,6 +17,8 @@ namespace AnonymousEngine
 			CreateAction& operator==(const CreateAction&) = delete;
 			CreateAction& operator==(const CreateAction&&) = delete;
 
+			void SetClassName(const std::string& className);
+			const std::string& ClassName() const;
 			void Update(WorldState& worldState) override;
 
 		private:
