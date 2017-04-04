@@ -16,10 +16,10 @@
 						<vector name="Row4" x="11" y="13.6" z="100.00035" w="1.0"/>
 					</matrix>
 					<actions>
-						<action name="Init" class="Action">
+						<action name="Init" class="ActionList">
 							<integer name="Capacity" value="10"/>
 						</action>
-						<action name="Upgrade" class="Action">
+						<action name="Upgrade" class="ActionList">
 							<integer name="Capacity" value="5"/>
 						</action>
 					</actions>
@@ -39,7 +39,7 @@
 					<string name="Arch-Mage" value="Savos Aren"/>
 					<vector name="Location" x="77.04" y="27.9" z="20.0" w="1.0"/>
 					<actions>
-						<action name="Init" class="Action">
+						<action name="Init" class="ActionList">
 							<integer name="MaxStudents" value="100"/>
 						</action>
 					</actions>

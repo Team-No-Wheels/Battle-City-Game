@@ -1,9 +1,11 @@
 #include "Pch.h"
-#include "XmlParseMaster.h"
-#include "WorldParserHelper.h"
-#include "TestClassHelper.h"
+#include "CreateAction.h"
+#include "DestroyAction.h"
+#include "ActionList.h"
 #include "Entity.h"
-#include "Action.h"
+#include "TestClassHelper.h"
+#include "WorldParserHelper.h"
+#include "XmlParseMaster.h"
 #include "World.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -11,7 +13,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTestLibraryDesktop
 {
 	TEST_CLASS(WorldXmlParserTest)
-	{/*
+	{
 		typedef AnonymousEngine::Parsers::XmlParseMaster XmlParseMaster;
 		typedef AnonymousEngine::Parsers::WorldParserHelper WorldParserHelper;
 		typedef AnonymousEngine::Parsers::WorldSharedData WorldSharedData;
@@ -29,7 +31,7 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestParseXmlFiles)
 		{
 			Containers::EntityFactory entityFactory;
-			Containers::ActionFactory actionFactory;
+			Containers::ActionListFactory actionFactory;
 			for (const auto& xmlFile : TestXmlFiles)
 			{
 				WorldSharedData data;
@@ -50,7 +52,7 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestInitialize)
 		{
 			Containers::EntityFactory entityFactory;
-			Containers::ActionFactory actionFactory;
+			Containers::ActionListFactory actionFactory;
 
 			WorldSharedData data1;
 			XmlParseMaster parser1(data1);
@@ -76,7 +78,7 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestClone)
 		{
 			Containers::EntityFactory entityFactory;
-			Containers::ActionFactory actionFactory;
+			Containers::ActionListFactory actionFactory;
 
 			WorldSharedData data1;
 			XmlParseMaster parser1(data1);
@@ -104,7 +106,7 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestInvalidXmls)
 		{
 			Containers::EntityFactory entityFactory;
-			Containers::ActionFactory actionFactory;
+			Containers::CreateActionFactory actionFactory;
 
 			WorldSharedData data;
 			XmlParseMaster parser(data);
@@ -114,7 +116,7 @@ namespace UnitTestLibraryDesktop
 			Parsers::SharedData baseData;
 			parser.SetSharedData(baseData);
 			Assert::ExpectException<std::runtime_error>([&parser] () { parser.Parse(TestXmlFiles[0]); });
-		}*/
+		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
 		{
