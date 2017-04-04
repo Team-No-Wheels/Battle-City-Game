@@ -202,10 +202,23 @@ namespace AnonymousEngine
 		{
 			ValidateSharedDataNotNull(sharedData);
 			ValidateRequiredAttributes(attributes);
-			ValidateSharedDataScopeType(sharedData, Entity);
+			ValidateSharedDataScopeType(sharedData, Attributed);
 			ValidateFactoryInputAttributes(attributes);
-			ValidateParentIsList(sharedData, "actions");
-			Action* action = &(static_cast<Entity*>(sharedData.mAttributed)->CreateAction(attributes[NAME], attributes[CLASS]));
+			assert(sharedData.mElementStack.Size() > 0);
+
+			Action* action = Factory<Action>::Create(attributes[CLASS]);
+			action->SetName(attributes[NAME]);
+			std::string actionsListName = Action::ActionsAttributeName;
+			std::transform(actionsListName.begin(), actionsListName.end(), actionsListName.begin(), ::tolower);
+
+			if (sharedData.mElementStack.Front() == actionsListName)
+			{
+				sharedData.mAttributed->Adopt(*action, Action::ActionsAttributeName);
+			}
+			else
+			{
+				sharedData.mAttributed->Adopt(*action, action->Name());
+			}
 			sharedData.mAttributed = action;
 		}
 

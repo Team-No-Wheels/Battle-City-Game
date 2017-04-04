@@ -34,7 +34,6 @@ namespace AnonymousEngine
 		void ActionList::Update(WorldState& worldState)
 		{
 			assert(worldState.mWorld != nullptr);
-
 			worldState.mAction = this;
 			for (std::uint32_t index = 0; index < mActions->Size(); ++index)
 			{
@@ -42,7 +41,6 @@ namespace AnonymousEngine
 				action->Update(worldState);
 			};
 			worldState.mAction = nullptr;
-
 			assert(worldState.mWorld != nullptr);
 		}
 

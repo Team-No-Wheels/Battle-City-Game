@@ -1,7 +1,13 @@
 <world name="Skyrim">
 	<integer name="Population" value="100000"/>
+	<action name="Init" class="ActionList">
+		<integer name="MaxStudents" value="100"/>
+	</action>
 	<sectors>
 		<sector name="Whiterun">
+			<action name="Init" class="ActionList">
+				<integer name="MaxStudents" value="100"/>
+			</action>
 			<string name="Jarl" value="Balgruuf the Greater"/>
 			<entities>
 				<entity name="Bannered Mare" class="Entity">

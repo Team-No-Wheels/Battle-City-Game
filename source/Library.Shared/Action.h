@@ -23,7 +23,6 @@ namespace AnonymousEngine
 
 			virtual void Update(WorldState& worldState) = 0;
 
-		protected:
 			static const std::string ActionsAttributeName;
 
 		private:
