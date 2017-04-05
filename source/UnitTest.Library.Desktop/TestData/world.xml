@@ -11,11 +11,9 @@
 	</actions>
 	<sectors>
 		<sector name="Whiterun">
-			<actions>
-				<action name="Init" class="ActionList">
-					<integer name="MaxStudents" value="100"/>
-				</action>
-			</actions>
+			<action name="Init" class="ActionList">
+				<integer name="MaxStudents" value="100"/>
+			</action>
 			<string name="Jarl" value="Balgruuf the Greater"/>
 			<entities>
 				<entity name="Bannered Mare" class="Entity">

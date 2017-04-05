@@ -44,8 +44,6 @@ namespace AnonymousEngine
 				}
 				searchScope = searchScope->GetParent();
 			}
-
-			worldState.mWorld->MarkForDelete(*this);
 			
 			worldState.mAction = nullptr;
 			assert(worldState.mWorld != nullptr);

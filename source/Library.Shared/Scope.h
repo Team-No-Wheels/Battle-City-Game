@@ -161,6 +161,10 @@ namespace AnonymousEngine
 		 */
 		void Clear();
 
+		/** Detach the current scope from its parent
+		*/
+		void Orphan();
+
 	protected:
 		/** The child objects data map
 		 */
@@ -181,8 +185,8 @@ namespace AnonymousEngine
 		void Copy(const Scope& rhs);
 		// Moves another scope to this scope. Used by move constructor and move assignment operator
 		void Move(Scope& rhs);
-		// Detach the current scope from its parent
-		void Orphan();
+
+		friend Datum;
 
 		RTTI_DECLARATIONS(Scope, RTTI)
 	};

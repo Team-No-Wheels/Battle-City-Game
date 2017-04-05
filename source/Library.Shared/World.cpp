@@ -77,8 +77,10 @@ namespace AnonymousEngine
 			// garbage collection
 			for (auto attributed : mGarbageQueue)
 			{
+				attributed->Orphan();
 				delete attributed;
 			}
+			mGarbageQueue.Clear();
 			worldState.mWorld = nullptr;
 		}
 

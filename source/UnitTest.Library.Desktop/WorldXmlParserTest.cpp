@@ -7,11 +7,14 @@
 #include "XmlParseMaster.h"
 #include "World.h"
 #include "DestroyAction.h"
+#include "GameClock.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTestLibraryDesktop
 {
+	using namespace std::chrono;
+
 	TEST_CLASS(WorldXmlParserTest)
 	{
 		typedef AnonymousEngine::Parsers::XmlParseMaster XmlParseMaster;
@@ -45,8 +48,8 @@ namespace UnitTestLibraryDesktop
 				parser.RemoveHelper(helper);
 
 				Containers::World* world = data.ExtractWorld();
-				std::string output1 = world->ToString();
-				Assert::AreEqual(TestWorldDataString, output1);
+				std::string output = world->ToString();
+				Assert::AreEqual(TestWorldDataString, output);
 				Assert::AreEqual(xmlFile, parser.GetFileName());
 				delete world;
 			}
@@ -125,6 +128,42 @@ namespace UnitTestLibraryDesktop
 			Assert::ExpectException<std::runtime_error>([&parser] () { parser.Parse(TestXmlFiles[0]); });
 		}
 
+		TEST_METHOD(TestWorldUpdate)
+		{
+			Containers::EntityFactory entityFactory;
+			Containers::ActionListFactory actionFactory;
+			Containers::CreateActionFactory createActionFactory;
+			Containers::DestroyActionFactory destroyActionFactory;
+
+			WorldSharedData data;
+			XmlParseMaster parser(data);
+			WorldParserHelper helper;
+			parser.AddHelper(helper);
+			parser.ParseFromFile(TestXmlFiles[0]);
+			Containers::World* world = data.ExtractWorld();
+			std::string output = world->ToString();
+			Assert::AreEqual(TestWorldDataString, output);
+
+			Containers::WorldState state;
+			GameClock clock;
+			clock.StartTime();
+			clock.UpdateGameTime(state.mGameTime);
+			std::uint32_t runs = ((mHelper.GetRandomUInt32() % 10) + 5);
+			for (std::uint32_t index = 0; index < runs; ++index)
+			{
+				clock.UpdateGameTime(state.mGameTime);
+				Assert::IsTrue(clock.StartTime() <= clock.CurrentTime());
+				Assert::IsTrue(clock.StartTime() <= clock.LastTime());
+				Assert::IsTrue(clock.CurrentTime() >= clock.LastTime());
+				Assert::IsTrue(state.mGameTime.CurrentTime() == clock.CurrentTime());
+				Assert::IsTrue(state.mGameTime.ElapsedGameTime() >= milliseconds());
+				Assert::IsTrue(state.mGameTime.TotalGameTime() == duration_cast<milliseconds>(clock.CurrentTime() - clock.StartTime()));
+				world->Update(state);
+			}
+
+			delete world;
+		}
+
 		TEST_CLASS_INITIALIZE(InitializeClass)
 		{
 			mHelper.BeginClass();
@@ -132,12 +171,12 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD_INITIALIZE(Setup)
 		{
-			mHelper.Setup();
+			//mHelper.Setup();
 		}
 
 		TEST_METHOD_CLEANUP(Teardown)
 		{
-			mHelper.Teardown();
+			//mHelper.Teardown();
 		}
 
 		TEST_CLASS_CLEANUP(CleanupClass)
@@ -161,5 +200,5 @@ namespace UnitTestLibraryDesktop
 		"<foo></foo>"
 	};
 
-	const std::string WorldXmlParserTest::TestWorldDataString = "{\"Name\": \"Skyrim\", \"Sectors\": [{\"Name\": \"Whiterun\", \"Entities\": [{\"Name\": \"Bannered Mare\", \"Actions\": [{\"Name\": \"Init\", \"Capacity\": \"10\"}, {\"Name\": \"Upgrade\", \"Capacity\": \"5\"}], \"Owner\": \"Hulda\", \"Beds\": \"10\", \"Price\": \"20000.500000\", \"Location\": \"0.500000,10.200000,100.000000,1.000000\", \"Transform\": \"1.200000,10.200000,0.005000,1.000000,3.600000,102.000000,0.010000,1.000000,1000.000000,177.199997,101.000000,1.000000,11.000000,13.600000,100.000351,1.000000\"}, {\"Name\": \"Dragonsreach\", \"Owner\": \"Balgruuf the Greater\", \"Location\": \"50.400002,12.300000,10.000000,1.000000\"}], \"Actions\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Jarl\": \"Balgruuf the Greater\"}, {\"Name\": \"Winterhold\", \"Entities\": {\"Name\": \"College of Winterhold\", \"Actions\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Arch-Mage\": \"Savos Aren\", \"Location\": \"77.040001,27.900000,20.000000,1.000000\"}, \"Jarl\": \"Korir\"}], \"Actions\": [{\"Name\": \"Init\", \"InstanceName\": \"TestAction\", \"ClassName\": \"ActionList\"}, {\"Name\": \"Destroy\", \"InstanceName\": \"TestAction\"}], \"Population\": \"100000\"}";
+	const std::string WorldXmlParserTest::TestWorldDataString = "{\"Name\": \"Skyrim\", \"Sectors\": [{\"Name\": \"Whiterun\", \"Entities\": [{\"Name\": \"Bannered Mare\", \"Actions\": [{\"Name\": \"Init\", \"Capacity\": \"10\"}, {\"Name\": \"Upgrade\", \"Capacity\": \"5\"}], \"Owner\": \"Hulda\", \"Beds\": \"10\", \"Price\": \"20000.500000\", \"Location\": \"0.500000,10.200000,100.000000,1.000000\", \"Transform\": \"1.200000,10.200000,0.005000,1.000000,3.600000,102.000000,0.010000,1.000000,1000.000000,177.199997,101.000000,1.000000,11.000000,13.600000,100.000351,1.000000\"}, {\"Name\": \"Dragonsreach\", \"Owner\": \"Balgruuf the Greater\", \"Location\": \"50.400002,12.300000,10.000000,1.000000\"}], \"Init\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Jarl\": \"Balgruuf the Greater\"}, {\"Name\": \"Winterhold\", \"Entities\": {\"Name\": \"College of Winterhold\", \"Actions\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Arch-Mage\": \"Savos Aren\", \"Location\": \"77.040001,27.900000,20.000000,1.000000\"}, \"Jarl\": \"Korir\"}], \"Actions\": [{\"Name\": \"Init\", \"InstanceName\": \"TestAction\", \"ClassName\": \"ActionList\"}, {\"Name\": \"Destroy\", \"InstanceName\": \"TestAction\"}], \"Population\": \"100000\"}";
 }
