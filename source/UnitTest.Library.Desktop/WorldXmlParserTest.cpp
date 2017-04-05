@@ -8,7 +8,7 @@
 #include "World.h"
 #include "DestroyAction.h"
 #include "GameClock.h"
-#include "Print.h"
+#include "SetValue.h"
 #include "Switch.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -39,6 +39,8 @@ namespace UnitTestLibraryDesktop
 			Containers::ActionListFactory actionFactory;
 			Containers::CreateActionFactory createActionFactory;
 			Containers::DestroyActionFactory destroyActionFactory;
+			Containers::SetValueFactory setValueFactory;
+			Containers::SwitchFactory switchFactory;
 
 			for (const auto& xmlFile : TestXmlFiles)
 			{
@@ -63,6 +65,8 @@ namespace UnitTestLibraryDesktop
 			Containers::ActionListFactory actionFactory;
 			Containers::CreateActionFactory createActionFactory;
 			Containers::DestroyActionFactory destroyActionFactory;
+			Containers::SetValueFactory setValueFactory;
+			Containers::SwitchFactory switchFactory;
 
 			WorldSharedData data1;
 			XmlParseMaster parser1(data1);
@@ -91,6 +95,8 @@ namespace UnitTestLibraryDesktop
 			Containers::ActionListFactory actionFactory;
 			Containers::CreateActionFactory createActionFactory;
 			Containers::DestroyActionFactory destroyActionFactory;
+			Containers::SetValueFactory setValueFactory;
+			Containers::SwitchFactory switchFactory;
 
 			WorldSharedData data1;
 			XmlParseMaster parser1(data1);
@@ -136,7 +142,7 @@ namespace UnitTestLibraryDesktop
 			Containers::ActionListFactory actionFactory;
 			Containers::CreateActionFactory createActionFactory;
 			Containers::DestroyActionFactory destroyActionFactory;
-			Containers::PrintFactory printFactory;
+			Containers::SetValueFactory setValueFactory;
 			Containers::SwitchFactory switchFactory;
 
 			WorldSharedData data;
@@ -146,7 +152,7 @@ namespace UnitTestLibraryDesktop
 			parser.ParseFromFile(TestXmlFiles[0]);
 			Containers::World* world = data.ExtractWorld();
 			std::string output = world->ToString();
-			//Assert::AreEqual(TestWorldDataString, output);
+			Assert::AreEqual(TestWorldDataString, output);
 
 			Containers::WorldState state;
 			GameClock clock;
@@ -163,6 +169,7 @@ namespace UnitTestLibraryDesktop
 				Assert::IsTrue(state.mGameTime.ElapsedGameTime() >= milliseconds());
 				Assert::IsTrue(state.mGameTime.TotalGameTime() == duration_cast<milliseconds>(clock.CurrentTime() - clock.StartTime()));
 				world->Update(state);
+				Assert::AreEqual(10001, (*world)["Population"].Get<std::int32_t>());
 			}
 
 			delete world;
@@ -175,12 +182,12 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD_INITIALIZE(Setup)
 		{
-			//mHelper.Setup();
+			mHelper.Setup();
 		}
 
 		TEST_METHOD_CLEANUP(Teardown)
 		{
-			//mHelper.Teardown();
+			mHelper.Teardown();
 		}
 
 		TEST_CLASS_CLEANUP(CleanupClass)
@@ -204,5 +211,5 @@ namespace UnitTestLibraryDesktop
 		"<foo></foo>"
 	};
 
-	const std::string WorldXmlParserTest::TestWorldDataString = "{\"Name\": \"Skyrim\", \"Sectors\": [{\"Name\": \"Whiterun\", \"Entities\": [{\"Name\": \"Bannered Mare\", \"Actions\": [{\"Name\": \"Init\", \"Capacity\": \"10\"}, {\"Name\": \"Upgrade\", \"Capacity\": \"5\"}], \"Owner\": \"Hulda\", \"Beds\": \"10\", \"Price\": \"20000.500000\", \"Location\": \"0.500000,10.200000,100.000000,1.000000\", \"Transform\": \"1.200000,10.200000,0.005000,1.000000,3.600000,102.000000,0.010000,1.000000,1000.000000,177.199997,101.000000,1.000000,11.000000,13.600000,100.000351,1.000000\"}, {\"Name\": \"Dragonsreach\", \"Owner\": \"Balgruuf the Greater\", \"Location\": \"50.400002,12.300000,10.000000,1.000000\"}], \"Init\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Jarl\": \"Balgruuf the Greater\"}, {\"Name\": \"Winterhold\", \"Entities\": {\"Name\": \"College of Winterhold\", \"Actions\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Arch-Mage\": \"Savos Aren\", \"Location\": \"77.040001,27.900000,20.000000,1.000000\"}, \"Jarl\": \"Korir\"}], \"Actions\": [{\"Name\": \"Init\", \"InstanceName\": \"TestAction\", \"ClassName\": \"ActionList\"}, {\"Name\": \"Destroy\", \"InstanceName\": \"TestAction\"}, {\"Name\": \"CheckPopulation\", \"Actions\": [{\"Name\": \"10000\", \"PrintString\": \"The world has a healthy amount of people\"}, {\"Name\": \"100000\", \"PrintString\": \"We need a new plague. There are too many of them!!\"}], \"Expression\": \"Population\", \"DefaultCase\": {\"Name\": \"DefaultCase\", \"PrintString\": \"I don't have a case for this many people\"}}], \"Population\": \"100000\"}";
+	const std::string WorldXmlParserTest::TestWorldDataString = "{\"Name\": \"Skyrim\", \"Sectors\": [{\"Name\": \"Whiterun\", \"Entities\": [{\"Name\": \"Bannered Mare\", \"Actions\": [{\"Name\": \"Init\", \"Capacity\": \"10\"}, {\"Name\": \"Upgrade\", \"Capacity\": \"5\"}], \"Owner\": \"Hulda\", \"Beds\": \"10\", \"Price\": \"20000.500000\", \"Location\": \"0.500000,10.200000,100.000000,1.000000\", \"Transform\": \"1.200000,10.200000,0.005000,1.000000,3.600000,102.000000,0.010000,1.000000,1000.000000,177.199997,101.000000,1.000000,11.000000,13.600000,100.000351,1.000000\"}, {\"Name\": \"Dragonsreach\", \"Owner\": \"Balgruuf the Greater\", \"Location\": \"50.400002,12.300000,10.000000,1.000000\"}], \"Init\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Jarl\": \"Balgruuf the Greater\"}, {\"Name\": \"Winterhold\", \"Entities\": {\"Name\": \"College of Winterhold\", \"Actions\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Arch-Mage\": \"Savos Aren\", \"Location\": \"77.040001,27.900000,20.000000,1.000000\"}, \"Jarl\": \"Korir\"}], \"Actions\": [{\"Name\": \"Init\", \"InstanceName\": \"TestAction\", \"ClassName\": \"ActionList\"}, {\"Name\": \"Destroy\", \"InstanceName\": \"TestAction\"}, {\"Name\": \"Test\", \"Target\": \"Population\", \"Value\": \"10000\", \"Index\": \"0\"}, {\"Name\": \"CheckPopulation\", \"Actions\": [{\"Name\": \"10000\", \"Target\": \"Population\", \"Value\": \"10001\", \"Index\": \"0\"}, {\"Name\": \"1000000\", \"Target\": \"Population\", \"Value\": \"0\", \"Index\": \"0\"}], \"Expression\": \"Population\", \"DefaultCase\": {\"Name\": \"DefaultCase\", \"Target\": \"Population\", \"Value\": \"100\", \"Index\": \"0\"}}], \"Population\": \"1000000\"}";
 }

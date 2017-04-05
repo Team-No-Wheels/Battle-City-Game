@@ -59,14 +59,21 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)WorldParserHelper.cpp">
       <Filter>Parsers\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)CreateAction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)DestroyAction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Switch.cpp">
-      <Filter>Containers</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SetValue.cpp">
+      <Filter>Actions</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Print.cpp">
-      <Filter>Containers</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Switch.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CreateAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DestroyAction.cpp">
+      <Filter>Actions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,14 +156,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h">
       <Filter>Parsers\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)CreateAction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Switch.h">
-      <Filter>Containers</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)InfixParser.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SetValue.h">
+      <Filter>Actions</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Print.h">
-      <Filter>Containers</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Switch.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CreateAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h">
+      <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +188,9 @@
     </Filter>
     <Filter Include="Misc">
       <UniqueIdentifier>{b0a89a71-260c-45f6-9e43-551a2828a234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actions">
+      <UniqueIdentifier>{95658011-e196-425f-bded-e181e951755a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
