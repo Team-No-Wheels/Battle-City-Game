@@ -21,7 +21,8 @@ namespace AnonymousEngine
 			Action& CreateAction(const std::string& name, const std::string& className);
 			void AdoptAction(Action& action);
 			void Update(WorldState& worldState) override;
-		private:
+		
+		protected:
 			Datum* mActions;
 
 			ATTRIBUTED_DECLARATIONS(ActionList, Action)

@@ -25,7 +25,7 @@ namespace AnonymousEngine
 
 			static const std::string ActionsAttributeName;
 
-		private:
+		protected:
 			std::string mName;
 
 			ATTRIBUTED_DECLARATIONS(Action, Attributed)
