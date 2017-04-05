@@ -276,6 +276,11 @@ namespace AnonymousEngine
 		 */
 		bool Remove(Scope& scope);
 
+		/** Remove a scope from the current datum at the given index
+		 *  @param index The index of the scope to be removed
+		 */
+		void RemoveAt(std::uint32_t index);
+
 		/** Set this datum to use an external int array
 		 *  @param data The pointer to the external data
 		 *  @param size The number of elements in the external data array

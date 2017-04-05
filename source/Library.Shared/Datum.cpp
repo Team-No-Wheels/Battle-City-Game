@@ -490,6 +490,14 @@ namespace AnonymousEngine
 		return false;
 	}
 
+	void Datum::RemoveAt(std::uint32_t index)
+	{
+		ValidateType(DatumType::Scope);
+		ValidateIndex(index);
+		memmove(&mData.scopeValue[index], &mData.scopeValue[index + 1], (mSize - index - 1) * sizeof(Scope*));
+		--mSize;
+	}
+
 	void Datum::SetStorage(std::int32_t* data, std::uint32_t size)
 	{
 		SetExternalStorage(data, size, DatumType::Integer);
