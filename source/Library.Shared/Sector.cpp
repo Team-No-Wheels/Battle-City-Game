@@ -1,6 +1,7 @@
 #include "Sector.h"
 
 #include <cassert>
+#include "Action.h"
 #include "Entity.h"
 #include "World.h"
 
@@ -17,6 +18,8 @@ namespace AnonymousEngine
 		{
 			AddExternalAttribute("Name", &mName, 1);
 			AddDatumAttribute(EntitiesAttributeName, mEntities);
+			mEntities->SetType(Datum::DatumType::Scope);
+			AddDatumAttribute(Action::ActionsAttributeName, mActions);
 			mEntities->SetType(Datum::DatumType::Scope);
 		}
 
@@ -54,12 +57,26 @@ namespace AnonymousEngine
 			Adopt(entity, EntitiesAttributeName);
 		}
 
+		Datum& Sector::Actions()
+		{
+			return (*mActions);
+		}
+
 		void Sector::Update(WorldState& worldState)
 		{
 			assert(worldState.mWorld == static_cast<World*>(GetParent()));
 			assert(worldState.mSector == nullptr);
 
 			worldState.mSector = this;
+			
+			// update actions
+			for (std::uint32_t index = 0; index < mActions->Size(); ++index)
+			{
+				Action* action = static_cast<Action*>(&mActions->Get<Scope>(index));
+				action->Update(worldState);
+			};
+			
+			// update entities
 			for (std::uint32_t index = 0; index < mEntities->Size(); ++index)
 			{
 				Entity* entity = static_cast<Entity*>(&mEntities->Get<Scope>(index));
@@ -75,6 +92,7 @@ namespace AnonymousEngine
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 			prescribedAttributeNames.PushBack("Name");
 			prescribedAttributeNames.PushBack("Entities");
+			prescribedAttributeNames.PushBack("Actions");
 		}
 	}
 }

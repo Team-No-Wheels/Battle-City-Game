@@ -28,10 +28,13 @@ namespace AnonymousEngine
 			Datum& Entities();
 			Entity& CreateEntity(const std::string& name, const std::string& className);
 			void AdoptEntity(Entity& entity);
+
+			Datum& Actions();
 			void Update(WorldState& worldState);
 		private:
 			std::string mName;
 			Datum* mEntities;
+			Datum* mActions;
 
 			static const std::string EntitiesAttributeName;
 

@@ -52,5 +52,7 @@ namespace AnonymousEngine
 			prescribedAttributeNames.PushBack("Expression");
 			prescribedAttributeNames.PushBack("DefaultCase");
 		}
+
+		ACTION_FACTORY_DEFINITIONS(Switch)
 	}
 }

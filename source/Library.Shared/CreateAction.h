@@ -22,6 +22,7 @@ namespace AnonymousEngine
 			void Update(WorldState& worldState) override;
 
 		private:
+			std::string mInstanceName;
 			std::string mClassName;
 
 			ATTRIBUTED_DECLARATIONS(CreateAction, Action)

@@ -19,6 +19,9 @@ namespace AnonymousEngine
 
 			void Update(WorldState& worldState) override;
 
+		private:
+			std::string mInstanceName;
+
 			ATTRIBUTED_DECLARATIONS(DestroyAction, Action)
 		};
 

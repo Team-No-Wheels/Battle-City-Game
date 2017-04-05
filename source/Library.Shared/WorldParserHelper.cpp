@@ -211,7 +211,7 @@ namespace AnonymousEngine
 			std::string actionsListName = Action::ActionsAttributeName;
 			std::transform(actionsListName.begin(), actionsListName.end(), actionsListName.begin(), ::tolower);
 
-			if (sharedData.mElementStack.Front() == actionsListName)
+			if (sharedData.mElementStack.Back() == actionsListName)
 			{
 				sharedData.mAttributed->Adopt(*action, Action::ActionsAttributeName);
 			}
