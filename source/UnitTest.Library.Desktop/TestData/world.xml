@@ -1,5 +1,5 @@
 <world name="Skyrim">
-	<integer name="Population" value="100000"/>
+	<integer name="Population" value="1000000"/>
 	<actions>
 		<action name="Init" class="CreateAction">
 			<string name="InstanceName" value="TestAction"/>
@@ -7,6 +7,23 @@
 		</action>
 		<action name="Destroy" class="DestroyAction">
 			<string name="InstanceName" value="TestAction"/>
+		</action>
+		<action name="Test" class="Print">
+			<string name="PrintString" value="This world is beautiful"/>
+		</action>
+		<action name="CheckPopulation" class="Switch">
+			<string name="Expression" value="Population"/>
+			<actions>
+				<action name="10000" class="Print">
+					<string name="PrintString" value="The world has a healthy amount of people"/>
+				</action>
+				<action name="100000" class="Print">
+					<string name="PrintString" value="We need a new plague. There are too many of them!!"/>
+				</action>
+			</actions>
+			<action name="DefaultCase" class="Print">
+				<string name="PrintString" value="I don't have a case for this many people"/>
+			</action>
 		</action>
 	</actions>
 	<sectors>

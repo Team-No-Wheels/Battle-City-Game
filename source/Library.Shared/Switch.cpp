@@ -5,6 +5,8 @@ namespace AnonymousEngine
 {
 	namespace Containers
 	{
+		ATTRIBUTED_DEFINITIONS(Switch)
+
 		Switch::Switch(const std::string& name) :
 			ActionList(name), mDefaultCase()
 		{
@@ -22,13 +24,19 @@ namespace AnonymousEngine
 
 			if (datum != nullptr && datum->Size() > 0)
 			{
-				const std::string& value = datum->ToString();
 				bool foundCase = false;
 				for (std::uint32_t index = 0; index < mActions->Size(); ++index)
 				{
 					assert(mActions->Get<Scope>(index).Is(Action::TypeIdClass()));
 					Action& action = static_cast<Action&>(mActions->Get<Scope>(index));
-					if (action.Name() == value)
+					
+					// create a datum from the case to compare against
+					Datum caseValue;
+					caseValue.SetType(datum->Type());
+					caseValue.Resize(1U);
+					caseValue.SetFromString(action.Name());
+
+					if (caseValue == (*datum))
 					{
 						foundCase = true;
 						action.Update(worldState);
@@ -39,7 +47,7 @@ namespace AnonymousEngine
 				if (!foundCase && mDefaultCase != nullptr)
 				{
 					assert(mDefaultCase->Get<Scope>().Is(Action::TypeIdClass()));
-					Action& action = static_cast<Action&>(mActions->Get<Scope>());
+					Action& action = static_cast<Action&>(mDefaultCase->Get<Scope>());
 					action.Update(worldState);
 				}
 			}

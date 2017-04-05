@@ -65,6 +65,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Switch.cpp">
       <Filter>Containers</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Print.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -150,6 +153,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CreateAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Switch.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Print.h">
       <Filter>Containers</Filter>
     </ClInclude>
   </ItemGroup>
