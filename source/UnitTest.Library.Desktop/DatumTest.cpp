@@ -149,10 +149,13 @@ namespace UnitTestLibraryDesktop
 			Scope& childScope1 = s1.AppendScope("testScope1");
 			childScope1.Append("testFloat1") = mHelper.GetRandomFloat();
 			Scope& childScope2 = s1.AppendScope("testScope2");
+			Scope& childScope3 = s1.AppendScope("testScope2");
 			childScope2.Append("testInt2") = mHelper.GetRandomInt32();
 			Assert::IsFalse(s1["testScope1"].Remove(childScope2));
+			s1["testScope2"].RemoveAt(1U);
 			Assert::IsTrue(s1["testScope2"].Remove(childScope2));
 			delete &childScope2;
+			delete &childScope3;
 		}
 
 		TEST_METHOD(TestSet)
