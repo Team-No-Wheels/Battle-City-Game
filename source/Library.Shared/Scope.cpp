@@ -228,14 +228,16 @@ namespace AnonymousEngine
 
 	void Scope::Clear()
 	{
+		Orphan();
 		for (const auto& pairPtr : mOrderVector)
 		{
 			Datum& datum = pairPtr->second;
 			if (datum.Type() == Datum::DatumType::Scope)
 			{
-				for (std::uint32_t index = 0; index < datum.Size(); ++index)
+				std::uint32_t size = datum.Size();
+				for (std::uint32_t index = 0; index < size; ++index)
 				{
-					Scope& childScope = datum.Get<Scope>(index);
+					Scope& childScope = datum.Get<Scope>();
 					delete &childScope;
 				}
 			}
