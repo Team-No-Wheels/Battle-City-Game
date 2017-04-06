@@ -59,7 +59,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)WorldParserHelper.cpp">
       <Filter>Parsers\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SetValue.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
@@ -73,6 +72,9 @@
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DestroyAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
   </ItemGroup>
@@ -156,7 +158,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h">
       <Filter>Parsers\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)InfixParser.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SetValue.h">
       <Filter>Actions</Filter>
     </ClInclude>
@@ -170,6 +171,9 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)InfixParser.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>
