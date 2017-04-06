@@ -11,7 +11,7 @@ namespace UnitTestLibraryDesktop
 	TEST_CLASS(InfixParserTest)
 	{
 	public:
-		TEST_METHOD(TestAddAndRemove)
+		TEST_METHOD(TestParse)
 		{
 			Parsers::InfixParser parser;
 			for(std::uint32_t index = 0; index < InfixExpressions.Size(); ++index)
@@ -52,12 +52,12 @@ namespace UnitTestLibraryDesktop
 	const Vector<std::string> InfixParserTest::InfixExpressions = {
 		" 3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3",
 		"sin(max(2, 3) / 3 * 3.1415)",
-		"sin ( max ( units[0].health, attacker[1].damage ) / 3 * 3.1415 )"
+		"sin ( max ( units[0].health, attacker[1+2].damage ) / 3 * 3.1415 )"
 	};
 
 	const Vector<std::string> InfixParserTest::RPNExpressions = {
 		"`3`4`2`*`1`5`-`/`+`2`^`3`^",
 		"`3`4`2`*`1`5`-`/`+`2`^`3`^`2`3`()`max`3`/`3.1415`*`()`sin",
-		"`3`4`2`*`1`5`-`/`+`2`^`3`^`2`3`()`max`3`/`3.1415`*`()`sin`units`0`[]`health`.`attacker`1`[]`damage`.`()`max`3`/`3.1415`*`()`sin"
+		"`3`4`2`*`1`5`-`/`+`2`^`3`^`2`3`()`max`3`/`3.1415`*`()`sin`units`0`[]`health`.`attacker`1`2`+`[]`damage`.`()`max`3`/`3.1415`*`()`sin"
 	};
 }
