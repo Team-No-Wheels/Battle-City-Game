@@ -77,6 +77,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)OperatorExpressionNode.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)OperandExpressionNode.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -174,6 +180,15 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)InfixParser.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ExpressionNode.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OperandExpressionNode.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OperatorExpressionNode.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>
