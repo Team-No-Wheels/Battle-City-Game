@@ -70,14 +70,14 @@ namespace AnonymousEngine
 			worldState.mSector = this;
 			
 			// update actions
-			for (std::uint32_t index = 0; index < mActions->Size(); ++index)
+			for (std::uint32_t index = 0; index < Actions().Size(); ++index)
 			{
 				Action* action = static_cast<Action*>(&mActions->Get<Scope>(index));
 				action->Update(worldState);
 			};
 			
 			// update entities
-			for (std::uint32_t index = 0; index < mEntities->Size(); ++index)
+			for (std::uint32_t index = 0; index < Entities().Size(); ++index)
 			{
 				Entity* entity = static_cast<Entity*>(&mEntities->Get<Scope>(index));
 				entity->Update(worldState);

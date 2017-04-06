@@ -1,5 +1,7 @@
 <world name="Skyrim">
 	<integer name="Population" value="1000000"/>
+	<string name="Capital" value="Solitude"/>
+	<integer name="WhiterunPopulation" value="100"/>
 	<actions>
 		<action name="Init" class="CreateAction">
 			<string name="InstanceName" value="TestAction"/>
@@ -8,14 +10,14 @@
 		<action name="Destroy" class="DestroyAction">
 			<string name="InstanceName" value="TestAction"/>
 		</action>
-		<action name="Test" class="SetValue">
+		<action name="TestSetValue" class="SetValue">
 			<string name="Target" value="Population"/>
 			<string name="Value" value="10000"/>
 		</action>
 		<action name="CheckPopulation" class="Switch">
 			<string name="Expression" value="Population"/>
 			<actions>
-				<action name="10000" class="SetValue">
+				<action name="100000" class="SetValue">
 					<string name="Target" value="Population"/>
 					<string name="Value" value="10001"/>
 				</action>
@@ -29,12 +31,30 @@
 				<string name="Value" value="100"/>
 			</action>
 		</action>
+		<action name="CheckCapital" class="Switch">
+			<string name="Expression" value="Capital"/>
+			<actions>
+				<action name="Solitude" class="SetValue">
+					<string name="Target" value="Capital"/>
+					<string name="Value" value="Whiterun"/>
+				</action>
+			</actions>
+		</action>
 	</actions>
 	<sectors>
 		<sector name="Whiterun">
-			<action name="Init" class="ActionList">
-				<integer name="MaxStudents" value="100"/>
-			</action>
+			<actions>
+				<action name="Init" class="ActionList">
+					<integer name="MaxStudents" value="100"/>
+				</action>
+				<action name="UpdatePopulation" class="SetValue">
+					<string name="Target" value="WhiterunPopulation"/>
+					<string name="Value" value="500"/>
+				</action>
+				<action name="DestroyWorldTest" class="DestroyAction">
+					<string name="InstanceName" value="TestSetValue"/>
+				</action>
+			</actions>
 			<string name="Jarl" value="Balgruuf the Greater"/>
 			<entities>
 				<entity name="Bannered Mare" class="Entity">

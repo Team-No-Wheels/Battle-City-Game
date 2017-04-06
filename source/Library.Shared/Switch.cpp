@@ -44,7 +44,7 @@ namespace AnonymousEngine
 					}
 				}
 
-				if (!foundCase && mDefaultCase != nullptr)
+				if (!foundCase && mDefaultCase->Size() > 0)
 				{
 					assert(mDefaultCase->Get<Scope>().Is(Action::TypeIdClass()));
 					Action& action = static_cast<Action&>(mDefaultCase->Get<Scope>());

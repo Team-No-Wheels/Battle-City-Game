@@ -13,16 +13,6 @@ namespace AnonymousEngine
 			AddExternalAttribute("ClassName", &mClassName, 1);
 		}
 
-		void CreateAction::SetClassName(const std::string& className)
-		{
-			mClassName = className;
-		}
-
-		const std::string& CreateAction::ClassName() const
-		{
-			return mClassName;
-		}
-
 		void CreateAction::Update(WorldState& worldState)
 		{
 			assert(worldState.mWorld != nullptr);
