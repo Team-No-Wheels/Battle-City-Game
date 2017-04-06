@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Vector.h"
 #include <regex>
 #include "HashMap.h"
 
@@ -13,21 +12,39 @@ namespace AnonymousEngine
 		public:
 			enum class TokenType
 			{
-				Integer,
 				Float,
+				Integer,
 				String,
 				Variable,
-				Operator,
+				UnaryOperator,
+				BinaryOperator,
 				Function,
+				Subscript,
 				LeftParanthesis,
 				RightParanthesis
+			};
+
+			enum Associativity
+			{
+				Left,
+				Right
+			};
+
+			struct OperatorInfo
+			{
+				std::uint32_t mPrecedence;
+				Associativity mAssociativity;
 			};
 
 			std::string ConvertToRPN(const std::string& infixExpression);
 
 		private:
+			void HandleToken(const std::string& token, TokenType tokenType);
+
 			Vector<std::string> mStack;
-			static HashMap<TokenType, std::string> TokenExpressions;
+			static Vector<std::string> TokenTypes;
+			static Vector<std::string> TokenExpressions;
+			static HashMap<std::string, OperatorInfo> OperatorInfoMap;
 		};
 	}
 }
