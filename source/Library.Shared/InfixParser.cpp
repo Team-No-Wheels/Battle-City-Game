@@ -86,9 +86,8 @@ namespace AnonymousEngine
 			return "";
 		}
 
-		void InfixParser::HandleToken(const std::string& token, TokenType tokenType)
+		void InfixParser::HandleToken(const std::string&, TokenType)
 		{
-			
 		}
 	}
 }
