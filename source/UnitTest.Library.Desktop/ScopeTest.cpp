@@ -83,7 +83,7 @@ namespace UnitTestLibraryDesktop
 			Datum &d2 = childScope.Append("childTest");
 			d2 = value2;
 			Datum& d = scope.Append("child");
-			
+
 			Assert::AreEqual(DatumType::Integer, d2.Type());
 			Assert::IsTrue(d2 == value2);
 			Assert::IsTrue(childScope.GetParent() == const_cast<const Scope*>(&scope));
@@ -94,7 +94,6 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(childScope != childScope2);
 			Assert::IsTrue(childScope2.GetParent() == const_cast<const Scope*>(&scope));
 			Assert::AreEqual(std::string("child"), childScope2.GetParentKey());
-
 			Assert::AreEqual(2U, d.Size());
 			scope.AppendScope("child");
 			Assert::AreEqual(3U, d.Size());

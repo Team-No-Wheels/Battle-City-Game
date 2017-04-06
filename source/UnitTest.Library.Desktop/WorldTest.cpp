@@ -1,6 +1,8 @@
 #include "Pch.h"
 #include "GameClock.h"
-#include "Action.h"
+#include "ActionList.h"
+#include "CreateAction.h"
+#include "DestroyAction.h"
 #include "Entity.h"
 #include "Sector.h"
 #include "TestClassHelper.h"
@@ -76,21 +78,48 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(TestActionInitialize)
 		{
-			std::string name = mHelper.GetRandomString();
-			Action action(name);
-			Assert::IsTrue(Datum::DatumType::String == action["Name"].Type());
-			Assert::IsTrue(Datum::DatumType::Scope == action["Actions"].Type());
-			Assert::IsNull(action.GetParent());
-			Assert::AreEqual(name, action.Name());
-			Assert::AreEqual(name, action["Name"].Get<std::string>());
-			Assert::AreEqual(1U, action["Name"].Size());
-			Assert::AreEqual(0U, action.Actions().Size());
-			Assert::AreEqual(0U, action["Actions"].Size());
-			Assert::IsTrue(&action.Actions() == &action["Actions"]);
+			{
+				std::string name = mHelper.GetRandomString();
+				ActionList actionList(name);
+				Assert::IsTrue(Datum::DatumType::String == actionList["Name"].Type());
+				Assert::IsTrue(Datum::DatumType::Scope == actionList["Actions"].Type());
+				Assert::IsNull(actionList.GetParent());
+				Assert::AreEqual(name, actionList.Name());
+				Assert::AreEqual(name, actionList["Name"].Get<std::string>());
+				Assert::AreEqual(1U, actionList["Name"].Size());
+				Assert::AreEqual(0U, actionList.Actions().Size());
+				Assert::AreEqual(0U, actionList["Actions"].Size());
+				Assert::IsTrue(&actionList.Actions() == &actionList["Actions"]);
+				std::string name2 = mHelper.GetRandomString();
+				actionList.SetName(name2);
+				Assert::AreEqual(name2, actionList["Name"].Get<std::string>());
+			}
 
-			std::string name2 = mHelper.GetRandomString();
-			action.SetName(name2);
-			Assert::AreEqual(name2, action["Name"].Get<std::string>());
+			{
+				std::string name = mHelper.GetRandomString();
+				CreateAction createAction(name);
+				Assert::IsTrue(Datum::DatumType::String == createAction["Name"].Type());
+				Assert::IsNull(createAction.GetParent());
+				Assert::AreEqual(name, createAction.Name());
+				Assert::AreEqual(name, createAction["Name"].Get<std::string>());
+				Assert::AreEqual(1U, createAction["Name"].Size());
+				std::string name2 = mHelper.GetRandomString();
+				createAction.SetName(name2);
+				Assert::AreEqual(name2, createAction["Name"].Get<std::string>());
+			}
+
+			{
+				std::string name = mHelper.GetRandomString();
+				DestroyAction destroyAction(name);
+				Assert::IsTrue(Datum::DatumType::String == destroyAction["Name"].Type());
+				Assert::IsNull(destroyAction.GetParent());
+				Assert::AreEqual(name, destroyAction.Name());
+				Assert::AreEqual(name, destroyAction["Name"].Get<std::string>());
+				Assert::AreEqual(1U, destroyAction["Name"].Size());
+				std::string name2 = mHelper.GetRandomString();
+				destroyAction.SetName(name2);
+				Assert::AreEqual(name2, destroyAction["Name"].Get<std::string>());
+			}
 		}
 
 		TEST_METHOD(TestCreateAndAdoptSector)
@@ -132,32 +161,46 @@ namespace UnitTestLibraryDesktop
 			Sector& sector = world.CreateSector(mHelper.GetRandomString());
 			EntityFactory entityFactory;
 			Entity& entity = sector.CreateEntity(mHelper.GetRandomString(), entityFactory.ClassName());
-			ActionFactory actionFactory;
+			CreateActionFactory createActionFactory;
+			DestroyActionFactory destroyActionFactory;
+			ActionListFactory actionListFactory;
+			const std::uint32_t actionTypes = 3;
 
 			for (std::uint32_t index = 0; index < ((mHelper.GetRandomUInt32() % 10) + 1); ++index)
 			{
-				std::string name = mHelper.GetRandomString();
-				entity.CreateAction(name, actionFactory.ClassName());
-				Assert::AreEqual(index + 1, entity.Actions().Size());
-				Action* action = static_cast<Action*>(&entity.Actions().Get<Scope>(index));
-				Assert::IsTrue(&entity == static_cast<Entity*>(action->GetParent()));
-				Assert::AreEqual(name, action->Name());
+				std::string names[actionTypes] = {
+					mHelper.GetRandomString(),
+					mHelper.GetRandomString(),
+					mHelper.GetRandomString()
+				};
+
+				entity.CreateAction(names[0], createActionFactory.ClassName());
+				entity.CreateAction(names[1], destroyActionFactory.ClassName());
+				entity.CreateAction(names[2], actionListFactory.ClassName());
+				Assert::AreEqual((index + 1) * 3, entity.Actions().Size());
+
+				for (std::uint32_t i = 0; i < actionTypes; ++i)
+				{
+					Action* action = static_cast<Action*>(&entity.Actions().Get<Scope>((index * 3) + i));
+					Assert::IsTrue(&entity == static_cast<Entity*>(action->GetParent()));
+					Assert::AreEqual(names[i], action->Name());
+				}
 			}
 		}
 
-		TEST_METHOD(TestCreateAndAdoptActionInAction)
+		TEST_METHOD(TestCreateAndAdoptActionInActionList)
 		{
 			World world(mHelper.GetRandomString());
 			Sector& sector = world.CreateSector(mHelper.GetRandomString());
 			EntityFactory entityFactory;
 			Entity& entity = sector.CreateEntity(mHelper.GetRandomString(), entityFactory.ClassName());
-			ActionFactory actionFactory;
-			Action& action = entity.CreateAction(mHelper.GetRandomString(), actionFactory.ClassName());
+			ActionListFactory actionListFactory;
+			ActionList& action = static_cast<ActionList&>(entity.CreateAction(mHelper.GetRandomString(), actionListFactory.ClassName()));
 
 			for (std::uint32_t index = 0; index < ((mHelper.GetRandomUInt32() % 10) + 1); ++index)
 			{
 				std::string name = mHelper.GetRandomString();
-				action.CreateAction(name, actionFactory.ClassName());
+				action.CreateAction(name, actionListFactory.ClassName());
 				Assert::AreEqual(index + 1, action.Actions().Size());
 				Action* newAction = static_cast<Action*>(&action.Actions().Get<Scope>(index));
 				Assert::IsTrue(&action == static_cast<Action*>(newAction->GetParent()));
@@ -248,7 +291,7 @@ namespace UnitTestLibraryDesktop
 
 		static void PopulateActionsInEntity(Entity& entity, std::uint32_t elements)
 		{
-			ActionFactory actionFactory;
+			ActionListFactory actionFactory;
 			for (std::uint32_t index = 0; index < elements; ++index)
 			{
 				entity.CreateAction(mHelper.GetRandomString(), actionFactory.ClassName());
@@ -257,10 +300,10 @@ namespace UnitTestLibraryDesktop
 
 		static void PopulateActionsInAction(Action& action, std::uint32_t elements)
 		{
-			ActionFactory actionFactory;
+			ActionListFactory actionFactory;
 			for (std::uint32_t index = 0; index < elements; ++index)
 			{
-				action.CreateAction(mHelper.GetRandomString(), actionFactory.ClassName());
+				static_cast<ActionList&>(action).CreateAction(mHelper.GetRandomString(), actionFactory.ClassName());
 			}
 		}
 

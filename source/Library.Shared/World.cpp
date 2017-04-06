@@ -1,6 +1,7 @@
 #include "World.h"
 
 #include <cassert>
+#include "Action.h"
 #include "Sector.h"
 #include "WorldState.h"
 
@@ -13,10 +14,12 @@ namespace AnonymousEngine
 		const std::string World::SectorsAttributeName = "Sectors";
 
 		World::World(const std::string& name) :
-			mName(name), mSectors(nullptr)
+			mName(name), mSectors(nullptr), mActions(nullptr)
 		{
 			AddExternalAttribute("Name", &mName, 1);
 			AddDatumAttribute(SectorsAttributeName, mSectors);
+			mSectors->SetType(Datum::DatumType::Scope);
+			AddDatumAttribute(Action::ActionsAttributeName, mActions);
 			mSectors->SetType(Datum::DatumType::Scope);
 		}
 
@@ -47,17 +50,43 @@ namespace AnonymousEngine
 			Adopt(sector, SectorsAttributeName);
 		}
 
+		Datum& World::Actions()
+		{
+			return (*mActions);
+		}
+
 		void World::Update(WorldState& worldState)
 		{
 			assert(worldState.mWorld == nullptr);
-
 			worldState.mWorld = this;
-			for (std::uint32_t index = 0; index < mSectors->Size(); ++index)
+
+			// update actions
+			for (std::uint32_t index = 0; index < Actions().Size(); ++index)
+			{
+				Action* action = static_cast<Action*>(&mActions->Get<Scope>(index));
+				action->Update(worldState);
+			}
+
+			// update sectors
+			for (std::uint32_t index = 0; index < Sectors().Size(); ++index)
 			{
 				Sector* sector = static_cast<Sector*>(&mSectors->Get<Scope>(index));
 				sector->Update(worldState);
 			}
-			worldState.mWorld = nullptr;		
+
+			// garbage collection
+			for (auto attributed : mGarbageQueue)
+			{
+				attributed->Orphan();
+				delete attributed;
+			}
+			mGarbageQueue.Clear();
+			worldState.mWorld = nullptr;
+		}
+
+		void World::MarkForDelete(Attributed& attributed)
+		{
+			mGarbageQueue.PushBack(&attributed);
 		}
 
 		void World::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
@@ -65,6 +94,7 @@ namespace AnonymousEngine
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 			prescribedAttributeNames.PushBack("Name");
 			prescribedAttributeNames.PushBack("Sectors");
+			prescribedAttributeNames.PushBack("Actions");
 		}
 	}
 }

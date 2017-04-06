@@ -1,15 +1,22 @@
 #include "Pch.h"
-#include "XmlParseMaster.h"
-#include "WorldParserHelper.h"
-#include "TestClassHelper.h"
+#include "CreateAction.h"
+#include "ActionList.h"
 #include "Entity.h"
-#include "Action.h"
+#include "TestClassHelper.h"
+#include "WorldParserHelper.h"
+#include "XmlParseMaster.h"
 #include "World.h"
+#include "DestroyAction.h"
+#include "GameClock.h"
+#include "SetValue.h"
+#include "Switch.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTestLibraryDesktop
 {
+	using namespace std::chrono;
+
 	TEST_CLASS(WorldXmlParserTest)
 	{
 		typedef AnonymousEngine::Parsers::XmlParseMaster XmlParseMaster;
@@ -29,7 +36,12 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestParseXmlFiles)
 		{
 			Containers::EntityFactory entityFactory;
-			Containers::ActionFactory actionFactory;
+			Containers::ActionListFactory actionFactory;
+			Containers::CreateActionFactory createActionFactory;
+			Containers::DestroyActionFactory destroyActionFactory;
+			Containers::SetValueFactory setValueFactory;
+			Containers::SwitchFactory switchFactory;
+
 			for (const auto& xmlFile : TestXmlFiles)
 			{
 				WorldSharedData data;
@@ -40,8 +52,8 @@ namespace UnitTestLibraryDesktop
 				parser.RemoveHelper(helper);
 
 				Containers::World* world = data.ExtractWorld();
-				std::string output1 = world->ToString();
-				Assert::AreEqual(TestWorldDataString, output1);
+				std::string output = world->ToString();
+				Assert::AreEqual(TestWorldDataString, output);
 				Assert::AreEqual(xmlFile, parser.GetFileName());
 				delete world;
 			}
@@ -50,7 +62,11 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestInitialize)
 		{
 			Containers::EntityFactory entityFactory;
-			Containers::ActionFactory actionFactory;
+			Containers::ActionListFactory actionFactory;
+			Containers::CreateActionFactory createActionFactory;
+			Containers::DestroyActionFactory destroyActionFactory;
+			Containers::SetValueFactory setValueFactory;
+			Containers::SwitchFactory switchFactory;
 
 			WorldSharedData data1;
 			XmlParseMaster parser1(data1);
@@ -76,7 +92,11 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestClone)
 		{
 			Containers::EntityFactory entityFactory;
-			Containers::ActionFactory actionFactory;
+			Containers::ActionListFactory actionFactory;
+			Containers::CreateActionFactory createActionFactory;
+			Containers::DestroyActionFactory destroyActionFactory;
+			Containers::SetValueFactory setValueFactory;
+			Containers::SwitchFactory switchFactory;
 
 			WorldSharedData data1;
 			XmlParseMaster parser1(data1);
@@ -104,7 +124,7 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestInvalidXmls)
 		{
 			Containers::EntityFactory entityFactory;
-			Containers::ActionFactory actionFactory;
+			Containers::CreateActionFactory actionFactory;
 
 			WorldSharedData data;
 			XmlParseMaster parser(data);
@@ -114,6 +134,47 @@ namespace UnitTestLibraryDesktop
 			Parsers::SharedData baseData;
 			parser.SetSharedData(baseData);
 			Assert::ExpectException<std::runtime_error>([&parser] () { parser.Parse(TestXmlFiles[0]); });
+		}
+
+		TEST_METHOD(TestWorldUpdate)
+		{
+			Containers::EntityFactory entityFactory;
+			Containers::ActionListFactory actionFactory;
+			Containers::CreateActionFactory createActionFactory;
+			Containers::DestroyActionFactory destroyActionFactory;
+			Containers::SetValueFactory setValueFactory;
+			Containers::SwitchFactory switchFactory;
+
+			WorldSharedData data;
+			XmlParseMaster parser(data);
+			WorldParserHelper helper;
+			parser.AddHelper(helper);
+			parser.ParseFromFile(TestXmlFiles[0]);
+			Containers::World* world = data.ExtractWorld();
+			std::string output = world->ToString();
+			Assert::AreEqual(TestWorldDataString, output);
+
+			Containers::WorldState state;
+			GameClock clock;
+			clock.StartTime();
+			clock.UpdateGameTime(state.mGameTime);
+			std::uint32_t runs = ((mHelper.GetRandomUInt32() % 10) + 5);
+			for (std::uint32_t index = 0; index < runs; ++index)
+			{
+				clock.UpdateGameTime(state.mGameTime);
+				Assert::IsTrue(clock.StartTime() <= clock.CurrentTime());
+				Assert::IsTrue(clock.StartTime() <= clock.LastTime());
+				Assert::IsTrue(clock.CurrentTime() >= clock.LastTime());
+				Assert::IsTrue(state.mGameTime.CurrentTime() == clock.CurrentTime());
+				Assert::IsTrue(state.mGameTime.ElapsedGameTime() >= milliseconds());
+				Assert::IsTrue(state.mGameTime.TotalGameTime() == duration_cast<milliseconds>(clock.CurrentTime() - clock.StartTime()));
+				world->Update(state);
+				Assert::AreEqual(100, (*world)["Population"].Get<std::int32_t>());
+				Assert::AreEqual(std::string("Whiterun"), (*world)["Capital"].Get<std::string>());
+				Assert::AreEqual(500, (*world)["WhiterunPopulation"].Get<std::int32_t>());
+			}
+
+			delete world;
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
@@ -152,5 +213,5 @@ namespace UnitTestLibraryDesktop
 		"<foo></foo>"
 	};
 
-	const std::string WorldXmlParserTest::TestWorldDataString = "{\"Name\": \"Skyrim\", \"Sectors\": [{\"Name\": \"Whiterun\", \"Entities\": [{\"Name\": \"Bannered Mare\", \"Actions\": [{\"Name\": \"Init\", \"Capacity\": \"10\"}, {\"Name\": \"Upgrade\", \"Capacity\": \"5\"}], \"Owner\": \"Hulda\", \"Beds\": \"10\", \"Price\": \"20000.500000\", \"Location\": \"0.500000,10.200000,100.000000,1.000000\", \"Transform\": \"1.200000,10.200000,0.005000,1.000000,3.600000,102.000000,0.010000,1.000000,1000.000000,177.199997,101.000000,1.000000,11.000000,13.600000,100.000351,1.000000\"}, {\"Name\": \"Dragonsreach\", \"Owner\": \"Balgruuf the Greater\", \"Location\": \"50.400002,12.300000,10.000000,1.000000\"}], \"Jarl\": \"Balgruuf the Greater\"}, {\"Name\": \"Winterhold\", \"Entities\": {\"Name\": \"College of Winterhold\", \"Actions\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Arch-Mage\": \"Savos Aren\", \"Location\": \"77.040001,27.900000,20.000000,1.000000\"}, \"Jarl\": \"Korir\"}], \"Population\": \"100000\"}";
+	const std::string WorldXmlParserTest::TestWorldDataString = "{\"Name\": \"Skyrim\", \"Sectors\": [{\"Name\": \"Whiterun\", \"Entities\": [{\"Name\": \"Bannered Mare\", \"Actions\": [{\"Name\": \"Init\", \"Capacity\": \"10\"}, {\"Name\": \"Upgrade\", \"Capacity\": \"5\"}], \"Owner\": \"Hulda\", \"Beds\": \"10\", \"Price\": \"20000.500000\", \"Location\": \"0.500000,10.200000,100.000000,1.000000\", \"Transform\": \"1.200000,10.200000,0.005000,1.000000,3.600000,102.000000,0.010000,1.000000,1000.000000,177.199997,101.000000,1.000000,11.000000,13.600000,100.000351,1.000000\"}, {\"Name\": \"Dragonsreach\", \"Owner\": \"Balgruuf the Greater\", \"Location\": \"50.400002,12.300000,10.000000,1.000000\"}], \"Actions\": [{\"Name\": \"Init\", \"MaxStudents\": \"100\"}, {\"Name\": \"UpdatePopulation\", \"Target\": \"WhiterunPopulation\", \"Value\": \"500\", \"Index\": \"0\"}, {\"Name\": \"DestroyWorldTest\", \"InstanceName\": \"TestSetValue\"}], \"Jarl\": \"Balgruuf the Greater\"}, {\"Name\": \"Winterhold\", \"Entities\": {\"Name\": \"College of Winterhold\", \"Actions\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Arch-Mage\": \"Savos Aren\", \"Location\": \"77.040001,27.900000,20.000000,1.000000\"}, \"Jarl\": \"Korir\"}], \"Actions\": [{\"Name\": \"Init\", \"InstanceName\": \"TestAction\", \"ClassName\": \"ActionList\"}, {\"Name\": \"Destroy\", \"InstanceName\": \"TestAction\"}, {\"Name\": \"TestSetValue\", \"Target\": \"Population\", \"Value\": \"10000\", \"Index\": \"0\"}, {\"Name\": \"CheckPopulation\", \"Actions\": [{\"Name\": \"100000\", \"Target\": \"Population\", \"Value\": \"10001\", \"Index\": \"0\"}, {\"Name\": \"1000000\", \"Target\": \"Population\", \"Value\": \"0\", \"Index\": \"0\"}], \"Expression\": \"Population\", \"DefaultCase\": {\"Name\": \"DefaultCase\", \"Target\": \"Population\", \"Value\": \"100\", \"Index\": \"0\"}}, {\"Name\": \"CheckCapital\", \"Actions\": {\"Name\": \"Solitude\", \"Target\": \"Capital\", \"Value\": \"Whiterun\", \"Index\": \"0\"}, \"Expression\": \"Capital\"}], \"Population\": \"1000000\", \"Capital\": \"Solitude\", \"WhiterunPopulation\": \"100\"}";
 }

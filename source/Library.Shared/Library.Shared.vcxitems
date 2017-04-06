@@ -15,9 +15,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Action.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Compare.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CreateAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClock.h" />
@@ -25,11 +28,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)HashFunctors.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultVectorCapacityStrategy.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HashMap.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)InfixParser.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SetValue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScopeSharedData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Switch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedData.h" />
@@ -44,19 +50,25 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Action.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Compare.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CreateAction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DestroyAction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Entity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HashFunctors.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IXmlParseHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SetValue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScopeSharedData.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Switch.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WorldParserHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Sector.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SharedData.cpp" />

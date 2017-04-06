@@ -41,7 +41,7 @@ namespace AnonymousEngine
 	inline Scope& Datum::Get<Scope>(const std::uint32_t index)
 	{
 		ValidateIndex(index);
-		return *mData.scopeValue[index];
+		return *(mData.scopeValue[index]);
 	}
 
 	template <>
