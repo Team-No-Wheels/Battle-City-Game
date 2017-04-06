@@ -78,6 +78,15 @@ namespace AnonymousEngine
 			static HashMap<std::string, OperatorInfo> OperatorInfoMap;
 			// Map of token handlers
 			static HashMap<TokenType, std::function<void(InfixParser&, const std::string&)>> TokenHandlers;
+
+			// Stack token literals
+			static const std::string LeftParanthesis;
+			static const std::string RightParanthesis;
+			static const std::string LeftSquareBracket;
+			static const std::string RightSquareBracket;
+			static const std::string FunctionOperator;
+			static const std::string SubscriptOperator;
+			static const std::string TokenSeparator;
 		};
 	}
 }

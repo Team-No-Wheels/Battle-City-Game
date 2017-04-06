@@ -31,7 +31,7 @@ namespace AnonymousEngine
 			"^\\]",
 			"^\\(",
 			"^\\)",
-			"^(sin|cos|tan|atan|exp|log|pow|sqrt|isqrt|min|max)",
+			"^[a-zA-Z_]+[a-zA-Z_0-9]\\(",
 			"^[a-zA-Z_]+[a-zA-Z_0-9]*"
 		};
 
@@ -76,12 +76,22 @@ namespace AnonymousEngine
 			{TokenType::LeftParanthesis, HandleLeftParanthesis}
 		};
 
+		const std::string InfixParser::LeftParanthesis = "(";
+		const std::string InfixParser::RightParanthesis = ")";
+		const std::string InfixParser::LeftSquareBracket = "[";
+		const std::string InfixParser::RightSquareBracket = "]";
+		const std::string InfixParser::FunctionOperator = "()";
+		const std::string InfixParser::SubscriptOperator = "[]";
+		const std::string InfixParser::TokenSeparator = "`";
+
 		const std::string& InfixParser::ConvertToRPN(const std::string& expression)
 		{
-			mStack.Clear();
-			bool matchFound;
+			// remove white spaces from the input expression. This doesn't support spaces within strings
 			std::string trimmedExpression = std::regex_replace(expression, std::regex("\\s+"), "");
 			std::string input = trimmedExpression;
+
+			mStack.Clear();
+			bool matchFound;
 			for(std::uint32_t index = 0; index < trimmedExpression.size();)
 			{
 				matchFound = false;
@@ -120,11 +130,11 @@ namespace AnonymousEngine
 		{
 			while (!mStack.IsEmpty())
 			{
-				if (mStack.Back() == "(" || mStack.Back() == ")")
+				if (mStack.Back() == LeftParanthesis || mStack.Back() == RightParanthesis)
 				{
 					throw std::runtime_error("Mismatched paranthesis");
 				}
-				mOutputExpression.append("`");
+				mOutputExpression.append(TokenSeparator);
 				mOutputExpression.append(mStack.Back());
 				mStack.PopBack();
 			}
@@ -132,7 +142,7 @@ namespace AnonymousEngine
 
 		void InfixParser::HandleValues(InfixParser& parser, const std::string& token)
 		{
-			parser.mOutputExpression.append("`");
+			parser.mOutputExpression.append(TokenSeparator);
 			parser.mOutputExpression.append(token);
 		}
 
@@ -144,7 +154,7 @@ namespace AnonymousEngine
 				if ((info.mAssociativity == Left && info.mPrecedence <= OperatorInfoMap[parser.mStack.Back()].mPrecedence) ||
 					(info.mAssociativity == Right && info.mPrecedence < OperatorInfoMap[parser.mStack.Back()].mPrecedence))
 				{
-					parser.mOutputExpression.append("`");
+					parser.mOutputExpression.append(TokenSeparator);
 					parser.mOutputExpression.append(parser.mStack.Back());
 					parser.mStack.PopBack();
 				}
@@ -158,14 +168,15 @@ namespace AnonymousEngine
 
 		void InfixParser::HandleFunction(InfixParser& parser, const std::string& token)
 		{
-			parser.mStack.PushBack(token);
+			parser.mStack.PushBack(token.substr(0, token.size()-1));
+			parser.mStack.PushBack(LeftParanthesis);
 		}
 
 		void InfixParser::HandleComma(InfixParser& parser, const std::string&)
 		{
-			while (parser.mStack.Back() != "(")
+			while (parser.mStack.Back() != LeftParanthesis)
 			{
-				parser.mOutputExpression.append("`");
+				parser.mOutputExpression.append(TokenSeparator);
 				parser.mOutputExpression.append(parser.mStack.Back());
 				parser.mStack.PopBack();
 			}
@@ -178,23 +189,16 @@ namespace AnonymousEngine
 
 		void InfixParser::HandleRightSquareBracket(InfixParser& parser, const std::string&)
 		{
-			while (parser.mStack.Back() != "[")
+			while (parser.mStack.Back() != LeftSquareBracket)
 			{
-				parser.mOutputExpression.append("`");
+				parser.mOutputExpression.append(TokenSeparator);
 				parser.mOutputExpression.append(parser.mStack.Back());
 				parser.mStack.PopBack();
 			}
 
 			parser.mStack.PopBack();
-			std::regex re(TokenExpressions[static_cast<std::uint32_t>(TokenType::Function)]);
-			std::smatch matches;
-			std::string top = parser.mStack.Back();
-			if (!parser.mStack.IsEmpty() && std::regex_search(top, matches, re))
-			{
-				parser.mOutputExpression.append("`");
-				parser.mOutputExpression.append(top);
-				parser.mStack.PopBack();
-			}
+			parser.mOutputExpression.append(TokenSeparator);
+			parser.mOutputExpression.append(SubscriptOperator);
 		}
 
 		void InfixParser::HandleLeftParanthesis(InfixParser& parser, const std::string& token)
@@ -204,20 +208,22 @@ namespace AnonymousEngine
 
 		void InfixParser::HandleRightParanthesis(InfixParser& parser, const std::string&)
 		{
-			while (parser.mStack.Back() != "(")
+			while (parser.mStack.Back() != LeftParanthesis)
 			{
-				parser.mOutputExpression.append("`");
+				parser.mOutputExpression.append(TokenSeparator);
 				parser.mOutputExpression.append(parser.mStack.Back());
 				parser.mStack.PopBack();
 			}
 
 			parser.mStack.PopBack();
-			std::regex re(TokenExpressions[static_cast<std::uint32_t>(TokenType::Function)]);
+			std::regex re(TokenExpressions[static_cast<std::uint32_t>(TokenType::Variable)]);
 			std::smatch matches;
 			std::string top = parser.mStack.Back();
 			if (!parser.mStack.IsEmpty() && std::regex_search(top, matches, re))
 			{
-				parser.mOutputExpression.append("`");
+				parser.mOutputExpression.append(TokenSeparator);
+				parser.mOutputExpression.append(FunctionOperator);
+				parser.mOutputExpression.append(TokenSeparator);
 				parser.mOutputExpression.append(top);
 				parser.mStack.PopBack();
 			}
