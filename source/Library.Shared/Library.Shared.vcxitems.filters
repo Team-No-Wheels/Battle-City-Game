@@ -191,6 +191,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)OperatorExpressionNode.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ExpressionTree.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">

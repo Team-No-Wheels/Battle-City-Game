@@ -2,6 +2,7 @@
 
 #include <regex>
 #include "HashMap.h"
+#include <functional>
 
 namespace AnonymousEngine
 {
@@ -19,13 +20,15 @@ namespace AnonymousEngine
 				Float,
 				Integer,
 				String,
-				Variable,
 				UnaryOperator,
 				BinaryOperator,
-				Function,
-				Subscript,
+				Comma,
+				LeftSquareBracket,
+				RightSquareBracket,
 				LeftParanthesis,
-				RightParanthesis
+				RightParanthesis,
+				Function,
+				Variable,
 			};
 
 			enum Associativity
@@ -44,20 +47,37 @@ namespace AnonymousEngine
 			*  @param infixExpression The expression that should be parsed
 			*  @return The RPN expression that is parsed from the input
 			*/
-			std::string ConvertToRPN(const std::string& infixExpression);
+			const std::string& ConvertToRPN(const std::string& infixExpression);
 
 		private:
 			// Handle parsed tokens
 			void HandleToken(const std::string& token, TokenType tokenType);
+			// Move stack contents to output string
+			void ClearOutStack();
+
+			// Token Handlers
+			static void HandleValues(InfixParser& parser, const std::string& token);
+			static void HandleOperator(InfixParser& parser, const std::string& token);
+			static void HandleFunction(InfixParser& parser, const std::string& token);
+			static void HandleComma(InfixParser& parser, const std::string& token);
+			static void HandleLeftSquareBracket(InfixParser& parser, const std::string& token);
+			static void HandleRightSquareBracket(InfixParser& parser, const std::string& token);
+			static void HandleLeftParanthesis(InfixParser& parser, const std::string& token);
+			static void HandleRightParanthesis(InfixParser& parser, const std::string& token);
 
 			// The stack used for parsing
 			Vector<std::string> mStack;
+			// Output postfix expression
+			std::string mOutputExpression;
+
 			// The string names of token type enum values
 			static Vector<std::string> TokenTypes;
 			// List of regular expressions for each token type
 			static Vector<std::string> TokenExpressions;
 			// Mapping for each supported operator and its Associativity and precedence
 			static HashMap<std::string, OperatorInfo> OperatorInfoMap;
+			// Map of token handlers
+			static HashMap<TokenType, std::function<void(InfixParser&, const std::string&)>> TokenHandlers;
 		};
 	}
 }

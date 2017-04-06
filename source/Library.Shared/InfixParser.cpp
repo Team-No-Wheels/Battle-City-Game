@@ -1,6 +1,5 @@
 #include "InfixParser.h"
 #include <regex>
-#include "../../../../../../../../../../Program Files (x86)/Microsoft Visual Studio 14.0/VC/UnitTest/include/CppUnitTestLogger.h"
 
 namespace AnonymousEngine
 {
@@ -10,53 +9,80 @@ namespace AnonymousEngine
 			"Float",
 			"Integer",
 			"String",
-			"Variable",
 			"UnaryOperator",
 			"BinaryOperator",
-			"Function",
-			"Subscript",
+			"Comma",
+			"LeftSquareBracket",
+			"RightSquareBracket",
 			"LeftParanthesis",
-			"RightParanthesis"
+			"RightParanthesis",
+			"Function",
+			"Variable"
 		};
 
 		Vector<std::string> InfixParser::TokenExpressions = {
 			"^[[:digit:]]+\\.[[:digit:]]+",
 			"^[[:digit:]]+",
 			"^'[^']*'",
-			"^[a-zA-Z_]+[a-zA-Z_0-9]*",
 			"^!",
-			"^(-|\\+|\\*|/|%|&&|\\|\\||==|!=|<|>|>=|<=|&|\\||^|<<|>>|\\.)",
-			"^[a-zA-Z_]+[a-zA-Z_0-9]*\\(",
-			"^[a-zA-Z_]+[a-zA-Z_0-9]*\\[",
+			"^(-|\\+|\\*|/|%|&&|\\|\\||==|!=|<|>|>=|<=|&|\\||\\^|<<|>>|\\.)",
+			"^\\,",
+			"^\\[",
+			"^\\]",
 			"^\\(",
-			"^\\)"
+			"^\\)",
+			"^(sin|cos|tan|atan|exp|log|pow|sqrt|isqrt|min|max)",
+			"^[a-zA-Z_]+[a-zA-Z_0-9]*"
 		};
 
 		HashMap<std::string, InfixParser::OperatorInfo> InfixParser::OperatorInfoMap = {
-			{"()", {2, Left}},
-			{"[]", {2, Left}},
-			{".", {2, Left}},
-			{"*", {5, Left}},
-			{"/", {5, Left}},
-			{"%", {5, Left}},
-			{"-", {6, Left}},
-			{"+", {6, Left}},
-			{"<", {8, Left}},
-			{">", {8, Left}},
-			{"<=", {8, Left}},
-			{">=", {8, Left}},
-			{"==", {9, Left}},
-			{"!=", {9, Left}},
-			{"&&", {13, Left}},
-			{"||", {14, Left}},
+			{"()", {15, Left}},
+			{"[]", {15, Left}},
+			{".", {15, Left}},
+			{"!", {14, Right}},
+			{"*", {12, Left}},
+			{"/", {12, Left}},
+			{"%", {12, Left}},
+			{"-", {11, Left}},
+			{"+", {11, Left}},
+			{"<<", {10, Left}},
+			{">>", {10, Left}},
+			{"<", {9, Left}},
+			{">", {9, Left}},
+			{"<=", {9, Left}},
+			{">=", {9, Left}},
+			{"==", {8, Left}},
+			{"!=", {8, Left}},
+			{"&", {7, Left}},
+			{"^", {6, Left}},
+			{"|", {5, Left}},
+			{"&&", {4, Left}},
+			{"||", {3, Left}},
+			{"\\,", {1, Left}},
 		};
 
-		std::string InfixParser::ConvertToRPN(const std::string& expression)
+		HashMap<InfixParser::TokenType, std::function<void(InfixParser&, const std::string&)>> InfixParser::TokenHandlers = {
+			{TokenType::Float, HandleValues},
+			{TokenType::Integer, HandleValues},
+			{TokenType::String, HandleValues},
+			{TokenType::UnaryOperator, HandleOperator},
+			{TokenType::BinaryOperator, HandleOperator},
+			{TokenType::Function, HandleFunction},
+			{TokenType::Comma, HandleComma},
+			{TokenType::Variable, HandleValues},
+			{TokenType::LeftSquareBracket, HandleLeftSquareBracket},
+			{TokenType::RightSquareBracket, HandleRightSquareBracket},
+			{TokenType::RightParanthesis, HandleRightParanthesis},
+			{TokenType::LeftParanthesis, HandleLeftParanthesis}
+		};
+
+		const std::string& InfixParser::ConvertToRPN(const std::string& expression)
 		{
 			mStack.Clear();
 			bool matchFound;
-			std::string input = expression;
-			for(std::uint32_t index = 0; index < expression.size();)
+			std::string trimmedExpression = std::regex_replace(expression, std::regex("\\s+"), "");
+			std::string input = trimmedExpression;
+			for(std::uint32_t index = 0; index < trimmedExpression.size();)
 			{
 				matchFound = false;
 				std::uint32_t type = 0;
@@ -69,32 +95,131 @@ namespace AnonymousEngine
 						matchFound = true;
 						std::string match = matches[0];
 						index += static_cast<std::int32_t>(match.length());
-						input = expression.substr(index);
-						match.append(" : ");
-						match.append(TokenTypes[type]);
-						Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(match.c_str());
+						HandleToken(match, static_cast<TokenType>(type));
+						input = trimmedExpression.substr(index);
+						break;
 					}
 					++type;
 				}
 
 				if (!matchFound)
 				{
-					Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage("No more matches found");
 					break;
 				}
 			}
-			return "";
+			ClearOutStack();
+			return mOutputExpression;
 		}
 
-		void InfixParser::HandleToken(const std::string&, TokenType tokenType)
+		void InfixParser::HandleToken(const std::string& token, const TokenType tokenType)
 		{
-			switch(tokenType)
-			{
-			case TokenType::Integer:
-				break;
+			TokenHandlers[tokenType](*this, token);
+		}
 
-			case TokenType::Float:
-				break;
+		void InfixParser::ClearOutStack()
+		{
+			while (!mStack.IsEmpty())
+			{
+				if (mStack.Back() == "(" || mStack.Back() == ")")
+				{
+					throw std::runtime_error("Mismatched paranthesis");
+				}
+				mOutputExpression.append("`");
+				mOutputExpression.append(mStack.Back());
+				mStack.PopBack();
+			}
+		}
+
+		void InfixParser::HandleValues(InfixParser& parser, const std::string& token)
+		{
+			parser.mOutputExpression.append("`");
+			parser.mOutputExpression.append(token);
+		}
+
+		void InfixParser::HandleOperator(InfixParser& parser, const std::string& token)
+		{
+			while (!parser.mStack.IsEmpty() && OperatorInfoMap.ContainsKey(parser.mStack.Back()))
+			{
+				const OperatorInfo& info = OperatorInfoMap[token];
+				if ((info.mAssociativity == Left && info.mPrecedence <= OperatorInfoMap[parser.mStack.Back()].mPrecedence) ||
+					(info.mAssociativity == Right && info.mPrecedence < OperatorInfoMap[parser.mStack.Back()].mPrecedence))
+				{
+					parser.mOutputExpression.append("`");
+					parser.mOutputExpression.append(parser.mStack.Back());
+					parser.mStack.PopBack();
+				}
+				else
+				{
+					break;
+				}
+			}
+			parser.mStack.PushBack(token);
+		}
+
+		void InfixParser::HandleFunction(InfixParser& parser, const std::string& token)
+		{
+			parser.mStack.PushBack(token);
+		}
+
+		void InfixParser::HandleComma(InfixParser& parser, const std::string&)
+		{
+			while (parser.mStack.Back() != "(")
+			{
+				parser.mOutputExpression.append("`");
+				parser.mOutputExpression.append(parser.mStack.Back());
+				parser.mStack.PopBack();
+			}
+		}
+
+		void InfixParser::HandleLeftSquareBracket(InfixParser& parser, const std::string& token)
+		{
+			parser.mStack.PushBack(token);
+		}
+
+		void InfixParser::HandleRightSquareBracket(InfixParser& parser, const std::string&)
+		{
+			while (parser.mStack.Back() != "[")
+			{
+				parser.mOutputExpression.append("`");
+				parser.mOutputExpression.append(parser.mStack.Back());
+				parser.mStack.PopBack();
+			}
+
+			parser.mStack.PopBack();
+			std::regex re(TokenExpressions[static_cast<std::uint32_t>(TokenType::Function)]);
+			std::smatch matches;
+			std::string top = parser.mStack.Back();
+			if (!parser.mStack.IsEmpty() && std::regex_search(top, matches, re))
+			{
+				parser.mOutputExpression.append("`");
+				parser.mOutputExpression.append(top);
+				parser.mStack.PopBack();
+			}
+		}
+
+		void InfixParser::HandleLeftParanthesis(InfixParser& parser, const std::string& token)
+		{
+			parser.mStack.PushBack(token);
+		}
+
+		void InfixParser::HandleRightParanthesis(InfixParser& parser, const std::string&)
+		{
+			while (parser.mStack.Back() != "(")
+			{
+				parser.mOutputExpression.append("`");
+				parser.mOutputExpression.append(parser.mStack.Back());
+				parser.mStack.PopBack();
+			}
+
+			parser.mStack.PopBack();
+			std::regex re(TokenExpressions[static_cast<std::uint32_t>(TokenType::Function)]);
+			std::smatch matches;
+			std::string top = parser.mStack.Back();
+			if (!parser.mStack.IsEmpty() && std::regex_search(top, matches, re))
+			{
+				parser.mOutputExpression.append("`");
+				parser.mOutputExpression.append(top);
+				parser.mStack.PopBack();
 			}
 		}
 	}

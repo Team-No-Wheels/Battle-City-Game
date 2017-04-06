@@ -14,7 +14,8 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestAddAndRemove)
 		{
 			Parsers::InfixParser parser;
-			parser.ConvertToRPN("0.1+123-0.79'asdf'-asdf+cos(10)");
+			//Logger::WriteMessage(parser.ConvertToRPN("0.1+123-0.79+'asdf'*123+('test'+'def')+!cos(10)/(life[10]-damage)+attack[0]").c_str());
+			Logger::WriteMessage(parser.ConvertToRPN("sin ( max ( units[0].health, attacker[1].damage ) / 3 * 3.1415 )").c_str());
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)

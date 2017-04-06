@@ -23,6 +23,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ExpressionNode.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ExpressionTree.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameTime.h" />
