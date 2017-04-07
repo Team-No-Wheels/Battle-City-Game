@@ -1,5 +1,9 @@
 #include "RpnEvaluator.h"
 
+#include <cassert>
+#include <iterator>
+#include <sstream>
+
 namespace AnonymousEngine
 {
 	namespace Parsers
@@ -41,8 +45,10 @@ namespace AnonymousEngine
 			{"min",{OperatorType::Binary,{{RpnToken::Integer, RpnToken::Integer, RpnToken::Integer},{RpnToken::Float, RpnToken::Integer, RpnToken::Float},{RpnToken::Float, RpnToken::Float, RpnToken::Integer},{RpnToken::Float, RpnToken::Float, RpnToken::Float}}}}
 		};
 
-		HashMap<std::string, std::function<void(RpnEvaluator&, Datum&)>> RpnEvaluator::MultiOperatorHandlers = {
-			{"()", OperatorFunction}
+		HashMap<RpnEvaluator::OperatorType, std::function<void(RpnEvaluator&, const Attributed&, Datum&)>> RpnEvaluator::MasterOperatorHandlers = {
+			{OperatorType::Multi, MultiOperatorHandler},
+			{OperatorType::Unary, UnaryOperatorHandler},
+			{OperatorType::Binary, BinaryOperatorHandler}
 		};
 
 		HashMap<std::string, std::function<void(RpnEvaluator&, const Datum&, Datum&)>> RpnEvaluator::UnaryOperatorHandlers = {
@@ -84,12 +90,63 @@ namespace AnonymousEngine
 			{"min", OperatorMin}
 		};
 
-		void RpnEvaluator::EvaluateRPN(const std::string&, const Attributed&, Datum&)
+		const char RpnEvaluator::TokenSeparator = '`';
+
+		void RpnEvaluator::EvaluateRPN(const std::string& rpnExpression, const Attributed& scope, Datum& result)
 		{
-			
+			mStack.Clear();
+			mStack.Reserve((rpnExpression.length() * 2) / 3);
+
+			// Create token vector and reserve memory to hold the max possible amount of tokens from the given expression
+			Vector<StackEntry> tokens;
+			tokens.Reserve(rpnExpression.length() / 3);
+
+			ExtractTokens(rpnExpression, tokens);
+			for (auto& token : tokens)
+			{
+				if (token.mTokenType != RpnToken::Operator)
+				{
+					mStack.PushBack(token);
+				}
+				else
+				{
+					assert(Signatures.ContainsKey(token.mToken));
+					MasterOperatorHandlers[Signatures[token.mToken].mOperatorType](*this, scope, result);
+				}
+			}
 		}
 
-		void RpnEvaluator::OperatorFunction(RpnEvaluator&, Datum&)
+		void RpnEvaluator::ExtractTokens(const std::string& rpnExpression, Vector<StackEntry>& tokens)
+		{
+			std::stringstream stream;
+			stream.str(rpnExpression);
+			std::string item;
+			StackEntry entry;
+			bool isToken = true;
+			while (std::getline(stream, item, TokenSeparator))
+			{
+				if (isToken)
+				{
+					entry.mToken = item;
+				}
+				else
+				{
+					entry.mTokenType = static_cast<RpnToken>(std::stoul(item));
+					tokens.PushBack(entry);
+				}
+				isToken = !isToken;
+			}
+		}
+
+		void RpnEvaluator::MultiOperatorHandler(RpnEvaluator&, const Attributed&, Datum&)
+		{
+		}
+
+		void RpnEvaluator::UnaryOperatorHandler(RpnEvaluator&, const Attributed&, Datum&)
+		{
+		}
+
+		void RpnEvaluator::BinaryOperatorHandler(RpnEvaluator&, const Attributed&, Datum&)
 		{
 		}
 
