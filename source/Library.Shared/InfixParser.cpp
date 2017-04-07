@@ -36,32 +36,32 @@ namespace AnonymousEngine
 		};
 
 		HashMap<std::string, InfixParser::OperatorInfo> InfixParser::OperatorInfoMap = {
-			{"()", {15, Left}},
-			{"[]", {15, Left}},
-			{".", {15, Left}},
-			{"!", {14, Right}},
-			{"*", {12, Left}},
-			{"/", {12, Left}},
-			{"%", {12, Left}},
-			{"-", {11, Left}},
-			{"+", {11, Left}},
-			{"<<", {10, Left}},
-			{">>", {10, Left}},
-			{"<", {9, Left}},
-			{">", {9, Left}},
-			{"<=", {9, Left}},
-			{">=", {9, Left}},
-			{"==", {8, Left}},
-			{"!=", {8, Left}},
-			{"&", {7, Left}},
-			{"^", {6, Left}},
-			{"|", {5, Left}},
-			{"&&", {4, Left}},
-			{"||", {3, Left}},
-			{"\\,", {1, Left}},
+			{"()",{15, Left}},
+			{"[]",{15, Left}},
+			{".",{15, Left}},
+			{"!",{14, Right}},
+			{"*",{12, Left}},
+			{"/",{12, Left}},
+			{"%",{12, Left}},
+			{"-",{11, Left}},
+			{"+",{11, Left}},
+			{"<<",{10, Left}},
+			{">>",{10, Left}},
+			{"<",{9, Left}},
+			{">",{9, Left}},
+			{"<=",{9, Left}},
+			{">=",{9, Left}},
+			{"==",{8, Left}},
+			{"!=",{8, Left}},
+			{"&",{7, Left}},
+			{"^",{6, Left}},
+			{"|",{5, Left}},
+			{"&&",{4, Left}},
+			{"||",{3, Left}},
+			{"\\,",{1, Left}},
 		};
 
-		HashMap<InfixParser::TokenType, std::function<void(InfixParser&, const std::string&)>> InfixParser::TokenHandlers = {
+		HashMap<InfixParser::TokenType, std::function<void(InfixParser&, const std::string&, const RpnToken)>> InfixParser::TokenHandlers = {
 			{TokenType::Float, HandleValues},
 			{TokenType::Integer, HandleValues},
 			{TokenType::String, HandleValues},
@@ -74,6 +74,21 @@ namespace AnonymousEngine
 			{TokenType::RightSquareBracket, HandleRightSquareBracket},
 			{TokenType::RightParanthesis, HandleRightParanthesis},
 			{TokenType::LeftParanthesis, HandleLeftParanthesis}
+		};
+
+		HashMap<InfixParser::TokenType, RpnToken> InfixParser::InfixTokensToRpnTokens = {
+			{TokenType::Float, RpnToken::Float},
+			{TokenType::Integer, RpnToken::Integer},
+			{TokenType::String, RpnToken::String},
+			{TokenType::UnaryOperator, RpnToken::Operator},
+			{TokenType::BinaryOperator, RpnToken::Operator},
+			{TokenType::Comma, RpnToken::Invalid},
+			{TokenType::Function, RpnToken::Function},
+			{TokenType::Variable, RpnToken::Variable},
+			{TokenType::LeftSquareBracket, RpnToken::Subscript},
+			{TokenType::RightSquareBracket, RpnToken::Subscript},
+			{TokenType::RightParanthesis, RpnToken::Operator},
+			{TokenType::LeftParanthesis, RpnToken::Operator}
 		};
 
 		const std::string InfixParser::LeftParanthesis = "(";
@@ -91,8 +106,9 @@ namespace AnonymousEngine
 			std::string input = trimmedExpression;
 
 			mStack.Clear();
+			mOutputExpression.clear();
 			bool matchFound;
-			for(std::uint32_t index = 0; index < trimmedExpression.size();)
+			for (std::uint32_t index = 0; index < trimmedExpression.size();)
 			{
 				matchFound = false;
 				std::uint32_t type = 0;
@@ -123,39 +139,48 @@ namespace AnonymousEngine
 
 		void InfixParser::HandleToken(const std::string& token, const TokenType tokenType)
 		{
-			TokenHandlers[tokenType](*this, token);
+			TokenHandlers[tokenType](*this, token, InfixTokensToRpnTokens[tokenType]);
 		}
 
 		void InfixParser::ClearOutStack()
 		{
 			while (!mStack.IsEmpty())
 			{
-				if (mStack.Back() == LeftParanthesis || mStack.Back() == RightParanthesis)
+				const StackEntry& stackEntry = mStack.Back();
+				if (stackEntry.mToken == LeftParanthesis || stackEntry.mToken == RightParanthesis)
 				{
 					throw std::runtime_error("Mismatched paranthesis");
 				}
-				mOutputExpression.append(TokenSeparator);
-				mOutputExpression.append(mStack.Back());
+				OutputToQueue(mStack.Back());
 				mStack.PopBack();
 			}
 		}
 
-		void InfixParser::HandleValues(InfixParser& parser, const std::string& token)
+		void InfixParser::OutputToQueue(const StackEntry& stackEntry)
 		{
-			parser.mOutputExpression.append(TokenSeparator);
-			parser.mOutputExpression.append(token);
+			if (mOutputExpression.size() > 0)
+			{
+				mOutputExpression.append(TokenSeparator);
+			}
+			mOutputExpression.append(stackEntry.mToken);
+			mOutputExpression.append(TokenSeparator);
+			mOutputExpression.append(std::to_string(static_cast<std::uint32_t>(stackEntry.mTokenType)));
 		}
 
-		void InfixParser::HandleOperator(InfixParser& parser, const std::string& token)
+		void InfixParser::HandleValues(InfixParser& parser, const std::string& token, const RpnToken tokenType)
 		{
-			while (!parser.mStack.IsEmpty() && OperatorInfoMap.ContainsKey(parser.mStack.Back()))
+			parser.OutputToQueue({token, tokenType});
+		}
+
+		void InfixParser::HandleOperator(InfixParser& parser, const std::string& token, const RpnToken tokenType)
+		{
+			while (!parser.mStack.IsEmpty() && OperatorInfoMap.ContainsKey(parser.mStack.Back().mToken))
 			{
 				const OperatorInfo& info = OperatorInfoMap[token];
-				if ((info.mAssociativity == Left && info.mPrecedence <= OperatorInfoMap[parser.mStack.Back()].mPrecedence) ||
-					(info.mAssociativity == Right && info.mPrecedence < OperatorInfoMap[parser.mStack.Back()].mPrecedence))
+				if ((info.mAssociativity == Left && info.mPrecedence <= OperatorInfoMap[parser.mStack.Back().mToken].mPrecedence) ||
+					(info.mAssociativity == Right && info.mPrecedence < OperatorInfoMap[parser.mStack.Back().mToken].mPrecedence))
 				{
-					parser.mOutputExpression.append(TokenSeparator);
-					parser.mOutputExpression.append(parser.mStack.Back());
+					parser.OutputToQueue(parser.mStack.Back());
 					parser.mStack.PopBack();
 				}
 				else
@@ -163,68 +188,62 @@ namespace AnonymousEngine
 					break;
 				}
 			}
-			parser.mStack.PushBack(token);
+			parser.mStack.PushBack({token, tokenType});
 		}
 
-		void InfixParser::HandleFunction(InfixParser& parser, const std::string& token)
+		void InfixParser::HandleFunction(InfixParser& parser, const std::string& token, const RpnToken tokenType)
 		{
-			parser.mStack.PushBack(token.substr(0, token.size()-1));
-			parser.mStack.PushBack(LeftParanthesis);
+			parser.mStack.PushBack({token.substr(0, token.size() - 1), tokenType});
+			parser.mStack.PushBack({LeftParanthesis, tokenType});
 		}
 
-		void InfixParser::HandleComma(InfixParser& parser, const std::string&)
+		void InfixParser::HandleComma(InfixParser& parser, const std::string&, const RpnToken)
 		{
-			while (parser.mStack.Back() != LeftParanthesis)
+			while (parser.mStack.Back().mToken != LeftParanthesis)
 			{
-				parser.mOutputExpression.append(TokenSeparator);
-				parser.mOutputExpression.append(parser.mStack.Back());
+				parser.OutputToQueue(parser.mStack.Back());
 				parser.mStack.PopBack();
 			}
 		}
 
-		void InfixParser::HandleLeftSquareBracket(InfixParser& parser, const std::string& token)
+		void InfixParser::HandleLeftSquareBracket(InfixParser& parser, const std::string& token, const RpnToken tokenType)
 		{
-			parser.mStack.PushBack(token);
+			parser.mStack.PushBack({token, tokenType});
 		}
 
-		void InfixParser::HandleRightSquareBracket(InfixParser& parser, const std::string&)
+		void InfixParser::HandleRightSquareBracket(InfixParser& parser, const std::string&, const RpnToken)
 		{
-			while (parser.mStack.Back() != LeftSquareBracket)
+			while (parser.mStack.Back().mToken != LeftSquareBracket)
 			{
-				parser.mOutputExpression.append(TokenSeparator);
-				parser.mOutputExpression.append(parser.mStack.Back());
+				parser.OutputToQueue(parser.mStack.Back());
 				parser.mStack.PopBack();
 			}
 
 			parser.mStack.PopBack();
-			parser.mOutputExpression.append(TokenSeparator);
-			parser.mOutputExpression.append(SubscriptOperator);
+			parser.OutputToQueue({SubscriptOperator, RpnToken::Subscript});
 		}
 
-		void InfixParser::HandleLeftParanthesis(InfixParser& parser, const std::string& token)
+		void InfixParser::HandleLeftParanthesis(InfixParser& parser, const std::string& token, const RpnToken tokenType)
 		{
-			parser.mStack.PushBack(token);
+			parser.mStack.PushBack({token, tokenType});
 		}
 
-		void InfixParser::HandleRightParanthesis(InfixParser& parser, const std::string&)
+		void InfixParser::HandleRightParanthesis(InfixParser& parser, const std::string&, const RpnToken)
 		{
-			while (parser.mStack.Back() != LeftParanthesis)
+			while (parser.mStack.Back().mToken != LeftParanthesis)
 			{
-				parser.mOutputExpression.append(TokenSeparator);
-				parser.mOutputExpression.append(parser.mStack.Back());
+				parser.OutputToQueue(parser.mStack.Back());
 				parser.mStack.PopBack();
 			}
 
 			parser.mStack.PopBack();
 			std::regex re(TokenExpressions[static_cast<std::uint32_t>(TokenType::Variable)]);
 			std::smatch matches;
-			std::string top = parser.mStack.Back();
-			if (!parser.mStack.IsEmpty() && std::regex_search(top, matches, re))
+			StackEntry top = parser.mStack.Back();
+			if (!parser.mStack.IsEmpty() && std::regex_search(top.mToken, matches, re))
 			{
-				parser.mOutputExpression.append(TokenSeparator);
-				parser.mOutputExpression.append(FunctionOperator);
-				parser.mOutputExpression.append(TokenSeparator);
-				parser.mOutputExpression.append(top);
+				parser.OutputToQueue({FunctionOperator, RpnToken::Function});
+				parser.OutputToQueue(top);
 				parser.mStack.PopBack();
 			}
 		}

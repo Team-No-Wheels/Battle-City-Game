@@ -2,8 +2,9 @@
 
 enum class RpnToken
 {
-	Float,
+	Invalid,
 	Integer,
+	Float,
 	String,
 	Variable,
 	Operator,

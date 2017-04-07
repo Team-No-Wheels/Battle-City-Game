@@ -1,8 +1,8 @@
 #pragma once
 
-#include <regex>
-#include "HashMap.h"
 #include <functional>
+#include "HashMap.h"
+#include "RpnToken.h"
 
 namespace AnonymousEngine
 {
@@ -43,6 +43,12 @@ namespace AnonymousEngine
 				Associativity mAssociativity;
 			};
 
+			struct StackEntry
+			{
+				std::string mToken;
+				RpnToken mTokenType;
+			};
+
 			/** Convert an infix expression to RPN expression
 			*  @param infixExpression The expression that should be parsed
 			*  @return The RPN expression that is parsed from the input
@@ -54,19 +60,21 @@ namespace AnonymousEngine
 			void HandleToken(const std::string& token, TokenType tokenType);
 			// Move stack contents to output string
 			void ClearOutStack();
+			// Add to output queue with token type and separator
+			void OutputToQueue(const StackEntry& stackEntry);
 
 			// Token Handlers
-			static void HandleValues(InfixParser& parser, const std::string& token);
-			static void HandleOperator(InfixParser& parser, const std::string& token);
-			static void HandleFunction(InfixParser& parser, const std::string& token);
-			static void HandleComma(InfixParser& parser, const std::string& token);
-			static void HandleLeftSquareBracket(InfixParser& parser, const std::string& token);
-			static void HandleRightSquareBracket(InfixParser& parser, const std::string& token);
-			static void HandleLeftParanthesis(InfixParser& parser, const std::string& token);
-			static void HandleRightParanthesis(InfixParser& parser, const std::string& token);
+			static void HandleValues(InfixParser& parser, const std::string& token, const RpnToken tokenType);
+			static void HandleOperator(InfixParser& parser, const std::string& token, const RpnToken tokenType);
+			static void HandleFunction(InfixParser& parser, const std::string& token, const RpnToken tokenType);
+			static void HandleComma(InfixParser& parser, const std::string& token, const RpnToken tokenType);
+			static void HandleLeftSquareBracket(InfixParser& parser, const std::string& token, const RpnToken tokenType);
+			static void HandleRightSquareBracket(InfixParser& parser, const std::string& token, const RpnToken tokenType);
+			static void HandleLeftParanthesis(InfixParser& parser, const std::string& token, const RpnToken tokenType);
+			static void HandleRightParanthesis(InfixParser& parser, const std::string& token, const RpnToken tokenType);
 
 			// The stack used for parsing
-			Vector<std::string> mStack;
+			Vector<StackEntry> mStack;
 			// Output postfix expression
 			std::string mOutputExpression;
 
@@ -77,7 +85,9 @@ namespace AnonymousEngine
 			// Mapping for each supported operator and its Associativity and precedence
 			static HashMap<std::string, OperatorInfo> OperatorInfoMap;
 			// Map of token handlers
-			static HashMap<TokenType, std::function<void(InfixParser&, const std::string&)>> TokenHandlers;
+			static HashMap<TokenType, std::function<void(InfixParser&, const std::string&, const RpnToken)>> TokenHandlers;
+			// Parsing types to RPN token types mapping
+			static HashMap<TokenType, RpnToken> InfixTokensToRpnTokens;
 
 			// Stack token literals
 			static const std::string LeftParanthesis;
