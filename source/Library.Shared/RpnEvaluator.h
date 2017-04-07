@@ -42,9 +42,9 @@ namespace AnonymousEngine
 			static void ExtractTokens(const std::string& rpnExpression, Vector<StackEntry>& tokens);
 
 			// Main handlers for operator types
-			static void MultiOperatorHandler(RpnEvaluator& evaluator, const Attributed&, Datum& result);
-			static void UnaryOperatorHandler(RpnEvaluator& evaluator, const Attributed&, Datum& result);
-			static void BinaryOperatorHandler(RpnEvaluator& evaluator, const Attributed&, Datum& result);
+			static void MultiOperatorHandler(RpnEvaluator& evaluator, const std::string&, const Attributed&, Datum& result);
+			static void UnaryOperatorHandler(RpnEvaluator& evaluator, const std::string&, const Attributed&, Datum& result);
+			static void BinaryOperatorHandler(RpnEvaluator& evaluator, const std::string&, const Attributed&, Datum& result);
 
 			// Handle supported operators
 			static void OperatorSubscript(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
@@ -82,7 +82,7 @@ namespace AnonymousEngine
 			static void OperatorMin(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
 
 			static HashMap<std::string, OperatorSignature> Signatures;
-			static HashMap<OperatorType, std::function<void(RpnEvaluator&, const Attributed&, Datum&)>> MasterOperatorHandlers;
+			static HashMap<OperatorType, std::function<void(RpnEvaluator&, const std::string& operatorString, const Attributed&, Datum&)>> MasterOperatorHandlers;
 			static HashMap<std::string, std::function<void(RpnEvaluator&, const Datum&, Datum&)>> UnaryOperatorHandlers;
 			static HashMap<std::string, std::function<void(RpnEvaluator&, const Datum&, const Datum&, Datum&)>> BinaryOperatorHandlers;
 			static const char TokenSeparator;

@@ -45,7 +45,7 @@ namespace AnonymousEngine
 			{"min",{OperatorType::Binary,{{RpnToken::Integer, RpnToken::Integer, RpnToken::Integer},{RpnToken::Float, RpnToken::Integer, RpnToken::Float},{RpnToken::Float, RpnToken::Float, RpnToken::Integer},{RpnToken::Float, RpnToken::Float, RpnToken::Float}}}}
 		};
 
-		HashMap<RpnEvaluator::OperatorType, std::function<void(RpnEvaluator&, const Attributed&, Datum&)>> RpnEvaluator::MasterOperatorHandlers = {
+		HashMap<RpnEvaluator::OperatorType, std::function<void(RpnEvaluator&, const std::string& operatorString, const Attributed&, Datum&)>> RpnEvaluator::MasterOperatorHandlers = {
 			{OperatorType::Multi, MultiOperatorHandler},
 			{OperatorType::Unary, UnaryOperatorHandler},
 			{OperatorType::Binary, BinaryOperatorHandler}
@@ -111,7 +111,7 @@ namespace AnonymousEngine
 				else
 				{
 					assert(Signatures.ContainsKey(token.mToken));
-					MasterOperatorHandlers[Signatures[token.mToken].mOperatorType](*this, scope, result);
+					MasterOperatorHandlers[Signatures[token.mToken].mOperatorType](*this, token.mToken, scope, result);
 				}
 			}
 		}
@@ -138,21 +138,37 @@ namespace AnonymousEngine
 			}
 		}
 
-		void RpnEvaluator::MultiOperatorHandler(RpnEvaluator&, const Attributed&, Datum&)
+		void RpnEvaluator::MultiOperatorHandler(RpnEvaluator& evaluator, const std::string& operatorString, const Attributed& scope, Datum& result)
 		{
+			assert(UnaryOperatorHandlers.ContainsKey(operatorString) || BinaryOperatorHandlers.ContainsKey(operatorString));
+			if (UnaryOperatorHandlers.ContainsKey(operatorString))
+			{
+				UnaryOperatorHandler(evaluator, operatorString, scope, result);
+			}
+			else
+			{
+				BinaryOperatorHandler(evaluator, operatorString, scope, result);
+			}
 		}
 
-		void RpnEvaluator::UnaryOperatorHandler(RpnEvaluator&, const Attributed&, Datum&)
+		void RpnEvaluator::UnaryOperatorHandler(RpnEvaluator& evaluator, const std::string& operatorString, const Attributed& scope, Datum& result)
 		{
+			// TODO: resolve params
+			Datum param1;
+			scope;
+			UnaryOperatorHandlers[operatorString](evaluator, param1, result);
 		}
 
-		void RpnEvaluator::BinaryOperatorHandler(RpnEvaluator&, const Attributed&, Datum&)
+		void RpnEvaluator::BinaryOperatorHandler(RpnEvaluator& evaluator, const std::string& operatorString, const Attributed& scope, Datum& result)
 		{
+			// TODO: resolve params
+			Datum param1, param2;
+			scope;
+			BinaryOperatorHandlers[operatorString](evaluator, param1, param2, result);
 		}
 
 		void RpnEvaluator::OperatorSubscript(RpnEvaluator&, const Datum&, const Datum&, Datum&)
-		{
-		}
+		{}
 
 		void RpnEvaluator::OperatorDot(RpnEvaluator&, const Datum&, const Datum&, Datum&)
 		{}
