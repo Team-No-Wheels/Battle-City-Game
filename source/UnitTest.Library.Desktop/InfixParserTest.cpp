@@ -57,7 +57,7 @@ namespace UnitTestLibraryDesktop
 
 	const Vector<std::string> InfixParserTest::RPNExpressions = {
 		"3`1`4`1`2`1`*`5`1`1`5`1`-`5`/`5`+`5`2`1`^`5`3`1`^`5",
-		"2`1`3`1`()`6`max`6`3`1`/`5`3.1415`2`*`5`()`6`sin`6",
-		"units`4`0`1`[]`7`health`4`.`5`attacker`4`1`1`2`1`+`5`[]`7`damage`4`.`5`()`6`max`6`3`1`/`5`3.1415`2`*`5`()`6`sin`6"
+		"2`1`3`1`()`5`max`5`3`1`/`5`3.1415`2`*`5`()`5`sin`5",
+		"units`4`0`1`[]`5`health`4`.`5`attacker`4`1`1`2`1`+`5`[]`5`damage`4`.`5`()`5`max`5`3`1`/`5`3.1415`2`*`5`()`5`sin`5"
 	};
 }

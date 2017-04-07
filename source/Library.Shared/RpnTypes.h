@@ -11,9 +11,7 @@ enum class RpnToken
 	Float,
 	String,
 	Variable,
-	Operator,
-	Function,
-	Subscript
+	Operator
 };
 
 /** Represents an entry in an RPN the parser / evaluator stack

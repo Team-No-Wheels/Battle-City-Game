@@ -83,10 +83,10 @@ namespace AnonymousEngine
 			{TokenType::UnaryOperator, RpnToken::Operator},
 			{TokenType::BinaryOperator, RpnToken::Operator},
 			{TokenType::Comma, RpnToken::Invalid},
-			{TokenType::Function, RpnToken::Function},
+			{TokenType::Function, RpnToken::Operator},
 			{TokenType::Variable, RpnToken::Variable},
-			{TokenType::LeftSquareBracket, RpnToken::Subscript},
-			{TokenType::RightSquareBracket, RpnToken::Subscript},
+			{TokenType::LeftSquareBracket, RpnToken::Operator},
+			{TokenType::RightSquareBracket, RpnToken::Operator},
 			{TokenType::RightParanthesis, RpnToken::Operator},
 			{TokenType::LeftParanthesis, RpnToken::Operator}
 		};
@@ -220,7 +220,7 @@ namespace AnonymousEngine
 			}
 
 			parser.mStack.PopBack();
-			parser.OutputToQueue({SubscriptOperator, RpnToken::Subscript});
+			parser.OutputToQueue({SubscriptOperator, RpnToken::Operator});
 		}
 
 		void InfixParser::HandleLeftParanthesis(InfixParser& parser, const std::string& token, const RpnToken tokenType)
@@ -242,7 +242,7 @@ namespace AnonymousEngine
 			StackEntry top = parser.mStack.Back();
 			if (!parser.mStack.IsEmpty() && std::regex_search(top.mToken, matches, re))
 			{
-				parser.OutputToQueue({FunctionOperator, RpnToken::Function});
+				parser.OutputToQueue({FunctionOperator, RpnToken::Operator});
 				parser.OutputToQueue(top);
 				parser.mStack.PopBack();
 			}
