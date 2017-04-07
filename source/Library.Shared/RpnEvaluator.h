@@ -1,83 +1,82 @@
 #pragma once
 
-#include "HashMap.h"
 #include <functional>
+#include "Attributed.h"
+#include "HashMap.h"
+#include "RpnTypes.h"
+#include "Vector.h"
 
 namespace AnonymousEngine
 {
 	namespace Parsers
 	{
-		/** An infix expression to postfix expression parser
-		*/
+		/** An RPN encoded expression evaluater
+		 */
 		class RpnEvaluator
 		{
 		public:
-			/** Type of expression tokens
-			*/
-			enum class TokenType
+			enum class OperatorType
 			{
-				Float,
-				Integer,
-				String,
-				Operator,
-				BinaryOperator,
-				LeftSquareBracket,
-				RightSquareBracket,
-				LeftParanthesis,
-				RightParanthesis,
-				Function,
-				Variable,
+				Multi,
+				Unary,
+				Binary
 			};
 
-			struct OperatorInfo
+			struct OperatorSignature
 			{
-				std::uint32_t mPrecedence;
+				OperatorType mOperatorType;
+				Vector<Vector<RpnToken>> mSignatures;
 			};
 
-			/** Convert an infix expression to RPN expression
-			*  @param infixExpression The expression that should be parsed
-			*  @return The RPN expression that is parsed from the input
-			*/
-			const std::string& ConvertToRPN(const std::string& infixExpression);
-
+			/** Evaluate an RPN expression from the given scope and store the result in the given datum
+			 *  @param rpnExpression The expression to evaluate
+			 *  @param context The scope context in which the values are to be evaluated in
+			 *  @param result An output parameter to store the evaluated result
+			 */
+			void EvaluateRPN(const std::string& rpnExpression, const Attributed& context, Datum& result);
 		private:
-			// Handle parsed tokens
-			void HandleToken(const std::string& token, TokenType tokenType);
-			// Move stack contents to output string
-			void ClearOutStack();
-
-			// Token Handlers
-			static void HandleValues(InfixParser& parser, const std::string& token);
-			static void HandleOperator(InfixParser& parser, const std::string& token);
-			static void HandleFunction(InfixParser& parser, const std::string& token);
-			static void HandleComma(InfixParser& parser, const std::string& token);
-			static void HandleLeftSquareBracket(InfixParser& parser, const std::string& token);
-			static void HandleRightSquareBracket(InfixParser& parser, const std::string& token);
-			static void HandleLeftParanthesis(InfixParser& parser, const std::string& token);
-			static void HandleRightParanthesis(InfixParser& parser, const std::string& token);
-
-			// The stack used for parsing
+			// The stack used for evaluation
 			Vector<std::string> mStack;
-			// Output postfix expression
-			std::string mOutputExpression;
 
-			// The string names of token type enum values
-			static Vector<std::string> TokenTypes;
-			// List of regular expressions for each token type
-			static Vector<std::string> TokenExpressions;
-			// Mapping for each supported operator and its Associativity and precedence
-			static HashMap<std::string, OperatorInfo> OperatorInfoMap;
-			// Map of token handlers
-			static HashMap<TokenType, std::function<void(InfixParser&, const std::string&)>> TokenHandlers;
+			static void OperatorFunction(RpnEvaluator& evaluator, Datum& result);
+			static void OperatorSubscript(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorDot(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorNot(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorMultiply(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorDivide(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorModulus(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorSubtract(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorAdd(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorLeftShift(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorRightShift(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorLessThan(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorGreaterThan(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorLessThanOrEqual(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorGreaterThanOrEqual(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorEquals(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorNotEquals(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorBitwiseAnd(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorBitwiseXor(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorBitwiseOr(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorLogicalAnd(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorLogicalOr(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorSin(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorCos(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorTan(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorAtan(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorExp(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorLog(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorLog10(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorSqrt(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorIsqrt(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
+			static void OperatorPow(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorMax(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorMin(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
 
-			// Stack token literals
-			static const std::string LeftParanthesis;
-			static const std::string RightParanthesis;
-			static const std::string LeftSquareBracket;
-			static const std::string RightSquareBracket;
-			static const std::string FunctionOperator;
-			static const std::string SubscriptOperator;
-			static const std::string TokenSeparator;
+			static HashMap<std::string, OperatorSignature> Signatures;
+			static HashMap<std::string, std::function<void(RpnEvaluator&, Datum&)>> MultiOperatorHandlers;
+			static HashMap<std::string, std::function<void(RpnEvaluator&, const Datum&, Datum&)>> UnaryOperatorHandlers;
+			static HashMap<std::string, std::function<void(RpnEvaluator&, const Datum&, const Datum&, Datum&)>> BinaryOperatorHandlers;
 		};
 	}
 }

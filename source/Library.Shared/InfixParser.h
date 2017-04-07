@@ -2,7 +2,7 @@
 
 #include <functional>
 #include "HashMap.h"
-#include "RpnToken.h"
+#include "RpnTypes.h"
 
 namespace AnonymousEngine
 {
@@ -31,22 +31,20 @@ namespace AnonymousEngine
 				Variable,
 			};
 
+			/** Associativity of operators
+			 */
 			enum Associativity
 			{
 				Left,
 				Right
 			};
 
+			/** Struct to hold precedence and associativity of an operator
+			 */
 			struct OperatorInfo
 			{
 				std::uint32_t mPrecedence;
 				Associativity mAssociativity;
-			};
-
-			struct StackEntry
-			{
-				std::string mToken;
-				RpnToken mTokenType;
 			};
 
 			/** Convert an infix expression to RPN expression

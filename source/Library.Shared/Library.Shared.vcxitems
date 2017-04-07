@@ -37,7 +37,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScopeSharedData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Switch.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)RpnToken.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RpnTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedData.h" />

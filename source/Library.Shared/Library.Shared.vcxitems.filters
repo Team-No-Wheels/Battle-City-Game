@@ -182,7 +182,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RpnEvaluator.h">
       <Filter>Actions</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)RpnToken.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)RpnTypes.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>
