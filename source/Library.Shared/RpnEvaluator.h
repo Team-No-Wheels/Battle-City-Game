@@ -29,15 +29,20 @@ namespace AnonymousEngine
 			 */
 			void EvaluateRPN(const std::string& rpnExpression, const Attributed& context, Datum& result);
 		private:
+			struct StackEntryWithDatum
+			{
+				StackEntry entry;
+				Datum* datum;
+			};
+
 			// The stack used for evaluation
-			Vector<StackEntry> mStack;
+			Vector<StackEntryWithDatum> mStack;
+
 
 			// Extract tokens with type from the expression
 			static void ExtractTokens(const std::string& rpnExpression, Vector<StackEntry>& tokens);
 			// Create / get a parameter datum from a stack entry
-			static const Datum& GetParam(const StackEntry& entry, const Attributed& scope, bool& shouldDelete);
-			// Get value from Datum
-
+			static const Datum& GetParam(const StackEntryWithDatum& entryWithDatum, const Attributed& scope, bool& shouldDelete);
 
 			// Main handlers for operator types
 			static void MultiOperatorHandler(RpnEvaluator& evaluator, const std::string&, const Attributed&, Datum& result);
