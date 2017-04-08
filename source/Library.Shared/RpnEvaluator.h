@@ -22,12 +22,6 @@ namespace AnonymousEngine
 				Binary
 			};
 
-			struct OperatorSignature
-			{
-				OperatorType mOperatorType;
-				Vector<Vector<RpnToken>> mSignatures;
-			};
-
 			/** Evaluate an RPN expression from the given scope and store the result in the given datum
 			 *  @param rpnExpression The expression to evaluate
 			 *  @param context The scope context in which the values are to be evaluated in
@@ -40,6 +34,10 @@ namespace AnonymousEngine
 
 			// Extract tokens with type from the expression
 			static void ExtractTokens(const std::string& rpnExpression, Vector<StackEntry>& tokens);
+			// Create / get a parameter datum from a stack entry
+			static const Datum& GetParam(const StackEntry& entry, const Attributed& scope, bool& shouldDelete);
+			// Get value from Datum
+
 
 			// Main handlers for operator types
 			static void MultiOperatorHandler(RpnEvaluator& evaluator, const std::string&, const Attributed&, Datum& result);
@@ -47,44 +45,45 @@ namespace AnonymousEngine
 			static void BinaryOperatorHandler(RpnEvaluator& evaluator, const std::string&, const Attributed&, Datum& result);
 
 			// Handle supported operators
-			static void OperatorSubscript(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorDot(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorNot(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorMultiply(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorDivide(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorModulus(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorSubtract(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorAdd(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorLeftShift(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorRightShift(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorLessThan(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorGreaterThan(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorLessThanOrEqual(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorGreaterThanOrEqual(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorEquals(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorNotEquals(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorBitwiseAnd(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorBitwiseXor(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorBitwiseOr(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorLogicalAnd(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorLogicalOr(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorSin(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorCos(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorTan(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorAtan(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorExp(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorLog(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorLog10(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorSqrt(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorIsqrt(RpnEvaluator& evaluator, const Datum& param1, Datum& result);
-			static void OperatorPow(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorMax(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
-			static void OperatorMin(RpnEvaluator& evaluator, const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorSubscript(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorDot(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorNot(const Datum& param1, Datum& result);
+			static void OperatorMultiply(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorDivide(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorModulus(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorSubtract(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorAdd(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorLeftShift(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorRightShift(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorLessThan(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorGreaterThan(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorLessThanOrEqual(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorGreaterThanOrEqual(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorEquals(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorNotEquals(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorBitwiseAnd(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorBitwiseXor(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorBitwiseOr(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorLogicalAnd(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorLogicalOr(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorSin(const Datum& param1, Datum& result);
+			static void OperatorCos(const Datum& param1, Datum& result);
+			static void OperatorTan(const Datum& param1, Datum& result);
+			static void OperatorAtan(const Datum& param1, Datum& result);
+			static void OperatorExp(const Datum& param1, Datum& result);
+			static void OperatorLog(const Datum& param1, Datum& result);
+			static void OperatorLog10(const Datum& param1, Datum& result);
+			static void OperatorSqrt(const Datum& param1, Datum& result);
+			static void OperatorIsqrt(const Datum& param1, Datum& result);
+			static void OperatorPow(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorMax(const Datum& param1, const Datum& param2, Datum& result);
+			static void OperatorMin(const Datum& param1, const Datum& param2, Datum& result);
 
-			static HashMap<std::string, OperatorSignature> Signatures;
+			static HashMap<std::string, OperatorType> OperatorTypes;
 			static HashMap<OperatorType, std::function<void(RpnEvaluator&, const std::string& operatorString, const Attributed&, Datum&)>> MasterOperatorHandlers;
-			static HashMap<std::string, std::function<void(RpnEvaluator&, const Datum&, Datum&)>> UnaryOperatorHandlers;
-			static HashMap<std::string, std::function<void(RpnEvaluator&, const Datum&, const Datum&, Datum&)>> BinaryOperatorHandlers;
+			static HashMap<std::string, std::function<void(const Datum&, Datum&)>> UnaryOperatorHandlers;
+			static HashMap<std::string, std::function<void(const Datum&, const Datum&, Datum&)>> BinaryOperatorHandlers;
+			static HashMap<RpnToken, Datum::DatumType> RpnTokenValueTypesToDatumTypes;
 			static const char TokenSeparator;
 		};
 	}
