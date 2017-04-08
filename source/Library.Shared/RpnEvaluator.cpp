@@ -103,32 +103,24 @@ namespace AnonymousEngine
 		void RpnEvaluator::EvaluateRPN(const std::string& rpnExpression, const Attributed& scope, Datum& result)
 		{
 			mStack.Clear();
-			mStack.Reserve((rpnExpression.length() * 2) / 3);
 
 			// Create token vector and reserve memory to hold the max possible amount of tokens from the given expression
 			Vector<StackEntry> tokens;
-			tokens.Reserve(rpnExpression.length() / 3);
 
 			ExtractTokens(rpnExpression, tokens);
 			for (auto& token : tokens)
 			{
-				if (token.mTokenType != RpnToken::Operator && token.mTokenType != RpnToken::Variable)
-				{
-					Datum* datum = new Datum();
-					datum->SetType(RpnTokenValueTypesToDatumTypes[token.mTokenType]);
-					datum->Resize(1U);
-					mStack.PushBack({{token.mToken, token.mTokenType}, datum});
-				}
-				if (token.mTokenType == RpnToken::Variable)
-				{
-					mStack.PushBack({{token.mToken, token.mTokenType}, nullptr});
-				}
-				else
+				assert(token.mTokenType != RpnToken::Invalid);
+				if (token.mTokenType == RpnToken::Operator)
 				{
 					assert(OperatorTypes.ContainsKey(token.mToken));
 					Datum* datum = new Datum();
 					MasterOperatorHandlers[OperatorTypes[token.mToken]](*this, token.mToken, scope, *datum);
 					mStack.PushBack({{token.mToken, token.mTokenType}, datum});
+				}
+				else
+				{
+					mStack.PushBack({{token.mToken, token.mTokenType}, nullptr});
 				}
 			}
 			
@@ -210,6 +202,7 @@ namespace AnonymousEngine
 			const StackEntryWithDatum& entry = evaluator.mStack.Back();
 			bool shouldDelete;
 			const Datum& param1 = GetParam(entry, scope, shouldDelete);
+			evaluator.mStack.PopBack();
 			UnaryOperatorHandlers[operatorString](param1, result);
 			if (shouldDelete)
 			{
@@ -219,15 +212,17 @@ namespace AnonymousEngine
 
 		void RpnEvaluator::BinaryOperatorHandler(RpnEvaluator& evaluator, const std::string& operatorString, const Attributed& scope, Datum& result)
 		{
+			const StackEntryWithDatum entry2 = evaluator.mStack.Back();
+			evaluator.mStack.PopBack();
+			bool shouldDeleteParam2;
+			const Datum& param2 = GetParam(entry2, scope, shouldDeleteParam2);
+
 			const StackEntryWithDatum& entry1 = evaluator.mStack.Back();
 			bool shouldDeleteParam1;
 			const Datum& param1 = GetParam(entry1, scope, shouldDeleteParam1);
-
-			const StackEntryWithDatum& entry2 = evaluator.mStack.Back();
-			bool shouldDeleteParam2;
-			const Datum& param2 = GetParam(entry2, scope, shouldDeleteParam2);
 				
 			BinaryOperatorHandlers[operatorString](param1, param2, result);
+			evaluator.mStack.PopBack();
 			if (shouldDeleteParam1)
 			{
 				delete &param1;
