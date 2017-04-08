@@ -131,8 +131,15 @@ namespace AnonymousEngine
 					mStack.PushBack({{token.mToken, token.mTokenType}, datum});
 				}
 			}
+			
 			assert(mStack.Size() == 1);
-			result = *(mStack.Back().datum);
+			bool shouldDelete;
+			const Datum& datum = GetParam(mStack.Back(), scope, shouldDelete);
+			result = datum;
+			if (shouldDelete)
+			{
+				delete &datum;
+			}
 			mStack.PopBack();
 		}
 
