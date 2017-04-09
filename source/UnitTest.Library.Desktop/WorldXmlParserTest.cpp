@@ -187,7 +187,7 @@ namespace UnitTestLibraryDesktop
 				Assert::AreEqual(500, (*world)["WhiterunPopulation"].Get<std::int32_t>());
 
 				Containers::Sector& sector = static_cast<Containers::Sector&>((*world).Sectors().Get<Scope>());
-				Assert::AreEqual(static_cast<std::int32_t>(11), sector["BanneredMareBeds"].Get<std::int32_t>());
+				Assert::AreEqual(static_cast<std::int32_t>(11 + index), sector["BanneredMareBeds"].Get<std::int32_t>());
 			}
 
 			delete world;

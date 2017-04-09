@@ -76,6 +76,10 @@
 						<action name="Upgrade" class="ActionList">
 							<integer name="Capacity" value="5"/>
 						</action>
+						<action name="UpdateBeds" class="SetValue">
+							<string name="Target" value="Beds"/>
+							<string name="Value" value="BanneredMareBeds"/>
+						</action>
 					</actions>
 				</entity>
 				<entity name="Dragonsreach" class="Entity">

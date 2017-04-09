@@ -220,7 +220,7 @@ namespace AnonymousEngine
 			const StackEntryWithDatum& entry1 = evaluator.mStack.Back();
 			bool shouldDeleteParam1;
 			const Datum& param1 = GetParam(entry1, scope, shouldDeleteParam1);
-				
+
 			BinaryOperatorHandlers[operatorString](param1, param2, result);
 			evaluator.mStack.PopBack();
 			if (shouldDeleteParam1)
