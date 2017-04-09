@@ -1,12 +1,104 @@
 <world name="Skyrim">
 	<integer name="Population" value="1000000"/>
 	<string name="Capital" value="Solitude"/>
+	<integer name="WhiterunPopulation" value="100"/>
 	<actions>
-		<action name="TestSetValue" class="SetValue">
-			<string name="Target" value="Population"/>
-			<string name="Value" value="Population/1000+2+(3*4)-1"/>
+		<action name="Init" class="CreateAction">
+			<string name="InstanceName" value="TestAction"/>
+			<string name="ClassName" value="ActionList"/>
+		</action>
+		<action name="Destroy" class="DestroyAction">
+			<string name="InstanceName" value="TestAction"/>
+		</action>
+		<action name="CheckPopulation" class="Switch">
+			<string name="Expression" value="Population"/>
+			<actions>
+				<action name="1013" class="SetValue">
+					<string name="Target" value="Population"/>
+					<string name="Value" value="1001"/>
+				</action>
+				<action name="1000000" class="SetValue">
+					<string name="Target" value="Population"/>
+					<string name="Value" value="Population/1000+2+(3*4)-1"/>
+				</action>
+			</actions>
+			<action name="DefaultCase" class="SetValue">
+				<string name="Target" value="Population"/>
+				<string name="Value" value="100"/>
+			</action>
+		</action>
+		<action name="CheckCapital" class="Switch">
+			<string name="Expression" value="Capital"/>
+			<actions>
+				<action name="Solitude" class="SetValue">
+					<string name="Target" value="Capital"/>
+					<string name="Value" value="'Whiterun'"/>
+				</action>
+			</actions>
 		</action>
 	</actions>
 	<sectors>
+		<sector name="Whiterun">
+			<integer name="BanneredMareBeds" value="0"/>
+			<actions>
+				<action name="Init" class="ActionList">
+					<integer name="MaxStudents" value="100"/>
+				</action>
+				<action name="UpdatePopulation" class="SetValue">
+					<string name="Target" value="WhiterunPopulation"/>
+					<string name="Value" value="500"/>
+				</action>
+				<action name="DestroyWorldTest" class="DestroyAction">
+					<string name="InstanceName" value="TestSetValue"/>
+				</action>
+				<action name="UpgradeBanneredMare" class="SetValue">
+					<string name="Target" value="BanneredMareBeds"/>
+					<string name="Value" value="Entities[0].Beds + 1"/>
+				</action>
+			</actions>
+			<string name="Jarl" value="Balgruuf the Greater"/>
+			<entities>
+				<entity name="Bannered Mare" class="Entity">
+					<string name="Owner" value="Hulda"/>
+					<integer name="Beds" value="10"/>
+					<float name="Price" value="20000.50"/>
+					<vector name="Location" x="0.5" y="10.2" z="100.0" w="1.0"/>
+					<matrix name="Transform">
+						<vector name="Row1" x="1.2" y="10.2" z="0.005" w="1.0"/>
+						<vector name="Row2" x="3.6" y="102" z="0.01" w="1.0"/>
+						<vector name="Row3" x="1000" y="177.2" z="101" w="1.0"/>
+						<vector name="Row4" x="11" y="13.6" z="100.00035" w="1.0"/>
+					</matrix>
+					<actions>
+						<action name="Init" class="ActionList">
+							<integer name="Capacity" value="10"/>
+						</action>
+						<action name="Upgrade" class="ActionList">
+							<integer name="Capacity" value="5"/>
+						</action>
+					</actions>
+				</entity>
+				<entity name="Dragonsreach" class="Entity">
+					<string name="Name" value="Dragonsreach"/>
+					<string name="Owner" value="Balgruuf the Greater"/>
+					<vector name="Location" x="50.4" y="12.3" z="10.0" w="1.0"/>
+				</entity>
+			</entities>
+		</sector>
+		<sector name="Winterhold">
+			<string name="Name" value="Winterhold" index="0"/>
+			<string name="Jarl" value="Korir"/>
+			<entities>
+				<entity name="College of Winterhold" class="Entity">
+					<string name="Arch-Mage" value="Savos Aren"/>
+					<vector name="Location" x="77.04" y="27.9" z="20.0" w="1.0"/>
+					<actions>
+						<action name="Init" class="ActionList">
+							<integer name="MaxStudents" value="100"/>
+						</action>
+					</actions>
+				</entity>
+			</entities>
+		</sector>
 	</sectors>
 </world>

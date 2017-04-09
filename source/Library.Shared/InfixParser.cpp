@@ -1,4 +1,5 @@
 #include "InfixParser.h"
+#include <cassert>
 #include <regex>
 
 namespace AnonymousEngine
@@ -97,16 +98,17 @@ namespace AnonymousEngine
 		const std::string InfixParser::RightSquareBracket = "]";
 		const std::string InfixParser::FunctionOperator = "()";
 		const std::string InfixParser::SubscriptOperator = "[]";
+		const std::string InfixParser::DotOperator = ".";
 		const std::string InfixParser::TokenSeparator = "`";
 
-		const std::string& InfixParser::ConvertToRPN(const std::string& expression)
+		std::string InfixParser::ConvertToRPN(const std::string& expression)
 		{
 			// remove white spaces from the input expression. This doesn't support spaces within strings
 			std::string trimmedExpression = std::regex_replace(expression, std::regex("\\s+"), "");
 			std::string input = trimmedExpression;
 
 			mStack.Clear();
-			mOutputExpression.clear();
+			mOutputQueue.Clear();
 			bool matchFound;
 			for (std::uint32_t index = 0; index < trimmedExpression.size();)
 			{
@@ -127,14 +129,10 @@ namespace AnonymousEngine
 					}
 					++type;
 				}
-
-				if (!matchFound)
-				{
-					break;
-				}
+				assert(matchFound);
 			}
 			ClearOutStack();
-			return mOutputExpression;
+			return OutputQueueToString();
 		}
 
 		void InfixParser::HandleToken(const std::string& token, const TokenType tokenType)
@@ -158,18 +156,49 @@ namespace AnonymousEngine
 
 		void InfixParser::OutputToQueue(const StackEntry& stackEntry)
 		{
-			if (mOutputExpression.size() > 0)
+			mOutputQueue.PushBack({stackEntry.mToken, stackEntry.mTokenType});
+		}
+
+		std::string InfixParser::OutputQueueToString()
+		{
+			// Replace Dot operator's second parameter from variable to string
+			for (std::uint32_t index = 0; index < mOutputQueue.Size(); ++index)
 			{
-				mOutputExpression.append(TokenSeparator);
+				if (mOutputQueue[index].mToken == DotOperator)
+				{
+					assert(index > 0);
+					StackEntry& previousEntry = mOutputQueue[index - 1];
+					assert(previousEntry.mTokenType == RpnToken::String || previousEntry.mTokenType == RpnToken::Variable);
+					if (previousEntry.mTokenType == RpnToken::Variable)
+					{
+						previousEntry.mTokenType = RpnToken::String;
+					}
+				}
 			}
-			mOutputExpression.append(stackEntry.mToken);
-			mOutputExpression.append(TokenSeparator);
-			mOutputExpression.append(std::to_string(static_cast<std::uint32_t>(stackEntry.mTokenType)));
+
+			// flush out the queue to output string
+			std::string outputString;
+			for (auto& entry : mOutputQueue)
+			{
+				if (outputString.size() > 0)
+				{
+					outputString.append(TokenSeparator);
+				}
+				outputString.append(entry.mToken);
+				outputString.append(TokenSeparator);
+				outputString.append(std::to_string(static_cast<std::uint32_t>(entry.mTokenType)));
+			}
+			return outputString;
 		}
 
 		void InfixParser::HandleValues(InfixParser& parser, const std::string& token, const RpnToken tokenType)
 		{
-			parser.OutputToQueue({token, tokenType});
+			StackEntry entry = {token, tokenType};
+			if (tokenType == RpnToken::String)
+			{
+				entry.mToken = entry.mToken.substr(1, entry.mToken.length() - 2);
+			}
+			parser.OutputToQueue(entry);
 		}
 
 		void InfixParser::HandleOperator(InfixParser& parser, const std::string& token, const RpnToken tokenType)

@@ -31,8 +31,8 @@ namespace AnonymousEngine
 		private:
 			struct StackEntryWithDatum
 			{
-				StackEntry entry;
-				Datum* datum;
+				StackEntry mEntry;
+				Datum* mDatum;
 			};
 
 			// The stack used for evaluation

@@ -6,6 +6,7 @@
 #include "WorldParserHelper.h"
 #include "XmlParseMaster.h"
 #include "World.h"
+#include "Sector.h"
 #include "DestroyAction.h"
 #include "GameClock.h"
 #include "SetValue.h"
@@ -169,9 +170,24 @@ namespace UnitTestLibraryDesktop
 				Assert::IsTrue(state.mGameTime.ElapsedGameTime() >= milliseconds());
 				Assert::IsTrue(state.mGameTime.TotalGameTime() == duration_cast<milliseconds>(clock.CurrentTime() - clock.StartTime()));
 				world->Update(state);
-				Assert::AreEqual(100, (*world)["Population"].Get<std::int32_t>());
+
+				switch(index)
+				{
+				case 0:
+					Assert::AreEqual(1013, (*world)["Population"].Get<std::int32_t>());
+					break;
+				case 1:
+					Assert::AreEqual(1001, (*world)["Population"].Get<std::int32_t>());
+					break;
+				default:
+					Assert::AreEqual(100, (*world)["Population"].Get<std::int32_t>());
+					break;
+				}
 				Assert::AreEqual(std::string("Whiterun"), (*world)["Capital"].Get<std::string>());
 				Assert::AreEqual(500, (*world)["WhiterunPopulation"].Get<std::int32_t>());
+
+				Containers::Sector& sector = static_cast<Containers::Sector&>((*world).Sectors().Get<Scope>());
+				Assert::AreEqual(static_cast<std::int32_t>(11), sector["BanneredMareBeds"].Get<std::int32_t>());
 			}
 
 			delete world;
@@ -184,12 +200,12 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD_INITIALIZE(Setup)
 		{
-			mHelper.Setup();
+			//mHelper.Setup();
 		}
 
 		TEST_METHOD_CLEANUP(Teardown)
 		{
-			mHelper.Teardown();
+			//mHelper.Teardown();
 		}
 
 		TEST_CLASS_CLEANUP(CleanupClass)

@@ -48,10 +48,10 @@ namespace AnonymousEngine
 			};
 
 			/** Convert an infix expression to RPN expression
-			*  @param infixExpression The expression that should be parsed
-			*  @return The RPN expression that is parsed from the input
-			*/
-			const std::string& ConvertToRPN(const std::string& infixExpression);
+			 *  @param infixExpression The expression that should be parsed
+			 *  @return The RPN expression that is parsed from the input
+			 */
+			std::string ConvertToRPN(const std::string& infixExpression);
 
 		private:
 			// Handle parsed tokens
@@ -60,6 +60,8 @@ namespace AnonymousEngine
 			void ClearOutStack();
 			// Add to output queue with token type and separator
 			void OutputToQueue(const StackEntry& stackEntry);
+			// Convert output queue to string
+			std::string OutputQueueToString();
 
 			// Token Handlers
 			static void HandleValues(InfixParser& parser, const std::string& token, const RpnToken tokenType);
@@ -74,7 +76,7 @@ namespace AnonymousEngine
 			// The stack used for parsing
 			Vector<StackEntry> mStack;
 			// Output postfix expression
-			std::string mOutputExpression;
+			Vector<StackEntry> mOutputQueue;
 
 			// The string names of token type enum values
 			static Vector<std::string> TokenTypes;
@@ -94,6 +96,7 @@ namespace AnonymousEngine
 			static const std::string RightSquareBracket;
 			static const std::string FunctionOperator;
 			static const std::string SubscriptOperator;
+			static const std::string DotOperator;
 			static const std::string TokenSeparator;
 		};
 	}

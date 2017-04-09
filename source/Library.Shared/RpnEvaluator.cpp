@@ -161,24 +161,24 @@ namespace AnonymousEngine
 		{
 			Datum* param1;
 			shouldDelete = true;
-			if (entryWithDatum.entry.mTokenType == RpnToken::Variable)
+			if (entryWithDatum.mEntry.mTokenType == RpnToken::Variable)
 			{
-				assert(entryWithDatum.datum == nullptr);
-				param1 = const_cast<Datum*>(scope.Search(entryWithDatum.entry.mToken));
+				assert(entryWithDatum.mDatum == nullptr);
+				param1 = const_cast<Datum*>(scope.Search(entryWithDatum.mEntry.mToken));
 				shouldDelete = false;
 			}
 			else
 			{
-				if (entryWithDatum.datum == nullptr)
+				if (entryWithDatum.mDatum == nullptr)
 				{
 					param1 = new Datum();
-					param1->SetType(RpnTokenValueTypesToDatumTypes[entryWithDatum.entry.mTokenType]);
+					param1->SetType(RpnTokenValueTypesToDatumTypes[entryWithDatum.mEntry.mTokenType]);
 					param1->Resize(1U);
-					param1->SetFromString(entryWithDatum.entry.mToken);
+					param1->SetFromString(entryWithDatum.mEntry.mToken);
 				}
 				else
 				{
-					param1 = entryWithDatum.datum;
+					param1 = entryWithDatum.mDatum;
 				}
 			}
 			return (*param1);
