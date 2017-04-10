@@ -23,12 +23,11 @@ namespace AnonymousEngine
 			struct QueueEntry
 			{
 				std::shared_ptr<EventPublisher> mPublisher;
-				GameTime mEnqueuedTime;
+				std::chrono::high_resolution_clock::time_point mEnqueuedTime;
 				std::chrono::milliseconds mDelay;
-
-				bool operator==(const QueueEntry& rhs) const;
-				bool operator!=(const QueueEntry& rhs) const;
 			};
+
+			uint32_t Partition(const GameTime& gameTime);
 
 			Vector<QueueEntry> mEventQueue;
 		};

@@ -17,9 +17,6 @@ namespace AnonymousEngine
 
 		const std::chrono::milliseconds& ElapsedGameTime() const;
 		void SetElapsedGameTime(const std::chrono::milliseconds& elapsedGameTime);
-
-		bool operator==(const GameTime& rhs) const;
-		bool operator!=(const GameTime& rhs) const;
 	private:
 		std::chrono::high_resolution_clock::time_point mCurrentTime;
 		std::chrono::milliseconds mTotalGameTime;

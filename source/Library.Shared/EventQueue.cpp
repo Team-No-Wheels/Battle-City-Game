@@ -6,45 +6,21 @@ namespace AnonymousEngine
 	{
 		using namespace std::chrono;
 
-		#pragma region QueueEntryMethods
-
-		bool EventQueue::QueueEntry::operator==(const QueueEntry& rhs) const
-		{
-			return (mDelay == rhs.mDelay) && (mEnqueuedTime == rhs.mEnqueuedTime) && (mPublisher == rhs.mPublisher);
-		}
-
-		bool EventQueue::QueueEntry::operator!=(const QueueEntry& rhs) const
-		{
-			return !((*this) == rhs);
-		}
-
-		#pragma endregion 
-
 		#pragma region EventQueueMethods
 
 		void EventQueue::Enqueue(const std::shared_ptr<EventPublisher>& publisher, const GameTime& gameTime, std::uint32_t delay)
 		{
-			mEventQueue.PushBack({publisher, gameTime, std::chrono::milliseconds(delay)});
+			mEventQueue.PushBack({publisher, gameTime.CurrentTime(), std::chrono::milliseconds(delay)});
 		}
 
 		void EventQueue::Update(const GameTime& gameTime)
 		{
-			if (mEventQueue.Size() > 1)
+			std::uint32_t expiredStart = Partition(gameTime);
+			for (std::uint32_t index = expiredStart; index < mEventQueue.Size(); ++index)
 			{
-				std::uint32_t upperNonExpiredIndex = mEventQueue.Size() - 1;
-				for (std::uint32_t index = 0; index < upperNonExpiredIndex - 1; ++index)
-				{
-					auto& entry = mEventQueue[index];
-					if ((entry.mEnqueuedTime.CurrentTime() + entry.mDelay) <= gameTime.CurrentTime())
-					{
-						entry.mPublisher->Deliver();
-						entry.mPublisher.reset();
-						mEventQueue[index] = std::move(mEventQueue[upperNonExpiredIndex]);
-						--index;
-						--upperNonExpiredIndex;
-					}
-				}
+				mEventQueue[index].mPublisher->Deliver();
 			}
+			mEventQueue.Remove(mEventQueue.IteratorAt(expiredStart), mEventQueue.end());
 		}
 
 		void EventQueue::Clear()
@@ -65,6 +41,25 @@ namespace AnonymousEngine
 		void EventQueue::Send(const std::shared_ptr<EventPublisher>& publisher)
 		{
 			publisher->Deliver();
+		}
+
+		std::uint32_t EventQueue::Partition(const GameTime& gameTime)
+		{
+			std::uint32_t upperNonExpiredIndex = mEventQueue.Size();
+			for (std::uint32_t index = 0; index < upperNonExpiredIndex; ++index)
+			{
+				auto& entry = mEventQueue[index];
+				if ((entry.mEnqueuedTime + entry.mDelay) <= gameTime.CurrentTime())
+				{
+					--upperNonExpiredIndex;
+					if (index != upperNonExpiredIndex)
+					{
+						std::swap(mEventQueue[index], mEventQueue[upperNonExpiredIndex]);
+					}
+					--index;
+				}
+			}
+			return upperNonExpiredIndex;
 		}
 
 		#pragma endregion

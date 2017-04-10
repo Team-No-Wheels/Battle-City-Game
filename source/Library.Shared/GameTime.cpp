@@ -38,14 +38,4 @@ namespace AnonymousEngine
 	{
 		mElapsedGameTime = elapsedGameTime;
 	}
-
-	bool GameTime::operator==(const GameTime& rhs) const
-	{
-		return (mCurrentTime == rhs.mCurrentTime) && (mElapsedGameTime == rhs.mElapsedGameTime) && (mTotalGameTime == rhs.mTotalGameTime);
-	}
-
-	bool GameTime::operator!=(const GameTime& rhs) const
-	{
-		return !((*this) == rhs);
-	}
 }
