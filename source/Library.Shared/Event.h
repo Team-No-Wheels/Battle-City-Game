@@ -8,10 +8,10 @@ namespace AnonymousEngine
 	namespace Core
 	{
 		template <typename T>
-		class Event final : EventPublisher
+		class Event final : public EventPublisher
 		{
 		public:
-			Event() = default;
+			Event(const T& message);
 			~Event() = default;
 
 			Event(Event& rhs);
@@ -26,7 +26,9 @@ namespace AnonymousEngine
 			const T& Message();
 
 		private:
-			const T& mMessage;
+			const T* mMessage;
+
+			static Vector<EventSubscriber*> Subscribers;
 
 			RTTI_DECLARATIONS(Event, EventPublisher);
 		};

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RTTI.h"
+#include "Vector.h"
 
 namespace AnonymousEngine
 {
@@ -9,22 +10,18 @@ namespace AnonymousEngine
 		class EventPublisher : public RTTI
 		{
 		public:
-			EventPublisher();
+			EventPublisher(Vector<class EventSubscriber*>* subscriberList);
 			virtual ~EventPublisher() = default;
 
-			EventPublisher(const EventPublisher& rhs);
-			EventPublisher(EventPublisher&& rhs) noexcept;
+			EventPublisher(const EventPublisher& rhs) = default;
+			EventPublisher(EventPublisher&& rhs) noexcept = default;
 
-			EventPublisher& operator=(const EventPublisher& rhs);
-			EventPublisher& operator=(EventPublisher&& rhs) noexcept;
+			EventPublisher& operator=(const EventPublisher& rhs) = default;
+			EventPublisher& operator=(EventPublisher&& rhs) noexcept = default;
 
-			bool IsExpired() const;
 			void Deliver();
-			bool DeleteAfterPublishing() const;
-
-		private:
-			bool mIsExpired;
-			bool mDeleteAfterPublishing;
+		protected:
+			Vector<class EventSubscriber*>* mSubscribers;
 
 			RTTI_DECLARATIONS(EventPublisher, RTTI);
 		};

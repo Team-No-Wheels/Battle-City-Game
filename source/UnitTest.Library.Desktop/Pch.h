@@ -8,7 +8,8 @@
 
 // Standard library headers useful for all test classes
 #include <cstdint>
-#include <string>
 #include <exception>
 #include <functional>
+#include <memory>
 #include <random>
+#include <string>

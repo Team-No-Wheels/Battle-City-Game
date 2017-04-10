@@ -223,8 +223,10 @@
     <ClCompile Include="AttributedFoo.cpp" />
     <ClCompile Include="AttributedTest.cpp" />
     <ClCompile Include="Bar.cpp" />
+    <ClCompile Include="BarSubscriber.cpp" />
     <ClCompile Include="DatumTest.cpp" />
     <ClCompile Include="DerivedBar.cpp" />
+    <ClCompile Include="EventTest.cpp" />
     <ClCompile Include="Foo.cpp" />
     <ClCompile Include="HashFunctorsTest.cpp" />
     <ClCompile Include="HashMapTest.cpp" />
@@ -248,6 +250,7 @@
     <ClCompile Include="TestClassHelper.cpp" />
     <ClCompile Include="FooSharedData.cpp" />
     <ClCompile Include="FooXmlParserHelper.cpp" />
+    <ClCompile Include="FooSubscriber.cpp" />
     <ClCompile Include="VectorIteratorTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="WorldTest.cpp" />
@@ -263,6 +266,7 @@
     <ClInclude Include="AttributedBar.h" />
     <ClInclude Include="AttributedFoo.h" />
     <ClInclude Include="Bar.h" />
+    <ClInclude Include="BarSubscriber.h" />
     <ClInclude Include="DatumTestTemplate.h" />
     <ClInclude Include="DerivedBar.h" />
     <ClInclude Include="Foo.h" />
@@ -273,6 +277,7 @@
     <ClInclude Include="TestClassHelper.h" />
     <ClInclude Include="FooSharedData.h" />
     <ClInclude Include="FooXmlParseHelper.h" />
+    <ClInclude Include="FooSubscriber.h" />
     <ClInclude Include="ToStringTemplates.h" />
     <ClInclude Include="VectorIteratorTestTemplate.h" />
     <ClInclude Include="VectorTestTemplate.h" />
