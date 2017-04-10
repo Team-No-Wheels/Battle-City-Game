@@ -1,11 +1,26 @@
 #include "EventQueue.h"
-#include <algorithm>
 
 namespace AnonymousEngine
 {
 	namespace Core
 	{
 		using namespace std::chrono;
+
+		#pragma region QueueEntryMethods
+
+		bool EventQueue::QueueEntry::operator==(const QueueEntry& rhs) const
+		{
+			return (mDelay == rhs.mDelay) && (mEnqueuedTime == rhs.mEnqueuedTime) && (mPublisher == rhs.mPublisher);
+		}
+
+		bool EventQueue::QueueEntry::operator!=(const QueueEntry& rhs) const
+		{
+			return !((*this) == rhs);
+		}
+
+		#pragma endregion 
+
+		#pragma region EventQueueMethods
 
 		void EventQueue::Enqueue(std::shared_ptr<EventPublisher> publisher, const GameTime& gameTime, std::uint32_t delay)
 		{
@@ -66,5 +81,7 @@ namespace AnonymousEngine
 		{
 			return mEventQueue.Size();
 		}
+
+		#pragma endregion
 	}
 }

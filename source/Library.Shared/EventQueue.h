@@ -25,6 +25,9 @@ namespace AnonymousEngine
 				std::shared_ptr<EventPublisher> mPublisher;
 				GameTime mEnqueuedTime;
 				std::chrono::milliseconds mDelay;
+
+				bool operator==(const QueueEntry& rhs) const;
+				bool operator!=(const QueueEntry& rhs) const;
 			};
 
 			Vector<QueueEntry> mEventQueue;
