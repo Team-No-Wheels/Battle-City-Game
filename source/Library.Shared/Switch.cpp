@@ -1,5 +1,7 @@
 
 #include "Switch.h"
+#include "RpnEvaluator.h"
+#include "InfixParser.h"
 
 namespace AnonymousEngine
 {
@@ -18,11 +20,12 @@ namespace AnonymousEngine
 		{
 			worldState.mAction = this;
 
-			//TODO: evaluate expression
-			const std::string& mEvaluated = mExpression;
-			Datum* datum = Search(mEvaluated);
+			Parsers::InfixParser parser;
+			Parsers::RpnEvaluator evaluator;
+			Datum datum;
+			evaluator.EvaluateRPN(parser.ConvertToRPN(mExpression), *this, datum);
 
-			if (datum != nullptr && datum->Size() > 0)
+			if (datum != nullptr && datum.Size() > 0)
 			{
 				bool foundCase = false;
 				for (std::uint32_t index = 0; index < mActions->Size(); ++index)
@@ -32,11 +35,11 @@ namespace AnonymousEngine
 					
 					// create a datum from the case to compare against
 					Datum caseValue;
-					caseValue.SetType(datum->Type());
+					caseValue.SetType(datum.Type());
 					caseValue.Resize(1U);
 					caseValue.SetFromString(action.Name());
 
-					if (caseValue == (*datum))
+					if (caseValue == datum)
 					{
 						foundCase = true;
 						action.Update(worldState);

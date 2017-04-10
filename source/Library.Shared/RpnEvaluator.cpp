@@ -108,14 +108,25 @@ namespace AnonymousEngine
 			Vector<StackEntry> tokens;
 
 			ExtractTokens(rpnExpression, tokens);
-			for (auto& token : tokens)
+			for (std::uint32_t index = 0; index < tokens.Size(); ++index)
 			{
+				const StackEntry& token = tokens[index];
 				assert(token.mTokenType != RpnToken::Invalid);
 				if (token.mTokenType == RpnToken::Operator)
 				{
 					assert(OperatorTypes.ContainsKey(token.mToken));
 					Datum* datum = new Datum();
-					MasterOperatorHandlers[OperatorTypes[token.mToken]](*this, token.mToken, scope, *datum);
+
+					if (OperatorTypes[token.mToken] == OperatorType::Multi)
+					{
+						++index;
+						const StackEntry& functionToken = tokens[index];
+						MasterOperatorHandlers[OperatorTypes[functionToken.mToken]](*this, functionToken.mToken, scope, *datum);
+					}
+					else
+					{
+						MasterOperatorHandlers[OperatorTypes[token.mToken]](*this, token.mToken, scope, *datum);
+					}
 					mStack.PushBack({{token.mToken, token.mTokenType}, datum});
 				}
 				else
@@ -133,6 +144,7 @@ namespace AnonymousEngine
 				delete &datum;
 			}
 			mStack.PopBack();
+			mStack.Clear();
 		}
 
 		void RpnEvaluator::ExtractTokens(const std::string& rpnExpression, Vector<StackEntry>& tokens)

@@ -60,8 +60,10 @@
 			<entities>
 				<entity name="Bannered Mare" class="Entity">
 					<string name="Owner" value="Hulda"/>
+					<integer name="IsOwnerRich" value="0"/>
+					<integer name="HasLotOfBeds" value="0"/>
 					<integer name="Beds" value="10"/>
-					<float name="Price" value="20000.50"/>
+					<float name="Price" value="10.50"/>
 					<vector name="Location" x="0.5" y="10.2" z="100.0" w="1.0"/>
 					<matrix name="Transform">
 						<vector name="Row1" x="1.2" y="10.2" z="0.005" w="1.0"/>
@@ -76,9 +78,34 @@
 						<action name="Upgrade" class="ActionList">
 							<integer name="Capacity" value="5"/>
 						</action>
-						<action name="UpdateBeds" class="SetValue">
-							<string name="Target" value="Beds"/>
-							<string name="Value" value="BanneredMareBeds"/>
+						<action name="Update" class="ActionList">
+							<actions>
+								<action name="UpdateBeds" class="SetValue">
+									<string name="Target" value="Beds"/>
+									<string name="Value" value="BanneredMareBeds"/>
+								</action>
+								<action name="UpdatePrice" class="SetValue">
+									<string name="Target" value="Price"/>
+									<string name="Value" value="min(200.0, pow(Price, 2))"/>
+								</action>
+								<action name="UpdatePrice" class="SetValue">
+									<string name="Target" value="Price"/>
+									<string name="Value" value="min(200.0, pow(Price, 2))"/>
+								</action>
+								<action name="CheckIfOwnerIsRich" class="Switch">
+									<string name="Expression" value="Price > 150"/>
+									<actions>
+										<action name="1" class="SetValue">
+											<string name="Target" value="IsOwnerRich"/>
+											<string name="Value" value="1"/>
+										</action>
+									</actions>
+								</action>
+								<action name="CheckIfInnHasLotOfRooms" class="SetValue">
+									<string name="Target" value="HasLotOfBeds"/>
+									<string name="Value" value="Beds > 10"/>
+								</action>
+							</actions>
 						</action>
 					</actions>
 				</entity>

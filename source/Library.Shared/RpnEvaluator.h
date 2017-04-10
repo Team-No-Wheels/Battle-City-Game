@@ -25,7 +25,7 @@ namespace AnonymousEngine
 			/** Evaluate an RPN expression from the given scope and store the result in the given datum
 			 *  @param rpnExpression The expression to evaluate
 			 *  @param context The scope context in which the values are to be evaluated in
-			 *  @param shouldDelete An output parameter to store the result
+			 *  @return result An output parameter to store the result
 			 */
 			void EvaluateRPN(const std::string& rpnExpression, const Attributed& context, Datum& result);
 		private:
