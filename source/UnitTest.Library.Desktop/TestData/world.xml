@@ -10,20 +10,16 @@
 		<action name="Destroy" class="DestroyAction">
 			<string name="InstanceName" value="TestAction"/>
 		</action>
-		<action name="TestSetValue" class="SetValue">
-			<string name="Target" value="Population"/>
-			<string name="Value" value="10000"/>
-		</action>
 		<action name="CheckPopulation" class="Switch">
 			<string name="Expression" value="Population"/>
 			<actions>
-				<action name="100000" class="SetValue">
+				<action name="1013" class="SetValue">
 					<string name="Target" value="Population"/>
-					<string name="Value" value="10001"/>
+					<string name="Value" value="1001"/>
 				</action>
 				<action name="1000000" class="SetValue">
 					<string name="Target" value="Population"/>
-					<string name="Value" value="0"/>
+					<string name="Value" value="Population/1000+2+(3*4)-1"/>
 				</action>
 			</actions>
 			<action name="DefaultCase" class="SetValue">
@@ -36,13 +32,14 @@
 			<actions>
 				<action name="Solitude" class="SetValue">
 					<string name="Target" value="Capital"/>
-					<string name="Value" value="Whiterun"/>
+					<string name="Value" value="'Whiterun'"/>
 				</action>
 			</actions>
 		</action>
 	</actions>
 	<sectors>
 		<sector name="Whiterun">
+			<integer name="BanneredMareBeds" value="0"/>
 			<actions>
 				<action name="Init" class="ActionList">
 					<integer name="MaxStudents" value="100"/>
@@ -54,13 +51,19 @@
 				<action name="DestroyWorldTest" class="DestroyAction">
 					<string name="InstanceName" value="TestSetValue"/>
 				</action>
+				<action name="UpgradeBanneredMare" class="SetValue">
+					<string name="Target" value="BanneredMareBeds"/>
+					<string name="Value" value="Entities[0].Beds + 1"/>
+				</action>
 			</actions>
 			<string name="Jarl" value="Balgruuf the Greater"/>
 			<entities>
 				<entity name="Bannered Mare" class="Entity">
 					<string name="Owner" value="Hulda"/>
+					<integer name="IsOwnerRich" value="0"/>
+					<integer name="HasLotOfBeds" value="0"/>
 					<integer name="Beds" value="10"/>
-					<float name="Price" value="20000.50"/>
+					<float name="Price" value="10.50"/>
 					<vector name="Location" x="0.5" y="10.2" z="100.0" w="1.0"/>
 					<matrix name="Transform">
 						<vector name="Row1" x="1.2" y="10.2" z="0.005" w="1.0"/>
@@ -74,6 +77,35 @@
 						</action>
 						<action name="Upgrade" class="ActionList">
 							<integer name="Capacity" value="5"/>
+						</action>
+						<action name="Update" class="ActionList">
+							<actions>
+								<action name="UpdateBeds" class="SetValue">
+									<string name="Target" value="Beds"/>
+									<string name="Value" value="BanneredMareBeds"/>
+								</action>
+								<action name="UpdatePrice" class="SetValue">
+									<string name="Target" value="Price"/>
+									<string name="Value" value="min(200.0, pow(Price, 2))"/>
+								</action>
+								<action name="UpdatePrice" class="SetValue">
+									<string name="Target" value="Price"/>
+									<string name="Value" value="min(200.0, pow(Price, 2))"/>
+								</action>
+								<action name="CheckIfOwnerIsRich" class="Switch">
+									<string name="Expression" value="Price > 150"/>
+									<actions>
+										<action name="1" class="SetValue">
+											<string name="Target" value="IsOwnerRich"/>
+											<string name="Value" value="1"/>
+										</action>
+									</actions>
+								</action>
+								<action name="CheckIfInnHasLotOfRooms" class="SetValue">
+									<string name="Target" value="HasLotOfBeds"/>
+									<string name="Value" value="Beds > 10"/>
+								</action>
+							</actions>
 						</action>
 					</actions>
 				</entity>

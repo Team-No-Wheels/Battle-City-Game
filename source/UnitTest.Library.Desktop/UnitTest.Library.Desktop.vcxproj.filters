@@ -68,6 +68,9 @@
     <ClCompile Include="WorldXmlParserTest.cpp">
       <Filter>OtherTests</Filter>
     </ClCompile>
+    <ClCompile Include="InfixParserTest.cpp">
+      <Filter>OtherTests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />

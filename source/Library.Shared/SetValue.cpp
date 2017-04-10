@@ -1,4 +1,6 @@
 #include "SetValue.h"
+#include "RpnEvaluator.h"
+#include "InfixParser.h"
 
 namespace AnonymousEngine
 {
@@ -17,10 +19,39 @@ namespace AnonymousEngine
 		void SetValue::Update(WorldState& worldState)
 		{
 			worldState.mAction = this;
-			Datum* foundDatum = GetParent()->Search(mTarget);
-			if (foundDatum != nullptr && static_cast<std::int32_t>(foundDatum->Size()) > mIndex)
+			Parsers::InfixParser parser;
+			Parsers::RpnEvaluator evaluator;
+
+			Datum& foundDatum = *(GetParent()->Search(mTarget));
+			if (foundDatum != nullptr && static_cast<std::int32_t>(foundDatum.Size()) > mIndex)
 			{
-				foundDatum->SetFromString(mValue, mIndex);
+				Datum datum;
+				evaluator.EvaluateRPN(parser.ConvertToRPN(mValue), *this, datum);
+				switch(datum.Type())
+				{
+				case Datum::DatumType::Integer:
+					foundDatum.Set(datum.Get<std::int32_t>());
+					break;
+				case Datum::DatumType::Float:
+					foundDatum.Set(datum.Get<float>());
+					break;
+				case Datum::DatumType::String:
+					foundDatum.Set(datum.Get<std::string>());
+					break;
+				case Datum::DatumType::Vector:
+					foundDatum.Set(datum.Get<glm::vec4>());
+					break;
+				case Datum::DatumType::Matrix:
+					foundDatum.Set(datum.Get<glm::mat4>());
+					break;
+				case Datum::DatumType::Scope:
+					foundDatum.Set(datum.Get<Scope>());
+					break;
+				case Datum::DatumType::RTTI:
+					break;
+				default:
+					break;
+				}
 			}
 			worldState.mAction = nullptr;
 		}
