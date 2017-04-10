@@ -3,7 +3,6 @@
 #include <cstdint>
 #include <initializer_list>
 #include "CapacityStrategy.h"
-#include "DefaultVectorCapacityStrategy.h"
 
 namespace AnonymousEngine
 {
@@ -180,6 +179,11 @@ namespace AnonymousEngine
 		 *  @returns An iterator poiting to the end of the container
 		 */
 		Iterator end() const;
+
+		/** Get an iterator pointing to the element at the given index
+		 *  @returns An iterator poiting to the element at the given index. Returns end if index is out of bounds
+		 */
+		Iterator IteratorAt(std::uint32_t index) const;
 
 		/** Search for a value in the vector and return an iterator to it
 		 *  @param data The value to search for

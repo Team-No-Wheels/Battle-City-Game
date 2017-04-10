@@ -19,6 +19,7 @@ namespace UnitTestLibraryDesktop
 			AnonymousEngine::Vector<T> vector;
 			vector.PushBack(value);
 			Assert::AreEqual(value, *vector.begin());
+			Assert::AreEqual(value, *vector.IteratorAt(0));
 			Assert::ExpectException<std::out_of_range>([&vector] { *vector.end(); });
 		}
 
