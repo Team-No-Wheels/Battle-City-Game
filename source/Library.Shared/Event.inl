@@ -4,7 +4,7 @@ namespace AnonymousEngine
 	namespace Core
 	{
 		template <typename T>
-		RTTI_DEFINITIONS(Event<T>);
+		RTTI_DEFINITIONS(Event<T>)
 
 		template <typename T>
 		Vector<EventSubscriber*> Event<T>::Subscribers = Vector<EventSubscriber*>();
