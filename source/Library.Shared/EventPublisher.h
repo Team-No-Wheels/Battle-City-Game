@@ -15,7 +15,7 @@ namespace AnonymousEngine
 			/** Initialize the publisher instance
 			 *  @param subscriberList The list of subscribers. This will be the address of a static list inside custom event class
 			 */
-			EventPublisher(Vector<class EventSubscriber*>* subscriberList);
+			EventPublisher(const Vector<class EventSubscriber*>& subscriberList);
 			/** Release any allocated resources
 			 */
 			virtual ~EventPublisher() = default;
@@ -39,7 +39,7 @@ namespace AnonymousEngine
 			void Deliver();
 		private:
 			// This list is initialized during the constructor
-			Vector<class EventSubscriber*>* mSubscribers;
+			const Vector<class EventSubscriber*>& mSubscribers;
 
 			RTTI_DECLARATIONS(EventPublisher, RTTI);
 		};
