@@ -7,14 +7,14 @@ namespace AnonymousEngine
 {
 	namespace Core
 	{
-		template <typename T>
+		template <typename MessageT>
 		class Event final : public EventPublisher
 		{
 		public:
 			/** Initialize event with a message object
 			 *  @param message The message to send with this event
 			 */
-			Event(const T& message);
+			Event(const MessageT& message);
 			/** Release any allocated resources and finalize
 			 */
 			~Event() = default;
@@ -22,7 +22,7 @@ namespace AnonymousEngine
 			/** Initialize an event from the values of another event object
 			 *  @param rhs The event to copy data from
 			 */
-			Event(Event& rhs);
+			Event(const Event& rhs);
 			/** Initialize an event from the values of another event object
 			 *  @param rhs The event to move data from
 			 */
@@ -31,7 +31,7 @@ namespace AnonymousEngine
 			/** Copy value values of another event object to this
 			 *  @param rhs The event to copy data from
 			 */
-			Event& operator=(Event& rhs);
+			Event& operator=(const Event& rhs);
 			/** Move value values of another event object to this
 			 *  @param rhs The event to move data from
 			 */
@@ -51,11 +51,11 @@ namespace AnonymousEngine
 
 			/** Get the message payload
 			 */
-			const T& Message();
+			const MessageT& Message();
 
 		private:
 			// Message payload
-			const T* mMessage;
+			const MessageT& mMessage;
 
 			// List of all subscribers to this event type
 			static Vector<EventSubscriber*> Subscribers;

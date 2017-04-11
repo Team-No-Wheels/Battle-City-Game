@@ -39,7 +39,7 @@ namespace AnonymousEngine
 			void Deliver();
 		private:
 			// This list is initialized during the constructor
-			const Vector<class EventSubscriber*>* mSubscribers;
+			const Vector<class EventSubscriber*>& mSubscribers;
 
 			RTTI_DECLARATIONS(EventPublisher, RTTI);
 		};
