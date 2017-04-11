@@ -11,19 +11,19 @@ namespace AnonymousEngine
 
 		template <typename T>
 		Event<T>::Event(const T& message) :
-			EventPublisher(&Subscribers), mMessage(&message)
+			EventPublisher(Subscribers), mMessage(&message)
 		{
 		}
 
 		template <typename T>
 		Event<T>::Event(Event& rhs) :
-			EventPublisher(&Subscribers), mMessage(rhs.mMessage)
+			EventPublisher(Subscribers), mMessage(rhs.mMessage)
 		{
 		}
 
 		template <typename T>
 		Event<T>::Event(Event&& rhs) noexcept :
-			EventPublisher(&Subscribers), mMessage(rhs.mMessage)
+			EventPublisher(Subscribers), mMessage(rhs.mMessage)
 		{
 			rhs.mMessage = nullptr;
 		}

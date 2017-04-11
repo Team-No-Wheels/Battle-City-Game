@@ -7,8 +7,8 @@ namespace AnonymousEngine
 	{
 		RTTI_DEFINITIONS(EventPublisher)
 
-		EventPublisher::EventPublisher(Vector<class EventSubscriber*>* subscriberList) :
-			mSubscribers(subscriberList)
+		EventPublisher::EventPublisher(const Vector<class EventSubscriber*>& subscriberList) :
+			mSubscribers(&subscriberList)
 		{
 		}
 
