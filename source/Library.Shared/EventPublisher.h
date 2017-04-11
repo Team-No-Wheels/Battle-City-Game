@@ -12,6 +12,10 @@ namespace AnonymousEngine
 		class EventPublisher : public RTTI
 		{
 		public:
+			/** Deliver the event with the message payload to all subscribers of this event type
+			 */
+			void Deliver();
+		protected:
 			/** Initialize the publisher instance
 			 *  @param subscriberList The list of subscribers. This will be the address of a static list inside custom event class
 			 */
@@ -33,10 +37,6 @@ namespace AnonymousEngine
 			/** Default move assignment operator
 			 */
 			EventPublisher& operator=(EventPublisher&& rhs) noexcept = default;
-
-			/** Deliver the event with the message payload to all subscribers of this event type
-			 */
-			void Deliver();
 		private:
 			// This list is initialized during the constructor
 			const Vector<class EventSubscriber*>& mSubscribers;
