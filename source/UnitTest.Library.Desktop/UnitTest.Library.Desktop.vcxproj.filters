@@ -71,6 +71,15 @@
     <ClCompile Include="InfixParserTest.cpp">
       <Filter>OtherTests</Filter>
     </ClCompile>
+    <ClCompile Include="EventTest.cpp">
+      <Filter>OtherTests</Filter>
+    </ClCompile>
+    <ClCompile Include="FooSubscriber.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="BarSubscriber.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -118,6 +127,12 @@
     </ClInclude>
     <ClInclude Include="VectorTestTemplate.h">
       <Filter>ContainerTests</Filter>
+    </ClInclude>
+    <ClInclude Include="FooSubscriber.h">
+      <Filter>SupportingClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="BarSubscriber.h">
+      <Filter>SupportingClasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

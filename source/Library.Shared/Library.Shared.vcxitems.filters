@@ -80,6 +80,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RpnEvaluator.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventQueue.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventPublisher.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -185,6 +191,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RpnTypes.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventSubscriber.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventQueue.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventPublisher.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
@@ -226,6 +244,9 @@
       <Filter>Containers</Filter>
     </None>
     <None Include="$(MSBuildThisFileDirectory)Factory.inl">
+      <Filter>Core</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Event.inl">
       <Filter>Core</Filter>
     </None>
   </ItemGroup>

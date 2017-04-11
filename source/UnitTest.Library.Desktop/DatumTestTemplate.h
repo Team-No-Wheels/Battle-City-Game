@@ -110,7 +110,7 @@ namespace UnitTestLibraryDesktop
 		{
 			Datum d1;
 			d1 = const_cast<T&>(value1);
-			Datum d2(d1);
+			const Datum d2(d1);
 			Assert::IsTrue(value1 == d2.Get<T>());
 			Assert::AreEqual(1U, d2.Size());
 		}

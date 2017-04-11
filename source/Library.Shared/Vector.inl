@@ -1,4 +1,5 @@
 #include <algorithm>
+#include "DefaultVectorCapacityStrategy.h"
 
 namespace AnonymousEngine
 {
@@ -261,6 +262,16 @@ namespace AnonymousEngine
 	typename Vector<T>::Iterator Vector<T>::end() const
 	{
 		return Iterator(mSize, const_cast<Vector<T>*>(this));
+	}
+
+	template <typename T>
+	typename Vector<T>::Iterator Vector<T>::IteratorAt(std::uint32_t index) const
+	{
+		if (index >= mSize)
+		{
+			return end();
+		}
+		return Iterator(index, const_cast<Vector<T>*>(this));
 	}
 
 	template <typename T>

@@ -17,7 +17,6 @@ namespace AnonymousEngine
 
 		const std::chrono::milliseconds& ElapsedGameTime() const;
 		void SetElapsedGameTime(const std::chrono::milliseconds& elapsedGameTime);
-
 	private:
 		std::chrono::high_resolution_clock::time_point mCurrentTime;
 		std::chrono::milliseconds mTotalGameTime;
