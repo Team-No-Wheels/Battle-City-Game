@@ -28,5 +28,11 @@ namespace AnonymousEngine
 
 			ATTRIBUTED_DECLARATIONS(Reaction, Action)
 		};
+
+#define REACTION_FACTORY_DECLARATIONS(ConcreteReactionT)		\
+	CONCRETE_FACTORY_DECLARATIONS(Reaction, ConcreteReactionT)
+
+#define REACTION_FACTORY_DEFINITIONS(ConcreteReactionT)		\
+	CONCRETE_FACTORY_DEFINITIONS(Reaction, ConcreteReactionT)
 	}
 }

@@ -33,7 +33,7 @@ namespace AnonymousEngine
 			mName = name;
 		}
 
-		Datum& World::Sectors()
+		Datum& World::Sectors() const
 		{
 			return (*mSectors);
 		}
@@ -50,7 +50,7 @@ namespace AnonymousEngine
 			Adopt(sector, SectorsAttributeName);
 		}
 
-		Datum& World::Actions()
+		Datum& World::Actions() const
 		{
 			return (*mActions);
 		}
@@ -87,6 +87,11 @@ namespace AnonymousEngine
 		void World::MarkForDelete(Attributed& attributed)
 		{
 			mGarbageQueue.PushBack(&attributed);
+		}
+
+		Core::EventQueue& World::EventQueue()
+		{
+			return mEventQueue;
 		}
 
 		void World::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)

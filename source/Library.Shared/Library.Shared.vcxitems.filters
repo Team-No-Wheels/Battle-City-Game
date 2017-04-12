@@ -92,6 +92,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EventMessageAttributed.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AttributedReaction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -213,6 +219,12 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)EventMessageAttributed.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributedReaction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventAction.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>

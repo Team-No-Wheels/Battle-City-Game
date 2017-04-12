@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Attributed.h"
+#include "EventQueue.h"
 #include "WorldState.h"
 
 namespace AnonymousEngine
@@ -40,7 +41,7 @@ namespace AnonymousEngine
 			/** Return the list of sectors contained within this world
 			 *  @return The list of sectors this world has
 			 */
-			Datum& Sectors();
+			Datum& Sectors() const;
 			/** Create a sector with the given name and add it to this world
 			 *  @param name The name of the sector to be created
 			 *  @return A reference to the created sector
@@ -54,7 +55,7 @@ namespace AnonymousEngine
 			/** Return the list of actions contained within this world
 			 *  @return The list of actions this world has
 			 */
-			Datum& Actions();
+			Datum& Actions() const;
 
 			/** Update the sectors and actions within this world
 			 *  @worldState The world context object that is passed for the update
@@ -65,6 +66,11 @@ namespace AnonymousEngine
 			 *  @param attributed The attributed object to delete
 			 */
 			void MarkForDelete(Attributed& attributed);
+
+			/** Get the event queue in the world
+			 *  @return A reference to the event queue in the world
+			 */
+			Core::EventQueue& EventQueue();
 		private:
 			// The name of this world
 			std::string mName;
@@ -72,6 +78,8 @@ namespace AnonymousEngine
 			Datum* mSectors;
 			// The list of actions contained by this instance
 			Datum* mActions;
+			// The event queue in the world
+			Core::EventQueue mEventQueue;
 
 			// The garbage queue
 			Vector<Attributed*> mGarbageQueue;
