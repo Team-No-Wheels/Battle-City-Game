@@ -23,8 +23,8 @@ namespace AnonymousEngine
 			// Delete move and copy semantics
 			Action(const Action&) = delete;
 			Action(Action&&) = delete;
-			Action& operator==(const Action&) = delete;
-			Action& operator==(const Action&&) = delete;
+			Action& operator=(const Action&) = delete;
+			Action& operator=(Action&&) = delete;
 
 			/** Get the name of the action
 			 *  @return The name of the action

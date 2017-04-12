@@ -211,7 +211,7 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(TestUpdate)
 		{
 			World world(mHelper.GetRandomString());
-			WorldState state;
+			WorldState& state = world.GetWorldState();
 			GameClock clock;
 			clock.StartTime();
 			clock.UpdateGameTime(state.mGameTime);
@@ -246,7 +246,7 @@ namespace UnitTestLibraryDesktop
 				Assert::IsTrue(state.mGameTime.ElapsedGameTime() >= milliseconds());
 				Assert::IsTrue(state.mGameTime.TotalGameTime() == duration_cast<milliseconds>(clock.CurrentTime() - clock.StartTime()));
 
-				world.Update(state);
+				world.Update();
 			}
 		}
 

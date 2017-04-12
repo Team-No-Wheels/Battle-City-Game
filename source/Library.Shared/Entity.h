@@ -27,8 +27,8 @@ namespace AnonymousEngine
 			// Delete move and copy semantics
 			Entity(const Entity&) = delete;
 			Entity(Entity&&) = delete;
-			Entity& operator==(const Entity&) = delete;
-			Entity& operator==(const Entity&&) = delete;
+			Entity& operator=(const Entity&) = delete;
+			Entity& operator=(Entity&&) = delete;
 
 			/** Get the name of the entity
 			 *  @return The name of the entity

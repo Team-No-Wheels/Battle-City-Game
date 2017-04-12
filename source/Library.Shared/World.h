@@ -26,8 +26,8 @@ namespace AnonymousEngine
 			// Delete move and copy semantics
 			World(const World&) = delete;
 			World(World&&) = delete;
-			World& operator==(const World&) = delete;
-			World& operator==(const World&&) = delete;
+			World& operator=(const World&) = delete;
+			World& operator=(World&&) = delete;
 
 			/** Get the name of the world
 			 *  @return The name of the world
@@ -58,9 +58,8 @@ namespace AnonymousEngine
 			Datum& Actions() const;
 
 			/** Update the sectors and actions within this world
-			 *  @worldState The world context object that is passed for the update
 			 */
-			void Update(WorldState& worldState);
+			void Update();
 
 			/** Mark an attributed for delete
 			 *  @param attributed The attributed object to delete
@@ -71,6 +70,11 @@ namespace AnonymousEngine
 			 *  @return A reference to the event queue in the world
 			 */
 			Core::EventQueue& EventQueue();
+
+			/** Get the current world state in the simulation
+			 *  @return The current world state
+			 */
+			WorldState& GetWorldState();
 		private:
 			// The name of this world
 			std::string mName;
@@ -80,6 +84,8 @@ namespace AnonymousEngine
 			Datum* mActions;
 			// The event queue in the world
 			Core::EventQueue mEventQueue;
+			// The current world state in the simulation
+			WorldState mWorldState;
 
 			// The garbage queue
 			Vector<Attributed*> mGarbageQueue;

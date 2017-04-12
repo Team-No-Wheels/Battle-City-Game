@@ -154,7 +154,7 @@ namespace UnitTestLibraryDesktop
 			Containers::World* world = data.ExtractWorld();
 			std::string output = world->ToString();
 			Assert::AreEqual(TestWorldDataString, output);
-			Containers::WorldState state;
+			Containers::WorldState state = world->GetWorldState();
 			GameClock clock;
 			clock.StartTime();
 			clock.UpdateGameTime(state.mGameTime);
@@ -168,7 +168,7 @@ namespace UnitTestLibraryDesktop
 				Assert::IsTrue(state.mGameTime.CurrentTime() == clock.CurrentTime());
 				Assert::IsTrue(state.mGameTime.ElapsedGameTime() >= milliseconds());
 				Assert::IsTrue(state.mGameTime.TotalGameTime() == duration_cast<milliseconds>(clock.CurrentTime() - clock.StartTime()));
-				world->Update(state);
+				world->Update();
 
 				switch(index)
 				{
