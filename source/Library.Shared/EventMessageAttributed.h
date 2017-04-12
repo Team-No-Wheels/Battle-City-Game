@@ -57,7 +57,7 @@ namespace AnonymousEngine
 			// The subtype of the event used in subscribing to specifc message types
 			std::string mSubtype;
 			// The world in which this event is used
-			Scope* mWorld;
+			World* mWorld;
 
 			ATTRIBUTED_DECLARATIONS(EventMessageAttributed, Attributed)
 		};

@@ -18,12 +18,12 @@ namespace AnonymousEngine
 			/** Free up any allocated resources
 			 */
 			virtual ~EventAction() = default;
+
 			// Delete move and copy semantics
 			EventAction(const EventAction&) = delete;
-
 			EventAction(EventAction&&) = delete;
-			EventAction& operator==(const EventAction&) = delete;
-			EventAction& operator==(const EventAction&&) = delete;
+			EventAction& operator=(const EventAction&) = delete;
+			EventAction& operator=(EventAction&&) = delete;
 
 			/** Generate an event of the configured type
 			 *  @worldState The world context object that is passed for the update

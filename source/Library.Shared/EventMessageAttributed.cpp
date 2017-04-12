@@ -61,12 +61,11 @@ namespace AnonymousEngine
 
 		World* EventMessageAttributed::GetWorld() const
 		{
-			return static_cast<World*>(mWorld);
+			return mWorld;
 		}
 
 		void EventMessageAttributed::SetWorld(World& world)
 		{
-			assert(world.Is(World::TypeIdClass()));
 			mWorld = &world;
 		}
 

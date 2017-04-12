@@ -23,8 +23,8 @@ namespace AnonymousEngine
 			// Delete move and copy semantics
 			Reaction(const Reaction&) = delete;
 			Reaction(Reaction&&) = delete;
-			Reaction& operator==(const Reaction&) = delete;
-			Reaction& operator==(const Reaction&&) = delete;
+			Reaction& operator=(const Reaction&) = delete;
+			Reaction& operator=(Reaction&&) = delete;
 
 			ATTRIBUTED_DECLARATIONS(Reaction, Action)
 		};

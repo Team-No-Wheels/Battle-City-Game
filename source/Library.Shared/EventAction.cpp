@@ -37,5 +37,7 @@ namespace AnonymousEngine
 			prescribedAttributeNames.PushBack("Subtype");
 			prescribedAttributeNames.PushBack("Delay");
 		}
+
+		ACTION_FACTORY_DEFINITIONS(EventAction)
 	}
 }
