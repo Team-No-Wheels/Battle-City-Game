@@ -18,7 +18,6 @@ namespace AnonymousEngine
 			Reaction(name), mEventArgs(new EventMessageAttributed())
 		{
 			AddExternalAttribute("Subtype", &mSubtype, 1);
-			AddNestedScope("EventArgs", *mEventArgs);
 		}
 
 		void AttributedReaction::Notify(Core::EventPublisher& publisher)
@@ -57,7 +56,6 @@ namespace AnonymousEngine
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 			prescribedAttributeNames.PushBack("Subtype");
-			prescribedAttributeNames.PushBack("EventArgs");
 		}
 
 		REACTION_FACTORY_DEFINITIONS(AttributedReaction);

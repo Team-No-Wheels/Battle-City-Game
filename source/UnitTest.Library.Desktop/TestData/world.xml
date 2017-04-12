@@ -1,7 +1,18 @@
 <world name="Skyrim">
 	<integer name="Population" value="1000000"/>
+	<integer name="GDP" value="50000000.0"/>
+	<integer name="PerCapita" value="50.0"/>
 	<string name="Capital" value="Solitude"/>
 	<integer name="WhiterunPopulation" value="100"/>
+	<reaction name="ReactToPopulationChange" class="AttributedReaction">
+		<string name="Subtype" value="World.Population"/>
+		<actions>
+			<action name="UpdatePerCapita" class="SetValue">
+				<string name="Target" value="PerCapita"/>
+				<string name="Value" value="GDP / Population"/>
+			</action>
+		</actions>
+	</reaction>
 	<actions>
 		<action name="Init" class="CreateAction">
 			<string name="InstanceName" value="TestAction"/>
@@ -35,6 +46,10 @@
 					<string name="Value" value="'Whiterun'"/>
 				</action>
 			</actions>
+		</action>
+		<action name="RaisePopulationChangeEvent" class="EventAction">
+			<string name="Subtype" value="World.Population"/>
+			<integer name="Delay" value="5"/>
 		</action>
 	</actions>
 	<sectors>

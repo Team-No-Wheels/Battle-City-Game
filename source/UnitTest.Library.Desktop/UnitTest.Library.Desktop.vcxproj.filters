@@ -80,6 +80,9 @@
     <ClCompile Include="BarSubscriber.cpp">
       <Filter>SupportingClasses</Filter>
     </ClCompile>
+    <ClCompile Include="RpnEvaluatorTest.cpp">
+      <Filter>OtherTests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />

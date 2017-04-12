@@ -202,12 +202,12 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD_INITIALIZE(Setup)
 		{
-			//mHelper.Setup();
+			mHelper.Setup();
 		}
 
 		TEST_METHOD_CLEANUP(Teardown)
 		{
-			//mHelper.Teardown();
+			mHelper.Teardown();
 		}
 
 		TEST_CLASS_CLEANUP(CleanupClass)

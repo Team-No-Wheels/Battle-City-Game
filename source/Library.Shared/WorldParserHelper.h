@@ -59,6 +59,7 @@ namespace AnonymousEngine
 			static void HandleSectorStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 			static void HandleEntityStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 			static void HandleActionStart(WorldSharedData& sharedData, const AttributeMap& attributes);
+			static void HandleReactionStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 			static void HandleListStart(WorldSharedData& sharedData, const AttributeMap& attributes);
 
 			static void HandlePrimitivesEnd(WorldSharedData& sharedData);
