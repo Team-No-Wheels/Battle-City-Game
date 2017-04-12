@@ -13,7 +13,7 @@ namespace AnonymousEngine
 			mActions->SetType(Datum::DatumType::Scope);
 		}
 
-		Datum& ActionList::Actions()
+		Datum& ActionList::Actions() const
 		{
 			return (*mActions);
 		}
