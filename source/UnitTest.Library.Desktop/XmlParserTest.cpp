@@ -20,6 +20,7 @@ namespace UnitTestLibraryDesktop
 			Assert::ExpectException<std::runtime_error>([&parser, &helper2] { parser.AddHelper(helper2); });
 			parser.RemoveHelper(helper1);
 			Assert::IsTrue(&data == parser.GetSharedData());
+			Assert::ExpectException<std::runtime_error>([&data] { data.DecrementDepth(); });
 		}
 
 		TEST_METHOD(TestParseInvalidXml)

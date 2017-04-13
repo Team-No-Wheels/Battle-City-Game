@@ -27,6 +27,7 @@ namespace AnonymousEngine
 			{
 				Datum datum;
 				evaluator.EvaluateRPN(parser.ConvertToRPN(mValue), *this, datum);
+				assert(datum.Type() != Datum::DatumType::Scope || datum.Type() != Datum::DatumType::RTTI);
 				switch(datum.Type())
 				{
 				case Datum::DatumType::Integer:
@@ -43,11 +44,6 @@ namespace AnonymousEngine
 					break;
 				case Datum::DatumType::Matrix:
 					foundDatum.Set(datum.Get<glm::mat4>());
-					break;
-				case Datum::DatumType::Scope:
-					foundDatum.Set(datum.Get<Scope>());
-					break;
-				case Datum::DatumType::RTTI:
 					break;
 				default:
 					break;
