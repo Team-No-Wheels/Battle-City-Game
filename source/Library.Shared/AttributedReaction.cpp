@@ -12,12 +12,17 @@ namespace AnonymousEngine
 
 		ATTRIBUTED_DEFINITIONS(AttributedReaction)
 
-		const std::string TypeSeparator = ".";
+		const std::string AttributedReaction::TypeSeparator = ".";
 
 		AttributedReaction::AttributedReaction(const std::string& name) :
 			Reaction(name), mEventArgs(new EventMessageAttributed())
 		{
 			AddExternalAttribute("Subtype", &mSubtype, 1);
+		}
+
+		AttributedReaction::~AttributedReaction()
+		{
+			delete mEventArgs;
 		}
 
 		void AttributedReaction::Notify(Core::EventPublisher& publisher)

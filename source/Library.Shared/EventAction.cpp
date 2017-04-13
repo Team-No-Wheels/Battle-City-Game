@@ -9,6 +9,8 @@ namespace AnonymousEngine
 	{
 		using namespace AnonymousEngine::Core;
 
+		ATTRIBUTED_DEFINITIONS(EventAction)
+
 		EventAction::EventAction(const std::string& name) :
 			Action(name), mDelay(0)
 		{

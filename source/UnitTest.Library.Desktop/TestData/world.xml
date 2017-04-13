@@ -1,7 +1,7 @@
 <world name="Skyrim">
 	<integer name="Population" value="1000000"/>
-	<integer name="GDP" value="50000000.0"/>
-	<integer name="PerCapita" value="50.0"/>
+	<integer name="GDP" value="50000000"/>
+	<integer name="PerCapita" value="50"/>
 	<string name="Capital" value="Solitude"/>
 	<integer name="WhiterunPopulation" value="100"/>
 	<reaction name="ReactToPopulationChange" class="AttributedReaction">
@@ -24,9 +24,18 @@
 		<action name="CheckPopulation" class="Switch">
 			<string name="Expression" value="Population"/>
 			<actions>
-				<action name="1013" class="SetValue">
-					<string name="Target" value="Population"/>
-					<string name="Value" value="1001"/>
+				<action name="1013" class="ActionList">
+					<actions>
+						<action name="UpdatePopulation" class="SetValue">
+							<string name="Target" value="Population"/>
+							<string name="Value" value="1000"/>
+						</action>
+						<action name="RaisePopulationChangeEvent" class="EventAction">
+							<string name="Subtype" value="World.Population"/>
+							<integer name="Delay" value="500"/>
+							<string name="Alduin" value="WorldEater"/>
+						</action>
+					</actions>
 				</action>
 				<action name="1000000" class="SetValue">
 					<string name="Target" value="Population"/>
@@ -46,10 +55,6 @@
 					<string name="Value" value="'Whiterun'"/>
 				</action>
 			</actions>
-		</action>
-		<action name="RaisePopulationChangeEvent" class="EventAction">
-			<string name="Subtype" value="World.Population"/>
-			<integer name="Delay" value="5"/>
 		</action>
 	</actions>
 	<sectors>

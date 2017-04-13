@@ -16,6 +16,7 @@ namespace AnonymousEngine
 			 *  @param name The name of the reaction
 			 */
 			AttributedReaction(const std::string& name = "");
+			~AttributedReaction();
 
 			// Delete move and copy semantics
 			AttributedReaction(const AttributedReaction&) = delete;
@@ -36,6 +37,7 @@ namespace AnonymousEngine
 			// Matches subtypes
 			bool MatchSubtype(const std::string& subtype) const;
 
+			// Event type separator
 			static const std::string TypeSeparator;
 
 			ATTRIBUTED_DECLARATIONS(AttributedReaction, Reaction)

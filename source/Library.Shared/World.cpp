@@ -60,6 +60,9 @@ namespace AnonymousEngine
 			assert(mWorldState.mWorld == nullptr);
 			mWorldState.mWorld = this;
 
+			// Update event queue
+			mEventQueue.Update(mWorldState.mGameTime);
+
 			// update actions
 			for (std::uint32_t index = 0; index < Actions().Size(); ++index)
 			{

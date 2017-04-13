@@ -55,7 +55,7 @@ namespace AnonymousEngine
 
 		private:
 			// Message payload
-			const MessageT& mMessage;
+			const MessageT mMessage;
 
 			// List of all subscribers to this event type
 			static Vector<EventSubscriber*> Subscribers;
