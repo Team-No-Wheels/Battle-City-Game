@@ -70,18 +70,23 @@ namespace AnonymousEngine
 		 */
 		bool IsAttribute(const std::string& name) const;
 
+		/** Copy all auxiliary attributes of another attributed instance to this instance
+		 *  @param rhs The instance from which auxiliary attributes are to be copied
+		 */
+		void CopyAuxiliaryAttributes(Attributed& rhs);
+
 		/** Get the list of all prescribed attribute names
 		 *  @return Reference to a vector containing all the prescribed attribute names
 		 */
 		const Vector<std::string>& PrescribedAttributes() const;
 		/** Get the list of all auxiliary attribute names
-		 *  @param auxiliaryAttributes Reference to a vector which will be populated with the auxiliary attribute names
+		 *  @return A vector which containing the auxiliary attribute names
 		 */
-		void AuxiliaryAttributes(Vector<std::string>& auxiliaryAttributes) const;
+		Vector<std::string> AuxiliaryAttributes() const;
 		/** Get the list of all attribute names
-		 *  @param attributes Reference to a vector containing all the attribute names
+		 *  @return A vector containing all the attribute names
 		 */
-		void Attributes(Vector<std::string>& attributes) const;
+		Vector<std::string> Attributes() const;
 	protected:
 		// In the constructor of a derived class add all the prescribed attributes first. "This" is added automatically
 

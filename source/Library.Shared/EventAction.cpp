@@ -23,10 +23,7 @@ namespace AnonymousEngine
 			EventMessageAttributed message;
 			message.SetWorld(*worldState.mWorld);
 			message.SetSubtype(mSubtype);
-
-			Vector<std::string> auxiliaryAttributes;
-			AuxiliaryAttributes(auxiliaryAttributes);
-			for (const auto& attribute : auxiliaryAttributes)
+			for (const auto& attribute : AuxiliaryAttributes())
 			{
 				message[attribute] = (*this)[attribute];
 			}

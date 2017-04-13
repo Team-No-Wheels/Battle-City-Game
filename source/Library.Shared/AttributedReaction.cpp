@@ -30,12 +30,9 @@ namespace AnonymousEngine
 
 				if (MatchSubtype(message.GetSubtype()))
 				{
-					Vector<std::string> auxiliaryAttributes;
-					AuxiliaryAttributes(auxiliaryAttributes);
-					for (const auto& attribute : auxiliaryAttributes)
+					for (const auto& attribute : message.AuxiliaryAttributes())
 					{
-						attribute;
-						//(*this)[attribute] = message[attribute];
+						(*this)[attribute] = message[attribute];
 					}
 					Update(message.GetWorld()->GetWorldState());
 				}

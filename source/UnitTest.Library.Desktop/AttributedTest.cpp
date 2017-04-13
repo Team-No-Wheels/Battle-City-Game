@@ -94,12 +94,14 @@ namespace UnitTestLibraryDesktop
 				Assert::IsTrue(foo.IsAttribute(name));
 				Assert::IsTrue(bar.IsAttribute(name));
 			}
+
 			for (auto& name : AttributedFooPrescribedAttributes)
 			{
 				Assert::IsFalse(attributed.IsAttribute(name));
 				Assert::IsTrue(foo.IsAttribute(name));
 				Assert::IsTrue(bar.IsAttribute(name));
 			}
+
 			for (auto& name : AttributedBarPrescribedAttributes)
 			{
 				Assert::IsFalse(attributed.IsAttribute(name));
@@ -130,13 +132,9 @@ namespace UnitTestLibraryDesktop
 			AddSuffixToStrings("Bar", barAuxAttributes);
 			barAttributes.PushBack(barAuxAttributes);
 
-			Vector temp;
-			attributed.Attributes(temp);
-			Assert::IsTrue(attributes == temp);
-			foo.Attributes(temp);
-			Assert::IsTrue(fooAttributes == temp);
-			bar.Attributes(temp);
-			Assert::IsTrue(barAttributes == temp);
+			Assert::IsTrue(attributes == attributed.Attributes());
+			Assert::IsTrue(fooAttributes == foo.Attributes());
+			Assert::IsTrue(barAttributes == bar.Attributes());
 		}
 
 		TEST_METHOD(TestAuxiliaryAttributes)
@@ -196,20 +194,13 @@ namespace UnitTestLibraryDesktop
 			Vector barAuxAttributes = AuxiliaryAttributes;
 			AddSuffixToStrings("Bar", barAuxAttributes);
 
-			Vector temp;
-			attributed.AuxiliaryAttributes(temp);
-			Assert::IsTrue(AuxiliaryAttributes == temp);
-			foo.AuxiliaryAttributes(temp);
-			Assert::IsTrue(fooAuxAttributes == temp);
-			bar.AuxiliaryAttributes(temp);
-			Assert::IsTrue(barAuxAttributes == temp);
+			Assert::IsTrue(AuxiliaryAttributes == attributed.AuxiliaryAttributes());
+			Assert::IsTrue(fooAuxAttributes == foo.AuxiliaryAttributes());
+			Assert::IsTrue(barAuxAttributes == bar.AuxiliaryAttributes());
 			
-			attributed2.AuxiliaryAttributes(temp);
-			Assert::IsTrue(temp.IsEmpty());
-			foo2.AuxiliaryAttributes(temp);
-			Assert::IsTrue(temp.IsEmpty());
-			bar2.AuxiliaryAttributes(temp);
-			Assert::IsTrue(temp.IsEmpty());
+			Assert::IsTrue(attributed2.AuxiliaryAttributes().IsEmpty());
+			Assert::IsTrue(foo2.AuxiliaryAttributes().IsEmpty());
+			Assert::IsTrue(bar2.AuxiliaryAttributes().IsEmpty());
 		}
 
 		TEST_METHOD(TestCopySemantics)
@@ -231,16 +222,9 @@ namespace UnitTestLibraryDesktop
 			AttributedFoo foo2 (foo);
 			AttributedBar bar2 (bar);
 
-			Vector temp1, temp2;
-			attributed.Attributes(temp1);
-			attributed2.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
-			foo.Attributes(temp1);
-			foo2.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
-			bar.Attributes(temp1);
-			bar2.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
+			Assert::IsTrue(attributed.Attributes() == attributed2.Attributes());
+			Assert::IsTrue(foo.Attributes() == foo2.Attributes());
+			Assert::IsTrue(bar.Attributes() == bar2.Attributes());
 
 			Attributed attributed3;
 			attributed3 = attributed;
@@ -249,15 +233,9 @@ namespace UnitTestLibraryDesktop
 			AttributedBar bar3;
 			bar3 = bar;
 
-			attributed.Attributes(temp1);
-			attributed3.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
-			foo.Attributes(temp1);
-			foo3.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
-			bar.Attributes(temp1);
-			bar3.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
+			Assert::IsTrue(attributed.Attributes() == attributed3.Attributes());
+			Assert::IsTrue(foo.Attributes() == foo3.Attributes());
+			Assert::IsTrue(bar.Attributes() == bar3.Attributes());
 		}
 
 		TEST_METHOD(TestMoveSemantics)
@@ -286,16 +264,9 @@ namespace UnitTestLibraryDesktop
 			AttributedFoo foo2(std::move(foo));
 			AttributedBar bar2 (std::move(bar));
 
-			Vector temp1, temp2;
-			attributedBackup.Attributes(temp1);
-			attributed2.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
-			fooBackup.Attributes(temp1);
-			foo2.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
-			barBackup.Attributes(temp1);
-			bar2.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
+			Assert::IsTrue(attributedBackup.Attributes() == attributed2.Attributes());
+			Assert::IsTrue(fooBackup.Attributes() == foo2.Attributes());
+			Assert::IsTrue(barBackup.Attributes() == bar2.Attributes());
 
 			Attributed attributed3;
 			attributed3 = std::move(attributedBackup);
@@ -304,15 +275,9 @@ namespace UnitTestLibraryDesktop
 			AttributedBar bar3;
 			bar3 = std::move(barBackup);
 
-			attributedBackup2.Attributes(temp1);
-			attributed3.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
-			fooBackup2.Attributes(temp1);
-			foo3.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
-			barBackup2.Attributes(temp1);
-			bar3.Attributes(temp2);
-			Assert::IsTrue(temp1 == temp2);
+			Assert::IsTrue(attributedBackup2.Attributes() == attributed3.Attributes());
+			Assert::IsTrue(fooBackup2.Attributes() == foo3.Attributes());
+			Assert::IsTrue(barBackup2.Attributes() == bar3.Attributes());
 		}
 
 		TEST_METHOD(TestTwoWaySet)
@@ -412,6 +377,35 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(bar1 != bar3);
 			Assert::IsFalse(bar1 == bar4);
 			Assert::IsTrue(bar1 != bar4);
+		}
+
+		TEST_METHOD(TestCopyAuxiliaryAttributes)
+		{
+			Attributed attributed1;
+			AttributedFoo foo1;
+			AttributedBar bar1;
+
+			std::uint32_t index = 0;
+			for (auto& name : AuxiliaryAttributes)
+			{
+				initializers[index](attributed1.AddAuxiliaryAttribute(name));
+				initializers[index](foo1.AddAuxiliaryAttribute(name + "Foo"));
+				initializers[index](bar1.AddAuxiliaryAttribute(name + "Bar"));
+				++index;
+			}
+
+			Attributed attributed2;
+			AttributedFoo foo2;
+			AttributedBar bar2;
+			Assert::IsTrue(attributed2.AuxiliaryAttributes().IsEmpty());
+			Assert::IsTrue(foo2.AuxiliaryAttributes().IsEmpty());
+			Assert::IsTrue(bar2.AuxiliaryAttributes().IsEmpty());
+			attributed2.CopyAuxiliaryAttributes(attributed1);
+			foo2.CopyAuxiliaryAttributes(foo1);
+			bar2.CopyAuxiliaryAttributes(bar1);
+			Assert::IsTrue(attributed2.AuxiliaryAttributes() == attributed1.AuxiliaryAttributes());
+			Assert::IsTrue(foo2.AuxiliaryAttributes() == foo1.AuxiliaryAttributes());
+			Assert::IsTrue(bar2.AuxiliaryAttributes() == bar1.AuxiliaryAttributes());
 		}
 
 		TEST_CLASS_INITIALIZE(InitializeClass)
