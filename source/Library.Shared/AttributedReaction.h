@@ -16,7 +16,7 @@ namespace AnonymousEngine
 			 *  @param name The name of the reaction
 			 */
 			AttributedReaction(const std::string& name = "");
-			~AttributedReaction();
+			~AttributedReaction() = default;
 
 			// Delete move and copy semantics
 			AttributedReaction(const AttributedReaction&) = delete;
@@ -29,16 +29,11 @@ namespace AnonymousEngine
 			 */
 			void Notify(Core::EventPublisher& publisher) override;
 		private:
-			// The type of the event to which this reaction reacts to
-			std::string mSubtype;
-			// The event arguments
-			class EventMessageAttributed* mEventArgs;
-
 			// Matches subtypes
 			bool MatchSubtype(const std::string& subtype) const;
 
 			// Event type separator
-			static const std::string TypeSeparator;
+			static const char TypeSeparator;
 
 			ATTRIBUTED_DECLARATIONS(AttributedReaction, Reaction)
 		};

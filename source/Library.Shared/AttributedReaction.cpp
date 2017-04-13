@@ -12,17 +12,12 @@ namespace AnonymousEngine
 
 		ATTRIBUTED_DEFINITIONS(AttributedReaction)
 
-		const std::string AttributedReaction::TypeSeparator = ".";
+		const char AttributedReaction::TypeSeparator = '.';
 
 		AttributedReaction::AttributedReaction(const std::string& name) :
-			Reaction(name), mEventArgs(new EventMessageAttributed())
+			Reaction(name)
 		{
-			AddExternalAttribute("Subtype", &mSubtype, 1);
-		}
-
-		AttributedReaction::~AttributedReaction()
-		{
-			delete mEventArgs;
+			AddInternalAttribute("Subtype", "", 0);
 		}
 
 		void AttributedReaction::Notify(Core::EventPublisher& publisher)
@@ -35,7 +30,13 @@ namespace AnonymousEngine
 
 				if (MatchSubtype(message.GetSubtype()))
 				{
-					*mEventArgs = message;
+					Vector<std::string> auxiliaryAttributes;
+					AuxiliaryAttributes(auxiliaryAttributes);
+					for (const auto& attribute : auxiliaryAttributes)
+					{
+						attribute;
+						//(*this)[attribute] = message[attribute];
+					}
 					Update(message.GetWorld()->GetWorldState());
 				}
 			}
@@ -43,18 +44,20 @@ namespace AnonymousEngine
 
 		bool AttributedReaction::MatchSubtype(const std::string& subtype) const
 		{
-			auto reactionTypeEnd = mSubtype.end();
-			auto subtypeEnd = subtype.end();
-			auto it = mSubtype.begin();
-			auto subtypeIt = subtype.begin();
-			for (; (it != reactionTypeEnd && subtypeIt != subtypeEnd); ++it, ++subtypeIt)
+			const Datum& subtypes = (*this)["Subtype"];;
+			for (std::uint32_t index = 0; index < subtypes.Size(); ++index)
 			{
-				if (!(*it == *subtypeIt))
+				const std::string& reactionSubtype = (*this)["Subtype"].Get<std::string>(index);
+				if (reactionSubtype == subtype.substr(0, reactionSubtype.length()))
 				{
-					return false;
+					if (subtype.length() > reactionSubtype.length() && !(subtype[reactionSubtype.length()] == TypeSeparator))
+					{
+						continue;
+					}
+					return true;
 				}
 			}
-			return (subtypeIt == subtypeEnd || *(++subtypeIt) == TypeSeparator[0]);
+			return false;
 		}
 
 		void AttributedReaction::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

@@ -5,6 +5,7 @@
 	<string name="Capital" value="Solitude"/>
 	<integer name="WhiterunPopulation" value="100"/>
 	<reaction name="ReactToPopulationChange" class="AttributedReaction">
+		<string name="Subtype" value="World.Capital"/>
 		<string name="Subtype" value="World.Population"/>
 		<actions>
 			<action name="UpdatePerCapita" class="SetValue">
