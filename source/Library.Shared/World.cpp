@@ -89,6 +89,7 @@ namespace AnonymousEngine
 
 		void World::MarkForDelete(Attributed& attributed)
 		{
+			std::lock_guard<std::mutex> lock(mGarbageQueueMutex);
 			mGarbageQueue.PushBack(&attributed);
 		}
 

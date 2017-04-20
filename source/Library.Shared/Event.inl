@@ -10,20 +10,23 @@ namespace AnonymousEngine
 		Vector<EventSubscriber*> Event<MessageT>::Subscribers = Vector<EventSubscriber*>();
 
 		template <typename MessageT>
+		std::recursive_mutex Event<MessageT>::SubscriberListMutex;
+
+		template <typename MessageT>
 		Event<MessageT>::Event(const MessageT& message) :
-			EventPublisher(Subscribers), mMessage(message)
+			EventPublisher(Subscribers, SubscriberListMutex), mMessage(message)
 		{
 		}
 
 		template <typename MessageT>
 		Event<MessageT>::Event(const Event& rhs) :
-			EventPublisher(Subscribers), mMessage(rhs.mMessage)
+			EventPublisher(Subscribers, SubscriberListMutex), mMessage(rhs.mMessage)
 		{
 		}
 
 		template <typename MessageT>
 		Event<MessageT>::Event(Event&& rhs) noexcept :
-			EventPublisher(Subscribers), mMessage(rhs.mMessage)
+			EventPublisher(Subscribers, SubscriberListMutex), mMessage(rhs.mMessage)
 		{
 			rhs.mMessage = nullptr;
 		}
@@ -46,18 +49,21 @@ namespace AnonymousEngine
 		template <typename MessageT>
 		void Event<MessageT>::Subscribe(EventSubscriber& subscriber)
 		{
+			std::lock_guard<std::recursive_mutex> lock(SubscriberListMutex);
 			Subscribers.PushBack(&subscriber);
 		}
 
 		template <typename MessageT>
 		void Event<MessageT>::Unsubscribe(EventSubscriber& subscriber)
 		{
+			std::lock_guard<std::recursive_mutex> lock(SubscriberListMutex);
 			Subscribers.Remove(&subscriber);
 		}
 
 		template <typename MessageT>
 		void Event<MessageT>::UnsubscribeAll()
 		{
+			std::lock_guard<std::recursive_mutex> lock(SubscriberListMutex);
 			Subscribers.Clear();
 		}
 

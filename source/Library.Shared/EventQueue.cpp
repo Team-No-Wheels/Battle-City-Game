@@ -6,21 +6,43 @@ namespace AnonymousEngine
 	{
 		using namespace std::chrono;
 
-		#pragma region EventQueueMethods
+#pragma region EventQueueMethods
 
 		void EventQueue::Enqueue(const std::shared_ptr<EventPublisher>& publisher, const GameTime& gameTime, std::uint32_t delay)
 		{
-			mEventQueue.PushBack({publisher, gameTime.CurrentTime(), std::chrono::milliseconds(delay)});
+			mEventQueue.PushBack({
+				publisher, gameTime.CurrentTime(),
+				std::chrono::milliseconds(delay)
+			});
 		}
 
 		void EventQueue::Update(const GameTime& gameTime)
 		{
-			std::uint32_t expiredStart = Partition(gameTime);
-			for (std::uint32_t index = expiredStart; index < mEventQueue.Size(); ++index)
+			Vector<QueueEntry> mTempEventQueue;
+
+			// lock the event queue and move expired events to temp queue
 			{
-				mEventQueue[index].mPublisher->Deliver();
+				std::lock_guard<std::mutex> lock(mMutex);
+				std::uint32_t expiredStart = Partition(gameTime);
+				for (std::uint32_t index = expiredStart; index < mEventQueue.Size(); ++index)
+				{
+					mTempEventQueue.PushBack(mEventQueue[index]);
+				}
+				mEventQueue.Remove(mEventQueue.IteratorAt(expiredStart), mEventQueue.end());
 			}
-			mEventQueue.Remove(mEventQueue.IteratorAt(expiredStart), mEventQueue.end());
+
+			Vector<std::future<void>> futures;
+			for (auto& entry : mTempEventQueue)
+			{
+				futures.PushBack(std::async([&entry]()
+				{
+					entry.mPublisher->Deliver();
+				}));
+			}
+			for (auto& f : futures)
+			{
+				f.get();
+			}
 		}
 
 		void EventQueue::Clear()
@@ -62,6 +84,6 @@ namespace AnonymousEngine
 			return upperNonExpiredIndex;
 		}
 
-		#pragma endregion
+#pragma endregion
 	}
 }

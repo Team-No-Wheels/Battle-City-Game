@@ -89,6 +89,8 @@ namespace AnonymousEngine
 
 			// The garbage queue
 			Vector<Attributed*> mGarbageQueue;
+			// Mutex for garbage queue
+			std::mutex mGarbageQueueMutex;
 
 			// The name of the sectors prescribed attribute
 			static const std::string SectorsAttributeName;
