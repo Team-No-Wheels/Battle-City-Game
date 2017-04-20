@@ -2,14 +2,20 @@
 #include <cassert>
 #include "BarSubscriber.h"
 #include "Event.h"
+#include "EventQueue.h"
 
 namespace UnitTestLibraryDesktop
 {
 	using namespace AnonymousEngine::Core;
 
-	BarSubscriber::BarSubscriber() :
-		mIsNotified(false), mData(nullptr)
-	{}
+	AnonymousEngine::HashMap<BarSubscriber::TestType, std::function<void(Bar*)>> BarSubscriber::TestHandlers = {
+		{TestType::None, [](Bar*) { }}
+	};
+
+	BarSubscriber::BarSubscriber(EventQueue& eventQueue, TestType testType) :
+		mEventQueue(eventQueue), mTestType(testType), mIsNotified(false), mData(nullptr)
+	{
+	}
 
 	void BarSubscriber::Notify(EventPublisher& publisher)
 	{

@@ -17,16 +17,17 @@ namespace UnitTestLibraryDesktop
 	public:
 		TEST_METHOD(TestDirectDelivery)
 		{
+			EventQueue queue;
 			FooSubscriber fooSubscriber;
 			Foo fooData (mHelper.GetRandomUInt32());
 			auto fooEvent = std::make_shared<Event<Foo>>(fooData);
 			Event<Foo>::Subscribe(fooSubscriber);
 
-			BarSubscriber barSubscriber;
+			BarSubscriber barSubscriber(queue);
 			Bar barData(mHelper.GetRandomUInt32());
 			auto barEvent = std::make_shared<Event<Bar>>(barData);
 			Event<Bar>::Subscribe(barSubscriber);
-			
+
 			Assert::IsFalse(fooSubscriber.IsNotified());
 			Assert::IsNull(fooSubscriber.EventData());
 			Assert::IsFalse(barSubscriber.IsNotified());
@@ -58,7 +59,7 @@ namespace UnitTestLibraryDesktop
 			queue.Enqueue(fooEvent, time, fooTime);
 			Event<Foo>::Subscribe(fooSubscriber);
 
-			BarSubscriber barSubscriber;
+			BarSubscriber barSubscriber(queue);
 			Bar barData(mHelper.GetRandomUInt32());
 			auto barEvent = std::make_shared<Event<Bar>>(barData);
 			Event<Bar>::Subscribe(barSubscriber);

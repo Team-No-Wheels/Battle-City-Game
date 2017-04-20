@@ -10,7 +10,7 @@ namespace AnonymousEngine
 		Vector<EventSubscriber*> Event<MessageT>::Subscribers = Vector<EventSubscriber*>();
 
 		template <typename MessageT>
-		std::recursive_mutex Event<MessageT>::SubscriberListMutex;
+		std::mutex Event<MessageT>::SubscriberListMutex;
 
 		template <typename MessageT>
 		Event<MessageT>::Event(const MessageT& message) :
@@ -49,21 +49,21 @@ namespace AnonymousEngine
 		template <typename MessageT>
 		void Event<MessageT>::Subscribe(EventSubscriber& subscriber)
 		{
-			std::lock_guard<std::recursive_mutex> lock(SubscriberListMutex);
+			std::lock_guard<std::mutex> lock(SubscriberListMutex);
 			Subscribers.PushBack(&subscriber);
 		}
 
 		template <typename MessageT>
 		void Event<MessageT>::Unsubscribe(EventSubscriber& subscriber)
 		{
-			std::lock_guard<std::recursive_mutex> lock(SubscriberListMutex);
+			std::lock_guard<std::mutex> lock(SubscriberListMutex);
 			Subscribers.Remove(&subscriber);
 		}
 
 		template <typename MessageT>
 		void Event<MessageT>::UnsubscribeAll()
 		{
-			std::lock_guard<std::recursive_mutex> lock(SubscriberListMutex);
+			std::lock_guard<std::mutex> lock(SubscriberListMutex);
 			Subscribers.Clear();
 		}
 

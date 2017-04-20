@@ -8,7 +8,7 @@ namespace AnonymousEngine
 	{
 		RTTI_DEFINITIONS(EventPublisher)
 
-		EventPublisher::EventPublisher(const Vector<class EventSubscriber*>& subscriberList, std::recursive_mutex& mutex) :
+		EventPublisher::EventPublisher(const Vector<class EventSubscriber*>& subscriberList, std::mutex& mutex) :
 			mSubscribers(subscriberList), mListMutex(mutex)
 		{
 		}
@@ -17,7 +17,7 @@ namespace AnonymousEngine
 		{
 			Vector<EventSubscriber*> tempList;
 			{
-				std::lock_guard<std::recursive_mutex> lock(mListMutex);
+				std::lock_guard<std::mutex> lock(mListMutex);
 				tempList = mSubscribers;
 			}
 			

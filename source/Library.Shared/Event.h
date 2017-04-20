@@ -61,7 +61,7 @@ namespace AnonymousEngine
 			static Vector<EventSubscriber*> Subscribers;
 
 			// mutex to lock subscriber list
-			static std::recursive_mutex SubscriberListMutex;
+			static std::mutex SubscriberListMutex;
 
 			RTTI_DECLARATIONS(Event, EventPublisher)
 		};
