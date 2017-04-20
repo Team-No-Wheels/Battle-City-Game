@@ -155,6 +155,17 @@ namespace AnonymousEngine
 	}
 
 	template <typename T>
+	typename Vector<T>::Iterator Vector<T>::PushBack(T&& data)
+	{
+		if (mSize == mCapacity)
+		{
+			Reserve(mCapacity + (*mStrategy)(mSize, mCapacity));
+		}
+		new (&mData[mSize]) T(std::move(data));
+		return Iterator(mSize++, this);
+	}
+
+	template <typename T>
 	typename Vector<T>::Iterator Vector<T>::PushBack(const Vector& vector)
 	{
 		if (mSize + vector.Size() > mCapacity)
