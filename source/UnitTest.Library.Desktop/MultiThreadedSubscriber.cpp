@@ -28,6 +28,7 @@ namespace UnitTestLibraryDesktop
 
 	void MultiThreadedSubscriber::Notify(EventPublisher& publisher)
 	{
+		publisher;
 		assert(publisher.Is(Event<AnonymousEngine::Containers::EventMessageAttributed>::TypeIdClass()));
 		{
 			std::lock_guard<std::mutex> lock(mMutex);
