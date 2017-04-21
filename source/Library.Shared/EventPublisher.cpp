@@ -29,6 +29,10 @@ namespace AnonymousEngine
 					subscriber->Notify(*this);
 				}));
 			}
+			for (auto& f : futures)
+			{
+				f.get();
+			}
 		}
 	}
 }

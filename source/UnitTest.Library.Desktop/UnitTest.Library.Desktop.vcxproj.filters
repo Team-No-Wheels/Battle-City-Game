@@ -83,6 +83,9 @@
     <ClCompile Include="RpnEvaluatorTest.cpp">
       <Filter>OtherTests</Filter>
     </ClCompile>
+    <ClCompile Include="MultiThreadedSubscriber.cpp">
+      <Filter>SupportingClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -135,6 +138,9 @@
       <Filter>SupportingClasses</Filter>
     </ClInclude>
     <ClInclude Include="BarSubscriber.h">
+      <Filter>SupportingClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiThreadedSubscriber.h">
       <Filter>SupportingClasses</Filter>
     </ClInclude>
   </ItemGroup>

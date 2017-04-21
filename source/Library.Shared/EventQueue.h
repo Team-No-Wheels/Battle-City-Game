@@ -57,7 +57,7 @@ namespace AnonymousEngine
 			std::uint32_t Partition(const GameTime& gameTime);
 
 			// Mutex used to lock the queue
-			std::mutex mMutex;
+			mutable std::mutex mMutex;
 
 			// The event queue
 			Vector<QueueEntry> mEventQueue;

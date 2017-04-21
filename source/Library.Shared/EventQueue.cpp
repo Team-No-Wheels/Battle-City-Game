@@ -10,6 +10,7 @@ namespace AnonymousEngine
 
 		void EventQueue::Enqueue(const std::shared_ptr<EventPublisher>& publisher, const GameTime& gameTime, std::uint32_t delay)
 		{
+			std::lock_guard<std::mutex> lock(mMutex);
 			mEventQueue.PushBack({
 				publisher, gameTime.CurrentTime(),
 				std::chrono::milliseconds(delay)
@@ -26,7 +27,7 @@ namespace AnonymousEngine
 				std::uint32_t expiredStart = Partition(gameTime);
 				for (std::uint32_t index = expiredStart; index < mEventQueue.Size(); ++index)
 				{
-					mTempEventQueue.PushBack(mEventQueue[index]);
+					mTempEventQueue.PushBack(std::move(mEventQueue[index]));
 				}
 				mEventQueue.Remove(mEventQueue.IteratorAt(expiredStart), mEventQueue.end());
 			}
@@ -47,16 +48,19 @@ namespace AnonymousEngine
 
 		void EventQueue::Clear()
 		{
+			std::lock_guard<std::mutex> lock(mMutex);
 			mEventQueue.Clear();
 		}
 
 		bool EventQueue::IsEmpty() const
 		{
+			std::lock_guard<std::mutex> lock(mMutex);
 			return mEventQueue.IsEmpty();
 		}
 
 		std::uint32_t EventQueue::Size() const
 		{
+			std::lock_guard<std::mutex> lock(mMutex);
 			return mEventQueue.Size();
 		}
 
