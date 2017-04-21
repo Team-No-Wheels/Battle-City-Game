@@ -314,6 +314,42 @@ namespace UnitTestLibraryDesktop
 			Assert::IsNull(fooSubscriber.EventData());
 		}
 
+		TEST_METHOD(TestMultiThreadedNotifyException)
+		{
+			EventQueue queue;
+			GameTime time;
+			const std::uint32_t barTime = (mHelper.GetRandomUInt32() % 100) + 10;
+			const std::uint32_t fooTime = barTime + 10;
+
+			FooSubscriber fooSubscriber;
+			EnqueueFooSubscriberEvents(fooSubscriber, queue, time, fooTime);
+
+			// Create subscribers
+			const std::uint32_t subscriberCount = 100;
+			Vector<std::unique_ptr<MultiThreadedSubscriber>> subscribers;
+			CreateSubscribers(queue, subscribers, MultiThreadedSubscriber::TestType::Exception, subscriberCount);
+
+			// Create events
+			const std::uint32_t eventCount = 200;
+			EnqueueTestEvents(queue, eventCount, time, barTime);
+
+			time_point<high_resolution_clock> startPoint = time.CurrentTime();
+
+			time.SetCurrentTime(startPoint + milliseconds(1U));
+			AssertNoEventsDelivered(queue, fooSubscriber, subscribers, time);
+
+			time.SetCurrentTime(startPoint + milliseconds(barTime));
+			Assert::IsFalse(fooSubscriber.IsNotified());
+			Assert::IsNull(fooSubscriber.EventData());
+			Assert::ExpectException<std::exception>([&queue, &time]()
+			{
+				queue.Update(time);
+			});
+
+			time.SetCurrentTime(startPoint + milliseconds(fooTime));
+			Assert::IsFalse(fooSubscriber.IsNotified());
+			Assert::IsNull(fooSubscriber.EventData());
+		}
 		TEST_CLASS_INITIALIZE(InitializeClass)
 		{
 			mHelper.BeginClass();
