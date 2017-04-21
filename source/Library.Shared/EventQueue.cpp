@@ -42,6 +42,10 @@ namespace AnonymousEngine
 			}
 			for (auto& f : futures)
 			{
+				f.wait();
+			}
+			for (auto& f : futures)
+			{
 				f.get();
 			}
 		}
