@@ -2,7 +2,10 @@
 
 #include <cassert>
 #include "Action.h"
+#include "AttributedReaction.h"
 #include "Entity.h"
+#include "Event.h"
+#include "EventMessageAttributed.h"
 #include "Sector.h"
 #include "World.h"
 #include "WorldSharedData.h"
@@ -34,6 +37,7 @@ namespace AnonymousEngine
 			{"entity", HandleEntityStart},
 			{"actions", HandleListStart},
 			{"action", HandleActionStart},
+			{"reaction", HandleReactionStart}
 		};
 
 		const HashMap<std::string, WorldParserHelper::EndHandlerFunction> WorldParserHelper::EndElementHandlers = {
@@ -48,7 +52,8 @@ namespace AnonymousEngine
 			{"entities", HandleListEnd},
 			{"entity", HandleAttributedEnd},
 			{"actions", HandleListEnd},
-			{"action", HandleAttributedEnd}
+			{"action", HandleAttributedEnd},
+			{"reaction", HandleAttributedEnd}
 		};
 
 		const std::string WorldParserHelper::NAME = "name";
@@ -220,6 +225,21 @@ namespace AnonymousEngine
 				sharedData.mAttributed->Adopt(*action, action->Name());
 			}
 			sharedData.mAttributed = action;
+		}
+
+		void WorldParserHelper::HandleReactionStart(WorldSharedData& sharedData, const AttributeMap& attributes)
+		{
+			ValidateSharedDataNotNull(sharedData);
+			ValidateRequiredAttributes(attributes);
+			ValidateSharedDataScopeType(sharedData, Attributed);
+			ValidateFactoryInputAttributes(attributes);
+			assert(sharedData.mElementStack.Size() > 0);
+
+			Reaction* reaction = Factory<Reaction>::Create(attributes[CLASS]);
+			reaction->SetName(attributes[NAME]);
+			Core::Event<EventMessageAttributed>::Subscribe(*reaction);
+			sharedData.mAttributed->Adopt(*reaction, reaction->Name());
+			sharedData.mAttributed = reaction;
 		}
 
 		void WorldParserHelper::HandleListStart(WorldSharedData&, const AttributeMap&)

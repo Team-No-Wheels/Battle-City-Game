@@ -22,13 +22,13 @@ namespace AnonymousEngine
 			// Delete move and copy semantics
 			ActionList(const ActionList&) = delete;
 			ActionList(ActionList&&) = delete;
-			ActionList& operator==(const ActionList&) = delete;
-			ActionList& operator==(const ActionList&&) = delete;
+			ActionList& operator=(const ActionList&) = delete;
+			ActionList& operator=(ActionList&&) = delete;
 
 			/** Return the list of actions contained within this action list
 			 *  @return The list of actions this action list has
 			 */
-			Datum& Actions();
+			Datum& Actions() const;
 			/** Create an action with the given name and type and add it to this list
 			 *  @param name The name of the action to be created
 			 *  @param className The type of the action to be created

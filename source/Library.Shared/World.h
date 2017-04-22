@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Attributed.h"
+#include "EventQueue.h"
 #include "WorldState.h"
 
 namespace AnonymousEngine
@@ -25,8 +26,8 @@ namespace AnonymousEngine
 			// Delete move and copy semantics
 			World(const World&) = delete;
 			World(World&&) = delete;
-			World& operator==(const World&) = delete;
-			World& operator==(const World&&) = delete;
+			World& operator=(const World&) = delete;
+			World& operator=(World&&) = delete;
 
 			/** Get the name of the world
 			 *  @return The name of the world
@@ -40,7 +41,7 @@ namespace AnonymousEngine
 			/** Return the list of sectors contained within this world
 			 *  @return The list of sectors this world has
 			 */
-			Datum& Sectors();
+			Datum& Sectors() const;
 			/** Create a sector with the given name and add it to this world
 			 *  @param name The name of the sector to be created
 			 *  @return A reference to the created sector
@@ -54,17 +55,26 @@ namespace AnonymousEngine
 			/** Return the list of actions contained within this world
 			 *  @return The list of actions this world has
 			 */
-			Datum& Actions();
+			Datum& Actions() const;
 
 			/** Update the sectors and actions within this world
-			 *  @worldState The world context object that is passed for the update
 			 */
-			void Update(WorldState& worldState);
+			void Update();
 
 			/** Mark an attributed for delete
 			 *  @param attributed The attributed object to delete
 			 */
 			void MarkForDelete(Attributed& attributed);
+
+			/** Get the event queue in the world
+			 *  @return A reference to the event queue in the world
+			 */
+			Core::EventQueue& EventQueue();
+
+			/** Get the current world state in the simulation
+			 *  @return The current world state
+			 */
+			WorldState& GetWorldState();
 		private:
 			// The name of this world
 			std::string mName;
@@ -72,9 +82,15 @@ namespace AnonymousEngine
 			Datum* mSectors;
 			// The list of actions contained by this instance
 			Datum* mActions;
+			// The event queue in the world
+			Core::EventQueue mEventQueue;
+			// The current world state in the simulation
+			WorldState mWorldState;
 
 			// The garbage queue
 			Vector<Attributed*> mGarbageQueue;
+			// Mutex for garbage queue
+			std::mutex mGarbageQueueMutex;
 
 			// The name of the sectors prescribed attribute
 			static const std::string SectorsAttributeName;

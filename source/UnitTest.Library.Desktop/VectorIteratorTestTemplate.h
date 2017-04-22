@@ -20,6 +20,7 @@ namespace UnitTestLibraryDesktop
 			vector.PushBack(value);
 			Assert::AreEqual(value, *vector.begin());
 			Assert::AreEqual(value, *vector.IteratorAt(0));
+			Assert::IsTrue(vector.end() == vector.IteratorAt(1));
 			Assert::ExpectException<std::out_of_range>([&vector] { *vector.end(); });
 		}
 

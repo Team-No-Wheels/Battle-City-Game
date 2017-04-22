@@ -102,6 +102,12 @@ namespace AnonymousEngine
 		 */
 		Iterator PushBack(const T& data);
 
+		/** Push an item to the back of the vector
+		 *	@param data The data item to push to the back of the vector
+		 *	@return An iterator to the current data that is pushed
+		 */
+		Iterator PushBack(T&& data);
+
 		/** Push another vector to the back of the vector
 		 *	@param vector The other vector to push to the back of the vector
 		 *	@return An iterator to the start of the new data that is pushed

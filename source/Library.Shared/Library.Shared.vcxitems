@@ -17,12 +17,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Action.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributedReaction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Compare.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CreateAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventMessageAttributed.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EventPublisher.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EventQueue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EventSubscriber.h" />
@@ -35,6 +38,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)InfixParser.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Reaction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RpnEvaluator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SetValue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
@@ -58,11 +62,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Action.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AttributedReaction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Compare.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CreateAction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DestroyAction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Entity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventAction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventMessageAttributed.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EventPublisher.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EventQueue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp" />
@@ -73,6 +80,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Reaction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RpnEvaluator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SetValue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp" />

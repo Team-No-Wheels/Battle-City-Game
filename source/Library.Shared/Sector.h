@@ -26,8 +26,8 @@ namespace AnonymousEngine
 			// Delete move and copy semantics
 			Sector(const Sector&) = delete;
 			Sector(Sector&&) = delete;
-			Sector& operator==(const Sector&) = delete;
-			Sector& operator==(const Sector&&) = delete;
+			Sector& operator=(const Sector&) = delete;
+			Sector& operator=(Sector&&) = delete;
 
 			/** Get the name of the sector
 			 *  @return The name of the sector

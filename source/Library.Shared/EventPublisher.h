@@ -1,5 +1,6 @@
 #pragma once
 
+#include <future>
 #include "RTTI.h"
 #include "Vector.h"
 
@@ -19,7 +20,7 @@ namespace AnonymousEngine
 			/** Initialize the publisher instance
 			 *  @param subscriberList The list of subscribers. This will be the address of a static list inside custom event class
 			 */
-			EventPublisher(const Vector<class EventSubscriber*>& subscriberList);
+			EventPublisher(const Vector<class EventSubscriber*>& subscriberList, std::mutex& mutex);
 			/** Release any allocated resources
 			 */
 			virtual ~EventPublisher() = default;
@@ -40,6 +41,9 @@ namespace AnonymousEngine
 		private:
 			// This list is initialized during the constructor
 			const Vector<class EventSubscriber*>& mSubscribers;
+			
+			// Mutex to lock on the subscriber list
+			std::mutex& mListMutex;
 
 			RTTI_DECLARATIONS(EventPublisher, RTTI);
 		};

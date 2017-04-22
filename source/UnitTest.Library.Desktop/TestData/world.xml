@@ -1,7 +1,22 @@
 <world name="Skyrim">
 	<integer name="Population" value="1000000"/>
+	<integer name="GDP" value="50000000"/>
+	<integer name="PerCapita" value="50"/>
 	<string name="Capital" value="Solitude"/>
 	<integer name="WhiterunPopulation" value="100"/>
+	<reaction name="ReactToPopulationChange" class="AttributedReaction">
+		<string name="Subtype" value="World.Capital"/>
+		<string name="Subtype" value="World.Population"/>
+		<actions>
+			<action name="UpdatePerCapita" class="SetValue">
+				<string name="Target" value="PerCapita"/>
+				<string name="Value" value="GDP / Population"/>
+			</action>
+		</actions>
+	</reaction>
+	<reaction name="ReactToNonExistingEvent" class="AttributedReaction">
+		<string name="Subtype" value="World.Nothing"/>
+	</reaction>
 	<actions>
 		<action name="Init" class="CreateAction">
 			<string name="InstanceName" value="TestAction"/>
@@ -13,13 +28,30 @@
 		<action name="CheckPopulation" class="Switch">
 			<string name="Expression" value="Population"/>
 			<actions>
-				<action name="1013" class="SetValue">
-					<string name="Target" value="Population"/>
-					<string name="Value" value="1001"/>
+				<action name="1013" class="ActionList">
+					<actions>
+						<action name="UpdatePopulation" class="SetValue">
+							<string name="Target" value="Population"/>
+							<string name="Value" value="1000"/>
+						</action>
+						<action name="RaisePopulationChangeEvent" class="EventAction">
+							<string name="Subtype" value="World.Population"/>
+							<integer name="Delay" value="500"/>
+							<string name="Alduin" value="WorldEater"/>
+						</action>
+					</actions>
 				</action>
-				<action name="1000000" class="SetValue">
-					<string name="Target" value="Population"/>
-					<string name="Value" value="Population/1000+2+(3*4)-1"/>
+				<action name="1000000" class="ActionList">
+					<actions>
+						<action name="UpdateValue" class="SetValue">
+							<string name="Target" value="Population"/>
+							<string name="Value" value="Population/1000+2+(3*4)-1"/>
+						</action>
+						<action name="RaisePopulationChangeEventDummy" class="EventAction">
+							<string name="Subtype" value="World.PopulationNothing"/>
+							<integer name="Delay" value="100"/>
+						</action>
+				</actions>
 				</action>
 			</actions>
 			<action name="DefaultCase" class="SetValue">
@@ -71,6 +103,13 @@
 						<vector name="Row3" x="1000" y="177.2" z="101" w="1.0"/>
 						<vector name="Row4" x="11" y="13.6" z="100.00035" w="1.0"/>
 					</matrix>
+					<vector name="DummyVector" x="0" y="0" z="0" w="0"/>
+					<matrix name="DummyTransform">
+						<vector name="DummyRow1" x="0" y="0" z="0" w="0"/>
+						<vector name="DummyRow2" x="0" y="0" z="0" w="0"/>
+						<vector name="DummyRow3" x="0" y="0" z="0" w="0"/>
+						<vector name="DummyRow4" x="0" y="0" z="0" w="0"/>
+					</matrix>
 					<actions>
 						<action name="Init" class="ActionList">
 							<integer name="Capacity" value="10"/>
@@ -83,6 +122,14 @@
 								<action name="UpdateBeds" class="SetValue">
 									<string name="Target" value="Beds"/>
 									<string name="Value" value="BanneredMareBeds"/>
+								</action>
+								<action name="UpdateDummyVector" class="SetValue">
+									<string name="Target" value="DummyVector"/>
+									<string name="Value" value="Location"/>
+								</action>
+								<action name="UpdateDummyMatrix" class="SetValue">
+									<string name="Target" value="DummyTransform"/>
+									<string name="Value" value="Transform"/>
 								</action>
 								<action name="UpdatePrice" class="SetValue">
 									<string name="Target" value="Price"/>

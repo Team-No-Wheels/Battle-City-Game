@@ -14,7 +14,7 @@ namespace AnonymousEngine
 		const std::string World::SectorsAttributeName = "Sectors";
 
 		World::World(const std::string& name) :
-			mName(name), mSectors(nullptr), mActions(nullptr)
+			mName(name), mSectors(nullptr), mActions(nullptr), mWorldState(WorldState())
 		{
 			AddExternalAttribute("Name", &mName, 1);
 			AddDatumAttribute(SectorsAttributeName, mSectors);
@@ -33,7 +33,7 @@ namespace AnonymousEngine
 			mName = name;
 		}
 
-		Datum& World::Sectors()
+		Datum& World::Sectors() const
 		{
 			return (*mSectors);
 		}
@@ -50,28 +50,31 @@ namespace AnonymousEngine
 			Adopt(sector, SectorsAttributeName);
 		}
 
-		Datum& World::Actions()
+		Datum& World::Actions() const
 		{
 			return (*mActions);
 		}
 
-		void World::Update(WorldState& worldState)
+		void World::Update()
 		{
-			assert(worldState.mWorld == nullptr);
-			worldState.mWorld = this;
+			assert(mWorldState.mWorld == nullptr);
+			mWorldState.mWorld = this;
+
+			// Update event queue
+			mEventQueue.Update(mWorldState.mGameTime);
 
 			// update actions
 			for (std::uint32_t index = 0; index < Actions().Size(); ++index)
 			{
 				Action* action = static_cast<Action*>(&mActions->Get<Scope>(index));
-				action->Update(worldState);
+				action->Update(mWorldState);
 			}
 
 			// update sectors
 			for (std::uint32_t index = 0; index < Sectors().Size(); ++index)
 			{
 				Sector* sector = static_cast<Sector*>(&mSectors->Get<Scope>(index));
-				sector->Update(worldState);
+				sector->Update(mWorldState);
 			}
 
 			// garbage collection
@@ -81,12 +84,23 @@ namespace AnonymousEngine
 				delete attributed;
 			}
 			mGarbageQueue.Clear();
-			worldState.mWorld = nullptr;
+			mWorldState.mWorld = nullptr;
 		}
 
 		void World::MarkForDelete(Attributed& attributed)
 		{
+			std::lock_guard<std::mutex> lock(mGarbageQueueMutex);
 			mGarbageQueue.PushBack(&attributed);
+		}
+
+		Core::EventQueue& World::EventQueue()
+		{
+			return mEventQueue;
+		}
+
+		WorldState& World::GetWorldState()
+		{
+			return mWorldState;
 		}
 
 		void World::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)

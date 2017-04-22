@@ -9,12 +9,13 @@ namespace UnitTestLibraryDesktop
 
 	BarSubscriber::BarSubscriber() :
 		mIsNotified(false), mData(nullptr)
-	{}
+	{
+	}
 
 	void BarSubscriber::Notify(EventPublisher& publisher)
 	{
-		mIsNotified = true;
 		assert(publisher.Is(Event<Bar>::TypeIdClass()));
+		mIsNotified = true;
 		mData = const_cast<Bar*>(&static_cast<Event<Bar>&>(publisher).Message());
 	}
 

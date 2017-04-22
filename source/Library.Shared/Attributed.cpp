@@ -94,13 +94,22 @@ namespace AnonymousEngine
 		return (Find(name) != nullptr);
 	}
 
+	void Attributed::CopyAuxiliaryAttributes(Attributed& rhs)
+	{
+		for (const auto& attribute : rhs.AuxiliaryAttributes())
+		{
+			(*this)[attribute] = rhs[attribute];
+		}
+	}
+
 	const Vector<std::string>& Attributed::PrescribedAttributes() const
 	{
 		return PrescribedAttributesNamesCache(TypeIdInstance());
 	}
 
-	void Attributed::AuxiliaryAttributes(Vector<std::string>& auxiliaryAttributes) const
+	Vector<std::string> Attributed::AuxiliaryAttributes() const
 	{
+		Vector<std::string> auxiliaryAttributes;
 		auxiliaryAttributes.Clear();
 		const auto& prescribedAttributes = PrescribedAttributesNamesCache(TypeIdInstance());
 		for (const auto& pair : mOrderVector)
@@ -110,16 +119,19 @@ namespace AnonymousEngine
 				auxiliaryAttributes.PushBack(pair->first);
 			}
 		}
+		return auxiliaryAttributes;
 	}
 
-	void Attributed::Attributes(Vector<std::string>& attributes) const
+	Vector<std::string> Attributed::Attributes() const
 	{
+		Vector<std::string> attributes;
 		attributes.Clear();
 		attributes.Reserve(mOrderVector.Size());
 		for (const auto& pair : mOrderVector)
 		{
 			attributes.PushBack(pair->first);
 		}
+		return attributes;
 	}
 
 	Datum& Attributed::AddInternalAttribute(const std::string& name, const std::int32_t value, const std::uint32_t size)

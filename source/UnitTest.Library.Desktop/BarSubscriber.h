@@ -8,6 +8,7 @@ namespace UnitTestLibraryDesktop
 	class BarSubscriber final : public AnonymousEngine::Core::EventSubscriber
 	{
 	public:
+
 		BarSubscriber();
 		~BarSubscriber() = default;
 		void Notify(AnonymousEngine::Core::EventPublisher& publisher) override;

@@ -7,7 +7,4 @@
   <ItemGroup>
     <ClInclude Include="Pch.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
 </Project>

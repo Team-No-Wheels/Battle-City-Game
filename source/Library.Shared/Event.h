@@ -55,10 +55,13 @@ namespace AnonymousEngine
 
 		private:
 			// Message payload
-			const MessageT& mMessage;
+			const MessageT mMessage;
 
 			// List of all subscribers to this event type
 			static Vector<EventSubscriber*> Subscribers;
+
+			// mutex to lock subscriber list
+			static std::mutex SubscriberListMutex;
 
 			RTTI_DECLARATIONS(Event, EventPublisher)
 		};
