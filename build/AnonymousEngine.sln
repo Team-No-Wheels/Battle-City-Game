@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Library.Shared", "..\source
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Thirdparty.Glad", "..\external\glad\glad.vcxproj", "{8A34B3C3-C2A1-4A8D-9701-07327E5CB5EA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BattleCity", "..\source\BattleCity\BattleCity.vcxproj", "{3EAE439C-29A7-49E7-80BA-CD89A71A0A8C}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\source\Library.Shared\Library.Shared.vcxitems*{45d41acc-2c3c-43d2-bc10-02aa73ffc7c7}*SharedItemsImports = 9
@@ -73,6 +75,14 @@ Global
 		{8A34B3C3-C2A1-4A8D-9701-07327E5CB5EA}.Release|x64.Build.0 = Release|x64
 		{8A34B3C3-C2A1-4A8D-9701-07327E5CB5EA}.Release|x86.ActiveCfg = Release|Win32
 		{8A34B3C3-C2A1-4A8D-9701-07327E5CB5EA}.Release|x86.Build.0 = Release|Win32
+		{3EAE439C-29A7-49E7-80BA-CD89A71A0A8C}.Debug|x64.ActiveCfg = Debug|x64
+		{3EAE439C-29A7-49E7-80BA-CD89A71A0A8C}.Debug|x64.Build.0 = Debug|x64
+		{3EAE439C-29A7-49E7-80BA-CD89A71A0A8C}.Debug|x86.ActiveCfg = Debug|Win32
+		{3EAE439C-29A7-49E7-80BA-CD89A71A0A8C}.Debug|x86.Build.0 = Debug|Win32
+		{3EAE439C-29A7-49E7-80BA-CD89A71A0A8C}.Release|x64.ActiveCfg = Release|x64
+		{3EAE439C-29A7-49E7-80BA-CD89A71A0A8C}.Release|x64.Build.0 = Release|x64
+		{3EAE439C-29A7-49E7-80BA-CD89A71A0A8C}.Release|x86.ActiveCfg = Release|Win32
+		{3EAE439C-29A7-49E7-80BA-CD89A71A0A8C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
