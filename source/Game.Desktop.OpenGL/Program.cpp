@@ -2,6 +2,7 @@
 #include "Program.h"
 #include <fstream>
 #include "ShaderCompiler.h"
+#include "EngineSettings.h"
 
 namespace AnonymousEngine
 {
@@ -19,6 +20,10 @@ namespace AnonymousEngine
 
 	void Program::Init()
 	{
+		AnonymousEngine::Core::EngineSettings::SetPlatform(AnonymousEngine::Core::OpenGL);
+		AnonymousEngine::Core::EngineSettings::SetScreenWidth(width);
+		AnonymousEngine::Core::EngineSettings::SetScreenHeight(height);
+
 		// Initalize window parameters
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

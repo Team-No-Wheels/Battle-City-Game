@@ -98,6 +98,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EventAction.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TextureLoader.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EngineSettings.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -227,6 +233,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EventAction.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TextureLoader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EngineSettings.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
@@ -246,6 +258,9 @@
     </Filter>
     <Filter Include="Actions">
       <UniqueIdentifier>{95658011-e196-425f-bded-e181e951755a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{9a25cce1-9533-43b7-b8dd-24a0155b27a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
