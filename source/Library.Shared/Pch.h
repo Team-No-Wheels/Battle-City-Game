@@ -4,6 +4,7 @@
 #include <SDKDDKVer.h>
 
 // Standard libraries
+#include <Windows.h>
 #include <exception>
 #include <cstdint>
 #include <assert.h>

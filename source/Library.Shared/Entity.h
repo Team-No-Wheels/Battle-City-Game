@@ -61,7 +61,7 @@ namespace AnonymousEngine
 			/** Update the actions within this entity
 			 *  @worldState The world context object that is passed for the update
 			 */
-			void Update(WorldState& worldState);
+			virtual void Update(WorldState& worldState);
 		private:
 			/** The name of this entity
 			 */

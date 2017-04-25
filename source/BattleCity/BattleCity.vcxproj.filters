@@ -5,11 +5,77 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Actions">
+      <UniqueIdentifier>{6ac32d87-48b9-4ec5-ab42-d69cb5848808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{67083965-32ac-4ef7-882a-e0af8736172b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Events / Messages">
+      <UniqueIdentifier>{f728693f-2db4-4e58-b4f5-45fcf7db3cb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{ece81f04-8956-43d5-ba61-76eabb62b83f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pch.cpp" />
+    <ClCompile Include="ActionMove.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionShoot.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageCollision.cpp">
+      <Filter>Events / Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageInput.cpp">
+      <Filter>Events / Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUp.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="TankBase.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="TankPlayer.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
+    <ClInclude Include="ActionMove.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionShoot.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageCollision.h">
+      <Filter>Events / Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageInput.h">
+      <Filter>Events / Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUp.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="TankBase.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="TankPlayer.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

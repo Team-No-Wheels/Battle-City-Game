@@ -1,5 +1,6 @@
 #pragma once
 
+#define GLM_FORCE_CXX11 1
 #include <cstdint>
 #include <functional>
 #include <string>

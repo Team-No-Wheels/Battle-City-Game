@@ -28,7 +28,7 @@ namespace AnonymousEngine
 		Event<MessageT>::Event(Event&& rhs) noexcept :
 			EventPublisher(Subscribers, SubscriberListMutex), mMessage(rhs.mMessage)
 		{
-			rhs.mMessage = nullptr;
+			//rhs.mMessage = nullptr;
 		}
 
 		template <typename MessageT>
