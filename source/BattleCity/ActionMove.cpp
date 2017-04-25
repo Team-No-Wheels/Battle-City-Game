@@ -21,7 +21,10 @@ ActionMove::ActionMove() :
 
 ActionMove::~ActionMove()
 {
-	Event<MessageInput>::Unsubscribe(*this);
+	if (!mIsEnemy)
+	{
+		Event<MessageInput>::Unsubscribe(*this);
+	}
 }
 
 void ActionMove::Update(WorldState& worldState)
@@ -52,9 +55,19 @@ void ActionMove::Move()
 	}
 }
 
+void ActionMove::SetSpeed(float speed)
+{
+	mSpeed = speed;
+}
+
 void ActionMove::SetDirection(Direction direction)
 {
 	mDirection = direction;
+}
+
+ActionMove::Direction ActionMove::GetDirection()
+{
+	return mDirection;
 }
 
 void ActionMove::Notify(class EventPublisher& publisher)

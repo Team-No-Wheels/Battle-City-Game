@@ -25,13 +25,14 @@ namespace AnonymousEngine
 		void CreateBullet();
 		void Notify(class EventPublisher& publisher);
 
-		void PendKillBullet();
+		void PendKillBullet(Bullet& bullet);
 		void DestroyBullet();
 
 	private:
 		bool mCanShoot, mIsEnemy, mBulletPendingKill;
+		bool isFast, isDouble, isStrong; // For Star Powerup
 		std::chrono::milliseconds mTimeLastShot, mShootFrequency; // For Enemy Ai
-		Bullet* mCurBullet;
+		Vector<Bullet*> mBulletsLiving, mBulletsPending;
 	};
 
 	ACTION_FACTORY_DECLARATIONS(ActionShoot);

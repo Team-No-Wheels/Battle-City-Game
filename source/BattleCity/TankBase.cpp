@@ -15,3 +15,8 @@ TankBase::~TankBase()
 {
 
 }
+
+ActionMove& TankBase::MoveComponent()
+{
+	return *mMoveComponent;
+}

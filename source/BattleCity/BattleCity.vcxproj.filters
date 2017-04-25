@@ -47,6 +47,7 @@
     <ClCompile Include="TankPlayer.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />

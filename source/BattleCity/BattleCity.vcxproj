@@ -170,6 +170,7 @@
     <ClCompile Include="ActionShoot.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="MessageCollision.cpp" />
     <ClCompile Include="MessageInput.cpp" />
     <ClCompile Include="Pch.cpp">

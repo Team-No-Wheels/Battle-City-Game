@@ -7,7 +7,7 @@ RTTI_DEFINITIONS(Bullet);
 
 Bullet::Bullet() :
 	mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
-	mShootParent(nullptr)
+	mShootParent(nullptr), isStrong(false)
 {
 	Event<MessageCollision>::Subscribe(*this);
 }
@@ -28,6 +28,11 @@ Bullet::~Bullet()
 void Bullet::SetShootParent(ActionShoot& parent)
 {
 	mShootParent = &parent;
+}
+
+ActionMove& Bullet::MoveComponent()
+{
+	return *mMoveComponent;
 }
 
 void Bullet::Notify(class EventPublisher& publisher)
@@ -55,7 +60,7 @@ void Bullet::Notify(class EventPublisher& publisher)
 				bullet = e.second->As<Bullet>();
 			}
 
-
+			// Try Executing Actions If This Bullet Exists In List
 			if (bullet != nullptr && bullet == this)
 			{
 				// Do Stuff If Player
@@ -67,7 +72,7 @@ void Bullet::Notify(class EventPublisher& publisher)
 				// Do Stuff If Enemy
 				// Do Stuff If Wall
 
-				mShootParent->PendKillBullet();
+				mShootParent->PendKillBullet(*this);
 			}
 		}
 	}

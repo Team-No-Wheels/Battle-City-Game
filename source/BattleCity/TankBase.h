@@ -15,6 +15,8 @@ namespace AnonymousEngine
 		TankBase();
 		virtual ~TankBase();
 
+		ActionMove& MoveComponent();
+
 	protected:
 
 		ActionMove* mMoveComponent;

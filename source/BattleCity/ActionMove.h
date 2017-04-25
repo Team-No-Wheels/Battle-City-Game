@@ -20,6 +20,8 @@ namespace AnonymousEngine
 
 	public:
 
+		const float DEFAULTSPEED = 1;
+
 		enum class Direction
 		{
 			Unknown = 0,
@@ -37,7 +39,9 @@ namespace AnonymousEngine
 		void Notify(class EventPublisher& publisher);
 
 		void Move();
+		void SetSpeed(float speed);
 		void SetDirection(Direction direction);
+		Direction GetDirection();
 
 	protected:
 

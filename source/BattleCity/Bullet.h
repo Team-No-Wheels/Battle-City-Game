@@ -18,14 +18,17 @@ namespace AnonymousEngine
 		~Bullet();
 
 		void SetShootParent(ActionShoot& parent);
+		ActionMove& MoveComponent();
 		void Notify(class EventPublisher& publisher);
+
+		bool isStrong;
 
 	private:
 		typedef std::pair<Entity*, Entity*> CollisionPair;
 
 		ActionMove* mMoveComponent;
 		ActionShoot* mShootParent;
-
+		
 	};
 
 	ENTITY_FACTORY_DECLARATIONS(Bullet);
