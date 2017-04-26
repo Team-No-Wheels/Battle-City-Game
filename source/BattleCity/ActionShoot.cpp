@@ -52,7 +52,7 @@ void ActionShoot::CreateBullet()
 	else
 		moveComponent->SetDirection(ActionMove::Direction::Up);
 
-	if(isFast);
+	if(isFast)
 	{
 		moveComponent->SetSpeed(2 * moveComponent->DEFAULTSPEED);
 	}
