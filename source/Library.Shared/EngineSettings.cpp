@@ -3,6 +3,9 @@
 
 namespace AnonymousEngine
 {
+	std::uint32_t EngineSettings::sScreenWidth;
+	std::uint32_t EngineSettings::sScreenHeight;
+	PlatformType EngineSettings::sPlatformType;
 	namespace Core
 	{
 		PlatformType EngineSettings::GetPlatform()
