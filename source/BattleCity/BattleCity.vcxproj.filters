@@ -102,13 +102,10 @@
     <ClInclude Include="ScoreMessageStructs.h">
       <Filter>Events / Messages</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClCompile Include="BattleCity.cpp" />
     <ClInclude Include="BasicTankAI.h">
       <Filter>Entities\AI</Filter>
     </ClInclude>
-=======
->>>>>>> 3251f38a8ca54e0183e7469f60a04259885f32b3
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
