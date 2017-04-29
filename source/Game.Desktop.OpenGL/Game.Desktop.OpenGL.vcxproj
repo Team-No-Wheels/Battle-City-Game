@@ -194,15 +194,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Program.cpp" />
-    <ClCompile Include="ScoreManager.cpp" />
-    <ClCompile Include="ScoreMessageStructs.cpp" />
     <ClCompile Include="ShaderCompiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
     <ClInclude Include="Program.h" />
-    <ClInclude Include="ScoreManager.h" />
-    <ClInclude Include="ScoreMessageStructs.h" />
     <ClInclude Include="ShaderCompiler.h" />
   </ItemGroup>
   <ItemGroup>

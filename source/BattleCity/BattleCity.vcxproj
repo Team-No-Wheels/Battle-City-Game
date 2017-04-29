@@ -163,6 +163,8 @@
     <ClInclude Include="MessageInput.h" />
     <ClInclude Include="Pch.h" />
     <ClInclude Include="PowerUp.h" />
+    <ClInclude Include="ScoreManager.h" />
+    <ClInclude Include="ScoreMessageStructs.h" />
     <ClInclude Include="TankBase.h" />
     <ClInclude Include="TankPlayer.h" />
   </ItemGroup>
@@ -181,6 +183,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PowerUp.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
+    <ClCompile Include="ScoreMessageStructs.cpp" />
     <ClCompile Include="TankBase.cpp" />
     <ClCompile Include="TankPlayer.cpp" />
   </ItemGroup>

@@ -50,6 +50,12 @@
     <ClCompile Include="ActionFreeze.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreManager.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreMessageStructs.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -82,6 +88,12 @@
     </ClInclude>
     <ClInclude Include="ActionFreeze.h">
       <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreManager.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreMessageStructs.h">
+      <Filter>Other</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

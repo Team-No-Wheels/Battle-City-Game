@@ -3,7 +3,7 @@
 
 namespace AnonymousEngine
 {
-	//Tank Defined Message functions
+	//TankDefinedMessage functions
 
 	TankDefinedMessage::TankDefinedMessage(std::string name, std::int32_t value) : mName(name), mValue(value)
 	{
@@ -20,9 +20,9 @@ namespace AnonymousEngine
 	}
 
 
-	//Level Over Message functions
+	//LevelOverMessage functions
 
-	LevelOverMessage::LevelOverMessage(bool wasWin, HashMap<std::string, std::int16_t> finalScores) : mWasWin(wasWin), mFinalScores(finalScores)
+	LevelOverMessage::LevelOverMessage(bool wasWin, HashMap<std::string, std::int32_t> finalScores) : mWasWin(wasWin), mFinalScores(finalScores)
 	{
 	}
 
@@ -31,18 +31,18 @@ namespace AnonymousEngine
 		return mWasWin;
 	}
 
-	HashMap<std::string, std::int16_t> LevelOverMessage::FinalScores()
+	HashMap<std::string, std::int32_t> LevelOverMessage::FinalScores()
 	{
 		return mFinalScores;
 	}
 
-	//Score Increased Message functions
+	//ScoreEventMessage functions
 
-	ScoreIncreasedMessage::ScoreIncreasedMessage(std::string name) :mName(name)
+	ScoreEventMessage::ScoreEventMessage(std::string name) :mName(name)
 	{
 	}
 
-	std::string ScoreIncreasedMessage::Name()
+	std::string ScoreEventMessage::Name()
 	{
 		return mName;
 	}

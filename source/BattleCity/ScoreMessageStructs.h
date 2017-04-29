@@ -37,11 +37,11 @@ namespace AnonymousEngine
 	{
 	private:
 		bool mWasWin;
-		HashMap<std::string, std::int16_t> mFinalScores;
+		HashMap<std::string, std::int32_t> mFinalScores;
 	public:
 		/** Construct a level over message and fill in it's members
 		*/
-		LevelOverMessage(bool wasWin, HashMap<std::string, std::int16_t> finalScores);
+		LevelOverMessage(bool wasWin, HashMap<std::string, std::int32_t> finalScores);
 
 		/** Returns whether the level was a win or loss.
 		*	@return Whether the level was a win or loss.
@@ -51,7 +51,7 @@ namespace AnonymousEngine
 		/** Returns the map of score type name to final score.
 		*	@return The map of score type name to final score.
 		*/
-		HashMap<std::string, std::int16_t> FinalScores();
+		HashMap<std::string, std::int32_t> FinalScores();
 
 		/** Destruct a level over message
 		*/
@@ -60,14 +60,14 @@ namespace AnonymousEngine
 
 	/** Used for events where the score would increase
 	*/
-	struct ScoreIncreasedMessage
+	struct ScoreEventMessage
 	{
 	private:
 		std::string mName;
 	public:
 		/** Construct a score increase message and fill in it's members
 		*/
-		ScoreIncreasedMessage(std::string name);
+		ScoreEventMessage(std::string name);
 
 		/** Returns the name of the score type.
 		*	@return The name of the score type.
@@ -76,7 +76,7 @@ namespace AnonymousEngine
 
 		/** Destruct a tank defined message
 		*/
-		~ScoreIncreasedMessage() = default;
+		~ScoreEventMessage() = default;
 	};
 
 	/** Used for events which fire when either the player or the flag recieves damage
@@ -121,7 +121,7 @@ namespace AnonymousEngine
 		~PlayerLivesChangedMessage() = default;
 	};
 
-	/** Used for events which fire when a new level starts
+	/** Used for events which fire when a new level starts.
 	*/
 	struct LevelStartMessage
 	{
