@@ -38,7 +38,7 @@ namespace AnonymousEngine
 
 	//ScoreEventMessage functions
 
-	ScoreEventMessage::ScoreEventMessage(std::string name) :mName(name)
+	ScoreEventMessage::ScoreEventMessage(std::string name, Containers::WorldState& worldState):mName(name), mWorldState(worldState)
 	{
 	}
 
@@ -47,15 +47,25 @@ namespace AnonymousEngine
 		return mName;
 	}
 
+	Containers::WorldState& ScoreEventMessage::WorldState()
+	{
+		return mWorldState;
+	}
+
 	//PlayerSideDamageMessage functions
 
-	PlayerSideDamageMessage::PlayerSideDamageMessage(bool wasFlag) :mWasFlag(wasFlag)
+	PlayerSideDamageMessage::PlayerSideDamageMessage(bool wasFlag, Containers::WorldState& worldState) :mWasFlag(wasFlag), mWorldState(worldState)
 	{
 	}
 
 	bool PlayerSideDamageMessage::WasFlag()
 	{
 		return mWasFlag;
+	}
+
+	Containers::WorldState& PlayerSideDamageMessage::WorldState()
+	{
+		return mWorldState;
 	}
 
 	//PlayerLivesChangedMessage functions
