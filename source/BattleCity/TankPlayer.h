@@ -25,10 +25,10 @@ namespace AnonymousEngine
 		void IncrementStars();
 
 		void SetInvincibility(bool state);
-		bool IsInvincible();
+		bool IsInvincible() const;
 
 		void Update(WorldState& worldState) override;
-		void Notify(class EventPublisher& publisher);
+		void Notify(class EventPublisher& publisher) override;
 
 	private:
 		std::uint32_t mLives, mMaxLives, mStars;

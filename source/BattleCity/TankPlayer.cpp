@@ -48,7 +48,7 @@ namespace AnonymousEngine
 		mIsInvincible = state;
 	}
 
-	bool TankPlayer::IsInvincible()
+	bool TankPlayer::IsInvincible() const
 	{
 		return mIsInvincible;
 	}

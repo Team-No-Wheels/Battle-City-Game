@@ -17,6 +17,9 @@
     <Filter Include="Other">
       <UniqueIdentifier>{ece81f04-8956-43d5-ba61-76eabb62b83f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entities\AI">
+      <UniqueIdentifier>{73aa967b-8440-4137-b49b-edb123778fc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pch.cpp" />
@@ -55,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="ScoreMessageStructs.cpp">
       <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicTankAI.cpp">
+      <Filter>Entities\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +102,9 @@
       <Filter>Other</Filter>
     </ClInclude>
     <ClCompile Include="BattleCity.cpp" />
+    <ClInclude Include="BasicTankAI.h">
+      <Filter>Entities\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />

@@ -21,13 +21,13 @@ namespace AnonymousEngine
 		ActionShoot();
 		~ActionShoot();
 
-		void Update(WorldState& worldState);
+		void Update(WorldState& worldState) override;
 		void CreateBullet();
 		void PendKillBullet(Bullet& bullet);
 		void DestroyBullet();
 
-		bool CanShoot();
-		bool IsDouble();
+		bool CanShoot() const;
+		bool IsDouble() const;
 
 	private:
 		bool mCanShoot;
