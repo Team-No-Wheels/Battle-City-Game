@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ActionFreeze.h" />
     <ClInclude Include="ActionMove.h" />
     <ClInclude Include="ActionShoot.h" />
     <ClInclude Include="Bullet.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="TankPlayer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActionFreeze.cpp" />
     <ClCompile Include="ActionMove.cpp" />
     <ClCompile Include="ActionShoot.cpp" />
     <ClCompile Include="Bullet.cpp" />

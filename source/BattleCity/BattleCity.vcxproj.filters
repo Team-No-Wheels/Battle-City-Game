@@ -47,6 +47,9 @@
     <ClCompile Include="TankPlayer.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="ActionFreeze.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="TankPlayer.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionFreeze.h">
+      <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
