@@ -27,10 +27,6 @@ namespace AnonymousEngine
 			static void Purge();
 
 		private:
-			/**
-				Static pointer to the TextureLoader.
-			*/
-			static TextureLoader* mInstance;
 
 			/**
 				Map to string and texture ids.
