@@ -1,14 +1,14 @@
 #pragma once
 #include "RTTI.h"
 #include "TankBase.h"
+#include "EventSubscriber.h"
 
 namespace AnonymousEngine
 {
-
 	using namespace Containers;
 	using namespace Core;
 
-	class TankPlayer : public TankBase
+	class TankPlayer : public TankBase, public EventSubscriber
 	{
 
 		RTTI_DECLARATIONS(TankPlayer, TankBase);
@@ -27,6 +27,7 @@ namespace AnonymousEngine
 		bool IsInvincible();
 
 		void Update(WorldState& worldState) override;
+		void Notify(class EventPublisher& publisher);
 
 	private:
 		std::uint32_t mLives, mMaxLives, mStars;

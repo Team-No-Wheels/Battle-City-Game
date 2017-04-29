@@ -11,7 +11,7 @@ namespace AnonymousEngine
 	using namespace Containers;
 	using namespace Core;
 
-	class ActionShoot : public Action, public EventSubscriber
+	class ActionShoot : public Action
 	{
 
 		RTTI_DECLARATIONS(ActionShoot, Action);
@@ -23,10 +23,11 @@ namespace AnonymousEngine
 
 		void Update(WorldState& worldState);
 		void CreateBullet();
-		void Notify(class EventPublisher& publisher);
-
 		void PendKillBullet(Bullet& bullet);
 		void DestroyBullet();
+
+		bool CanShoot();
+		bool IsDouble();
 
 	private:
 		bool mCanShoot, mIsEnemy;

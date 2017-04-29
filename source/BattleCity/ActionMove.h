@@ -13,7 +13,7 @@ namespace AnonymousEngine
 
 	class TankPlayer;
 
-	class ActionMove : public Action, public EventSubscriber
+	class ActionMove : public Action
 	{
 
 		RTTI_DECLARATIONS(ActionMove, Action);
@@ -36,7 +36,6 @@ namespace AnonymousEngine
 		~ActionMove();
 
 		void Update(WorldState& worldState);
-		void Notify(class EventPublisher& publisher);
 
 		void Move();
 		void SetSpeed(float speed);

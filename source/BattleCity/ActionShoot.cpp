@@ -66,38 +66,6 @@ void ActionShoot::CreateBullet()
 	mCanShoot = false;
 }
 
-void ActionShoot::Notify(class EventPublisher& publisher)
-{
-	Event<MessageInput>* curEvent = publisher.As<Event<MessageInput>>();
-
-	if (curEvent != nullptr)
-	{
-		MessageInput* message = &const_cast<MessageInput&>(curEvent->Message());
-		Vector<std::string*>* Keys = &message->GetKeys();
-
-		for (std::string* c : *Keys)
-		{
-			// Create Bullet If Shooting Key Is Pressed
-			if (*c == "Shoot" && mCanShoot)
-			{
-				CreateBullet();
-
-				// Delay Creation Of 2nd Bullet For Double Shot
-				if (isDouble)
-				{
-					std::async(std::launch::async, [this]()
-					{
-						std::this_thread::sleep_for(std::chrono::milliseconds(10));
-						CreateBullet();
-					});
-				}
-
-				break;
-			}
-		}
-	}
-}
-
 void ActionShoot::PendKillBullet(Bullet& bullet)
 {
 	// Move Bullet To PendingKill Vector (Gets Destroyed Next Update)
@@ -121,4 +89,14 @@ void ActionShoot::DestroyBullet()
 		mCanShoot = true;
 	}
 	
+}
+
+bool ActionShoot::CanShoot()
+{
+	return mCanShoot;
+}
+
+bool ActionShoot::IsDouble()
+{
+	return isDouble;
 }
