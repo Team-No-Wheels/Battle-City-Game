@@ -48,7 +48,7 @@ namespace AnonymousEngine
 		bool mClockActivated;
 
 		void ActivateTank(TankPlayer& player);
-		void ActivateClock(TankPlayer& player);
+		void ActivateClock();
 		void ActivateShield(TankPlayer& player);
 		void ActivateBomb(TankPlayer& player);
 		void ActivateShovel();

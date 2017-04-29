@@ -25,11 +25,13 @@ ActionMove::~ActionMove()
 
 void ActionMove::Update(WorldState& worldState)
 {
-	UNREFERENCED_PARAMETER(worldState);
+	worldState.mAction = this;
 
 	// Automatically Move If Enemy. Enemy AI will change Speed/Direction
 	if(mIsEnemy)
 		Move();
+
+	worldState.mAction = nullptr;
 }
 
 void ActionMove::Move()
@@ -45,19 +47,19 @@ void ActionMove::Move()
 		switch (mDirection)
 		{
 		case Direction::Up:
-			position->y + 1;
+			position->y += mSpeed;
 			break;
 
 		case Direction::Down:
-			position->y - 1;
+			position->y -= mSpeed;
 			break;
 
 		case Direction::Left:
-			position->x - 1;
+			position->x -= mSpeed;
 			break;
 
 		case Direction::Right:
-			position->x + 1;
+			position->x += mSpeed;
 			break;
 
 		default:

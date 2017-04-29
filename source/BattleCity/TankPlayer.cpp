@@ -56,8 +56,12 @@ void TankPlayer::Update(WorldState& worldState)
 {
 	Entity::Update(worldState);
 
+	worldState.mEntity = this;
+
 	if (mIsInvincible)
 	{
 		SetInvincibility( (mTimeInvincible += worldState.mGameTime.ElapsedGameTime()) < mInvincbleLimit);
 	}
+
+	worldState.mEntity = nullptr;
 }

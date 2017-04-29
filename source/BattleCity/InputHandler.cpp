@@ -17,6 +17,8 @@ InputHandler::~InputHandler()
 
 void InputHandler::Update(WorldState& worldState)
 {
+	worldState.mAction = this;
+
 	DWORD Events = 0;     // Event count
 	DWORD EventsRead = 0; // Events read from console
 
@@ -71,4 +73,6 @@ void InputHandler::Update(WorldState& worldState)
 
 		delete eventBuffer;
 	}
+
+	worldState.mAction = nullptr;
 }

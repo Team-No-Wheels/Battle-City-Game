@@ -38,7 +38,7 @@ void PowerUp::Activate(TankPlayer& player)
 		break;
 
 	case PowerUpType::Bomb:
-		ActivateBomb();
+		ActivateBomb(player);
 		break;
 
 	case PowerUpType::Shovel:
@@ -110,7 +110,7 @@ void PowerUp::ActivateTank(TankPlayer& player)
 	player.IncrementLives();
 }
 
-void PowerUp::ActivateClock(TankPlayer& player)
+void PowerUp::ActivateClock()
 {
 	mClockActivated = true;
 }
