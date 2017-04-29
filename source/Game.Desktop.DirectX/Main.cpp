@@ -2,6 +2,7 @@
 #include <d3d11.h>
 #include "SList.h"
 #include "EngineSettings.h"
+#include "BattleCity.h"
 
 #define WINDOW_WIDTH	800
 #define WINDOW_HEIGHT	600
@@ -72,6 +73,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	AnonymousEngine::Core::EngineSettings::SetPlatform(AnonymousEngine::Core::DirectX);
 	AnonymousEngine::Core::EngineSettings::SetScreenWidth(WINDOW_WIDTH);
 	AnonymousEngine::Core::EngineSettings::SetScreenHeight(WINDOW_HEIGHT);
+
+	BattleCity::BattleCity* battleCity = new BattleCity::BattleCity();
+	battleCity->Init();
 	// enter the main loop:
 
 	MSG msg;
@@ -87,6 +91,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				break;
 		}
 
+		battleCity->Update(1.0f / 60.0f);
 		RenderFrame();
 	}
 
