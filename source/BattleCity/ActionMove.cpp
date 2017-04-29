@@ -6,7 +6,7 @@ using namespace AnonymousEngine;
 RTTI_DEFINITIONS(ActionMove);
 
 ActionMove::ActionMove() :
-	mDirection(Direction::Up), mSpeed(1), mIsEnemy(true)
+	mDirection(Direction::Up), mSpeed(1), mIsEnemy(true), mCanMove(true)
 {
 	if (GetParent()->Is(TankPlayer::TypeIdClass()))
 	{
@@ -26,18 +26,22 @@ ActionMove::~ActionMove()
 void ActionMove::Update(WorldState& worldState)
 {
 	UNREFERENCED_PARAMETER(worldState);
+
+	// Automatically Move If Enemy. Enemy AI will change Speed/Direction
 	if(mIsEnemy)
 		Move();
 }
 
 void ActionMove::Move()
 {
+	// Get A Reference To Parent As Entity
 	Entity* entity = GetParent()->As<Entity>();
 
 	if(entity != nullptr)
 	{
 		glm::vec2* position = &entity->GetPosition();
 
+		// Update Position Based On Direction
 		switch (mDirection)
 		{
 		case Direction::Up:
@@ -78,6 +82,7 @@ ActionMove::Direction ActionMove::GetDirection()
 	return mDirection;
 }
 
+// For Player Only
 void ActionMove::Notify(class EventPublisher& publisher)
 {
 	Event<MessageInput>* curEvent = publisher.As<Event<MessageInput>>();
@@ -87,6 +92,7 @@ void ActionMove::Notify(class EventPublisher& publisher)
 		MessageInput* message = &const_cast<MessageInput&>(curEvent->Message());
 		Vector<std::string*>* Keys = &message->GetKeys();
 
+		// Change Direction And Update Position If Movement Keys Pressed
 		for (std::string* c : *Keys)
 		{
 			if (*c == "Up")

@@ -47,6 +47,6 @@ namespace AnonymousEngine
 
 		Direction mDirection;
 		float mSpeed;
-		bool mIsEnemy;
+		bool mIsEnemy, mCanMove;
 	};
 }

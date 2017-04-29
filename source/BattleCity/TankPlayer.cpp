@@ -4,10 +4,6 @@
 using namespace AnonymousEngine;
 RTTI_DEFINITIONS(TankPlayer);
 
-//TODO
-// Handle Respawning
-// 
-
 TankPlayer::TankPlayer() :
 	mLives(2), mMaxLives(9), mIsInvincible(false), mStars(0), mTimeInvincible(0)
 {

@@ -29,9 +29,8 @@ namespace AnonymousEngine
 		void DestroyBullet();
 
 	private:
-		bool mCanShoot, mIsEnemy, mBulletPendingKill;
-		bool isFast, isDouble, isStrong; // For Star Powerup
-		std::chrono::milliseconds mTimeLastShot, mShootFrequency; // For Enemy Ai
+		bool mCanShoot, mIsEnemy;
+		bool isFast, isDouble, isStrong; // For Star Power Up
 		Vector<Bullet*> mBulletsLiving, mBulletsPending;
 	};
 

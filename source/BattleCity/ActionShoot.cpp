@@ -6,8 +6,7 @@ using namespace AnonymousEngine;
 RTTI_DEFINITIONS(ActionShoot);
 
 ActionShoot::ActionShoot() :
-	mCanShoot(true), mTimeLastShot(0), mShootFrequency(100), mIsEnemy(true),
-	mBulletPendingKill(false), mBulletsLiving(3), mBulletsPending(3),
+	mCanShoot(true), mIsEnemy(true), mBulletsLiving(3), mBulletsPending(3),
 	isFast(false), isDouble(false), isStrong(false)
 {
 	if (GetParent()->Is(TankPlayer::TypeIdClass()))
@@ -24,44 +23,43 @@ ActionShoot::~ActionShoot()
 
 void ActionShoot::Update(WorldState& worldState)
 {
-	mTimeLastShot += worldState.mGameTime.ElapsedGameTime();
-
-	if (mBulletPendingKill)
+	if (mBulletsPending.Size() != 0)
 	{
 		DestroyBullet();
-	}
-
-	if (mCanShoot && mTimeLastShot > mShootFrequency)
-	{
-		CreateBullet();
-		mTimeLastShot = std::chrono::milliseconds(0);
 	}
 }
 
 void ActionShoot::CreateBullet()
 {
 	Bullet* curBullet =  Factory<Entity>::Create(std::string("Bullet"))->As<Bullet>();
-	mBulletsLiving.PushBack(curBullet);
 
+	//Store Reference To Bullet
+	mBulletsLiving.PushBack(curBullet);
 	curBullet->SetShootParent(*this);
+
+	//Get A Reference To Bullet MoveComponent And Parent
 	TankBase* tank = GetParent()->As<TankBase>();
 	ActionMove* moveComponent = &curBullet->MoveComponent();
 
+	// Set Direction Of Bullet
 	if (tank != nullptr)
 		moveComponent->SetDirection(tank->MoveComponent().GetDirection());
 	else
 		moveComponent->SetDirection(ActionMove::Direction::Up);
 
+	// Set Bullet Speed
 	if(isFast);
 	{
 		moveComponent->SetSpeed(2 * moveComponent->DEFAULTSPEED);
 	}
 
+	// Set Bullet To Destroy Steel BLocks
 	if (isStrong)
 	{
 		curBullet->isStrong = true;
 	}
 
+	// Can't Create Another Bullet If This Bullet Exists
 	mCanShoot = false;
 }
 
@@ -69,17 +67,19 @@ void ActionShoot::Notify(class EventPublisher& publisher)
 {
 	Event<MessageInput>* curEvent = publisher.As<Event<MessageInput>>();
 
-	if (curEvent != nullptr && mCanShoot)
+	if (curEvent != nullptr)
 	{
 		MessageInput* message = &const_cast<MessageInput&>(curEvent->Message());
 		Vector<std::string*>* Keys = &message->GetKeys();
 
 		for (std::string* c : *Keys)
 		{
-			if (*c == "Shoot" && mBulletsLiving.Size() > 0)
+			// Create Bullet If Shooting Key Is Pressed
+			if (*c == "Shoot" && mCanShoot)
 			{
 				CreateBullet();
 
+				// Delay Creation Of 2nd Bullet For Double Shot
 				if (isDouble)
 				{
 					std::async(std::launch::async, [this]()
@@ -97,25 +97,25 @@ void ActionShoot::Notify(class EventPublisher& publisher)
 
 void ActionShoot::PendKillBullet(Bullet& bullet)
 {
-	mBulletPendingKill = true;
+	// Move Bullet To PendingKill Vector (Gets Destroyed Next Update)
 	mBulletsLiving.Remove(&bullet);
 	mBulletsPending.PushBack(&bullet);
 }
 
 void ActionShoot::DestroyBullet()
 {
+	// Destroy Pending Bullets
 	for (std::uint32_t i = 0; i < mBulletsPending.Size(); ++i)
 	{
 		delete mBulletsPending[i];
 	}
 
 	mBulletsPending.Clear();
-	mBulletPendingKill = false;
 
-	if(mBulletsLiving == 0)
+	// Enable Shooting If There Are No Existing Bullets Left
+	if(mBulletsLiving.Size() == 0)
 	{
 		mCanShoot = true;
-		mTimeLastShot = std::chrono::duration<int>(0);
 	}
 	
 }

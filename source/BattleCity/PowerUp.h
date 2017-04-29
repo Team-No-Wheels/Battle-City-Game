@@ -3,8 +3,12 @@
 #include "EventSubscriber.h"
 #include "Event.h"
 #include "MessageCollision.h"
+#include "EventMessageAttributed.h"
 #include "TankPlayer.h"
 #include "Sector.h"
+#include "WorldState.h"
+#include "EventQueue.h"
+#include "World.h"
 
 namespace AnonymousEngine
 {
@@ -35,16 +39,18 @@ namespace AnonymousEngine
 
 		void setType(PowerUpType newType);
 		void Activate(TankPlayer& player);
+		void Update(WorldState& worldState) override;
 		void Notify(class EventPublisher& publisher);
 
 	private:
 		typedef std::pair<Entity*, Entity*> CollisionPair;
 		PowerUpType mType;
+		bool mClockActivated;
 
 		void ActivateTank(TankPlayer& player);
-		void ActivateClock();
+		void ActivateClock(TankPlayer& player);
 		void ActivateShield(TankPlayer& player);
-		void ActivateBomb();
+		void ActivateBomb(TankPlayer& player);
 		void ActivateShovel();
 		void ActivateStar(TankPlayer& player);
 

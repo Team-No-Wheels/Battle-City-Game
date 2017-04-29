@@ -1,17 +1,11 @@
 #include "Pch.h"
 #include "PowerUp.h"
 
-/* TO DO
-ActivateCLock() -  All Of It
-ActivateShovel() - All Of It
-ActivateBomb() - Change TankBase To Enemy, Destroy Enemy
-*/
-
 using namespace AnonymousEngine;
 RTTI_DEFINITIONS(PowerUp);
 
 PowerUp::PowerUp() :
-	mType(PowerUpType::Unknown)
+	mType(PowerUpType::Unknown), mClockActivated(false)
 {
 
 }
@@ -60,6 +54,23 @@ void PowerUp::Activate(TankPlayer& player)
 	}
 }
 
+void PowerUp::Update(WorldState& worldState)
+{
+	worldState.mEntity = this;
+
+	if (mClockActivated)
+	{
+		mClockActivated = false;
+		EventQueue* mEventQueue = &worldState.mWorld->EventQueue();
+		EventMessageAttributed msg;
+		msg.SetSubtype("Freeze");
+		msg.SetWorld(*worldState.mWorld);
+		mEventQueue->Enqueue(std::make_shared<Event<EventMessageAttributed>>(Event<EventMessageAttributed>(msg)), worldState.mGameTime, 0U);
+	}
+
+	worldState.mEntity = nullptr;
+}
+
 void PowerUp::Notify(class EventPublisher& publisher)
 {
 	Event<MessageCollision>* curEvent = publisher.As<Event<MessageCollision>>();
@@ -99,9 +110,9 @@ void PowerUp::ActivateTank(TankPlayer& player)
 	player.IncrementLives();
 }
 
-void PowerUp::ActivateClock()
+void PowerUp::ActivateClock(TankPlayer& player)
 {
-	
+	mClockActivated = true;
 }
 
 void PowerUp::ActivateShield(TankPlayer& player)
@@ -109,23 +120,22 @@ void PowerUp::ActivateShield(TankPlayer& player)
 	player.SetInvincibility(true);
 }
 
-void PowerUp::ActivateBomb()
+void PowerUp::ActivateBomb(TankPlayer& player)
 {
-	Sector* sector = GetParent()->As<Sector>();
+	Sector* curSector = &player.GetSector();
 
-	if (sector != nullptr)
+	if (curSector != nullptr)
 	{
-		Datum& entities = sector->Entities();
-
+		Datum& entities = curSector->Entities();
 		std::uint32_t size = entities.Size();
+
 		for (std::uint32_t i = 0; i < size; ++i)
 		{
-			//TODO: Change TankBase To Enemy Class Type
-			TankBase* enemy = entities.Get<Scope*>(i)->As<TankBase>();
+			TankBase* e = entities.Get<Scope*>(i)->As<TankBase>();
 
-			if (enemy != nullptr)
+			if (e != nullptr)
 			{
-				//DESTROY TANK
+				// Destroy Enemy Tanks
 			}
 		}
 	}
