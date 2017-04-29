@@ -93,12 +93,8 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-<<<<<<< Updated upstream
       <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-=======
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> Stashed changes
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -118,12 +114,8 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-<<<<<<< Updated upstream
       <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-=======
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> Stashed changes
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,12 +137,8 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-<<<<<<< Updated upstream
       <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-=======
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> Stashed changes
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -171,12 +159,8 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-<<<<<<< Updated upstream
       <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-=======
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> Stashed changes
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -188,7 +172,6 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-<<<<<<< Updated upstream
     <ClInclude Include="ActionFreeze.h" />
     <ClInclude Include="ActionMove.h" />
     <ClInclude Include="ActionShoot.h" />
@@ -196,9 +179,7 @@
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="MessageCollision.h" />
     <ClInclude Include="MessageInput.h" />
-=======
     <ClInclude Include="BattleCity.h" />
->>>>>>> Stashed changes
     <ClInclude Include="Pch.h" />
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="ScoreManager.h" />
@@ -207,7 +188,6 @@
     <ClInclude Include="TankPlayer.h" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< Updated upstream
     <ClCompile Include="ActionFreeze.cpp" />
     <ClCompile Include="ActionMove.cpp" />
     <ClCompile Include="ActionShoot.cpp" />
@@ -215,9 +195,7 @@
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="MessageCollision.cpp" />
     <ClCompile Include="MessageInput.cpp" />
-=======
     <ClCompile Include="BattleCity.cpp" />
->>>>>>> Stashed changes
     <ClCompile Include="Pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

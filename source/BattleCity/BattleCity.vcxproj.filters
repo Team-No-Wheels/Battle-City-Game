@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pch.cpp" />
-<<<<<<< Updated upstream
     <ClCompile Include="ActionMove.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
@@ -106,6 +105,5 @@
     <Image Include="resources\tank.png">
       <Filter>Resource Files</Filter>
     </Image>
->>>>>>> Stashed changes
   </ItemGroup>
 </Project>
