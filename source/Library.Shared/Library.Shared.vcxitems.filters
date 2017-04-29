@@ -98,9 +98,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EventAction.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TextureLoader.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)EngineSettings.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -238,9 +235,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)EventAction.h">
       <Filter>Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TextureLoader.h">
-      <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)EngineSettings.h">
       <Filter>Core</Filter>

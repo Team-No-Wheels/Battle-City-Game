@@ -2,88 +2,91 @@
 #include "Bullet.h"
 #include "TankPlayer.h"
 
-using namespace AnonymousEngine;
-RTTI_DEFINITIONS(Bullet);
-
-Bullet::Bullet() :
-	mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
-	mShootParent(nullptr), isStrong(false)
+namespace AnonymousEngine
 {
-	Event<MessageCollision>::Subscribe(*this);
-}
+	RTTI_DEFINITIONS(Bullet);
 
-Bullet::Bullet( ActionShoot& parent) :
-	mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
-	mShootParent(&parent)
-{
-	Event<MessageCollision>::Subscribe(*this);
-}
-
-Bullet::~Bullet()
-{
-	Event<MessageCollision>::Unsubscribe(*this);
-	mShootParent = nullptr;
-}
-
-void Bullet::SetShootParent(ActionShoot& parent)
-{
-	mShootParent = &parent;
-}
-
-ActionMove& Bullet::MoveComponent()
-{
-	return *mMoveComponent;
-}
-
-void Bullet::Update(WorldState& worldState)
-{
-	Entity::Update(worldState);
-
-	worldState.mEntity = this;
-
-	worldState.mEntity = nullptr;
-}
-
-void Bullet::Notify(class EventPublisher& publisher)
-{
-	Event<MessageCollision>* curEvent = publisher.As<Event<MessageCollision>>();
-
-	if (curEvent != nullptr)
+	Bullet::Bullet() :
+		mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
+		mShootParent(nullptr), isStrong(false)
 	{
-		MessageCollision* message = const_cast<MessageCollision*>(&curEvent->Message());
-		Vector<CollisionPair>* entities = &message->GetEntities();
+		Event<MessageCollision>::Subscribe(*this);
+	}
 
-		for (CollisionPair e : *entities)
+	Bullet::Bullet(ActionShoot& parent) :
+		mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
+		mShootParent(&parent)
+	{
+		Event<MessageCollision>::Subscribe(*this);
+	}
+
+	Bullet::~Bullet()
+	{
+		Event<MessageCollision>::Unsubscribe(*this);
+		mShootParent = nullptr;
+	}
+
+	void Bullet::SetShootParent(ActionShoot& parent)
+	{
+		mShootParent = &parent;
+	}
+
+	ActionMove& Bullet::MoveComponent()
+	{
+		return *mMoveComponent;
+	}
+
+	void Bullet::Update(WorldState& worldState)
+	{
+		Entity::Update(worldState);
+
+		worldState.mEntity = this;
+
+		worldState.mEntity = nullptr;
+	}
+
+	void Bullet::Notify(class EventPublisher& publisher)
+	{
+		Event<MessageCollision>* curEvent = publisher.As<Event<MessageCollision>>();
+
+		if (curEvent != nullptr)
 		{
-			// Check If Player
-			TankPlayer* player = e.first->As<TankPlayer>();
-			if (player == nullptr)
-			{
-				player = e.second->As<TankPlayer>();
-			}
+			MessageCollision* message = const_cast<MessageCollision*>(&curEvent->Message());
+			Vector<CollisionPair>* entities = &message->GetEntities();
 
-			// Check If Bullet
-			Bullet* bullet = e.first->As<Bullet>();
-			if (bullet == nullptr)
+			for (CollisionPair e : *entities)
 			{
-				bullet = e.second->As<Bullet>();
-			}
-
-			// Try Executing Actions If This Bullet Exists In List
-			if (bullet != nullptr && bullet == this)
-			{
-				// Do Stuff If Player
-				if (player != nullptr && !player->IsInvincible())
+				// Check If Player
+				TankPlayer* player = e.first->As<TankPlayer>();
+				if (player == nullptr)
 				{
-					player->DecrementLives();
+					player = e.second->As<TankPlayer>();
 				}
 
-				// Do Stuff If Enemy
-				// Do Stuff If Wall
+				// Check If Bullet
+				Bullet* bullet = e.first->As<Bullet>();
+				if (bullet == nullptr)
+				{
+					bullet = e.second->As<Bullet>();
+				}
 
-				mShootParent->PendKillBullet(*this);
+				// Try Executing Actions If This Bullet Exists In List
+				if (bullet != nullptr && bullet == this)
+				{
+					// Do Stuff If Player
+					if (player != nullptr && !player->IsInvincible())
+					{
+						player->DecrementLives();
+					}
+
+					// Do Stuff If Enemy
+					// Do Stuff If Wall
+
+					mShootParent->PendKillBullet(*this);
+				}
 			}
 		}
 	}
 
+	ENTITY_FACTORY_DEFINITIONS(Bullet);
 }

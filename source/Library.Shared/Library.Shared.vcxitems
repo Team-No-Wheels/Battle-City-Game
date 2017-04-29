@@ -49,7 +49,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Sprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Switch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RpnTypes.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)TextureLoader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedData.h" />
@@ -93,7 +92,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ScopeSharedData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Sprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Switch.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)TextureLoader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WorldParserHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Sector.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SharedData.cpp" />

@@ -57,5 +57,4 @@ namespace AnonymousEngine
 	};
 
 	ENTITY_FACTORY_DECLARATIONS(PowerUp);
-	ENTITY_FACTORY_DEFINITIONS(PowerUp);
 }

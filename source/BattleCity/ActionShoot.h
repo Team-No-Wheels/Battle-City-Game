@@ -36,5 +36,4 @@ namespace AnonymousEngine
 	};
 
 	ACTION_FACTORY_DECLARATIONS(ActionShoot);
-	ACTION_FACTORY_DEFINITIONS(ActionShoot);
 }

@@ -1,6 +1,6 @@
 #include "Pch.h"
 #include "Sprite.h"
-#include "TextureLoader.h"
+//#include "TextureLoader.h"
 
 namespace AnonymousEngine
 {
@@ -20,7 +20,7 @@ namespace AnonymousEngine
 		{
 			Renderable::Init(pSpriteFilePath);
 
-			mTextureID = TextureLoader::GetTexture(pSpriteFilePath);
+			//mTextureID = TextureLoader::GetTexture(pSpriteFilePath);
 
 			mHeight = 100;
 			mWidth = 50;

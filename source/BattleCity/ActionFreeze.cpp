@@ -1,69 +1,74 @@
 #include "Pch.h"
 #include "ActionFreeze.h"
 
-using namespace AnonymousEngine;
-RTTI_DEFINITIONS(ActionFreeze);
-
-ActionFreeze::ActionFreeze() :
-	mTimeFrozen(10), mTimeRemaining(0), Zero(0)
+namespace AnonymousEngine
 {
-	Event<EventMessageAttributed>::Subscribe(*this);
-}
 
-ActionFreeze::~ActionFreeze()
-{
-	Event<EventMessageAttributed>::Unsubscribe(*this);
-}
+	RTTI_DEFINITIONS(ActionFreeze);
 
-void ActionFreeze::Update(WorldState& worldState)
-{
-	worldState.mAction = this;
-
-	if (mTimeRemaining > Zero)
+	ActionFreeze::ActionFreeze() :
+		mTimeFrozen(10), mTimeRemaining(0), Zero(0)
 	{
-		mTimeRemaining -= worldState.mGameTime.ElapsedGameTime();
-		Sector* curSector = worldState.mSector;
+		Event<EventMessageAttributed>::Subscribe(*this);
+	}
 
-		if (curSector != nullptr)
+	ActionFreeze::~ActionFreeze()
+	{
+		Event<EventMessageAttributed>::Unsubscribe(*this);
+	}
+
+	void ActionFreeze::Update(WorldState& worldState)
+	{
+		worldState.mAction = this;
+
+		if (mTimeRemaining > Zero)
 		{
-			Datum& entities = curSector->Entities();
-			std::uint32_t size = entities.Size();
+			mTimeRemaining -= worldState.mGameTime.ElapsedGameTime();
+			Sector* curSector = worldState.mSector;
 
-			// Look For All Enemy Tanks
-			for (std::uint32_t i = 0; i < size; ++i)
+			if (curSector != nullptr)
 			{
-				TankBase* e = entities.Get<Scope*>(i)->As<TankBase>();
+				Datum& entities = curSector->Entities();
+				std::uint32_t size = entities.Size();
 
-				if (e != nullptr)
+				// Look For All Enemy Tanks
+				for (std::uint32_t i = 0; i < size; ++i)
 				{
-					// Freeze Movement And Shooting
-					if (mTimeRemaining > Zero)
-					{
-						
-					}
+					TankBase* e = entities.Get<Scope*>(i)->As<TankBase>();
 
-					// Unfreeze Tank
-					else
+					if (e != nullptr)
 					{
-						
+						// Freeze Movement And Shooting
+						if (mTimeRemaining > Zero)
+						{
+
+						}
+
+						// Unfreeze Tank
+						else
+						{
+
+						}
 					}
 				}
 			}
 		}
+
+		worldState.mAction = nullptr;
 	}
 
-	worldState.mAction = nullptr;
-}
-
-void ActionFreeze::Notify(class EventPublisher& publisher)
-{
-	Event<EventMessageAttributed>* curEvent = publisher.As<Event<EventMessageAttributed>>();
-
-	if (curEvent != nullptr)
+	void ActionFreeze::Notify(class EventPublisher& publisher)
 	{
-		EventMessageAttributed* message = const_cast<EventMessageAttributed*>(&curEvent->Message());
+		Event<EventMessageAttributed>* curEvent = publisher.As<Event<EventMessageAttributed>>();
 
-		if (message->GetSubtype() == "Freeze")
-			mTimeRemaining = mTimeFrozen;
+		if (curEvent != nullptr)
+		{
+			EventMessageAttributed* message = const_cast<EventMessageAttributed*>(&curEvent->Message());
+
+			if (message->GetSubtype() == "Freeze")
+				mTimeRemaining = mTimeFrozen;
+		}
 	}
+
+	ACTION_FACTORY_DEFINITIONS(ActionFreeze);
 }

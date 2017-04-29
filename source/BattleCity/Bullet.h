@@ -34,5 +34,4 @@ namespace AnonymousEngine
 	};
 
 	ENTITY_FACTORY_DECLARATIONS(Bullet);
-	ENTITY_FACTORY_DEFINITIONS(Bullet);
 }

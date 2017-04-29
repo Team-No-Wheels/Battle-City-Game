@@ -1,4 +1,5 @@
 #pragma once
+
 #include "RTTI.h"
 #include "TankBase.h"
 #include "EventSubscriber.h"
@@ -36,5 +37,4 @@ namespace AnonymousEngine
 	};
 
 	ENTITY_FACTORY_DECLARATIONS(TankPlayer);
-	ENTITY_FACTORY_DEFINITIONS(TankPlayer);
 }

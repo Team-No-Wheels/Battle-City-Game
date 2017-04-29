@@ -97,7 +97,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include;$(SolutionDir)\..\external\soil\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4098;4201;4075</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -123,7 +123,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include;$(SolutionDir)\..\external\soil\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4098;4201;4075</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -151,7 +151,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include;$(SolutionDir)\..\external\soil\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4098;4201;4075</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -179,7 +179,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include;$(SolutionDir)\..\external\soil\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4098;4201;4075</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -207,11 +207,13 @@
     </ClCompile>
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ShaderCompiler.cpp" />
+    <ClCompile Include="TextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="ShaderCompiler.h" />
+    <ClInclude Include="TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\external\glad\glad.vcxproj">

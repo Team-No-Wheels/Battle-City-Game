@@ -48,4 +48,6 @@ namespace AnonymousEngine
 		float mSpeed;
 		bool mIsEnemy, mCanMove;
 	};
+
+	ACTION_FACTORY_DECLARATIONS(ActionMove);
 }

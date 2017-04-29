@@ -31,5 +31,4 @@ namespace AnonymousEngine
 	};
 
 	ACTION_FACTORY_DECLARATIONS(ActionFreeze);
-	ACTION_FACTORY_DEFINITIONS(ActionFreeze);
 }
