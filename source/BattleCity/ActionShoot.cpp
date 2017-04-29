@@ -6,19 +6,13 @@ using namespace AnonymousEngine;
 RTTI_DEFINITIONS(ActionShoot);
 
 ActionShoot::ActionShoot() :
-	mCanShoot(true), mIsEnemy(true), mBulletsLiving(3), mBulletsPending(3),
+	mCanShoot(true), mBulletsLiving(3), mBulletsPending(3),
 	isFast(false), isDouble(false), isStrong(false)
 {
-	if (GetParent()->Is(TankPlayer::TypeIdClass()))
-	{
-		mIsEnemy = false;
-		Event<MessageInput>::Subscribe(*this);
-	}
 }
 
 ActionShoot::~ActionShoot()
 {
-	Event<MessageInput>::Unsubscribe(*this);
 }
 
 void ActionShoot::Update(WorldState& worldState)

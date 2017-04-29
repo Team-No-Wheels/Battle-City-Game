@@ -6,21 +6,12 @@ using namespace AnonymousEngine;
 RTTI_DEFINITIONS(ActionMove);
 
 ActionMove::ActionMove() :
-	mDirection(Direction::Up), mSpeed(1), mIsEnemy(true), mCanMove(true)
+	mDirection(Direction::Up), mSpeed(1), mCanMove(true)
 {
-	if (GetParent()->Is(TankPlayer::TypeIdClass()))
-	{
-		mIsEnemy = false;
-		Event<MessageInput>::Subscribe(*this);
-	}
 }
 
 ActionMove::~ActionMove()
 {
-	if (!mIsEnemy)
-	{
-		Event<MessageInput>::Unsubscribe(*this);
-	}
 }
 
 void ActionMove::Update(WorldState& worldState)

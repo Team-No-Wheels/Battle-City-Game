@@ -5,7 +5,7 @@ using namespace AnonymousEngine;
 RTTI_DEFINITIONS(PowerUp);
 
 PowerUp::PowerUp() :
-	mType(PowerUpType::Unknown), mClockActivated(false)
+	mType(PowerUpType::Tank), mClockActivated(false)
 {
 
 }
@@ -100,6 +100,7 @@ void PowerUp::Notify(class EventPublisher& publisher)
 			if (player != nullptr && power != nullptr && power == this)
 			{
 				Activate(*player);
+				break;
 			}
 		}
 	}

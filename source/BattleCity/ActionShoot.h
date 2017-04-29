@@ -30,7 +30,7 @@ namespace AnonymousEngine
 		bool IsDouble();
 
 	private:
-		bool mCanShoot, mIsEnemy;
+		bool mCanShoot;
 		bool isFast, isDouble, isStrong; // For Star Power Up
 		Vector<Bullet*> mBulletsLiving, mBulletsPending;
 	};
