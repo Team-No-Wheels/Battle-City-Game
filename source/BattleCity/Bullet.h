@@ -19,6 +19,8 @@ namespace AnonymousEngine
 
 		void SetShootParent(ActionShoot& parent);
 		ActionMove& MoveComponent();
+
+		void Update(WorldState& worldState) override;
 		void Notify(class EventPublisher& publisher);
 
 		bool isStrong;

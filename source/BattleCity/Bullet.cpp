@@ -35,6 +35,15 @@ ActionMove& Bullet::MoveComponent()
 	return *mMoveComponent;
 }
 
+void Bullet::Update(WorldState& worldState)
+{
+	Entity::Update(worldState);
+
+	worldState.mEntity = this;
+
+	worldState.mEntity = nullptr;
+}
+
 void Bullet::Notify(class EventPublisher& publisher)
 {
 	Event<MessageCollision>* curEvent = publisher.As<Event<MessageCollision>>();
