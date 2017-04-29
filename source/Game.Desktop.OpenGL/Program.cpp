@@ -21,7 +21,7 @@ namespace AnonymousEngine
 
 	void Program::Init()
 	{
-		AnonymousEngine::Core::EngineSettings::SetPlatform(AnonymousEngine::Core::OpenGL);
+		AnonymousEngine::Core::EngineSettings::SetPlatform(AnonymousEngine::Core::PlatformType::DirectX);
 		AnonymousEngine::Core::EngineSettings::SetScreenWidth(width);
 		AnonymousEngine::Core::EngineSettings::SetScreenHeight(height);
 

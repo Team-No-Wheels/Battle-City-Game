@@ -4,7 +4,7 @@ namespace AnonymousEngine
 {
 	namespace Core
 	{
-		enum PlatformType
+		enum class PlatformType
 		{
 			OpenGL,
 			DirectX

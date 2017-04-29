@@ -70,7 +70,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	// set up and initialize Direct3D
 	InitD3D(hWnd);
-	AnonymousEngine::Core::EngineSettings::SetPlatform(AnonymousEngine::Core::DirectX);
+	AnonymousEngine::Core::EngineSettings::SetPlatform(AnonymousEngine::Core::PlatformType::DirectX);
 	AnonymousEngine::Core::EngineSettings::SetScreenWidth(WINDOW_WIDTH);
 	AnonymousEngine::Core::EngineSettings::SetScreenHeight(WINDOW_HEIGHT);
 
