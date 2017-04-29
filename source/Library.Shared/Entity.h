@@ -3,6 +3,7 @@
 #include "Attributed.h"
 #include "Factory.h"
 #include "WorldState.h"
+#include "glm/vec2.hpp"
 
 namespace AnonymousEngine
 {
@@ -58,17 +59,25 @@ namespace AnonymousEngine
 			 */
 			void AdoptAction(Action& action);
 
+			void SetPosition(const glm::vec2& newPosition);
+			glm::vec2& GetPosition();
+
 			/** Update the actions within this entity
 			 *  @worldState The world context object that is passed for the update
 			 */
 			virtual void Update(WorldState& worldState);
-		private:
+
+		protected:
 			/** The name of this entity
 			 */
 			std::string mName;
 			/** The list of actions contained by this instance
 			 */
 			Datum* mActions;
+
+			/** The position of this instance
+			*/
+			glm::vec2 mPosition;
 
 			static const std::string ActionsAttributeName;
 

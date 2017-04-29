@@ -5,10 +5,6 @@
 using namespace AnonymousEngine;
 RTTI_DEFINITIONS(ActionMove);
 
-//TODO
-// Find Way To Track Position
-// Update Position
-
 ActionMove::ActionMove() :
 	mDirection(Direction::Up), mSpeed(1), mIsEnemy(true)
 {
@@ -36,23 +32,35 @@ void ActionMove::Update(WorldState& worldState)
 
 void ActionMove::Move()
 {
-	switch (mDirection)
+	Entity* entity = GetParent()->As<Entity>();
+
+	if(entity != nullptr)
 	{
-	case Direction::Up :
-		break;
+		glm::vec2* position = &entity->GetPosition();
 
-	case Direction::Down:
-		break;
+		switch (mDirection)
+		{
+		case Direction::Up:
+			position->y + 1;
+			break;
 
-	case Direction::Left:
-		break;
+		case Direction::Down:
+			position->y - 1;
+			break;
 
-	case Direction::Right:
-		break;
+		case Direction::Left:
+			position->x - 1;
+			break;
 
-	default:
-		break;
+		case Direction::Right:
+			position->x + 1;
+			break;
+
+		default:
+			break;
+		}
 	}
+
 }
 
 void ActionMove::SetSpeed(float speed)

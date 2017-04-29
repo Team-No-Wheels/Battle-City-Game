@@ -15,7 +15,7 @@ namespace AnonymousEngine
 		const std::string Entity::ActionsAttributeName = "Actions";
 
 		Entity::Entity(const std::string& name) :
-			mName(name), mActions(nullptr)
+			mName(name), mActions(nullptr), mPosition(glm::vec2(0,0))
 		{
 			AddExternalAttribute("Name", &mName, 1);
 			AddDatumAttribute(ActionsAttributeName, mActions);
@@ -80,5 +80,16 @@ namespace AnonymousEngine
 			prescribedAttributeNames.PushBack("Name");
 			prescribedAttributeNames.PushBack("Actions");
 		}
+	
+		void Entity::SetPosition(const glm::vec2& newPosition)
+		{
+			mPosition = newPosition;
+		}
+
+		glm::vec2& Entity::GetPosition()
+		{
+			return mPosition;
+		}
+	
 	}
 }
