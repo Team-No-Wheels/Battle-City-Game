@@ -6,8 +6,12 @@ using namespace AnonymousEngine;
 RTTI_DEFINITIONS(ActionMove);
 
 ActionMove::ActionMove() :
-	mDirection(Direction::Up), mSpeed(1), mCanMove(true)
+	mDirection(Direction::Up), mSpeed(1), mIsEnemy(true), mCanMove(true)
 {
+	if (GetParent()->Is(TankPlayer::TypeIdClass()))
+	{
+		mIsEnemy = false;
+	}
 }
 
 ActionMove::~ActionMove()
