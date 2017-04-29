@@ -54,7 +54,7 @@
       <Filter>Other</Filter>
     </ClCompile>
     <ClCompile Include="ScoreMessageStructs.cpp">
-      <Filter>Other</Filter>
+      <Filter>Events / Messages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,10 +92,10 @@
     <ClInclude Include="ScoreManager.h">
       <Filter>Other</Filter>
     </ClInclude>
-    <ClInclude Include="ScoreMessageStructs.h">
-      <Filter>Other</Filter>
-    </ClInclude>
     <ClCompile Include="BattleCity.cpp" />
+    <ClInclude Include="ScoreMessageStructs.h">
+      <Filter>Events / Messages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />

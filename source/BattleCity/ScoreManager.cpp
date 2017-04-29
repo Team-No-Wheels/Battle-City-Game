@@ -2,6 +2,7 @@
 #include "ScoreManager.h"
 #include "ScoreMessageStructs.h"
 #include "Event.h"
+#include "World.h"
 
 namespace AnonymousEngine
 {
@@ -26,7 +27,7 @@ namespace AnonymousEngine
 		mScoreValues.Insert(std::pair<std::string, std::int32_t>(name, value));
 	}
 
-	void ScoreManager::HandleScore(std::string scoreType)
+	void ScoreManager::HandleScore(std::string scoreType, Containers::WorldState& worldState)
 	{
 		HashMap<std::string, std::int32_t>::Iterator valueIterator = mScoreValues.Find(scoreType);
 		assert(valueIterator != mScoreValues.end());
@@ -40,12 +41,12 @@ namespace AnonymousEngine
 			mNumberTanks--;
 			if (mNumberTanks <= 0)
 			{
-				LevelOver(true);
+				LevelOver(true, worldState);
 			}
 		}
 	}
 
-	void ScoreManager::LevelOver(bool wasWin)
+	void ScoreManager::LevelOver(bool wasWin, Containers::WorldState& worldState)
 	{
 		std::int32_t total = 0;
 		for(std::pair<std::string, std::int32_t> pair: mCurrentScores)
@@ -57,24 +58,27 @@ namespace AnonymousEngine
 		}
 		mCurrentScores[mTotalKey] = total;
 		LevelOverMessage message(wasWin, mCurrentScores);
-		message;
-		//TODO ... need access to world's event queue. Send an event with this message.
+		const std::shared_ptr<Core::Event<LevelOverMessage>> eventptr = std::make_shared<Core::Event<LevelOverMessage>>(message);
+		worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
+
 	}
 
-	void ScoreManager::DamagePlayer(bool wasFlag)
+	void ScoreManager::DamagePlayer(bool wasFlag, Containers::WorldState& worldState)
 	{
 		if (wasFlag)
 		{
-			LevelOver(false);
+			LevelOver(false, worldState);
 		}
 		else
 		{
 			mPlayerLives--;
 			PlayerLivesChangedMessage message(mPlayerLives);
-			//TODO ... need access to world's event queue. Send an event with this message.
+			const std::shared_ptr<Core::Event<PlayerLivesChangedMessage>> eventptr = std::make_shared<Core::Event<PlayerLivesChangedMessage>>(message);
+			worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
+
 			if (mPlayerLives <= 0)
 			{
-				LevelOver(false);
+				LevelOver(false, worldState);
 			}
 		}
 	}
@@ -104,12 +108,12 @@ namespace AnonymousEngine
 		else if (publisher.Is(Core::Event<ScoreEventMessage>::TypeIdClass()))
 		{
 			ScoreEventMessage message = publisher.As<Core::Event<ScoreEventMessage>>()->Message();
-			HandleScore(message.Name());
+			HandleScore(message.Name(), message.WorldState());
 		}
 		else if (publisher.Is(Core::Event<PlayerSideDamageMessage>::TypeIdClass()))
 		{
 			PlayerSideDamageMessage message = publisher.As<Core::Event<PlayerSideDamageMessage>>()->Message();
-			DamagePlayer(message.WasFlag());
+			DamagePlayer(message.WasFlag(), message.WorldState());
 		}
 		else if (publisher.Is(Core::Event<LevelStartMessage>::TypeIdClass()))
 		{
