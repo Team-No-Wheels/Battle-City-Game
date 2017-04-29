@@ -2,11 +2,12 @@
 
 #include "GLFW/glfw3.h"
 #include "SList.h"
+#include "BattleCity.h"
 
 namespace AnonymousEngine
 {
-	/** Program flow control and initalization handler
-	* Handles the initalization of program window, OpenGL context and game loop
+	/** Program flow control and initialization handler
+	* Handles the initialization of program window, OpenGL context and game loop
 	*/
 	class Program
 	{
@@ -21,10 +22,10 @@ namespace AnonymousEngine
 		*/
 		~Program();
 		/** Initializes the application
-		*  This method creats the output window and initalizes opengl context
+		*  This method creates the output window and initializes OpenGL context
 		*/
 		void Init();
-		/** The game loop which runs throughtout the program
+		/** The game loop which runs through out the program
 		*/
 		void GameLoop();
 		/** Shuts down the running program and terminates the output window.
@@ -53,5 +54,7 @@ namespace AnonymousEngine
 		void Draw();
 		// Keyboard input handler. Sets window close if ESC key is pressed.
 		static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
+
+		BattleCity::BattleCity* mBattleCity;
 	};
 }

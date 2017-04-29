@@ -11,6 +11,7 @@ namespace AnonymousEngine
 	{
 		// Using code from AnonymousEngine.Desktop
 		list = new SList<int>();
+		mBattleCity = new BattleCity::BattleCity();
 	}
 
 	Program::~Program()
@@ -27,9 +28,9 @@ namespace AnonymousEngine
 		// Initalize window parameters
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+		//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 		// create window
@@ -54,6 +55,8 @@ namespace AnonymousEngine
 		// register keyboard handler
 		glfwSetKeyCallback(window, KeyCallback);
 		InitShaders();
+
+		mBattleCity->Init();
 	}
 
 	void Program::GameLoop()
@@ -62,7 +65,11 @@ namespace AnonymousEngine
 		while (!glfwWindowShouldClose(window))
 		{
 			glfwPollEvents();
+			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
+
 			Draw();
+			mBattleCity->Update(1.0f / 60.0f);
 			glfwSwapBuffers(window);
 		}
 	}
@@ -117,8 +124,8 @@ namespace AnonymousEngine
 
 	void Program::Draw()
 	{
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		
+		
 
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
