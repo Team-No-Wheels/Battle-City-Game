@@ -97,15 +97,19 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4098;4201;4075</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\soil\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;glu32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y</Command>
@@ -119,15 +123,19 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4098;4201;4075</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\soil\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;glu32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y</Command>
@@ -143,8 +151,10 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4098;4201;4075</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -152,8 +162,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\soil\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;glu32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y</Command>
@@ -169,8 +179,10 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\BattleCity;$(SolutionDir)\..\external\glad\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4098;4201;4075</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -178,8 +190,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\soil\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration)\glfw3.lib;opengl32.lib;glu32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y</Command>
@@ -204,6 +216,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\external\glad\glad.vcxproj">
       <Project>{8a34b3c3-c2a1-4a8d-9701-07327e5cb5ea}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\BattleCity\BattleCity.vcxproj">
+      <Project>{d70e43b0-93f0-464e-8c75-49782b6160e3}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Library.Desktop\Library.Desktop.vcxproj">
       <Project>{b4aeee5c-bd77-4339-887b-3176a57768b3}</Project>

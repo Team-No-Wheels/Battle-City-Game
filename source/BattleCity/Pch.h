@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDKDDKVer.h>
+<<<<<<< Updated upstream
 #include <Windows.h>
 #include <exception>
 #include <cstdint>
@@ -11,3 +12,6 @@
 
 #include <gl/gl.h>
 #include <gl/glu.h>
+=======
+#include <windows.h>
+>>>>>>> Stashed changes

@@ -5,9 +5,15 @@ namespace AnonymousEngine
 {
 	namespace Core
 	{
+<<<<<<< Updated upstream
 		std::uint32_t EngineSettings::sScreenWidth;
 		std::uint32_t EngineSettings::sScreenHeight;
 		PlatformType EngineSettings::sPlatformType;
+=======
+		PlatformType EngineSettings::sPlatformType;
+		std::uint32_t EngineSettings::sScreenWidth;
+		std::uint32_t EngineSettings::sScreenHeight;
+>>>>>>> Stashed changes
 
 		PlatformType EngineSettings::GetPlatform()
 		{
@@ -40,4 +46,3 @@ namespace AnonymousEngine
 		}
 	}
 }
-

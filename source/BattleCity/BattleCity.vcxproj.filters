@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pch.cpp" />
+<<<<<<< Updated upstream
     <ClCompile Include="ActionMove.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
@@ -95,5 +96,16 @@
     <ClInclude Include="ScoreMessageStructs.h">
       <Filter>Other</Filter>
     </ClInclude>
+    <ClCompile Include="BattleCity.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Pch.h" />
+    <ClInclude Include="BattleCity.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\tank.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+>>>>>>> Stashed changes
   </ItemGroup>
 </Project>

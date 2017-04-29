@@ -24,7 +24,7 @@ BattleCity.vcxproj.filters
 
 /////////////////////////////////////////////////////////////////////////////
 
-StdAfx.h, StdAfx.cpp
+Pch.h, Pch.cpp
     These files are used to build a precompiled header (PCH) file
     named BattleCity.pch and a precompiled types file named StdAfx.obj.
 

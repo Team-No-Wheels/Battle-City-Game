@@ -40,11 +40,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Reaction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Renderable.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RpnEvaluator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SetValue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScopeSharedData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Switch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RpnTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TextureLoader.h" />
@@ -84,10 +86,12 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Reaction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Renderable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RpnEvaluator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SetValue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScopeSharedData.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Switch.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TextureLoader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WorldParserHelper.cpp" />

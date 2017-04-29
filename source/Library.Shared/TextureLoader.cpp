@@ -20,12 +20,14 @@ namespace AnonymousEngine
 
 			if (AnonymousEngine::Core::EngineSettings::GetPlatform() == AnonymousEngine::Core::PlatformType::OpenGL)
 			{
+#if PLATFORM == OPEN_GL
 				// load the texture and then save the texture in the bank
 				std::uint32_t texture = SOIL_load_OGL_texture(pTextureFilePath.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
 					SOIL_FLAG_INVERT_Y);
 
 				sTextureBank[pTextureFilePath] = texture;
 				return texture;
+#endif
 			}
 			else if (AnonymousEngine::Core::EngineSettings::GetPlatform() == AnonymousEngine::Core::PlatformType::DirectX)
 			{

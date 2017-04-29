@@ -85,12 +85,11 @@ namespace AnonymousEngine
 		};
 
 #define ENTITY_FACTORY_DECLARATIONS(ConcreteEntityT)		\
-	CONCRETE_FACTORY_DECLARATIONS(Entity, ConcreteEntityT)
+	CONCRETE_FACTORY_DECLARATIONS(Containers::Entity, ConcreteEntityT)
 
 #define ENTITY_FACTORY_DEFINITIONS(ConcreteEntityT)		\
-	CONCRETE_FACTORY_DEFINITIONS(Entity, ConcreteEntityT)
+	CONCRETE_FACTORY_DEFINITIONS(Containers::Entity, ConcreteEntityT)
 
 		ENTITY_FACTORY_DECLARATIONS(Entity);
-
 	}
 }

@@ -4,7 +4,7 @@
 #define WINDOW_WIDTH	800
 #define WINDOW_HEIGHT	600
 #define WINDOW_TITLE	"Anonymous Engine Demo - OpenGL"
-#define PLATFORM OPENGL
+#define OpenGL
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {

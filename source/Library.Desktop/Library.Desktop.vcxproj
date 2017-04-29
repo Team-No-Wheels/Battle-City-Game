@@ -95,17 +95,18 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\soil;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\external\soil\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4201;4592</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201;4592;4098</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
     </Link>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\soil;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Expat.lib; soil.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;$(SolutionDir)\..\external\soil\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Expat.lib;SOIL.lib;</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration)\Expat.pdb" "$(OutDir)" /R /Y</Command>
@@ -120,17 +121,18 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\soil;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\external\soil\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4201;4592</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201;4592;4098</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
     </Link>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\soil;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Expat.lib; soil.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;$(SolutionDir)\..\external\soil\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Expat.lib;SOIL.lib;</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration)\Expat.pdb" "$(OutDir)" /R /Y</Command>
@@ -147,8 +149,8 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\soil;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4201;4592</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\external\soil\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4201;4592;4098</DisableSpecificWarnings>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -158,8 +160,8 @@
     </Link>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\soil;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Expat.lib; soil.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;$(SolutionDir)\..\external\soil\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Expat.lib;SOIL.lib;</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration)\Expat.pdb" "$(OutDir)" /R /Y</Command>
@@ -176,8 +178,8 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\soil;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4201;4592</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\external\soil\include;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4201;4592;4098</DisableSpecificWarnings>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -187,8 +189,8 @@
     </Link>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\soil;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Expat.lib; soil.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;$(SolutionDir)\..\external\soil\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Expat.lib;SOIL.lib;</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration)\Expat.pdb" "$(OutDir)" /R /Y</Command>
