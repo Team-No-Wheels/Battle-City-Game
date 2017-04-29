@@ -3,8 +3,8 @@
 
 using namespace AnonymousEngine;
 
-MessageCollision::MessageCollision() :
-	mEntities(5)
+MessageCollision::MessageCollision(Containers::WorldState& worldState):
+	mEntities(5), mWorldState(worldState)
 {
 
 }
@@ -38,4 +38,9 @@ void MessageCollision::AddCollision( Entity& entity1, Entity& entity2)
 Vector<MessageCollision::CollisionPair>& MessageCollision::GetEntities()
 {
 	return mEntities;
+}
+
+Containers::WorldState& MessageCollision::WorldState()
+{
+	return mWorldState;
 }

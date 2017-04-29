@@ -41,7 +41,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Reaction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Renderable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RendererService.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RpnEvaluator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Service.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ServiceLocator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SetValue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
@@ -49,6 +52,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Sprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Switch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RpnTypes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TextureLoaderService.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedData.h" />
@@ -87,6 +91,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Reaction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Renderable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RpnEvaluator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ServiceLocator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SetValue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScopeSharedData.cpp" />

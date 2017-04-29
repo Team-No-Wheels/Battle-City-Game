@@ -57,7 +57,7 @@
       <Filter>Other</Filter>
     </ClCompile>
     <ClCompile Include="ScoreMessageStructs.cpp">
-      <Filter>Other</Filter>
+      <Filter>Events / Messages</Filter>
     </ClCompile>
     <ClCompile Include="BasicTankAI.cpp">
       <Filter>Entities\AI</Filter>
@@ -98,13 +98,17 @@
     <ClInclude Include="ScoreManager.h">
       <Filter>Other</Filter>
     </ClInclude>
+    <ClCompile Include="BattleCity.cpp" />
     <ClInclude Include="ScoreMessageStructs.h">
-      <Filter>Other</Filter>
+      <Filter>Events / Messages</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClCompile Include="BattleCity.cpp" />
     <ClInclude Include="BasicTankAI.h">
       <Filter>Entities\AI</Filter>
     </ClInclude>
+=======
+>>>>>>> 3251f38a8ca54e0183e7469f60a04259885f32b3
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />

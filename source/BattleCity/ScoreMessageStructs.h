@@ -1,5 +1,6 @@
 #pragma once
 #include "HashMap.h"
+#include "WorldState.h"
 namespace AnonymousEngine
 {
 	/** Used for events which fire when a tank definition is recieved by
@@ -64,36 +65,48 @@ namespace AnonymousEngine
 	{
 	private:
 		std::string mName;
+		Containers::WorldState& mWorldState;
 	public:
 		/** Construct a score increase message and fill in it's members
 		*/
-		ScoreEventMessage(std::string name);
+		ScoreEventMessage(std::string name, Containers::WorldState& worldState);
 
 		/** Returns the name of the score type.
 		*	@return The name of the score type.
 		*/
 		std::string Name();
 
+		/** Returns a reference to the world state.
+		*	@return A reference to the world state.
+		*/
+		Containers::WorldState& WorldState();
+
 		/** Destruct a tank defined message
 		*/
 		~ScoreEventMessage() = default;
 	};
 
-	/** Used for events which fire when either the player or the flag recieves damage
+	/** Used for events which fire when either the player or the flag receives damage
 	*/
 	struct PlayerSideDamageMessage
 	{
 	private:
 		bool mWasFlag;
+		Containers::WorldState& mWorldState;
 	public:
 		/** Construct a player side damage message and fill in it's members
 		*/
-		PlayerSideDamageMessage(bool wasFlag);
+		PlayerSideDamageMessage(bool wasFlag, Containers::WorldState& worldState);
 
 		/** Returns whether the damage was to the flag or not.
 		*	@return Whether the damage was to the flag or not.
 		*/
 		bool WasFlag();
+
+		/** Returns a reference to the world state.
+		*	@return A reference to the world state.
+		*/
+		Containers::WorldState& WorldState();
 
 		/** Destruct a player side damage message
 		*/
