@@ -1,22 +1,22 @@
 #include "Pch.h"
-#include "TextureLoader_OpenGL.h"
+#include "TextureLoaderOpenGL.h"
 #include "SOIL.h"
 
 namespace AnonymousEngine
 {
 	namespace Graphics
 	{
-		TextureLoader_OpenGL::TextureLoader_OpenGL()
+		TextureLoaderOpenGL::TextureLoaderOpenGL()
 		{
 
 		}
 
-		TextureLoader_OpenGL::~TextureLoader_OpenGL()
+		TextureLoaderOpenGL::~TextureLoaderOpenGL()
 		{
 			Purge();
 		}
 
-		std::uint32_t TextureLoader_OpenGL::GetTexture(const std::string& pTextureFilePath, bool pForceLoad)
+		std::uint32_t TextureLoaderOpenGL::GetTexture(const std::string& pTextureFilePath, bool pForceLoad)
 		{
 			HashMap<std::string, std::uint32_t>::Iterator itr = mTextureBank.Find(pTextureFilePath);
 			// search if the texture is already loaded before and if not force load
@@ -33,7 +33,7 @@ namespace AnonymousEngine
 			return texture;
 		}
 
-		void TextureLoader_OpenGL::Purge()
+		void TextureLoaderOpenGL::Purge()
 		{
 			// delete textures from GPU.
 			for (std::pair<std::string, std::uint32_t> element : mTextureBank)

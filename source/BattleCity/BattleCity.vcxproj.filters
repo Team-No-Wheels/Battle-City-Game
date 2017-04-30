@@ -17,6 +17,12 @@
     <Filter Include="Other">
       <UniqueIdentifier>{ece81f04-8956-43d5-ba61-76eabb62b83f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entities\AI">
+      <UniqueIdentifier>{73aa967b-8440-4137-b49b-edb123778fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapEntities">
+      <UniqueIdentifier>{2e30e677-a660-4f72-99c4-2bf52334d24f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pch.cpp" />
@@ -55,6 +61,18 @@
     </ClCompile>
     <ClCompile Include="ScoreMessageStructs.cpp">
       <Filter>Events / Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicTankAI.cpp">
+      <Filter>Entities\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Grass.cpp">
+      <Filter>MapEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>MapEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="Metal.cpp">
+      <Filter>MapEntities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +113,19 @@
     <ClCompile Include="BattleCity.cpp" />
     <ClInclude Include="ScoreMessageStructs.h">
       <Filter>Events / Messages</Filter>
+    </ClInclude>
+    <ClCompile Include="BattleCity.cpp" />
+    <ClInclude Include="BasicTankAI.h">
+      <Filter>Entities\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Grass.h">
+      <Filter>MapEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="Metal.h">
+      <Filter>MapEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>MapEntities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

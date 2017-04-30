@@ -84,11 +84,11 @@ namespace AnonymousEngine
 			ATTRIBUTED_DECLARATIONS(Entity, Attributed)
 		};
 
-#define ENTITY_FACTORY_DECLARATIONS(ConcreteEntityT)		\
-	CONCRETE_FACTORY_DECLARATIONS(Containers::Entity, ConcreteEntityT)
+#define ENTITY_FACTORY_DECLARATIONS(ConcreteEntityT)	\
+	CONCRETE_FACTORY_DECLARATIONS(AnonymousEngine::Containers::Entity, ConcreteEntityT)
 
 #define ENTITY_FACTORY_DEFINITIONS(ConcreteEntityT)		\
-	CONCRETE_FACTORY_DEFINITIONS(Containers::Entity, ConcreteEntityT)
+	CONCRETE_FACTORY_DEFINITIONS(AnonymousEngine::Containers::Entity, ConcreteEntityT)
 
 		ENTITY_FACTORY_DECLARATIONS(Entity);
 	}

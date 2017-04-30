@@ -1,6 +1,7 @@
 #pragma once
 #include "HashMap.h"
 #include "Service.h"
+#include "Rectangle.h"
 
 namespace AnonymousEngine
 {
@@ -15,7 +16,7 @@ namespace AnonymousEngine
 			/**
 				@brief Calls the appropriate render function.
 			*/
-			virtual void Render() = 0;
+			virtual void Render(uint32_t pTextureID, const Geometry::Rectangle& pSpriteBounds, const Geometry::Rectangle& pUVBounds) = 0;
 
 		};
 	}

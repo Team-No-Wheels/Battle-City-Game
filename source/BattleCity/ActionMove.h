@@ -35,12 +35,12 @@ namespace AnonymousEngine
 		ActionMove();
 		~ActionMove();
 
-		void Update(WorldState& worldState);
+		void Update(WorldState& worldState) override;
 
 		void Move();
 		void SetSpeed(float speed);
 		void SetDirection(Direction direction);
-		Direction GetDirection();
+		Direction GetDirection() const;
 
 	protected:
 

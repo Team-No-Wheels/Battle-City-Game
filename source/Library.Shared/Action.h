@@ -53,10 +53,10 @@ namespace AnonymousEngine
 		};
 
 #define ACTION_FACTORY_DECLARATIONS(ConcreteActionT)		\
-	CONCRETE_FACTORY_DECLARATIONS(Action, ConcreteActionT)
+	CONCRETE_FACTORY_DECLARATIONS(AnonymousEngine::Containers::Action, ConcreteActionT)
 
 #define ACTION_FACTORY_DEFINITIONS(ConcreteActionT)		\
-	CONCRETE_FACTORY_DEFINITIONS(Action, ConcreteActionT)
+	CONCRETE_FACTORY_DEFINITIONS(AnonymousEngine::Containers::Action, ConcreteActionT)
 
 	}
 }
