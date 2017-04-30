@@ -71,6 +71,9 @@
     <ClCompile Include="BrownBrick.cpp">
       <Filter>MapEntities</Filter>
     </ClCompile>
+    <ClCompile Include="Grass.cpp">
+      <Filter>MapEntities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -119,6 +122,9 @@
       <Filter>MapEntities</Filter>
     </ClInclude>
     <ClInclude Include="BrownBrick.h">
+      <Filter>MapEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="Grass.h">
       <Filter>MapEntities</Filter>
     </ClInclude>
   </ItemGroup>

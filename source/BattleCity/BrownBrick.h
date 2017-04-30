@@ -5,6 +5,8 @@ namespace BattleCity
 {
 	namespace MapEntities
 	{
+		/** Rendering class for BrownBrick on the map.
+		*/
 		class BrownBrick :public AnonymousEngine::Graphics::Sprite
 		{
 			ATTRIBUTED_DECLARATIONS(BrownBrick, AnonymousEngine::Graphics::Sprite)
@@ -13,6 +15,6 @@ namespace BattleCity
 			BrownBrick();
 		};
 
-		//ENTITY_FACTORY_DECLARATIONS(BrownBrick)
+		ENTITY_FACTORY_DECLARATIONS(BrownBrick)
 	}
 }

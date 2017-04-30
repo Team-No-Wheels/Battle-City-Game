@@ -177,6 +177,7 @@
     <ClInclude Include="ActionShoot.h" />
     <ClInclude Include="BrownBrick.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Grass.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="MessageCollision.h" />
     <ClInclude Include="MessageInput.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="ActionShoot.cpp" />
     <ClCompile Include="BrownBrick.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Grass.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="MessageCollision.cpp" />
     <ClCompile Include="MessageInput.cpp" />
