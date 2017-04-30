@@ -5,18 +5,18 @@ namespace AnonymousEngine
 {
 	namespace Graphics
 	{
-		class TextureLoader_OpenGL final : public TextureLoaderService
+		class TextureLoaderOpenGL final : public TextureLoaderService
 		{
 		public:
 			/**
 				Default constructor.
 			*/
-			TextureLoader_OpenGL();
+			TextureLoaderOpenGL();
 
 			/**
 				Default constructor
 			*/
-			~TextureLoader_OpenGL();
+			~TextureLoaderOpenGL();
 
 			/**
 				@brief Return the unsigned int that is used to represent the texture id.
@@ -25,12 +25,12 @@ namespace AnonymousEngine
 				@param[in] pForceLoad If true it will reload the texture if its already loaded. If false load the texture if not loaded else return the already loaded texture id.
 				@return unsigned int that holds the id of the texture.
 			*/
-			virtual std::uint32_t GetTexture(const std::string& pTextureFilePath, bool pForceLoad = false);
+			virtual std::uint32_t GetTexture(const std::string& pTextureFilePath, bool pForceLoad = false) override;
 
 			/**
 				@brief Purge all the textures that are loaded.
 			*/
-			virtual void Purge();
+			virtual void Purge() override;
 
 		private:
 			/**

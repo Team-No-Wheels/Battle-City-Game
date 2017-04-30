@@ -61,14 +61,14 @@ namespace AnonymousEngine
 	};
 
 #define CONCRETE_FACTORY_DECLARATIONS(AbstractProductT, ConcreteProductT)		\
-	class ConcreteProductT##Factory : public Factory<AbstractProductT>          \
+	class ConcreteProductT##Factory : public AnonymousEngine::Factory<AbstractProductT>          \
 	{                                                                           \
 	public:                                                                     \
 		ConcreteProductT##Factory();                                            \
 		~ConcreteProductT##Factory();                                           \
 		std::string ClassName() const override;                                 \
 		AbstractProductT* Create() const override;                              \
-		RTTI_DECLARATIONS(ConcreteProductT##Factory, Factory<AbstractProductT>) \
+		RTTI_DECLARATIONS(ConcreteProductT##Factory, AnonymousEngine::Factory<AbstractProductT>) \
 	};
 
 #define CONCRETE_FACTORY_DEFINITIONS(AbstractProductT, ConcreteProductT)		\

@@ -4,7 +4,8 @@
 #include "ShaderCompiler.h"
 #include "EngineSettings.h"
 #include "ServiceLocator.h"
-#include "TextureLoader_OpenGL.h"
+#include "TextureLoaderOpenGL.h"
+#include "RendererOpenGL.h"
 
 namespace AnonymousEngine
 {
@@ -20,9 +21,12 @@ namespace AnonymousEngine
 		AnonymousEngine::Core::EngineSettings::SetScreenHeight(height);
 
 		// setting up the ServiceLocator
-		Graphics::TextureLoader_OpenGL textureLoader;
+		// registering TextureLoader
+		Graphics::TextureLoaderOpenGL textureLoader;
 		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::TextureLoader, textureLoader);
-		// TODO : set up render ServiceLocator also
+		// registering Renderer
+		Graphics::RendererOpenGL renderer;
+		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::Renderer, renderer);
 
 		mBattleCity = new BattleCity::BattleCity();
 	}
@@ -135,9 +139,6 @@ namespace AnonymousEngine
 
 	void Program::Draw()
 	{
-		
-		
-
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);
