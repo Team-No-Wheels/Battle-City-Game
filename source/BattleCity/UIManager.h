@@ -1,8 +1,12 @@
 #pragma once
 
+#include <string>
+#include "HashMap.h"
+#include "UIScreen.h"
+
 namespace BattleCity
 {
-	class UIManager
+	class UIManager final
 	{
 	public:
 
@@ -18,23 +22,30 @@ namespace BattleCity
 
 		/** Initialize a UI manager
 		 */
-		UIManager();
+		UIManager() = default;
 		/** Destroys the UI manager
 		 */
-		~UIManager();
+		~UIManager() = default;
 
-		/** Set active UI type
-		 *  @param uiType The current UI type to set active
+		/** Activate a UI screen
+		 *  @param uiType The UI screen to activate
 		 */
-		void SetActiveUI(UiType uiType);
+		void ActivateUiScreen(UiType uiType);
+
+		/** Deactivate a UI screen
+		 *  @param uiType The UI screen to deactivate
+		 */
+		void DeactivateUiScreen(UiType uiType);
 		
-		/** Updates the active UI
+		/** Updates the active UI screebs
 		 */
 		void Update();
 
 	private:
 
-		// The active UI
-		UiType mActiveUI;
+		// stores the active screens
+		AnonymousEngine::HashMap<UiType, UIScreen*> mActiveUiScreens;
+
+		static AnonymousEngine::HashMap<UiType, std::string> ScreenClassNames;
 	};
 }

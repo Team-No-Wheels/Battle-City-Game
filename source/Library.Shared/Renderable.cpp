@@ -8,7 +8,7 @@ namespace AnonymousEngine
 		ATTRIBUTED_DEFINITIONS(Renderable)
 		
 		Renderable::Renderable() :
-			mAlpha(1.0f), mTexture(nullptr)
+			mAlpha(1.0f), mTexture(nullptr), isInitialized(false)
 		{
 			AddExternalAttribute("Alpha", &mAlpha, 1);
 			AddExternalAttribute("Width", &mWidth, 1);
@@ -19,6 +19,7 @@ namespace AnonymousEngine
 		void Renderable::Init(const std::string& pFilePath)
 		{
 			pFilePath;
+			isInitialized = true;
 		}
 
 		void Renderable::Update(float pDeltaTime)

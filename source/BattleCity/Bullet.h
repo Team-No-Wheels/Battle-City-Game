@@ -7,6 +7,7 @@ namespace AnonymousEngine
 {
 	class ActionShoot;
 
+	// todo remove event sub, and override the OnCollision method to handle collision
 	class Bullet : public GameObject, public EventSubscriber
 	{
 

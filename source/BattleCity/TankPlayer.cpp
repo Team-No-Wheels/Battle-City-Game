@@ -53,13 +53,13 @@ namespace AnonymousEngine
 		if (curEvent != nullptr)
 		{
 			MessageInput* message = &const_cast<MessageInput&>(curEvent->Message());
-			Vector<std::string*>* Keys = &message->GetKeys();
+			Vector<std::string>& Keys = message->GetKeys();
 
 			// React To Certain Key Presses
-			for (std::string* c : *Keys)
+			for (const auto& key : Keys)
 			{
 				// Move Up
-				if (*c == "Up")
+				if (key == "Up")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Up);
 					mMoveComponent->Move();
@@ -67,7 +67,7 @@ namespace AnonymousEngine
 				}
 
 				// Move Down
-				else if (*c == "Down")
+				else if (key == "Down")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Down);
 					mMoveComponent->Move();
@@ -75,7 +75,7 @@ namespace AnonymousEngine
 				}
 
 				// Move Left
-				else if (*c == "Left")
+				else if (key == "Left")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Left);
 					mMoveComponent->Move();
@@ -83,7 +83,7 @@ namespace AnonymousEngine
 				}
 
 				// Move Right
-				else if (*c == "Right")
+				else if (key == "Right")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Right);
 					mMoveComponent->Move();
@@ -91,7 +91,7 @@ namespace AnonymousEngine
 				}
 
 				// Try Shooting
-				if (*c == "Shoot" && mShootComponent->CanShoot())
+				if (key == "Shoot" && mShootComponent->CanShoot())
 				{
 					mShootComponent->CreateBullet();
 

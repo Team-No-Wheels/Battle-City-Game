@@ -1,41 +1,43 @@
 #include "Pch.h"
 #include "MessageInput.h"
 
-using namespace AnonymousEngine;
-
-MessageInput::MessageInput() :
-	mKeys(5)
+namespace AnonymousEngine
 {
-
-}
-
-MessageInput::~MessageInput()
-{
-
-}
-
-bool MessageInput::operator==(const MessageInput& rhs)
-{
-	if (mKeys.Size() != rhs.mKeys.Size())
-		return false;
-
-	for (std::uint32_t i = 0; i < mKeys.Size(); ++i)
+	MessageInput::MessageInput() :
+		mKeys(5)
 	{
-		if (mKeys[i] != rhs.mKeys[i])
+
+	}
+
+	MessageInput::~MessageInput()
+	{
+
+	}
+
+	bool MessageInput::operator==(const MessageInput& rhs)
+	{
+		if (mKeys.Size() != rhs.mKeys.Size())
 		{
 			return false;
 		}
+
+		for (std::uint32_t i = 0; i < mKeys.Size(); ++i)
+		{
+			if (mKeys[i] != rhs.mKeys[i])
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
-	return true;
-}
+	void MessageInput::AddKey(const std::string& key)
+	{
+		mKeys.PushBack(key);
+	}
 
-void MessageInput::AddKey(std::string& key)
-{
-	mKeys.PushBack(&key);
-}
-
-Vector<std::string*>& MessageInput::GetKeys()
-{
-	return mKeys;
+	Vector<std::string>& MessageInput::GetKeys()
+	{
+		return mKeys;
+	}
 }
