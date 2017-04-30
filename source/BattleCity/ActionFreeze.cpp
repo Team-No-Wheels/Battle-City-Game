@@ -9,7 +9,7 @@ namespace AnonymousEngine
 	ATTRIBUTED_DEFINITIONS(ActionFreeze);
 
 	ActionFreeze::ActionFreeze() :
-		mTimeFrozen(10), mTimeRemaining(0), Zero(0)
+		mTimeFrozen(10), mTimeRemaining(0), Zero(0), mFreezeCalled(false)
 	{
 		Event<EventMessageAttributed>::Subscribe(*this);
 	}
@@ -44,6 +44,7 @@ namespace AnonymousEngine
 						if (mTimeRemaining > Zero)
 						{
 							tank->Freeze();
+							mFreezeCalled = true;
 						}
 
 						// Unfreeze Tank
@@ -54,6 +55,10 @@ namespace AnonymousEngine
 					}
 				}
 			}
+		}
+		else
+		{
+			mFreezeCalled = false;
 		}
 
 		worldState.mAction = nullptr;

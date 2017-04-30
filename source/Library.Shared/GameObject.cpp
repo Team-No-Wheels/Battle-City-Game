@@ -3,11 +3,11 @@
 
 namespace AnonymousEngine
 {
-	namespace Containers
+	namespace Core
 	{
-		const std::string sPositionAttributeName = "Position";
+		const std::string GameObject::sPositionAttributeName = "Position";
 
-		GameObject::GameObject() : mPosition(std::move(glm::vec4()))
+		GameObject::GameObject() : mPosition(std::move(glm::vec4())), mCollider(*this)
 		{
 			AddExternalAttribute(sPositionAttributeName, &mPosition, 1);
 		}
@@ -22,9 +22,19 @@ namespace AnonymousEngine
 			return mPosition;
 		}
 
-		void GameObject::Update(WorldState& worldState)
+		void GameObject::Update(Containers::WorldState& worldState)
 		{
 			worldState;
+		}
+
+		void GameObject::OnCollision(GameObject& otherGameObject)
+		{
+			otherGameObject;
+		}
+
+		Collider& GameObject::GetCollider()
+		{
+			return mCollider;
 		}
 
 		void GameObject::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

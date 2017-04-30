@@ -1,5 +1,9 @@
 #include "Pch.h"
 #include "Sprite.h"
+#include "ServiceLocator.h"
+#include "Rectangle.h"
+
+
 //#include "TextureLoader.h"
 
 namespace AnonymousEngine
@@ -19,8 +23,8 @@ namespace AnonymousEngine
 		void Sprite::Init(const std::string& pSpriteFilePath)
 		{
 			Renderable::Init(pSpriteFilePath);
-
-			//mTextureID = TextureLoader::GetTexture(pSpriteFilePath);
+			TextureLoaderService* loader = Core::ServiceLocator::GetTextureLoader();
+			mTexture = loader->GetTexture(pSpriteFilePath);
 
 			mHeight = 100;
 			mWidth = 50;
@@ -43,40 +47,15 @@ namespace AnonymousEngine
 
 		void Sprite::Render()
 		{
-			// Clear the window
-			//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			//glEnable(GL_BLEND);
-			//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			// Set the modelview matrix to be the identity matrix
-			//glLoadIdentity();
+			//Geometry::Rectangle uv(0, 0, 1, 0, 0, 1, 1, 1);
+			Geometry::Rectangle uv(0, 1, 1, 1, 0, 0, 1, 0);
+			Geometry::Rectangle position(-100 + 400, 100 + 400,
+				100 + 400, 100 + 400,
+				-100 + 400, -100 + 400,
+				100 + 400, -100 + 400);
 
+			Core::ServiceLocator::GetRenderer()->Render(mTexture, position, uv);
 
-			glColor3f(1, 1, 1);
-			glEnable(GL_TEXTURE_2D);
-			glBindTexture(GL_TEXTURE_2D, mTextureID);
-
-
-			// Draw a textured quad
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0); glVertex3f(-100, -100, 0);
-			glTexCoord2f(0, 1); glVertex3f(-100, 100, 0);
-			glTexCoord2f(1, 1); glVertex3f(100, 100, 0);
-			glTexCoord2f(1, 0); glVertex3f(100, -100, 0);
-			glEnd();
-
-			glLineWidth(10);
-			// Draw filtered lines
-			glEnable(GL_LINE_SMOOTH);
-			glDisable(GL_TEXTURE_2D);
-			glBegin(GL_LINE_STRIP);
-
-			glColor3ub(200, 200, 255);
-			glVertex3f(-100000, -100000, 0.0f);
-			glVertex3f(100000, 100000, 0.0f);
-
-			glEnd();
-
-			//glFlush();
 
 #ifdef _DEBUG
 			DrawDebugBounds();
@@ -86,6 +65,11 @@ namespace AnonymousEngine
 
 		void Sprite::DrawDebugBounds()
 		{
+			Geometry::Rectangle position(-100 + 400, 100 + 400, 
+				100 + 400, 100 + 400, 
+				-100 + 400, -100 + 400, 
+				100 + 400, -100 + 400);
+			Core::ServiceLocator::GetRenderer()->DrawRectangle(position, 255, 0, 0);
 		}
 
 		void Sprite::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)

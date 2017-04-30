@@ -7,9 +7,9 @@ namespace BattleCity
 	{
 		/** GameObject class for Water on the map.
 		*/
-		class Water :public AnonymousEngine::Containers::GameObject
+		class Water :public AnonymousEngine::Core::GameObject
 		{
-			ATTRIBUTED_DECLARATIONS(Water, AnonymousEngine::Containers::GameObject)
+			ATTRIBUTED_DECLARATIONS(Water, AnonymousEngine::Core::GameObject)
 
 		public:
 			/** Defaulted constructor.

@@ -4,8 +4,7 @@
 #include "ShaderCompiler.h"
 #include "EngineSettings.h"
 #include "ServiceLocator.h"
-#include "TextureLoaderOpenGL.h"
-#include "RendererOpenGL.h"
+
 
 namespace AnonymousEngine
 {
@@ -22,11 +21,11 @@ namespace AnonymousEngine
 
 		// setting up the ServiceLocator
 		// registering TextureLoader
-		Graphics::TextureLoaderOpenGL textureLoader;
-		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::TextureLoader, textureLoader);
+		mTextureLoader = new Graphics::TextureLoaderOpenGL();
+		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::TextureLoader, *mTextureLoader);
 		// registering Renderer
-		Graphics::RendererOpenGL renderer;
-		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::Renderer, renderer);
+		mRenderer = new Graphics::RendererOpenGL();
+		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::Renderer, *mRenderer);
 
 		mBattleCity = new BattleCity::BattleCity();
 	}
@@ -65,10 +64,11 @@ namespace AnonymousEngine
 		// initialize viewport
 		glfwGetFramebufferSize(window, nullptr, nullptr);
 		glViewport(0, 0, width, height);
+		glOrtho(0.0f, (GLfloat)width, 0.0f, (GLfloat)height, -100.0f, 100.0f);
 
 		// register keyboard handler
 		glfwSetKeyCallback(window, KeyCallback);
-		InitShaders();
+		//InitShaders();
 
 		mBattleCity->Init();
 	}
@@ -79,10 +79,10 @@ namespace AnonymousEngine
 		while (!glfwWindowShouldClose(window))
 		{
 			glfwPollEvents();
-			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
-
-			Draw();
+			
+			//Draw();
 			mBattleCity->Update(1.0f / 60.0f);
 
 			glfwSwapBuffers(window);

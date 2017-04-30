@@ -24,13 +24,17 @@ namespace AnonymousEngine
 		void Update(WorldState& worldState) override;
 		void CreateBullet();
 		void PendKillBullet(Bullet& bullet);
-		void DestroyBullet();
+		void DestroyPendingBullets();
 
 		bool CanShoot() const;
 		bool IsDouble() const;
 
+		uint32_t GetCapacityToShoot() const;
+		void SetCapacityToShoot(const uint32_t capacityToShoot);
+
 	private:
-		bool mCanShoot;
+
+		uint32_t mBulletsCapacity;
 		bool isFast, isDouble, isStrong; // For Star Power Up
 		Vector<Bullet*> mBulletsLiving, mBulletsPending;
 	};
