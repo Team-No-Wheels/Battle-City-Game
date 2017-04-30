@@ -33,6 +33,16 @@ namespace AnonymousEngine
 			mName = name;
 		}
 
+		void World::InitializeWorld()
+		{
+			mWorldState.mCurrentLevel = 0;
+		}
+
+		void World::LoadNextLevel()
+		{
+			mWorldState.mCurrentLevel++;
+		}
+
 		Datum& World::Sectors() const
 		{
 			return (*mSectors);
