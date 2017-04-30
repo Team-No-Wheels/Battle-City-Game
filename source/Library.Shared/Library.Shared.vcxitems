@@ -82,7 +82,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EventPublisher.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EventQueue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HashFunctors.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp" />
