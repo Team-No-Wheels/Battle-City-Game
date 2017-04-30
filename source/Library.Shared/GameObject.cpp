@@ -7,7 +7,6 @@ namespace AnonymousEngine
 	{
 		GameObject::GameObject() : mPosition(std::move(glm::vec4()))
 		{
-
 		}
 
 		void GameObject::SetPosition(const glm::vec4& position)
@@ -23,6 +22,11 @@ namespace AnonymousEngine
 		void GameObject::Update(WorldState& worldState)
 		{
 			worldState;
+		}
+
+		void GameObject::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+		{
+			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 		}
 
 		ATTRIBUTED_DEFINITIONS(GameObject)

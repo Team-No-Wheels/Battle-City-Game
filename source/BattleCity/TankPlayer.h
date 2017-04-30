@@ -11,8 +11,7 @@ namespace AnonymousEngine
 
 	class TankPlayer : public TankBase, public EventSubscriber
 	{
-
-		RTTI_DECLARATIONS(TankPlayer, TankBase);
+		ATTRIBUTED_DECLARATIONS(TankPlayer, TankBase);
 
 	public:
 

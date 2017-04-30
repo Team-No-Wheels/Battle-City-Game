@@ -18,8 +18,7 @@ namespace AnonymousEngine
 
 	class PowerUp : public GameObject, public EventSubscriber
 	{
-
-		RTTI_DECLARATIONS(PowerUp, GameObject);
+		ATTRIBUTED_DECLARATIONS(PowerUp, GameObject);
 
 	public:
 

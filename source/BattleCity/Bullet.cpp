@@ -6,7 +6,7 @@
 
 namespace AnonymousEngine
 {
-	RTTI_DEFINITIONS(Bullet);
+	ATTRIBUTED_DEFINITIONS(Bullet);
 
 	Bullet::Bullet() :
 		mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
@@ -104,6 +104,11 @@ namespace AnonymousEngine
 				}
 			}
 		}
+	}
+
+	void Bullet::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
 
 	ENTITY_FACTORY_DEFINITIONS(Bullet);

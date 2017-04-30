@@ -3,7 +3,7 @@
 
 namespace AnonymousEngine
 {
-	RTTI_DEFINITIONS(TankPlayer);
+	ATTRIBUTED_DEFINITIONS(TankPlayer);
 
 	TankPlayer::TankPlayer() :
 		mIsInvincible(false), mStars(0), mTimeInvincible(0)
@@ -109,6 +109,11 @@ namespace AnonymousEngine
 				}
 			}
 		}
+	}
+
+	void TankPlayer::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
 
 	ENTITY_FACTORY_DEFINITIONS(TankPlayer);
