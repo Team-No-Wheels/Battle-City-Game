@@ -1,25 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Action.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)AttributedReaction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Compare.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)CreateAction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)DestroyAction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)EngineSettings.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Entity.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)EventAction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)EventMessageAttributed.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)EventPublisher.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)EventQueue.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameTime.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)HashFunctors.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)IXmlParseHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Pch.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HashFunctors.cpp">
       <Filter>Containers</Filter>
@@ -132,38 +113,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Collider.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp">
-      <Filter>Geometry</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Action.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)AttributedReaction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Compare.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)CreateAction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EngineSettings.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Event.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EventAction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EventMessageAttributed.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EventPublisher.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EventQueue.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EventSubscriber.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameClock.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameTime.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)HashFunctors.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)DefaultVectorCapacityStrategy.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)HashMap.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)InfixParser.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SList.h">
       <Filter>Containers</Filter>
@@ -315,21 +266,54 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Collider.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h">
-      <Filter>Geometry</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Compare.inl" />
-    <None Include="$(MSBuildThisFileDirectory)Datum.inl" />
-    <None Include="$(MSBuildThisFileDirectory)Event.inl" />
-    <None Include="$(MSBuildThisFileDirectory)Factory.inl" />
-    <None Include="$(MSBuildThisFileDirectory)HashFunctors.inl" />
-    <None Include="$(MSBuildThisFileDirectory)HashMap.inl" />
-    <None Include="$(MSBuildThisFileDirectory)SList.inl" />
-    <None Include="$(MSBuildThisFileDirectory)Vector.inl" />
+    <Filter Include="Containers">
+      <UniqueIdentifier>{cd38dc33-ad1d-4308-8c8e-59b2a017d5ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parsers">
+      <UniqueIdentifier>{e679a601-4adf-4200-ace2-f0699933835a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parsers\Helpers">
+      <UniqueIdentifier>{359e9ec9-e9d4-432d-bf8f-cdc91daa032c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{f822b7cc-3c0b-4683-bff9-da063ca19d64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{b0a89a71-260c-45f6-9e43-551a2828a234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actions">
+      <UniqueIdentifier>{95658011-e196-425f-bded-e181e951755a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{9a25cce1-9533-43b7-b8dd-24a0155b27a6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Vector.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)SList.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)HashFunctors.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)HashMap.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Compare.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Datum.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Factory.inl">
+      <Filter>Core</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Event.inl">
+      <Filter>Core</Filter>
+    </None>
   </ItemGroup>
 </Project>
