@@ -7,5 +7,10 @@ namespace BattleCity
 	{
 		ATTRIBUTED_DEFINITIONS(Metal)
 		ENTITY_FACTORY_DEFINITIONS(Metal)
+
+		void Metal::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+		{
+			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
+		}
 	}
 }

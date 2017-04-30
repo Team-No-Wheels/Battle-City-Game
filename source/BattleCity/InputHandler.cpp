@@ -5,7 +5,7 @@ using namespace AnonymousEngine;
 RTTI_DEFINITIONS(InputHandler);
 
 InputHandler::InputHandler() :
-	handle(GetStdHandle(STD_INPUT_HANDLE))
+	handle(GetStdHandle(STD_INPUT_HANDLE)), mEventQueue(nullptr)
 {
 
 }

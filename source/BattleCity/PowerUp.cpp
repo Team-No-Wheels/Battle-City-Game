@@ -7,7 +7,7 @@ namespace AnonymousEngine
 {
 	const std::string PowerUp::mPowerupKey = "PowerUps";
 
-	RTTI_DEFINITIONS(PowerUp);
+	ATTRIBUTED_DEFINITIONS(PowerUp);
 
 	PowerUp::PowerUp() :
 		mType(PowerUpType::Tank), mClockActivated(false)
@@ -166,6 +166,11 @@ namespace AnonymousEngine
 	void PowerUp::ActivateStar(TankPlayer& player)
 	{
 		player.IncrementStars();
+	}
+
+	void PowerUp::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
 
 	ENTITY_FACTORY_DEFINITIONS(PowerUp);
