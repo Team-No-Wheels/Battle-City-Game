@@ -10,7 +10,7 @@ namespace AnonymousEngine
 		* Constructor
 		* @param gameObject The game object to which this collider belongs.
 		*/
-		Collider(Containers::GameObject& gameObject);
+		Collider(Core::GameObject& gameObject);
 		/**
 		*
 		*/
@@ -54,7 +54,7 @@ namespace AnonymousEngine
 		/**
 		* The game object which owns this collider.
 		*/
-		Containers::GameObject& mGameObject;
+		Core::GameObject& mGameObject;
 		/**
 		* Collider tag.
 		*/

@@ -7,9 +7,9 @@ namespace BattleCity
 	{
 		/** GameObject class for Metal on the map.
 		*/
-		class Metal :public AnonymousEngine::Containers::GameObject
+		class Metal :public AnonymousEngine::Core::GameObject
 		{
-			ATTRIBUTED_DECLARATIONS(Metal, AnonymousEngine::Containers::GameObject)
+			ATTRIBUTED_DECLARATIONS(Metal, AnonymousEngine::Core::GameObject)
 
 		public:
 			/** Defaulted constructor.

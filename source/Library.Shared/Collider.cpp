@@ -1,6 +1,6 @@
 #include "Collider.h"
 
-using namespace AnonymousEngine::Containers;
+using namespace AnonymousEngine::Core;
 
 namespace AnonymousEngine
 {

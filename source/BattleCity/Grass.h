@@ -7,9 +7,9 @@ namespace BattleCity
 	{
 		/** GameObject class for Grass on the map.
 		*/
-		class Grass :public AnonymousEngine::Containers::GameObject
+		class Grass :public AnonymousEngine::Core::GameObject
 		{
-			ATTRIBUTED_DECLARATIONS(Grass, AnonymousEngine::Containers::GameObject)
+			ATTRIBUTED_DECLARATIONS(Grass, AnonymousEngine::Core::GameObject)
 
 		public:
 			/** Defaulted constructor.

@@ -6,9 +6,9 @@
 
 namespace AnonymousEngine
 {
-	namespace Containers
+	namespace Core
 	{
-		class GameObject : public Entity
+		class GameObject : public Containers::Entity
 		{
 		public:
 			GameObject();
@@ -26,11 +26,11 @@ namespace AnonymousEngine
 			/**
 			* Override to the Update call for entity.
 			*/
-			virtual void Update(WorldState& worldState) override;
+			virtual void Update(Containers::WorldState& worldState) override;
 			/**
 			* The method called in case of a collision of this game object with another.
 			*/
-			void OnCollision();
+			//void OnCollision();
 		protected:
 		private:
 			/**

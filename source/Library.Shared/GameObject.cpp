@@ -3,7 +3,7 @@
 
 namespace AnonymousEngine
 {
-	namespace Containers
+	namespace Core
 	{
 		const std::string sPositionAttributeName = "Position";
 
@@ -22,7 +22,7 @@ namespace AnonymousEngine
 			return mPosition;
 		}
 
-		void GameObject::Update(WorldState& worldState)
+		void GameObject::Update(Containers::WorldState& worldState)
 		{
 			worldState;
 		}
