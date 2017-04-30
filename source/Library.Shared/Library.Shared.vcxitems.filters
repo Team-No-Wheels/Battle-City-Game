@@ -110,8 +110,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ServiceLocator.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp">
-      <Filter>Geometry</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,8 +263,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RendererService.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h">
-      <Filter>Geometry</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -75,10 +75,6 @@ namespace AnonymousEngine
 			 */
 			Datum* mActions;
 
-			/** The position of this instance
-			*/
-			glm::vec2 mPosition;
-
 			static const std::string ActionsAttributeName;
 
 			ATTRIBUTED_DECLARATIONS(Entity, Attributed)
