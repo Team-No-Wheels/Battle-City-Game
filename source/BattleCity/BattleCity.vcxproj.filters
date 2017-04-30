@@ -101,6 +101,9 @@
     <ClCompile Include="LevelManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Flag.cpp">
+      <Filter>MapEntities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -171,6 +174,9 @@
     </ClInclude>
     <ClInclude Include="LevelManager.h">
       <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Flag.h">
+      <Filter>MapEntities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

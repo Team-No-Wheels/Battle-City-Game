@@ -16,12 +16,12 @@ namespace AnonymousEngine
 		TankBase();
 		virtual ~TankBase();
 
+		virtual void Update(WorldState& worldState) override;
 		ActionMove& MoveComponent();
 
 	protected:
 
-		ActionMove* mMoveComponent;
 		ActionShoot* mShootComponent;
-
+		ActionMove* mMoveComponent;
 	};
 }

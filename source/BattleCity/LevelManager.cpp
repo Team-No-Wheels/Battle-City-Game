@@ -37,8 +37,9 @@ namespace BattleCity
 		}
 
 		const Vector<Vector<MapTile>>& LevelManager::GetLevelTiles(std::uint32_t levelNumber) const
+
 		{
-			
+			UNREFERENCED_PARAMETER(levelNumber);
 			return m2DTileArray;
 		}
 

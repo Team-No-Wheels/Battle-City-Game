@@ -13,19 +13,16 @@ namespace AnonymousEngine
 		mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
 		mShootParent(nullptr), isStrong(false), isPendingKill(false)
 	{
-		Event<MessageCollision>::Subscribe(*this);
 	}
 
 	Bullet::Bullet(ActionShoot& parent) :
 		mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
 		mShootParent(&parent)
 	{
-		Event<MessageCollision>::Subscribe(*this);
 	}
 
 	Bullet::~Bullet()
 	{
-		Event<MessageCollision>::Unsubscribe(*this);
 		mShootParent = nullptr;
 	}
 
@@ -109,7 +106,8 @@ namespace AnonymousEngine
 
 	void Bullet::CollisionWithEnemy(BasicTankAI& ai)
 	{
-		WorldState* state = FindWorldState();
+		UNREFERENCED_PARAMETER(ai);
+//		WorldState* state = FindWorldState();
 // 		std::string tankType = //GET TANK TYPE NAME STRING
 // 		ScoreEventMessage scoreMessage(tankType, state);
 // 		const std::shared_ptr<Core::Event<PlayerscoreMessageSideDamageMessage>> eventptr = std::make_shared<Core::Event<scoreMessage>>(scoreMessage);
@@ -119,16 +117,17 @@ namespace AnonymousEngine
 
 	void Bullet::CollisionWithBrick(Brick& brick)
 	{
-
+		UNREFERENCED_PARAMETER(brick);
 	}
 
 	void Bullet::CollisionWithMetal(Metal& metal)
 	{
-
+		UNREFERENCED_PARAMETER(metal);
 	}
 
 	void Bullet::CollisionWithFlag(Flag& flag)
 	{
+		UNREFERENCED_PARAMETER(flag);
 		WorldState* state = FindWorldState();
 
 		PlayerSideDamageMessage damageMessage(true, *state);
