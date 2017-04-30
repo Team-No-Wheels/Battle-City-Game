@@ -47,13 +47,13 @@ namespace AnonymousEngine
 			* Length along x-axis.
 			* Length along y-axis.
 			*/
-			void SetDimensions(const std::int32_t& length, const std::int32_t& height);
+			void SetDimensions(const std::int32_t& width, const std::int32_t& height);
 			/**
 			* Check if this collider is in collision with another.
 			* @param otherCollider The collider to check for collision with.
 			* @return True if the collision occured.
 			*/
-			bool InCollision(const Collider& otherCollider);
+			bool InCollision(Collider& otherCollider) const;
 			/**
 			* Get a reference to the game object associated with this collider.
 			*/
@@ -70,9 +70,9 @@ namespace AnonymousEngine
 			/**
 			* The length of the collider along x-axis.
 			*/
-			std::int32_t mLength;
+			std::int32_t mWidth;
 			/**
-			* The height of the collider along y-axis.
+			* The length of the collider along y-axis.
 			*/
 			std::int32_t mHeight;
 		};
