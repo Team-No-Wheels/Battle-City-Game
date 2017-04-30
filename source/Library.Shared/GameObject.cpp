@@ -5,17 +5,17 @@ namespace AnonymousEngine
 {
 	namespace Containers
 	{
-		GameObject::GameObject() : mPosition(std::move(glm::vec2(0,0)))
+		GameObject::GameObject() : mPosition(std::move(glm::vec4()))
 		{
 
 		}
 
-		void GameObject::SetPosition(const glm::vec2& position)
+		void GameObject::SetPosition(const glm::vec4& position)
 		{
 			mPosition = position;
 		}
 
-		const glm::vec2& GameObject::GetPosition() const
+		const glm::vec4& GameObject::GetPosition() const
 		{
 			return mPosition;
 		}

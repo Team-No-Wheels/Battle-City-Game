@@ -36,7 +36,7 @@ void ActionMove::Move()
 
 	if(gameObject != nullptr)
 	{
-		glm::vec2 position = gameObject->GetPosition();
+		glm::vec4 position = gameObject->GetPosition();
 
 		// Update Position Based On Direction
 		switch (mDirection)

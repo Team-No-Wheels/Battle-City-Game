@@ -18,11 +18,11 @@ namespace AnonymousEngine
 			* Set the position of this game object.
 			* @param position The position to set.
 			*/
-			void SetPosition(const glm::vec2& position);
+			void SetPosition(const glm::vec4& position);
 			/**
 			* Get the position of this game object.
 			*/
-			const glm::vec2& GetPosition() const;
+			const glm::vec4& GetPosition() const;
 			/**
 			* Override to the Update call for entity.
 			*/
@@ -32,7 +32,7 @@ namespace AnonymousEngine
 			/**
 			* The position of this game object in the world space.
 			*/
-			glm::vec2 mPosition;
+			glm::vec4 mPosition;
 			/**
 			* The sprite representing this game object in the world.
 			*/
