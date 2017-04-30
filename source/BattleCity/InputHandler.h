@@ -15,14 +15,14 @@ namespace AnonymousEngine
 	class InputHandler final : public Action
 	{
 
-		RTTI_DECLARATIONS(InputHandler, Action);
+		ATTRIBUTED_DECLARATIONS(InputHandler, Action);
 
 	public:
 
 		InputHandler();
-		~InputHandler();
+		~InputHandler() = default;
 
-		void Update(WorldState& worldState);
+		void Update(WorldState& worldState) override;
 
 	private:
 		HANDLE handle;        // handle to read console

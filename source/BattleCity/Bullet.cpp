@@ -1,10 +1,12 @@
 #include "Pch.h"
 #include "Bullet.h"
 #include "TankPlayer.h"
+#include "ScoreMessageStructs.h"
+#include "World.h"
 
 namespace AnonymousEngine
 {
-	RTTI_DEFINITIONS(Bullet);
+	ATTRIBUTED_DEFINITIONS(Bullet);
 
 	Bullet::Bullet() :
 		mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
@@ -76,16 +78,37 @@ namespace AnonymousEngine
 					// Do Stuff If Player
 					if (player != nullptr && !player->IsInvincible())
 					{
-						player->DecrementLives();
+						PlayerSideDamageMessage damageMessage(false, message->WorldState());
+						const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
+						message->WorldState().mWorld->EventQueue().Enqueue(eventptr, message->WorldState().mGameTime, 0u);
 					}
 
 					// Do Stuff If Enemy
+					/*
+						std::string tankType = //GET TANK TYPE NAME STRING
+						ScoreEventMessage scoreMessage(tankType, message->WorldState());
+						const std::shared_ptr<Core::Event<PlayerscoreMessageSideDamageMessage>> eventptr = std::make_shared<Core::Event<scoreMessage>>(scoreMessage);
+						message->WorldState().mWorld->EventQueue().Enqueue(eventptr, message->WorldState().mGameTime, 0u);
+					*/
+
 					// Do Stuff If Wall
+
+					// Do Stuff if Flag
+					/*
+						PlayerSideDamageMessage damageMessage(true, message->WorldState());
+						const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
+						message->WorldState().mWorld->EventQueue().Enqueue(eventptr, message->WorldState().mGameTime, 0u);
+					*/
 
 					mShootParent->PendKillBullet(*this);
 				}
 			}
 		}
+	}
+
+	void Bullet::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
 
 	ENTITY_FACTORY_DEFINITIONS(Bullet);

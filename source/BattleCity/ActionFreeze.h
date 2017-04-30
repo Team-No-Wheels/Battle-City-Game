@@ -1,6 +1,5 @@
 #pragma once
 #include "EventSubscriber.h"
-#include "EventMessageAttributed.h"
 #include "Event.h"
 #include "Action.h"
 #include "Sector.h"
@@ -11,18 +10,18 @@ namespace AnonymousEngine
 	using namespace Containers;
 	using namespace Core;
 
-	class ActionFreeze : public Action, public EventSubscriber
+	class ActionFreeze final : public Action, public EventSubscriber
 	{
 
-		RTTI_DECLARATIONS(ActionFreeze, Action);
+		ATTRIBUTED_DECLARATIONS(ActionFreeze, Action);
 
 	public:
 
 		ActionFreeze();
 		~ActionFreeze();
 
-		void Update(WorldState& worldState);
-		void Notify(class EventPublisher& publisher);
+		void Update(WorldState& worldState) override;
+		void Notify(class EventPublisher& publisher) override;
 
 	private:
 

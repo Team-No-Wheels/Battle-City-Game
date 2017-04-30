@@ -2,79 +2,80 @@
 #include "ActionMove.h"
 #include "TankPlayer.h"
 
-using namespace AnonymousEngine;
-RTTI_DEFINITIONS(ActionMove);
-
-ActionMove::ActionMove() :
-	mDirection(Direction::Up), mSpeed(1), mIsEnemy(true), mCanMove(true)
+namespace AnonymousEngine
 {
-	if (GetParent()->Is(TankPlayer::TypeIdClass()))
+	ATTRIBUTED_DEFINITIONS(ActionMove);
+
+	ActionMove::ActionMove() :
+		mDirection(Direction::Up), mSpeed(1), mIsEnemy(true), mCanMove(true)
 	{
-		mIsEnemy = false;
-	}
-}
-
-ActionMove::~ActionMove()
-{
-}
-
-void ActionMove::Update(WorldState& worldState)
-{
-	worldState.mAction = this;
-
-	// Automatically Move If Enemy. Enemy AI will change Speed/Direction
-	if(mIsEnemy)
-		Move();
-
-	worldState.mAction = nullptr;
-}
-
-void ActionMove::Move()
-{
-	// Get A Reference To Parent As Entity
-	Entity* entity = GetParent()->As<Entity>();
-
-	if(entity != nullptr)
-	{
-		glm::vec2* position = &entity->GetPosition();
-
-		// Update Position Based On Direction
-		switch (mDirection)
+		if (GetParent()->Is(TankPlayer::TypeIdClass()))
 		{
-		case Direction::Up:
-			position->y += mSpeed;
-			break;
-
-		case Direction::Down:
-			position->y -= mSpeed;
-			break;
-
-		case Direction::Left:
-			position->x -= mSpeed;
-			break;
-
-		case Direction::Right:
-			position->x += mSpeed;
-			break;
-
-		default:
-			break;
+			mIsEnemy = false;
 		}
 	}
 
-}
+	void ActionMove::Update(WorldState& worldState)
+	{
+		worldState.mAction = this;
 
-void ActionMove::SetSpeed(float speed)
-{
-	mSpeed = speed;
-}
+		// Automatically Move If Enemy. Enemy AI will change Speed/Direction
+		if (mIsEnemy)
+			Move();
 
-void ActionMove::SetDirection(Direction direction)
-{
-	mDirection = direction;
-}
+		worldState.mAction = nullptr;
+	}
 
-ActionMove::Direction ActionMove::GetDirection() const
-{
-	return mDirection;
+	void ActionMove::Move()
+	{
+		// Get A Reference To Parent As Entity
+		GameObject* gameObject = GetParent()->As<GameObject>();
+
+		if (gameObject != nullptr)
+		{
+			glm::vec4 position = gameObject->GetPosition();
+
+			// Update Position Based On Direction
+			switch (mDirection)
+			{
+				case Direction::Up:
+					position.y += mSpeed;
+					break;
+				case Direction::Down:
+					position.y -= mSpeed;
+					break;
+				case Direction::Left:
+					position.x -= mSpeed;
+					break;
+				case Direction::Right:
+					position.x += mSpeed;
+					break;
+				default:
+					break;
+			}
+			gameObject->SetPosition(position);
+		}
+
+	}
+
+	void ActionMove::SetSpeed(float speed)
+	{
+		mSpeed = speed;
+	}
+
+	void ActionMove::SetDirection(Direction direction)
+	{
+		mDirection = direction;
+	}
+
+	ActionMove::Direction ActionMove::GetDirection() const
+	{
+		return mDirection;
+	}
+
+	void ActionMove::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
+	}
+
 }

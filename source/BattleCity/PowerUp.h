@@ -1,5 +1,5 @@
 #pragma once
-#include "Entity.h"
+#include "GameObject.h"
 #include "EventSubscriber.h"
 #include "Event.h"
 #include "MessageCollision.h"
@@ -9,16 +9,16 @@
 #include "WorldState.h"
 #include "EventQueue.h"
 #include "World.h"
+#include "WorldState.h"
 
 namespace AnonymousEngine
 {
 	using namespace Containers;
 	using namespace Core;
 
-	class PowerUp : public Entity, public EventSubscriber
+	class PowerUp : public GameObject, public EventSubscriber
 	{
-
-		RTTI_DECLARATIONS(PowerUp, Entity);
+		ATTRIBUTED_DECLARATIONS(PowerUp, GameObject);
 
 	public:
 
@@ -38,7 +38,7 @@ namespace AnonymousEngine
 		~PowerUp();
 
 		void setType(PowerUpType newType);
-		void Activate(TankPlayer& player);
+		void Activate(TankPlayer& player, Containers::WorldState& worldState);
 		void Update(WorldState& worldState) override;
 		void Notify(class EventPublisher& publisher);
 
@@ -47,13 +47,14 @@ namespace AnonymousEngine
 		PowerUpType mType;
 		bool mClockActivated;
 
-		void ActivateTank(TankPlayer& player);
+		void ActivateTank(Containers::WorldState& worldState);
 		void ActivateClock();
 		void ActivateShield(TankPlayer& player);
-		void ActivateBomb(TankPlayer& player);
+		void ActivateBomb(TankPlayer& player, Containers::WorldState& worldState);
 		void ActivateShovel();
 		void ActivateStar(TankPlayer& player);
 
+		static const std::string mPowerupKey;
 	};
 
 	ENTITY_FACTORY_DECLARATIONS(PowerUp);

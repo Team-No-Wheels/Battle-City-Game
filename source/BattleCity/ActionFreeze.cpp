@@ -1,10 +1,12 @@
 #include "Pch.h"
 #include "ActionFreeze.h"
+#include "BasicTankAI.h"
+#include "EventMessageAttributed.h"
 
 namespace AnonymousEngine
 {
 
-	RTTI_DEFINITIONS(ActionFreeze);
+	ATTRIBUTED_DEFINITIONS(ActionFreeze);
 
 	ActionFreeze::ActionFreeze() :
 		mTimeFrozen(10), mTimeRemaining(0), Zero(0)
@@ -29,25 +31,25 @@ namespace AnonymousEngine
 			if (curSector != nullptr)
 			{
 				Datum& entities = curSector->Entities();
-				std::uint32_t size = entities.Size();
+				uint32_t size = entities.Size();
 
 				// Look For All Enemy Tanks
-				for (std::uint32_t i = 0; i < size; ++i)
+				for (uint32_t i = 0; i < size; ++i)
 				{
-					TankBase* e = entities.Get<Scope*>(i)->As<TankBase>();
+					BasicTankAI* tank = entities.Get<Scope*>(i)->As<BasicTankAI>();
 
-					if (e != nullptr)
+					if (tank != nullptr)
 					{
 						// Freeze Movement And Shooting
 						if (mTimeRemaining > Zero)
 						{
-
+							tank->Freeze();
 						}
 
 						// Unfreeze Tank
 						else
 						{
-
+							tank->Unfreeze();
 						}
 					}
 				}
@@ -68,6 +70,11 @@ namespace AnonymousEngine
 			if (message->GetSubtype() == "Freeze")
 				mTimeRemaining = mTimeFrozen;
 		}
+	}
+
+	void ActionFreeze::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
 
 	ACTION_FACTORY_DEFINITIONS(ActionFreeze);

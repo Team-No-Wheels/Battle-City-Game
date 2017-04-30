@@ -4,14 +4,11 @@
 
 namespace AnonymousEngine
 {
-	RTTI_DEFINITIONS(ActionShoot);
+	ATTRIBUTED_DEFINITIONS(ActionShoot);
 
 	ActionShoot::ActionShoot() :
 		mCanShoot(true), mBulletsLiving(3), mBulletsPending(3),
 		isFast(false), isDouble(false), isStrong(false)
-	{}
-
-	ActionShoot::~ActionShoot()
 	{}
 
 	void ActionShoot::Update(WorldState& worldState)
@@ -93,6 +90,12 @@ namespace AnonymousEngine
 	{
 		return isDouble;
 	}
+
+	void ActionShoot::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
+	}
+
 
 	ACTION_FACTORY_DEFINITIONS(ActionShoot);
 }

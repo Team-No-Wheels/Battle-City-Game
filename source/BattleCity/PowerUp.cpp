@@ -1,10 +1,13 @@
 #include "Pch.h"
 #include "PowerUp.h"
+#include "Event.h"
+#include "ScoreMessageStructs.h"
 
 namespace AnonymousEngine
 {
+	const std::string PowerUp::mPowerupKey = "PowerUps";
 
-	RTTI_DEFINITIONS(PowerUp);
+	ATTRIBUTED_DEFINITIONS(PowerUp);
 
 	PowerUp::PowerUp() :
 		mType(PowerUpType::Tank), mClockActivated(false)
@@ -22,13 +25,17 @@ namespace AnonymousEngine
 		mType = newType;
 	}
 
-	void PowerUp::Activate(TankPlayer& player)
+	void PowerUp::Activate(TankPlayer& player, Containers::WorldState& worldState)
 	{
+		//The player receives a score for picking up a power up.
+		ScoreEventMessage scoreMessage(mPowerupKey, worldState);
+		const std::shared_ptr<Core::Event<ScoreEventMessage>> eventptr = std::make_shared<Core::Event<ScoreEventMessage>>(scoreMessage);
+		worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
 
 		switch (mType)
 		{
 		case PowerUpType::Tank:
-			ActivateTank(player);
+			ActivateTank(worldState);
 			break;
 
 		case PowerUpType::Clock:
@@ -40,7 +47,7 @@ namespace AnonymousEngine
 			break;
 
 		case PowerUpType::Bomb:
-			ActivateBomb(player);
+			ActivateBomb(player, worldState);
 			break;
 
 		case PowerUpType::Shovel:
@@ -101,16 +108,18 @@ namespace AnonymousEngine
 				// Activate If Player Collided With This PowerUp
 				if (player != nullptr && power != nullptr && power == this)
 				{
-					Activate(*player);
+					Activate(*player, message->WorldState());
 					break;
 				}
 			}
 		}
 	}
 
-	void PowerUp::ActivateTank(TankPlayer& player)
+	void PowerUp::ActivateTank(Containers::WorldState& worldState)
 	{
-		player.IncrementLives();
+		PlayerSideHealMessage healMessage(worldState);
+		const std::shared_ptr<Core::Event<PlayerSideHealMessage>> eventptr = std::make_shared<Core::Event<PlayerSideHealMessage>>(healMessage);
+		worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
 	}
 
 	void PowerUp::ActivateClock()
@@ -123,7 +132,7 @@ namespace AnonymousEngine
 		player.SetInvincibility(true);
 	}
 
-	void PowerUp::ActivateBomb(TankPlayer& player)
+	void PowerUp::ActivateBomb(TankPlayer& player, Containers::WorldState& worldState)
 	{
 		Sector* curSector = &player.GetSector();
 
@@ -139,6 +148,11 @@ namespace AnonymousEngine
 				if (e != nullptr)
 				{
 					// Destroy Enemy Tanks
+
+					// Tell score manager that a tank was destroyed
+					TankDestroyedNoScoreMessage message(worldState);
+					const std::shared_ptr<Core::Event<TankDestroyedNoScoreMessage>> eventptr = std::make_shared<Core::Event<TankDestroyedNoScoreMessage>>(message);
+					worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
 				}
 			}
 		}
@@ -152,6 +166,11 @@ namespace AnonymousEngine
 	void PowerUp::ActivateStar(TankPlayer& player)
 	{
 		player.IncrementStars();
+	}
+
+	void PowerUp::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
 
 	ENTITY_FACTORY_DEFINITIONS(PowerUp);

@@ -27,12 +27,15 @@ namespace MapGenerator
         const string    EMPTY_STR                   = "";
 
         const string    INTEGER_IDENTIFIER          = "integer";
+        const string    STRING_IDENTIFIER           = "string";
         const string    CLASS_IDENTIFIER            = "class";
         const string    WORLD_IDENTIFIER            = "world";
+        const string    SECTORS_IDENTIFIER          = "sectors";
         const string    SECTOR_IDENTIFIER           = "sector";
         const string    NAME_IDENTIFIER             = "name";
         const string    VALUE_IDENTIFIER            = "value";
         const string    ENTITY_IDENTIFIER           = "entity";
+        const string    ENTITIES_IDENTIFIER         = "entities";
         const string    SPRITESHEET_INDENTIFIER     = "spritesheet";
         const string    OUT_TILES_X_IDENTIFIER      = "numtilesX";
         const string    OUT_TILES_Y_IDENTIFIER      = "numtilesY";
@@ -53,10 +56,14 @@ namespace MapGenerator
                 {
                     Writer.WriteStartElement(WORLD_IDENTIFIER);
                     {
-                        foreach (var File in Files)
+                        Writer.WriteStartElement(SECTORS_IDENTIFIER);
                         {
-                            Convert(File, Writer);
+                            foreach (var File in Files)
+                            {
+                                Convert(File, Writer);
+                            }
                         }
+                        Writer.WriteEndElement();
                     }
                     Writer.WriteEndElement();
                 }
@@ -124,37 +131,60 @@ namespace MapGenerator
             Writer.WriteStartElement(SECTOR_IDENTIFIER);
             {
                 Writer.WriteAttributeString (NAME_IDENTIFIER,            Path.GetFileNameWithoutExtension(SourceFile));
-                Writer.WriteAttributeString (SPRITESHEET_INDENTIFIER,    MappedData[IMAGE_IDENTIFIER]);
-                Writer.WriteAttributeString (TILE_WIDTH_IDENTIFIER,      MappedData[TILE_WIDTH_IDENTIFIER]);
-                Writer.WriteAttributeString (TILE_HEIGHT_IDENTIFIER,     MappedData[TILE_HEIGHT_IDENTIFIER]);
-                Writer.WriteAttributeString (OUT_TILES_X_IDENTIFIER,     MappedData[IN_TILES_X_IDENTIFIER]);
-                Writer.WriteAttributeString (OUT_TILES_Y_IDENTIFIER,     MappedData[IN_TILES_Y_IDENTIFIER]);
-
-                for (int i = 0; i < Int32.Parse(MappedData[IN_TILES_X_IDENTIFIER]); ++i)
+                Writer.WriteStartElement(STRING_IDENTIFIER);
                 {
-                    for (int j = 0; j < Int32.Parse(MappedData[IN_TILES_Y_IDENTIFIER]); ++j)
+                    Writer.WriteAttributeString(SPRITESHEET_INDENTIFIER, MappedData[IMAGE_IDENTIFIER]);
+                }
+                Writer.WriteEndElement();
+                Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                {
+                    Writer.WriteAttributeString(TILE_WIDTH_IDENTIFIER, MappedData[TILE_WIDTH_IDENTIFIER]);
+                }
+                Writer.WriteEndElement();
+                Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                {
+                    Writer.WriteAttributeString(TILE_HEIGHT_IDENTIFIER, MappedData[TILE_HEIGHT_IDENTIFIER]);
+                }
+                Writer.WriteEndElement();
+                Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                {
+                    Writer.WriteAttributeString(OUT_TILES_X_IDENTIFIER, MappedData[IN_TILES_X_IDENTIFIER]);
+                }
+                Writer.WriteEndElement();
+                Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                {
+                    Writer.WriteAttributeString(OUT_TILES_Y_IDENTIFIER, MappedData[IN_TILES_Y_IDENTIFIER]);
+                }
+                Writer.WriteEndElement();
+                Writer.WriteStartElement(ENTITIES_IDENTIFIER);
+                {
+                    for (int i = 0; i < Int32.Parse(MappedData[IN_TILES_X_IDENTIFIER]); ++i)
                     {
-                        Writer.WriteStartElement(ENTITY_IDENTIFIER);
+                        for (int j = 0; j < Int32.Parse(MappedData[IN_TILES_Y_IDENTIFIER]); ++j)
                         {
-                            Writer.WriteAttributeString(CLASS_IDENTIFIER, Entities[CurrentPosition]);
-                            Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                            Writer.WriteStartElement(ENTITY_IDENTIFIER);
                             {
-                                Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
-                                Writer.WriteAttributeString(VALUE_IDENTIFIER, i.ToString());
-                            }
-                            Writer.WriteEndElement();
+                                Writer.WriteAttributeString(CLASS_IDENTIFIER, Entities[CurrentPosition]);
+                                Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                                {
+                                    Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
+                                    Writer.WriteAttributeString(VALUE_IDENTIFIER, i.ToString());
+                                }
+                                Writer.WriteEndElement();
 
-                            Writer.WriteStartElement(INTEGER_IDENTIFIER);
-                            {
-                                Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_Y_IDENTIFIER);
-                                Writer.WriteAttributeString(VALUE_IDENTIFIER, j.ToString());
+                                Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                                {
+                                    Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_Y_IDENTIFIER);
+                                    Writer.WriteAttributeString(VALUE_IDENTIFIER, j.ToString());
+                                }
+                                Writer.WriteEndElement();
                             }
                             Writer.WriteEndElement();
+                            ++CurrentPosition;
                         }
-                        Writer.WriteEndElement();
-                        ++CurrentPosition;
                     }
                 }
+                Writer.WriteEndElement();
             }
             Writer.WriteEndElement();
         }

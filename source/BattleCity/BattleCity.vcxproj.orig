@@ -104,8 +104,6 @@
     </PreBuildEvent>
     <Lib>
       <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -127,8 +125,6 @@
     </PreBuildEvent>
     <Lib>
       <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -152,10 +148,6 @@
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)resources\*.*" "$(ProjectDir)Bin\$(Platform)\$(Configuration)\resources" /Y /I /E</Command>
     </PreBuildEvent>
-    <Lib>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -178,21 +170,14 @@
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)resources\*.*" "$(ProjectDir)Bin\$(Platform)\$(Configuration)\resources" /Y /I /E</Command>
     </PreBuildEvent>
-    <Lib>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ActionFreeze.h" />
     <ClInclude Include="ActionMove.h" />
     <ClInclude Include="ActionShoot.h" />
-    <ClInclude Include="Brick.h" />
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Grass.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="LevelManager.h" />
-    <ClInclude Include="UIManager.h" />
     <ClInclude Include="MessageCollision.h" />
     <ClInclude Include="MessageInput.h" />
     <ClInclude Include="BattleCity.h" />
@@ -204,19 +189,19 @@
     <ClInclude Include="BasicTankAI.h" />
     <ClInclude Include="TankBase.h" />
     <ClInclude Include="TankPlayer.h" />
+<<<<<<< HEAD
+=======
     <ClInclude Include="Metal.h" />
     <ClInclude Include="Water.h" />
+>>>>>>> 7281565c24077d7b38c9c4d7dbab16a57188bcfc
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActionFreeze.cpp" />
     <ClCompile Include="ActionMove.cpp" />
     <ClCompile Include="ActionShoot.cpp" />
-    <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="Grass.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="LevelManager.cpp" />
-    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="MessageCollision.cpp" />
     <ClCompile Include="MessageInput.cpp" />
     <ClCompile Include="BattleCity.cpp" />
@@ -233,8 +218,11 @@
     <ClCompile Include="BasicTankAI.cpp" />
     <ClCompile Include="TankBase.cpp" />
     <ClCompile Include="TankPlayer.cpp" />
+<<<<<<< HEAD
+=======
     <ClCompile Include="Metal.cpp" />
     <ClCompile Include="Water.cpp" />
+>>>>>>> 7281565c24077d7b38c9c4d7dbab16a57188bcfc
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library.Desktop\Library.Desktop.vcxproj">

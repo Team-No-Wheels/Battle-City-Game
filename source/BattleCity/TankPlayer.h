@@ -11,16 +11,12 @@ namespace AnonymousEngine
 
 	class TankPlayer : public TankBase, public EventSubscriber
 	{
-
-		RTTI_DECLARATIONS(TankPlayer, TankBase);
+		ATTRIBUTED_DECLARATIONS(TankPlayer, TankBase);
 
 	public:
 
 		TankPlayer();
 		~TankPlayer();
-
-		void IncrementLives();
-		void DecrementLives();
 
 		void IncrementStars();
 
@@ -31,7 +27,7 @@ namespace AnonymousEngine
 		void Notify(class EventPublisher& publisher) override;
 
 	private:
-		std::uint32_t mLives, mMaxLives, mStars;
+		std::uint32_t mStars;
 		std::chrono::milliseconds mTimeInvincible, mInvincbleLimit = std::chrono::milliseconds(2);
 		bool mIsInvincible;
 	};
