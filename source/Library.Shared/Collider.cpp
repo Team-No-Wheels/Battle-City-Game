@@ -16,6 +16,15 @@ namespace AnonymousEngine
 		}
 	}
 
+	Core::Collider::~Collider()
+	{
+		CollisionManager* collisionManager = static_cast<CollisionManager*>(ServiceLocator::GetService(ServiceLocator::sCollisionManager));
+		if (collisionManager)
+		{
+			collisionManager->Unregister(*this);
+		}
+	}
+
 	void Collider::SetTag(const Collider::ColliderTag& tag)
 	{
 		mColliderTag = tag;
