@@ -179,6 +179,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="MessageCollision.h" />
     <ClInclude Include="MessageInput.h" />
     <ClInclude Include="BattleCity.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="TankBase.h" />
     <ClInclude Include="TankPlayer.h" />
     <ClInclude Include="Metal.h" />
+    <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActionFreeze.cpp" />
@@ -199,6 +201,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="MessageCollision.cpp" />
     <ClCompile Include="MessageInput.cpp" />
     <ClCompile Include="BattleCity.cpp" />
@@ -215,6 +218,7 @@
     <ClCompile Include="TankBase.cpp" />
     <ClCompile Include="TankPlayer.cpp" />
     <ClCompile Include="Metal.cpp" />
+    <ClCompile Include="Water.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library.Desktop\Library.Desktop.vcxproj">

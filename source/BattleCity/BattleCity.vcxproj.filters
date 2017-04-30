@@ -74,6 +74,10 @@
     <ClCompile Include="Metal.cpp">
       <Filter>MapEntities</Filter>
     </ClCompile>
+    <ClCompile Include="Water.cpp">
+      <Filter>MapEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -127,6 +131,10 @@
     <ClInclude Include="Brick.h">
       <Filter>MapEntities</Filter>
     </ClInclude>
+    <ClInclude Include="Water.h">
+      <Filter>MapEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
