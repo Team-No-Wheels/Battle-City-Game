@@ -206,6 +206,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="Renderer_OpenGL.cpp" />
     <ClCompile Include="ShaderCompiler.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="TextureLoader_OpenGL.cpp" />
@@ -213,6 +214,7 @@
   <ItemGroup>
     <ClInclude Include="Pch.h" />
     <ClInclude Include="Program.h" />
+    <ClInclude Include="Renderer_OpenGL.h" />
     <ClInclude Include="ShaderCompiler.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="TextureLoader_OpenGL.h" />

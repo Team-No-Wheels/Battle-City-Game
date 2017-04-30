@@ -40,6 +40,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Reaction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Renderable.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RendererService.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RpnEvaluator.h" />
@@ -89,6 +90,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Reaction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Renderable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RpnEvaluator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ServiceLocator.cpp" />
