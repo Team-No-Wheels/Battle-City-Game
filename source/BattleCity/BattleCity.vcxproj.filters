@@ -65,13 +65,13 @@
     <ClCompile Include="BasicTankAI.cpp">
       <Filter>Entities\AI</Filter>
     </ClCompile>
-    <ClCompile Include="WhiteBrick.cpp">
-      <Filter>MapEntities</Filter>
-    </ClCompile>
-    <ClCompile Include="BrownBrick.cpp">
-      <Filter>MapEntities</Filter>
-    </ClCompile>
     <ClCompile Include="Grass.cpp">
+      <Filter>MapEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>MapEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="Metal.cpp">
       <Filter>MapEntities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -118,13 +118,13 @@
     <ClInclude Include="BasicTankAI.h">
       <Filter>Entities\AI</Filter>
     </ClInclude>
-    <ClInclude Include="WhiteBrick.h">
-      <Filter>MapEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="BrownBrick.h">
-      <Filter>MapEntities</Filter>
-    </ClInclude>
     <ClInclude Include="Grass.h">
+      <Filter>MapEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="Metal.h">
+      <Filter>MapEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
       <Filter>MapEntities</Filter>
     </ClInclude>
   </ItemGroup>
