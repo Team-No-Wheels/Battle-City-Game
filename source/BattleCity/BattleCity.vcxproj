@@ -182,6 +182,7 @@
     <ClInclude Include="MainMenuScreen.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="TileBase.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="MessageCollision.h" />
     <ClInclude Include="MessageInput.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="MainMenuScreen.cpp" />
+    <ClCompile Include="TileBase.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="MessageCollision.cpp" />
     <ClCompile Include="MessageInput.cpp" />
