@@ -86,6 +86,28 @@ namespace AnonymousEngine
 		~ScoreEventMessage() = default;
 	};
 
+	/** Used for events where a tank would be destroyed but no score would be awarded,
+	*	such as with the bomb power up.
+	*/
+	struct TankDestroyedNoScoreMessage
+	{
+	private:
+		Containers::WorldState& mWorldState;
+	public:
+		/** Construct a tanks destroyed no score message and fill in it's members
+		*/
+		TankDestroyedNoScoreMessage(Containers::WorldState& worldState);
+
+		/** Returns a reference to the world state.
+		*	@return A reference to the world state.
+		*/
+		Containers::WorldState& WorldState();
+
+		/** Destruct a tanks destroyed no score message
+		*/
+		~TankDestroyedNoScoreMessage() = default;
+	};
+
 	/** Used for events which fire when either the player or the flag receives damage
 	*/
 	struct PlayerSideDamageMessage
@@ -165,6 +187,27 @@ namespace AnonymousEngine
 		/** Destruct a player lives changed message
 		*/
 		~LevelStartMessage() = default;
+	};
+
+	/** Used for events which fire when the player heals a life
+	*/
+	struct PlayerSideHealMessage
+	{
+	private:
+		Containers::WorldState& mWorldState;
+	public:
+		/** Construct a player side heal message and fill in it's members
+		*/
+		PlayerSideHealMessage(Containers::WorldState& worldState);
+
+		/** Returns a reference to the world state.
+		*	@return A reference to the world state.
+		*/
+		Containers::WorldState& WorldState();
+
+		/** Destruct a player side heal message
+		*/
+		~PlayerSideHealMessage() = default;
 	};
 }
 

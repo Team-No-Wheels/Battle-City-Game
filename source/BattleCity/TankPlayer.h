@@ -19,9 +19,6 @@ namespace AnonymousEngine
 		TankPlayer();
 		~TankPlayer();
 
-		void IncrementLives();
-		void DecrementLives();
-
 		void IncrementStars();
 
 		void SetInvincibility(bool state);
@@ -31,7 +28,7 @@ namespace AnonymousEngine
 		void Notify(class EventPublisher& publisher) override;
 
 	private:
-		std::uint32_t mLives, mMaxLives, mStars;
+		std::uint32_t mStars;
 		std::chrono::milliseconds mTimeInvincible, mInvincbleLimit = std::chrono::milliseconds(2);
 		bool mIsInvincible;
 	};

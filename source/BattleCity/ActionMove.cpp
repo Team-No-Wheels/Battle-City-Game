@@ -32,34 +32,31 @@ void ActionMove::Update(WorldState& worldState)
 void ActionMove::Move()
 {
 	// Get A Reference To Parent As Entity
-	Entity* entity = GetParent()->As<Entity>();
+	GameObject* gameObject = GetParent()->As<GameObject>();
 
-	if(entity != nullptr)
+	if(gameObject != nullptr)
 	{
-		glm::vec2* position = &entity->GetPosition();
+		glm::vec4 position = gameObject->GetPosition();
 
 		// Update Position Based On Direction
 		switch (mDirection)
 		{
 		case Direction::Up:
-			position->y += mSpeed;
+			position.y += mSpeed;
 			break;
-
 		case Direction::Down:
-			position->y -= mSpeed;
+			position.y -= mSpeed;
 			break;
-
 		case Direction::Left:
-			position->x -= mSpeed;
+			position.x -= mSpeed;
 			break;
-
 		case Direction::Right:
-			position->x += mSpeed;
+			position.x += mSpeed;
 			break;
-
 		default:
 			break;
 		}
+		gameObject->SetPosition(position);
 	}
 
 }

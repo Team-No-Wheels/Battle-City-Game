@@ -52,6 +52,16 @@ namespace AnonymousEngine
 		return mWorldState;
 	}
 
+	//TankDestroyedNoScoreMessage functions
+	TankDestroyedNoScoreMessage::TankDestroyedNoScoreMessage(Containers::WorldState& worldState): mWorldState(worldState)
+	{
+	}
+
+	Containers::WorldState& TankDestroyedNoScoreMessage::WorldState()
+	{
+		return mWorldState;
+	}
+
 	//PlayerSideDamageMessage functions
 
 	PlayerSideDamageMessage::PlayerSideDamageMessage(bool wasFlag, Containers::WorldState& worldState) :mWasFlag(wasFlag), mWorldState(worldState)
@@ -98,5 +108,15 @@ namespace AnonymousEngine
 	int32_t LevelStartMessage::LevelNumber()
 	{
 		return mLevelNumber;
+	}
+
+	//PlayerSideHealMessage functions
+	PlayerSideHealMessage::PlayerSideHealMessage(Containers::WorldState& worldState):mWorldState(worldState)
+	{
+	}
+
+	Containers::WorldState& PlayerSideHealMessage::WorldState()
+	{
+		return mWorldState;
 	}
 }

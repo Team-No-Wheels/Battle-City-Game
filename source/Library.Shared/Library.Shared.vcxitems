@@ -32,6 +32,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EventSubscriber.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HashFunctors.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultVectorCapacityStrategy.h" />
@@ -40,7 +41,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Reaction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Renderable.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RendererService.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RpnEvaluator.h" />
@@ -82,6 +82,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EventPublisher.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EventQueue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HashFunctors.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp" />
@@ -90,7 +93,6 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Reaction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Renderable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RpnEvaluator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ServiceLocator.cpp" />

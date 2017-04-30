@@ -1,14 +1,15 @@
 #pragma once
 #include "ActionShoot.h"
 #include "ActionMove.h"
+#include "GameObject.h"
 
 namespace AnonymousEngine
 {
 
-	class TankBase : public Entity
+	class TankBase : public Containers::GameObject
 	{
 
-		RTTI_DECLARATIONS(TankBase, Entity);
+		RTTI_DECLARATIONS(TankBase, Containers::GameObject);
 
 	public:
 

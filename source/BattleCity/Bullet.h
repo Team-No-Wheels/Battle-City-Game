@@ -1,15 +1,16 @@
 #pragma once
 #include "ActionMove.h"
 #include "MessageCollision.h"
+#include "GameObject.h"
 
 namespace AnonymousEngine
 {
 	class ActionShoot;
 
-	class Bullet : public Entity, public EventSubscriber
+	class Bullet : public GameObject, public EventSubscriber
 	{
 
-		RTTI_DECLARATIONS(Bullet, Entity);
+		RTTI_DECLARATIONS(Bullet, GameObject);
 
 	public:
 
