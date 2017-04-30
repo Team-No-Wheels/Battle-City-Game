@@ -37,6 +37,10 @@ namespace AnonymousEngine
 			* The sprite representing this game object in the world.
 			*/
 			Graphics::Sprite mSprite;
+			/** 
+			* The attribute name for the member variable position.
+			*/
+			static const std::string sPositionAttributeName;
 
 			ATTRIBUTED_DECLARATIONS(GameObject, Entity)
 		};

@@ -16,7 +16,7 @@ namespace AnonymousEngine
 	class ActionMove : public Action
 	{
 
-		RTTI_DECLARATIONS(ActionMove, Action);
+		ATTRIBUTED_DECLARATIONS(ActionMove, Action);
 
 	public:
 
@@ -33,7 +33,7 @@ namespace AnonymousEngine
 		};
 
 		ActionMove();
-		~ActionMove();
+		~ActionMove() = default;
 
 		void Update(WorldState& worldState) override;
 

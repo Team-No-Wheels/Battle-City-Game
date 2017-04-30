@@ -3,7 +3,7 @@
 
 namespace AnonymousEngine
 {
-	RTTI_DEFINITIONS(BasicTankAI);
+	ATTRIBUTED_DEFINITIONS(BasicTankAI);
 	ENTITY_FACTORY_DEFINITIONS(BasicTankAI);
 
 	/************************************************************************/
@@ -40,4 +40,10 @@ namespace AnonymousEngine
 	{
 		mIsFrozen = false;
 	}
+
+	void BasicTankAI::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
+	}
+
 }

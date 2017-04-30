@@ -1,6 +1,5 @@
 #pragma once
 #include "EventSubscriber.h"
-#include "EventMessageAttributed.h"
 #include "Event.h"
 #include "Action.h"
 #include "Sector.h"
@@ -14,7 +13,7 @@ namespace AnonymousEngine
 	class ActionFreeze final : public Action, public EventSubscriber
 	{
 
-		RTTI_DECLARATIONS(ActionFreeze, Action);
+		ATTRIBUTED_DECLARATIONS(ActionFreeze, Action);
 
 	public:
 
