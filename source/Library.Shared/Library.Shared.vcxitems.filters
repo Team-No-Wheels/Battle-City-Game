@@ -119,6 +119,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp">
       <Filter>Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CollisionManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -277,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h">
       <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CollisionManager.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
