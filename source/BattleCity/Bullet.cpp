@@ -134,7 +134,6 @@ namespace AnonymousEngine
 		PlayerSideDamageMessage damageMessage(true, *state);
 		const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
 		state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
-
 	}
 
 	WorldState* Bullet::FindWorldState()
