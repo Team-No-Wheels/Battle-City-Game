@@ -14,7 +14,7 @@ namespace AnonymousEngine
 		ENTITY_FACTORY_DEFINITIONS(Sprite);
 
 		Sprite::Sprite() :
-			Renderable(), isInitialized(false)
+			Renderable()
 		{
 
 		}
