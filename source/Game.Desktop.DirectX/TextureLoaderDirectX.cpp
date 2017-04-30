@@ -22,11 +22,11 @@ namespace AnonymousEngine
 			pForceLoad;
 			// TODO : Load texture using DirectX
 			// Load image from file
-			IDirect3DTexture9 *d3dTexture;
+			/*IDirect3DTexture9 *d3dTexture;
 			if (D3DXCreateTextureFromFile(mD3DDevice, pTextureFilePath.c_str(), d3dTexture) < 0)
 			{
 				return nullptr;
-			}
+			}*/
 
 			return nullptr;
 		}

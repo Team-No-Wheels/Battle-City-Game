@@ -22,8 +22,9 @@ namespace BattleCity
 		MainMenuScreen();
 
 		/** Update menu state
+		 *  @param worldState The current world state
 		 */
-		void Update() override;
+		void Update(AnonymousEngine::Containers::WorldState& worldState) override;
 	private:
 		// Currently selected option
 		MenuOptions mCurrentOption;

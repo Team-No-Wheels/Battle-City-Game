@@ -9,7 +9,7 @@ namespace BattleCity
 	{
 	}
 
-	void MainMenuScreen::Update()
+	void MainMenuScreenUpdate(AnonymousEngine::Containers::WorldState&)
 	{
 	}
 
