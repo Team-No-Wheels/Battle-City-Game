@@ -9,7 +9,7 @@ namespace AnonymousEngine
 	class TankBase : public Containers::GameObject
 	{
 
-		RTTI_DECLARATIONS(TankBase, Containers::GameObject);
+		ATTRIBUTED_DECLARATIONS(TankBase, Containers::GameObject);
 
 	public:
 
