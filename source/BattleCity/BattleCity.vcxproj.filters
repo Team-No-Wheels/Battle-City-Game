@@ -157,6 +157,9 @@
     <ClInclude Include="LevelManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
+    <ClInclude Include="MessageAudio.h">
+      <Filter>Events / Messages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
