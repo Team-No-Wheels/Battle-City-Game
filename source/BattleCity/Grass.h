@@ -1,18 +1,24 @@
 #pragma once
-#include "Sprite.h"
+#include "GameObject.h"
 
 namespace BattleCity
 {
 	namespace MapEntities
 	{
-		/** Rendering class for Grass on the map.
+		/** GameObject class for Grass on the map.
 		*/
-		class Grass :public AnonymousEngine::Graphics::Sprite
+		class Grass :public AnonymousEngine::Containers::GameObject
 		{
-			ATTRIBUTED_DECLARATIONS(Grass, AnonymousEngine::Graphics::Sprite)
+			ATTRIBUTED_DECLARATIONS(Grass, AnonymousEngine::Containers::GameObject)
 
 		public:
-			Grass();
+			/** Defaulted constructor.
+			*/
+			Grass() = default;
+
+			/** Defaulted destructor.
+			*/
+			~Grass() = default;
 		};
 
 		ENTITY_FACTORY_DECLARATIONS(Grass)
