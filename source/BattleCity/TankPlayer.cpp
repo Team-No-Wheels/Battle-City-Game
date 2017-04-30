@@ -6,7 +6,7 @@ namespace AnonymousEngine
 	RTTI_DEFINITIONS(TankPlayer);
 
 	TankPlayer::TankPlayer() :
-		mLives(2), mMaxLives(9), mIsInvincible(false), mStars(0), mTimeInvincible(0)
+		mIsInvincible(false), mStars(0), mTimeInvincible(0)
 	{
 		Event<MessageInput>::Subscribe(*this);
 	}
@@ -14,27 +14,6 @@ namespace AnonymousEngine
 	TankPlayer::~TankPlayer()
 	{
 		Event<MessageInput>::Unsubscribe(*this);
-	}
-
-	void TankPlayer::IncrementLives()
-	{
-		if (mLives < mMaxLives)
-		{
-			++mLives;
-		}
-	}
-
-	void TankPlayer::DecrementLives()
-	{
-		if (mLives == 0)
-		{
-			// Game Over
-		}
-
-		else
-		{
-			--mLives;
-		}
 	}
 
 	void TankPlayer::IncrementStars()

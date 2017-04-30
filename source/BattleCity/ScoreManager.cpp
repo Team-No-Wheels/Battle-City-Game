@@ -7,7 +7,7 @@
 namespace AnonymousEngine
 {
 	const std::int32_t ScoreManager::mPowerupValues = 500;
-	const std::string ScoreManager::mPowerupKey = "Powerups";
+	const std::string ScoreManager::mPowerupKey = "PowerUps";
 	const std::string ScoreManager::mTotalKey = "Total";
 
 	ScoreManager::ScoreManager()
@@ -19,7 +19,9 @@ namespace AnonymousEngine
 		Core::Event<TankDefinedMessage>::Subscribe(*this);
 		Core::Event<ScoreEventMessage>::Subscribe(*this);
 		Core::Event<PlayerSideDamageMessage>::Subscribe(*this);
+		Core::Event<PlayerSideHealMessage>::Subscribe(*this);
 		Core::Event<LevelStartMessage>::Subscribe(*this);
+		Core::Event<TankDestroyedNoScoreMessage>::Subscribe(*this);
 	}
 
 	void ScoreManager::AddTankType(std::string name, std::int32_t value)
@@ -38,11 +40,16 @@ namespace AnonymousEngine
 
 		if ((scoreType != mPowerupKey) && (scoreType != mTotalKey))
 		{
-			mNumberTanks--;
-			if (mNumberTanks <= 0)
-			{
-				LevelOver(true, worldState);
-			}
+			DecreaseNumTanks(worldState);
+		}
+	}
+
+	void ScoreManager::DecreaseNumTanks(Containers::WorldState& worldState)
+	{
+		mNumberTanks--;
+		if (mNumberTanks <= 0)
+		{
+			LevelOver(true, worldState);
 		}
 	}
 
@@ -73,14 +80,25 @@ namespace AnonymousEngine
 		{
 			mPlayerLives--;
 			PlayerLivesChangedMessage message(mPlayerLives);
-			const std::shared_ptr<Core::Event<PlayerLivesChangedMessage>> eventptr = std::make_shared<Core::Event<PlayerLivesChangedMessage>>(message);
-			worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
 
-			if (mPlayerLives <= 0)
+			if (mPlayerLives < 0)
 			{
 				LevelOver(false, worldState);
 			}
+			else
+			{
+				const std::shared_ptr<Core::Event<PlayerLivesChangedMessage>> eventptr = std::make_shared<Core::Event<PlayerLivesChangedMessage>>(message);
+				worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
+			}
 		}
+	}
+
+	void ScoreManager::HealPlayer(Containers::WorldState& worldState)
+	{
+		mPlayerLives++;
+		PlayerLivesChangedMessage message(mPlayerLives);
+		const std::shared_ptr<Core::Event<PlayerLivesChangedMessage>> eventptr = std::make_shared<Core::Event<PlayerLivesChangedMessage>>(message);
+		worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
 	}
 
 	void ScoreManager::HandleLevelStart(std::int32_t playerLives, std::int32_t numberTanks, std::int32_t levelNumber)
@@ -115,10 +133,20 @@ namespace AnonymousEngine
 			PlayerSideDamageMessage message = publisher.As<Core::Event<PlayerSideDamageMessage>>()->Message();
 			DamagePlayer(message.WasFlag(), message.WorldState());
 		}
+		else if (publisher.Is(Core::Event<PlayerSideHealMessage>::TypeIdClass()))
+		{
+			PlayerSideHealMessage message = publisher.As<Core::Event<PlayerSideHealMessage>>()->Message();
+			HealPlayer(message.WorldState());
+		}
 		else if (publisher.Is(Core::Event<LevelStartMessage>::TypeIdClass()))
 		{
 			LevelStartMessage message = publisher.As<Core::Event<LevelStartMessage>>()->Message();
 			HandleLevelStart(message.PlayerLives(), message.NumTanks(), message.LevelNumber());
+		}
+		else if (publisher.Is(Core::Event<TankDestroyedNoScoreMessage>::TypeIdClass()))
+		{
+			TankDestroyedNoScoreMessage message = publisher.As<Core::Event<TankDestroyedNoScoreMessage>>()->Message();
+			DecreaseNumTanks(message.WorldState());
 		}
 	}
 }

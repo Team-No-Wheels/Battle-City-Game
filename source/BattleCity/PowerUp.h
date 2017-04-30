@@ -9,6 +9,7 @@
 #include "WorldState.h"
 #include "EventQueue.h"
 #include "World.h"
+#include "WorldState.h"
 
 namespace AnonymousEngine
 {
@@ -38,7 +39,7 @@ namespace AnonymousEngine
 		~PowerUp();
 
 		void setType(PowerUpType newType);
-		void Activate(TankPlayer& player);
+		void Activate(TankPlayer& player, Containers::WorldState& worldState);
 		void Update(WorldState& worldState) override;
 		void Notify(class EventPublisher& publisher);
 
@@ -47,7 +48,7 @@ namespace AnonymousEngine
 		PowerUpType mType;
 		bool mClockActivated;
 
-		void ActivateTank(TankPlayer& player);
+		void ActivateTank(Containers::WorldState& worldState);
 		void ActivateClock();
 		void ActivateShield(TankPlayer& player);
 		void ActivateBomb(TankPlayer& player);
