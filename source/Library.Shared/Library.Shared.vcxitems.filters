@@ -110,9 +110,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ServiceLocator.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Collider.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -121,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CollisionManager.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioManager.cpp">
+      <Filter>Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +272,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RendererService.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Collider.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -283,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CollisionManager.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioManager.h">
+      <Filter>Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +309,9 @@
     </Filter>
     <Filter Include="Geometry">
       <UniqueIdentifier>{8ff969f1-1971-4817-a986-af7fb6f66ec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{0e950589-1e0d-4cc0-a80e-62078b843a82}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
