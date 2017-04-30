@@ -7,11 +7,11 @@ namespace AnonymousEngine
 	ATTRIBUTED_DEFINITIONS(ActionMove);
 
 	ActionMove::ActionMove() :
-		mDirection(Direction::Up), mSpeed(1), mIsEnemy(true), mCanMove(true)
+		mDirection(Direction::Up), mSpeed(1), mIsPlayer(false), mCanMove(true)
 	{
 		if (GetParent()->Is(TankPlayer::TypeIdClass()))
 		{
-			mIsEnemy = false;
+			mIsPlayer = true;
 		}
 	}
 
@@ -19,8 +19,8 @@ namespace AnonymousEngine
 	{
 		worldState.mAction = this;
 
-		// Automatically Move If Enemy. Enemy AI will change Speed/Direction
-		if (mIsEnemy)
+		// Automatically Move If not player. Enemy AI will change Speed/Direction
+		if (!mIsPlayer && mCanMove)
 			Move();
 
 		worldState.mAction = nullptr;
@@ -63,7 +63,7 @@ namespace AnonymousEngine
 		mSpeed = speed;
 	}
 
-	void ActionMove::SetDirection(Direction direction)
+	void ActionMove::SetDirection(const Direction direction)
 	{
 		mDirection = direction;
 	}
@@ -71,6 +71,16 @@ namespace AnonymousEngine
 	ActionMove::Direction ActionMove::GetDirection() const
 	{
 		return mDirection;
+	}
+
+	bool ActionMove::GetCanMove() const
+	{
+		return mCanMove;
+	}
+
+	void ActionMove::SetCanMove(const bool canMove)
+	{
+		mCanMove = canMove;
 	}
 
 	void ActionMove::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

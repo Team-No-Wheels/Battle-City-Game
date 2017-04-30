@@ -6,10 +6,10 @@ namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(ActionShoot);
 
-	ActionShoot::ActionShoot() :
-		mCanShoot(true), mBulletsLiving(3), mBulletsPending(3),
-		isFast(false), isDouble(false), isStrong(false)
-	{}
+	ActionShoot::ActionShoot() : 
+		mBulletsCapacity(1), isFast(false), isDouble(false), isStrong(false), mBulletsLiving(3), mBulletsPending(3)
+	{
+	}
 
 	void ActionShoot::Update(WorldState& worldState)
 	{
@@ -17,7 +17,7 @@ namespace AnonymousEngine
 
 		if (mBulletsPending.Size() != 0)
 		{
-			DestroyBullet();
+			DestroyPendingBullets();
 		}
 
 		worldState.mAction = nullptr;
@@ -51,9 +51,6 @@ namespace AnonymousEngine
 		{
 			curBullet->isStrong = true;
 		}
-
-		// Can't Create Another Bullet If This Bullet Exists
-		mCanShoot = false;
 	}
 
 	void ActionShoot::PendKillBullet(Bullet& bullet)
@@ -63,7 +60,7 @@ namespace AnonymousEngine
 		mBulletsPending.PushBack(&bullet);
 	}
 
-	void ActionShoot::DestroyBullet()
+	void ActionShoot::DestroyPendingBullets()
 	{
 		// Destroy Pending Bullets
 		for (std::uint32_t i = 0; i < mBulletsPending.Size(); ++i)
@@ -72,23 +69,26 @@ namespace AnonymousEngine
 		}
 
 		mBulletsPending.Clear();
-
-		// Enable Shooting If There Are No Existing Bullets Left
-		if (mBulletsLiving.Size() == 0)
-		{
-			mCanShoot = true;
-		}
-
 	}
 
 	bool ActionShoot::CanShoot() const
 	{
-		return mCanShoot;
+		return mBulletsLiving.Size() < mBulletsCapacity;
 	}
 
 	bool ActionShoot::IsDouble() const
 	{
 		return isDouble;
+	}
+
+	uint32_t ActionShoot::GetCapacityToShoot() const
+	{
+		return mBulletsCapacity;
+	}
+
+	void ActionShoot::SetCapacityToShoot(const uint32_t capacityToShoot)
+	{
+		mBulletsCapacity = capacityToShoot;
 	}
 
 	void ActionShoot::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
