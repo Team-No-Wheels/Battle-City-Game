@@ -1,18 +1,24 @@
 #pragma once
-#include "Sprite.h"
+#include "GameObject.h"
 
 namespace BattleCity
 {
 	namespace MapEntities
 	{
-		/** Rendering class for WhiteBrick on the map.
+		/** GameObject class for Metal on the map.
 		*/
-		class Metal :public AnonymousEngine::Graphics::Sprite
+		class Metal :public AnonymousEngine::Containers::GameObject
 		{
-			ATTRIBUTED_DECLARATIONS(Metal, AnonymousEngine::Graphics::Sprite)
+			ATTRIBUTED_DECLARATIONS(Metal, AnonymousEngine::Containers::GameObject)
 
 		public:
-			Metal();
+			/** Defaulted constructor.
+			*/
+			Metal() = default;
+		
+			/** Defaulted destructor.
+			*/
+			~Metal() = default;
 		};
 
 		ENTITY_FACTORY_DECLARATIONS(Metal)
