@@ -1,9 +1,9 @@
 #pragma once
+
 #include "Windows.h"
 #include "Action.h"
 #include "Event.h"
 #include "EventQueue.h"
-#include "MessageInput.h"
 #include "World.h"
 #include "WorldState.h"
 
@@ -14,11 +14,9 @@ namespace AnonymousEngine
 
 	class InputHandler final : public Action
 	{
-
 		ATTRIBUTED_DECLARATIONS(InputHandler, Action);
 
 	public:
-
 		InputHandler();
 		~InputHandler() = default;
 
@@ -28,10 +26,10 @@ namespace AnonymousEngine
 		HANDLE handle;        // handle to read console
 		EventQueue* mEventQueue;
 
-		std::string LEFT = "Left";
-		std::string RIGHT = "Right";
-		std::string UP = "Up";
-		std::string DOWN = "Down";
-		std::string SHOOT = "Shoot";
+		static const std::string LEFT;
+		static const std::string RIGHT;
+		static const std::string UP;
+		static const std::string DOWN;
+		static const std::string SHOOT;
 	};
 }

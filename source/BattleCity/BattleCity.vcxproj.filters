@@ -23,6 +23,9 @@
     <Filter Include="Util">
       <UniqueIdentifier>{7c67a194-f3ce-4bb4-a9ba-e2cd1bae274b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{45316a33-489e-4540-930d-1b79a6bf43d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pch.cpp" />
@@ -75,6 +78,12 @@
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="UIManager.cpp">
       <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScreen.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIScreen.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +139,12 @@
     <ClInclude Include="Water.h" />
     <ClInclude Include="UIManager.h">
       <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="UIScreen.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScreen.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
