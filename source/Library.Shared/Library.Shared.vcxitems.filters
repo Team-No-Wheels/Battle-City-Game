@@ -113,6 +113,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Collider.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -266,6 +272,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Collider.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
@@ -288,6 +300,9 @@
     </Filter>
     <Filter Include="Graphics">
       <UniqueIdentifier>{9a25cce1-9533-43b7-b8dd-24a0155b27a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{8ff969f1-1971-4817-a986-af7fb6f66ec7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
