@@ -5,7 +5,7 @@ namespace AnonymousEngine
 {
 	namespace Core
 	{
-		const std::string sPositionAttributeName = "Position";
+		const std::string GameObject::sPositionAttributeName = "Position";
 
 		GameObject::GameObject() : mPosition(std::move(glm::vec4())), mCollider(*this)
 		{

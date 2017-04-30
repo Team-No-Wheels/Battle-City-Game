@@ -3,12 +3,13 @@
 #include "Entity.h"
 #include "Vector.h"
 #include "Collider.h"
+#include "Service.h"
 
 namespace AnonymousEngine
 {
 	namespace Core
 	{
-		class CollisionManager : public Containers::Entity
+		class CollisionManager : public Containers::Entity, public Service
 		{
 		public:
 			/**

@@ -1,5 +1,6 @@
 #pragma once
 #include "Sprite.h"
+#include "CollisionManager.h"
 
 namespace BattleCity
 {
@@ -15,6 +16,11 @@ namespace BattleCity
 		BattleCity();
 
 		/**
+		*
+		*/
+
+
+		/**
 			@brief Call Init with the file name will initialize this Renderable object with the file.
 			@param[in] pFilePath Constant reference to string that holds the path of the file.
 		*/
@@ -28,5 +34,6 @@ namespace BattleCity
 
 	private:
 		AnonymousEngine::Graphics::Sprite* mSprite;
+		AnonymousEngine::Core::CollisionManager mCollisionManager;
 	};
 }

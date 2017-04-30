@@ -1,11 +1,15 @@
 #include "Pch.h"
 #include "BattleCity.h"
+#include "ServiceLocator.h"
+
+using namespace AnonymousEngine::Core;
 
 namespace BattleCity
 {
 	BattleCity::BattleCity()
 	{
 		mSprite = new AnonymousEngine::Graphics::Sprite();
+		ServiceLocator::AddService(ServiceLocator::ServiceType::CollisionManager, mCollisionManager);
 	}
 
 	void BattleCity::Init()

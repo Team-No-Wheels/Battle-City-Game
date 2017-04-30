@@ -28,6 +28,11 @@ namespace AnonymousEngine
 			return static_cast<Graphics::RendererService*>(GetService(ServiceType::Renderer));
 		}
 
+		CollisionManager* ServiceLocator::GetCollisionManager()
+		{
+			return static_cast<CollisionManager*>(GetService(ServiceType::CollisionManager));
+		}
+
 		void ServiceLocator::AddService(ServiceType pServiceType, Service& pService)
 		{
 			sServicesCache[pServiceType] = &pService;
