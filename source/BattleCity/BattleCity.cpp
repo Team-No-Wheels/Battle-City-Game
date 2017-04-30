@@ -8,8 +8,8 @@ namespace BattleCity
 {
 	BattleCity::BattleCity()
 	{
+		ServiceLocator::AddService(ServiceLocator::sCollisionManager, mCollisionManager);
 		//mSprite = new AnonymousEngine::Graphics::Sprite();
-		ServiceLocator::AddService(ServiceLocator::ServiceType::CollisionManager, mCollisionManager);
 	}
 
 	void BattleCity::Init()

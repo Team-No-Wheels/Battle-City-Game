@@ -22,10 +22,10 @@ namespace AnonymousEngine
 		// setting up the ServiceLocator
 		// registering TextureLoader
 		mTextureLoader = new Graphics::TextureLoaderOpenGL();
-		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::TextureLoader, *mTextureLoader);
+		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::sTextureLoader, *mTextureLoader);
 		// registering Renderer
 		mRenderer = new Graphics::RendererOpenGL();
-		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::Renderer, *mRenderer);
+		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::sRenderer, *mRenderer);
 
 		mBattleCity = new BattleCity::BattleCity();
 	}

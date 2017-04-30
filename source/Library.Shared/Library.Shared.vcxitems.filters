@@ -119,9 +119,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)CollisionManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)AudioManager.cpp">
-      <Filter>Audio</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -284,9 +281,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CollisionManager.h">
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h">
       <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)AudioManager.h">
-      <Filter>Audio</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h">
       <Filter>Core</Filter>
