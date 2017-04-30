@@ -3,7 +3,7 @@
 #include "Entity.h"
 #include "Sprite.h"
 #include "Collider.h"
-#include "glm/vec2.hpp"
+#include "glm/glm.hpp"
 
 namespace AnonymousEngine
 {
@@ -36,7 +36,6 @@ namespace AnonymousEngine
 			* Get a reference to the collider contained within this game object.
 			*/
 			Collider& GetCollider();
-		protected:
 		private:
 			/**
 			* The position of this game object in the world space.
