@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TankBase.h"
+#include "ActionFreeze.h"
 
 namespace AnonymousEngine
 {
@@ -11,7 +12,7 @@ namespace AnonymousEngine
 	public:
 
 		BasicTankAI(const float speed = DEFAULT_SPEED, const int32_t bulletsNum = DEFAULT_BULLETS_NUM, const int32_t armor = DEFAULT_ARMOR);
-		~BasicTankAI();
+		virtual ~BasicTankAI();
 
 		BasicTankAI(const BasicTankAI & rhs) = delete;
 		BasicTankAI& operator=(const BasicTankAI& rhs) = delete;
@@ -19,7 +20,13 @@ namespace AnonymousEngine
 		virtual void Update(WorldState& worldState) override;
 		virtual void Notify(EventPublisher& publisher) override;
 
+		void Freeze();
+		void Unfreeze();
+
 	protected:
+
+		ActionFreeze mActionFreeze;
+		bool mIsFrozen;
 
 		float mSpeed;
 		int32_t mBulletsNum;
@@ -29,4 +36,6 @@ namespace AnonymousEngine
 		static const int32_t DEFAULT_BULLETS_NUM;
 		static const int32_t DEFAULT_ARMOR;
 	};
+
+	ENTITY_FACTORY_DECLARATIONS(BasicTankAI);
 }
