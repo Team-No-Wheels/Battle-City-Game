@@ -97,17 +97,13 @@ namespace AnonymousEngine
 
 	void Bullet::CollisionWithPlayer(TankPlayer& player)
 	{
-		WorldState* state = FindWorldState();
-
 		if (!player.IsInvincible())
 		{
+			WorldState* state = FindWorldState();
+
 			PlayerSideDamageMessage damageMessage(false, *state);
 			const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
 			state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
-		}
-		else
-		{
-			// Damage Player
 		}
 	}
 
@@ -128,6 +124,16 @@ namespace AnonymousEngine
 
 	void Bullet::CollisionWithMetal(Metal& metal)
 	{
+
+	}
+
+	void Bullet::CollisionWithFlag(Flag& flag)
+	{
+		WorldState* state = FindWorldState();
+
+		PlayerSideDamageMessage damageMessage(true, *state);
+		const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
+		state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
 
 	}
 

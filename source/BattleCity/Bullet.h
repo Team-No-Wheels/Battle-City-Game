@@ -5,6 +5,7 @@
 #include "BasicTankAI.h"
 #include "Brick.h"
 #include "Metal.h"
+#include "Flag.h"
 #include "ScoreMessageStructs.h"
 
 namespace AnonymousEngine
@@ -44,6 +45,7 @@ namespace AnonymousEngine
 		void CollisionWithEnemy(BasicTankAI& ai);
 		void CollisionWithBrick(Brick& brick);
 		void CollisionWithMetal(Metal& metal);
+		void CollisionWithFlag(Flag& flag);
 		WorldState* FindWorldState();
 		
 	};
