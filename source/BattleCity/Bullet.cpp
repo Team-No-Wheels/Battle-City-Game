@@ -83,12 +83,14 @@ namespace AnonymousEngine
 				return;
 			}
 
-			// Do Stuff if Flag
-			/*
-			PlayerSideDamageMessage damageMessage(true, message->WorldState());
-			const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
-			message->WorldState().mWorld->EventQueue().Enqueue(eventptr, message->WorldState().mGameTime, 0u);
-			*/
+			// Check If Flag
+			Flag* flag = otherGameObject.As<Flag>();
+			if (flag != nullptr)
+			{
+				CollisionWithFlag(*flag);
+				return;
+			}
+
 		}
 	}
 
