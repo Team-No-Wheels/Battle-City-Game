@@ -8,7 +8,7 @@ namespace AnonymousEngine
 		ATTRIBUTED_DEFINITIONS(Renderable)
 		
 		Renderable::Renderable() :
-			mAlpha(1.0f), mTextureID(0)
+			mAlpha(1.0f), mTexture(nullptr)
 		{
 			AddExternalAttribute("Alpha", &mAlpha, 1);
 			AddExternalAttribute("Width", &mWidth, 1);
