@@ -41,12 +41,13 @@ namespace BattleCity
 			const AnonymousEngine::Vector<AnonymousEngine::Vector<MapTile>>& GetLevelTiles() const;
 
 			/** Loads the entire World XML, i.e. loads the XML for all levels.
+			*	@returns Returns the loaded World.
 			*/
-			void LoadWorld();
+			AnonymousEngine::Containers::World& LoadWorld();
 
-			/** Defaulted destructor.
+			/** Deletes the dynamically allocated objects.
 			*/
-			~LevelManager() = default;
+			~LevelManager();
 
 		private:
 			/** 2-D Vector array storing MapTile enum type
@@ -57,9 +58,9 @@ namespace BattleCity
 			*/
 			static const std::string mLevelXmlFile;
 
-			/** 
+			/** Pointer to the parsed World object.
 			*/
-			//World* mWorld;
+			AnonymousEngine::Containers::World* mWorld;
 		};
 	}
 }

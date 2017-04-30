@@ -3,6 +3,7 @@
 #include "Brick.h"
 #include "Grass.h"
 #include "Metal.h"
+#include "World.h"
 
 using namespace AnonymousEngine;
 
@@ -13,11 +14,12 @@ namespace BattleCity
 		typedef AnonymousEngine::Parsers::XmlParseMaster XmlParseMaster;
 		typedef AnonymousEngine::Parsers::WorldParserHelper WorldParserHelper;
 		typedef AnonymousEngine::Parsers::WorldSharedData WorldSharedData;
+		typedef AnonymousEngine::Containers::World World;
 
 		const std::string mLevelXmlFile = "LevelFile.xml";
 
 		LevelManager::LevelManager()
-			:m2DTileArray()
+			:mWorld(nullptr)
 		{
 		}
 
@@ -31,14 +33,25 @@ namespace BattleCity
 			return m2DTileArray;
 		}
 
-		void LevelManager::LoadWorld()
+		World& LevelManager::LoadWorld()
 		{
+			delete mWorld;
+
 			WorldSharedData worldSharedData;
 			XmlParseMaster xmlParseMaster(worldSharedData);
 			WorldParserHelper worldParseHelper;
 
 			xmlParseMaster.AddHelper(worldParseHelper);
 			xmlParseMaster.ParseFromFile(mLevelXmlFile);
+
+			mWorld = worldSharedData.ExtractWorld();
+
+			return *mWorld;
+		}
+
+		LevelManager::~LevelManager()
+		{
+			delete mWorld;
 		}
 	}
 }
