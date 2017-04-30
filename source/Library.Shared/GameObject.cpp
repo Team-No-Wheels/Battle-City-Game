@@ -20,6 +20,11 @@ namespace AnonymousEngine
 			return mPosition;
 		}
 
+		void GameObject::Update(WorldState& worldState)
+		{
+			worldState;
+		}
+
 		ATTRIBUTED_DEFINITIONS(GameObject)
 	}
 }
