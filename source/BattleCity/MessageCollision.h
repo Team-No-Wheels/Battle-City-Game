@@ -1,34 +1,31 @@
 #pragma once
 #include "Entity.h"
-#include "EventMessageAttributed.h"
+#include "WorldState.h"
 
-namespace BattleCity
+namespace AnonymousEngine
 {
 	using namespace AnonymousEngine::Containers;
 
-	class AnonymousEngine::Containers::WorldState;
-
-	class MessageCollision : public EventMessageAttributed
+	class MessageCollision
 	{
-		ATTRIBUTED_DECLARATIONS(MessageCollision, EventMessageAttributed)
 	private:
 		typedef std::pair<Entity*, Entity*> CollisionPair;
 
-		AnonymousEngine::Vector<CollisionPair> mEntities;
-		WorldState& mWorldState;
+		Vector<CollisionPair> mEntities;
+		Containers::WorldState& mWorldState;
 
 	public:
 
-		MessageCollision(WorldState& worldState);
+		MessageCollision(Containers::WorldState& worldState);
 		bool operator==(const MessageCollision& rhs);
 		~MessageCollision();
 
 		void AddCollision( Entity& entity1, Entity& entity2);
-		AnonymousEngine::Vector<CollisionPair>& GetEntities();
+		Vector<CollisionPair>& GetEntities();
 
 		/** Return the world state
 			@return The world state
 		*/
-		WorldState& WorldState();
+		Containers::WorldState& WorldState();
 	};
 }

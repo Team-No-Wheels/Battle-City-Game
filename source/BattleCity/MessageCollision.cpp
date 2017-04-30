@@ -1,16 +1,12 @@
 #include "Pch.h"
 #include "MessageCollision.h"
-#include "WorldState.h"
 
-using namespace BattleCity;
 using namespace AnonymousEngine;
-
-ATTRIBUTED_DEFINITIONS(MessageCollision)
 
 MessageCollision::MessageCollision(Containers::WorldState& worldState):
 	mEntities(5), mWorldState(worldState)
 {
-	EventMessageAttributed::SetSubtype("Collision");
+
 }
 
 MessageCollision::~MessageCollision()
