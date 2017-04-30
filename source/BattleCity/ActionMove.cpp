@@ -74,7 +74,7 @@ void ActionMove::SetDirection(Direction direction)
 	mDirection = direction;
 }
 
-ActionMove::Direction ActionMove::GetDirection()
+ActionMove::Direction ActionMove::GetDirection() const
 {
 	return mDirection;
 }

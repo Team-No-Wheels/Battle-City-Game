@@ -3,8 +3,27 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Pch.cpp" />
+    <ClCompile Include="RendererDirectX.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoaderDirectX.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer_DirectX.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
+    <ClInclude Include="RendererDirectX.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoaderDirectX.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer_DirectX.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{227de49c-4a0d-4014-88a2-c860653ee300}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

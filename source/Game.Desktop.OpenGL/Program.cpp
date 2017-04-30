@@ -3,6 +3,9 @@
 #include <fstream>
 #include "ShaderCompiler.h"
 #include "EngineSettings.h"
+#include "ServiceLocator.h"
+#include "TextureLoaderOpenGL.h"
+#include "RendererOpenGL.h"
 
 namespace AnonymousEngine
 {
@@ -11,21 +14,32 @@ namespace AnonymousEngine
 	{
 		// Using code from AnonymousEngine.Desktop
 		list = new SList<int>();
+
+		// setting the engine parameters.
+		AnonymousEngine::Core::EngineSettings::SetPlatform(AnonymousEngine::Core::PlatformType::DirectX);
+		AnonymousEngine::Core::EngineSettings::SetScreenWidth(width);
+		AnonymousEngine::Core::EngineSettings::SetScreenHeight(height);
+
+		// setting up the ServiceLocator
+		// registering TextureLoader
+		Graphics::TextureLoaderOpenGL textureLoader;
+		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::TextureLoader, textureLoader);
+		// registering Renderer
+		Graphics::RendererOpenGL renderer;
+		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::Renderer, renderer);
+
 		mBattleCity = new BattleCity::BattleCity();
 	}
 
 	Program::~Program()
 	{
 		delete list;
+		delete mBattleCity;
 	}
 
 	void Program::Init()
 	{
-		AnonymousEngine::Core::EngineSettings::SetPlatform(AnonymousEngine::Core::OpenGL);
-		AnonymousEngine::Core::EngineSettings::SetScreenWidth(width);
-		AnonymousEngine::Core::EngineSettings::SetScreenHeight(height);
-
-		// Initalize window parameters
+		// Initialize window parameters
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -48,7 +62,7 @@ namespace AnonymousEngine
 			throw std::runtime_error("Failed to initialize GLEW");
 		}
 
-		// initalize viewport
+		// initialize viewport
 		glfwGetFramebufferSize(window, nullptr, nullptr);
 		glViewport(0, 0, width, height);
 
@@ -61,7 +75,7 @@ namespace AnonymousEngine
 
 	void Program::GameLoop()
 	{
-		// game loop exiting on window close or ESC keypress
+		// game loop exiting on window close or ESC key press
 		while (!glfwWindowShouldClose(window))
 		{
 			glfwPollEvents();
@@ -70,6 +84,7 @@ namespace AnonymousEngine
 
 			Draw();
 			mBattleCity->Update(1.0f / 60.0f);
+
 			glfwSwapBuffers(window);
 		}
 	}
@@ -92,7 +107,7 @@ namespace AnonymousEngine
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
 
-		// vertices and indices to vertices for a tringle
+		// vertices and indices to vertices for a triangle
 		GLfloat vertices[] = {
 			-0.5f, -0.5f, 0.0f,
 			0.5f, -0.5f, 0.0f,
@@ -124,9 +139,6 @@ namespace AnonymousEngine
 
 	void Program::Draw()
 	{
-		
-		
-
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);

@@ -206,14 +206,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="RendererOpenGL.cpp" />
     <ClCompile Include="ShaderCompiler.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
+    <ClCompile Include="TextureLoaderOpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
     <ClInclude Include="Program.h" />
+    <ClInclude Include="RendererOpenGL.h" />
     <ClInclude Include="ShaderCompiler.h" />
     <ClInclude Include="TextureLoader.h" />
+    <ClInclude Include="TextureLoaderOpenGL.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\external\glad\glad.vcxproj">

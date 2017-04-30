@@ -6,12 +6,26 @@
     <ClCompile Include="Pch.cpp" />
     <ClCompile Include="ShaderCompiler.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
+    <ClCompile Include="RendererOpenGL.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoaderOpenGL.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer_OpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h" />
     <ClInclude Include="Pch.h" />
     <ClInclude Include="ShaderCompiler.h" />
     <ClInclude Include="TextureLoader.h" />
+    <ClInclude Include="RendererOpenGL.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoaderOpenGL.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer_OpenGL.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\default.frag">
@@ -24,6 +38,9 @@
   <ItemGroup>
     <Filter Include="Shaders">
       <UniqueIdentifier>{63bb3b76-7667-4bc0-b618-186662f87c84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{a0ea9be0-24c8-4c96-acbd-900c8deaab06}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

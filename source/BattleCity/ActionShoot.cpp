@@ -84,12 +84,12 @@ namespace AnonymousEngine
 
 	}
 
-	bool ActionShoot::CanShoot()
+	bool ActionShoot::CanShoot() const
 	{
 		return mCanShoot;
 	}
 
-	bool ActionShoot::IsDouble()
+	bool ActionShoot::IsDouble() const
 	{
 		return isDouble;
 	}

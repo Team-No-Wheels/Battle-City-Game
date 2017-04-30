@@ -1,17 +1,23 @@
 #pragma once
-#include "HashMap.h"
+#include "TextureLoaderService.h"
 
 namespace AnonymousEngine
 {
 	namespace Graphics
 	{
-		/**
-			TextureLoader follows the singleton pattern.
-		*/
-		class TextureLoader
+		class TextureLoaderOpenGL final : public TextureLoaderService
 		{
 		public:
-			
+			/**
+				Default constructor.
+			*/
+			TextureLoaderOpenGL();
+
+			/**
+				Default constructor
+			*/
+			~TextureLoaderOpenGL();
+
 			/**
 				@brief Return the unsigned int that is used to represent the texture id.
 				@details If OpenGL the return value should be casted to GLuint. If DirectX value should be casted to HRESULT
@@ -19,19 +25,18 @@ namespace AnonymousEngine
 				@param[in] pForceLoad If true it will reload the texture if its already loaded. If false load the texture if not loaded else return the already loaded texture id.
 				@return unsigned int that holds the id of the texture.
 			*/
-			static std::uint32_t GetTexture(const std::string& pTextureFilePath, bool pForceLoad = false);
+			virtual std::uint32_t GetTexture(const std::string& pTextureFilePath, bool pForceLoad = false) override;
 
 			/**
 				@brief Purge all the textures that are loaded.
 			*/
-			static void Purge();
+			virtual void Purge() override;
 
 		private:
-
 			/**
-				Map to string and texture ids.
+				Private constructor so that object of this class cannot be created anywhere outside the ServiceLocator.
 			*/
-			static HashMap<std::string, std::uint32_t> sTextureBank;
+			//TextureLoader_OpenGL();
 		};
 	}
 }

@@ -184,6 +184,7 @@
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="ScoreMessageStructs.h" />
+    <ClInclude Include="BasicTankAI.h" />
     <ClInclude Include="TankBase.h" />
     <ClInclude Include="TankPlayer.h" />
   </ItemGroup>
@@ -205,6 +206,7 @@
     <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="ScoreMessageStructs.cpp" />
+    <ClCompile Include="BasicTankAI.cpp" />
     <ClCompile Include="TankBase.cpp" />
     <ClCompile Include="TankPlayer.cpp" />
   </ItemGroup>

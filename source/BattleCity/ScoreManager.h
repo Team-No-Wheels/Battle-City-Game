@@ -1,6 +1,7 @@
 #pragma once
 #include "EventSubscriber.h"
 #include "HashMap.h"
+#include "WorldState.h"
 
 namespace AnonymousEngine
 {
@@ -37,18 +38,18 @@ namespace AnonymousEngine
 			decrease the number of tanks.
 			@param scoreType The key for the total score map.
 		*/
-		void HandleScore(std::string scoreType);
+		void HandleScore(std::string scoreType, Containers::WorldState& worldState);
 
 		/** Do the final score calculation and trigger an end of level event.
 			@param wasWin true if the player beat the level.
 		*/
-		void LevelOver(bool wasWin);
+		void LevelOver(bool wasWin, Containers::WorldState& worldState);
 
 		/** Either subtract lives from the player or end the level imediately if the damage was
 		*	to the flag.
 		*	@param wasFlag True if the damage was to the flag.
 		*/
-		void DamagePlayer(bool wasFlag);
+		void DamagePlayer(bool wasFlag, Containers::WorldState& worldState);
 
 		/** Set all fields for the start of the level
 		*	@param playerLives The starting lives for the player.

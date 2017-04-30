@@ -3,6 +3,9 @@
 #include "SList.h"
 #include "EngineSettings.h"
 #include "BattleCity.h"
+#include "ServiceLocator.h"
+#include "TextureLoaderDirectX.h"
+#include "RendererDirectX.h"
 
 #define WINDOW_WIDTH	800
 #define WINDOW_HEIGHT	600
@@ -70,9 +73,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	// set up and initialize Direct3D
 	InitD3D(hWnd);
-	AnonymousEngine::Core::EngineSettings::SetPlatform(AnonymousEngine::Core::DirectX);
+	AnonymousEngine::Core::EngineSettings::SetPlatform(AnonymousEngine::Core::PlatformType::DirectX);
 	AnonymousEngine::Core::EngineSettings::SetScreenWidth(WINDOW_WIDTH);
 	AnonymousEngine::Core::EngineSettings::SetScreenHeight(WINDOW_HEIGHT);
+
+	// setting up the ServiceLocator
+	// registering TextureLoader
+	AnonymousEngine::Graphics::TextureLoaderDirectX textureLoader;
+	AnonymousEngine::Core::ServiceLocator::AddService(AnonymousEngine::Core::ServiceLocator::ServiceType::TextureLoader, textureLoader);
+	// registering Renderer
+	AnonymousEngine::Graphics::RendererDirectX renderer;
+	AnonymousEngine::Core::ServiceLocator::AddService(AnonymousEngine::Core::ServiceLocator::ServiceType::Renderer, renderer);
 
 	BattleCity::BattleCity* battleCity = new BattleCity::BattleCity();
 	battleCity->Init();
@@ -97,7 +108,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	// clean up DirectX and COM
 	CleanD3D();
-	return (int)msg.wParam;
+	return static_cast<int>(msg.wParam);
 }
 
 
