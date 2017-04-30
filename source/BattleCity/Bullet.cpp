@@ -84,7 +84,21 @@ namespace AnonymousEngine
 					}
 
 					// Do Stuff If Enemy
+					/*
+						std::string tankType = //GET TANK TYPE NAME STRING
+						ScoreEventMessage scoreMessage(tankType, message->WorldState());
+						const std::shared_ptr<Core::Event<PlayerscoreMessageSideDamageMessage>> eventptr = std::make_shared<Core::Event<scoreMessage>>(scoreMessage);
+						message->WorldState().mWorld->EventQueue().Enqueue(eventptr, message->WorldState().mGameTime, 0u);
+					*/
+
 					// Do Stuff If Wall
+
+					// Do Stuff if Flag
+					/*
+						PlayerSideDamageMessage damageMessage(true, message->WorldState());
+						const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
+						message->WorldState().mWorld->EventQueue().Enqueue(eventptr, message->WorldState().mGameTime, 0u);
+					*/
 
 					mShootParent->PendKillBullet(*this);
 				}

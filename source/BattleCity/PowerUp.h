@@ -51,10 +51,11 @@ namespace AnonymousEngine
 		void ActivateTank(Containers::WorldState& worldState);
 		void ActivateClock();
 		void ActivateShield(TankPlayer& player);
-		void ActivateBomb(TankPlayer& player);
+		void ActivateBomb(TankPlayer& player, Containers::WorldState& worldState);
 		void ActivateShovel();
 		void ActivateStar(TankPlayer& player);
 
+		static const std::string mPowerupKey;
 	};
 
 	ENTITY_FACTORY_DECLARATIONS(PowerUp);
