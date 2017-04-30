@@ -9,7 +9,7 @@ namespace AnonymousEngine
 {
 	Collider::Collider(GameObject& gameObject) : mGameObject(gameObject), mColliderTag(ColliderTag::Invalid), mHeight(0), mWidth(0)
 	{
-		CollisionManager* collisionManager = static_cast<CollisionManager*>(ServiceLocator::GetService(ServiceLocator::ServiceType::CollisionManager));
+		CollisionManager* collisionManager = static_cast<CollisionManager*>(ServiceLocator::GetService(ServiceLocator::sCollisionManager));
 		if (collisionManager)
 		{
 			collisionManager->Register(*this);
