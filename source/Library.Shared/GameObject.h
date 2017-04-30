@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "Sprite.h"
+#include "Collider.h"
 #include "glm/vec2.hpp"
 
 namespace AnonymousEngine
@@ -30,7 +31,11 @@ namespace AnonymousEngine
 			/**
 			* The method called in case of a collision of this game object with another.
 			*/
-			//void OnCollision();
+			virtual void OnCollision(GameObject& otherGameObject);
+			/**
+			* Get a reference to the collider contained within this game object.
+			*/
+			Collider& GetCollider();
 		protected:
 		private:
 			/**
@@ -41,6 +46,11 @@ namespace AnonymousEngine
 			* The sprite representing this game object in the world.
 			*/
 			Graphics::Sprite mSprite;
+			/**
+			* The collider associated with this game object.
+			*/
+			Collider mCollider;
+
 			/** 
 			* The attribute name for the member variable position.
 			*/

@@ -31,4 +31,9 @@ namespace AnonymousEngine
 		otherCollider;
 		return false;
 	}
+	
+	Core::GameObject& Core::Collider::GetOwner()
+	{
+		return mGameObject;
+	}
 }
