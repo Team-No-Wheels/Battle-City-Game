@@ -3,6 +3,7 @@
 #include "XmlParseMaster.h"
 #include "WorldParserHelper.h"
 #include "WorldSharedData.h"
+#include "Service.h"
 
 namespace BattleCity
 {
@@ -22,7 +23,7 @@ namespace BattleCity
 
 		/** LevelManager class which loads the entire levels of the game, transitions to a new level, returns the tile types for the map.
 		*/
-		class LevelManager
+		class LevelManager : public AnonymousEngine::Core::Service
 		{			
 		public:
 			/** Zero parameterized constructor.
@@ -33,12 +34,12 @@ namespace BattleCity
 			/** Returns 2-D Vector array of MapTile enum type for the current level.
 			*	@returns Returns 2-D Vector array of MapTile enum type for the current level.
 			*/
-			AnonymousEngine::Vector<AnonymousEngine::Vector<MapTile>>& GetLevelTiles();
+			AnonymousEngine::Vector<AnonymousEngine::Vector<MapTile>>& GetLevelTiles(std::uint32_t levelNumber);
 
 			/** Returns 2-D Vector array of MapTile enum type for the current level.
 			*	@returns Returns 2-D Vector array of MapTile enum type for the current level.
 			*/
-			const AnonymousEngine::Vector<AnonymousEngine::Vector<MapTile>>& GetLevelTiles() const;
+			const AnonymousEngine::Vector<AnonymousEngine::Vector<MapTile>>& GetLevelTiles(std::uint32_t levelNumber) const;
 
 			/** Loads the entire World XML, i.e. loads the XML for all levels.
 			*	@returns Returns the loaded World.
@@ -49,6 +50,9 @@ namespace BattleCity
 			*/
 			~LevelManager();
 
+			/** The name of the Service for level manager.
+			*/
+			static const std::string sServiceName;
 		private:
 			/** 2-D Vector array storing MapTile enum type
 			*/
@@ -56,7 +60,7 @@ namespace BattleCity
 
 			/** The name of the XML level file.
 			*/
-			static const std::string mLevelXmlFile;
+			static const std::string sLevelXmlFile;
 
 			/** Pointer to the parsed World object.
 			*/
