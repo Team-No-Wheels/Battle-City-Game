@@ -11,7 +11,7 @@ namespace AnonymousEngine
 	using namespace Containers;
 	using namespace Core;
 
-	class ActionFreeze : public Action, public EventSubscriber
+	class ActionFreeze final : public Action, public EventSubscriber
 	{
 
 		RTTI_DECLARATIONS(ActionFreeze, Action);
@@ -21,8 +21,8 @@ namespace AnonymousEngine
 		ActionFreeze();
 		~ActionFreeze();
 
-		void Update(WorldState& worldState);
-		void Notify(class EventPublisher& publisher);
+		void Update(WorldState& worldState) override;
+		void Notify(class EventPublisher& publisher) override;
 
 	private:
 
