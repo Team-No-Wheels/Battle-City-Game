@@ -4,8 +4,8 @@
 #include "EngineSettings.h"
 #include "BattleCity.h"
 #include "ServiceLocator.h"
-#include "TextureLoader_DirectX.h"
-#include "Renderer_DirectX.h"
+#include "TextureLoaderDirectX.h"
+#include "RendererDirectX.h"
 
 #define WINDOW_WIDTH	800
 #define WINDOW_HEIGHT	600
@@ -79,10 +79,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	// setting up the ServiceLocator
 	// registering TextureLoader
-	AnonymousEngine::Graphics::TextureLoader_DirectX textureLoader;
+	AnonymousEngine::Graphics::TextureLoaderDirectX textureLoader;
 	AnonymousEngine::Core::ServiceLocator::AddService(AnonymousEngine::Core::ServiceLocator::ServiceType::TextureLoader, textureLoader);
 	// registering Renderer
-	AnonymousEngine::Graphics::Renderer_DirectX renderer;
+	AnonymousEngine::Graphics::RendererDirectX renderer;
 	AnonymousEngine::Core::ServiceLocator::AddService(AnonymousEngine::Core::ServiceLocator::ServiceType::Renderer, renderer);
 
 	BattleCity::BattleCity* battleCity = new BattleCity::BattleCity();

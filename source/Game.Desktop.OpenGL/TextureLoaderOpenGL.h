@@ -5,18 +5,18 @@ namespace AnonymousEngine
 {
 	namespace Graphics
 	{
-		class TextureLoader_OpenGL final : public TextureLoaderService
+		class TextureLoaderOpenGL final : public TextureLoaderService
 		{
 		public:
 			/**
 				Default constructor.
 			*/
-			TextureLoader_OpenGL();
+			TextureLoaderOpenGL();
 
 			/**
 				Default constructor
 			*/
-			~TextureLoader_OpenGL();
+			~TextureLoaderOpenGL();
 
 			/**
 				@brief Return the unsigned int that is used to represent the texture id.

@@ -5,21 +5,21 @@ namespace AnonymousEngine
 {
 	namespace Graphics
 	{
-		class Renderer_OpenGL final : public RendererService
+		class RendererDirectX final : public RendererService
 		{
 		public:
 			/**
-				Default constructor
+			Default constructor
 			*/
-			Renderer_OpenGL();
+			RendererDirectX();
 
 			/**
-				Default destructor
+			Default destructor
 			*/
-			~Renderer_OpenGL();
+			~RendererDirectX();
 
 			/**
-				@brief Calls the appropriate render function.
+			@brief Calls the appropriate render function.
 			*/
 			virtual void Render(uint32_t pTextureID, const Geometry::Rectangle& pSpriteBounds, const Geometry::Rectangle& pUVBounds) override;
 		};

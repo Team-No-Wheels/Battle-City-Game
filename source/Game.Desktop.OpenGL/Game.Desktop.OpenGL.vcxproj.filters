@@ -6,10 +6,10 @@
     <ClCompile Include="Pch.cpp" />
     <ClCompile Include="ShaderCompiler.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
-    <ClCompile Include="TextureLoader_OpenGL.cpp">
+    <ClCompile Include="RendererOpenGL.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer_OpenGL.cpp">
+    <ClCompile Include="TextureLoaderOpenGL.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -18,10 +18,10 @@
     <ClInclude Include="Pch.h" />
     <ClInclude Include="ShaderCompiler.h" />
     <ClInclude Include="TextureLoader.h" />
-    <ClInclude Include="TextureLoader_OpenGL.h">
+    <ClInclude Include="RendererOpenGL.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer_OpenGL.h">
+    <ClInclude Include="TextureLoaderOpenGL.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>

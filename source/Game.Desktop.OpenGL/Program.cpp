@@ -4,8 +4,8 @@
 #include "ShaderCompiler.h"
 #include "EngineSettings.h"
 #include "ServiceLocator.h"
-#include "TextureLoader_OpenGL.h"
-#include "Renderer_OpenGL.h"
+#include "TextureLoaderOpenGL.h"
+#include "RendererOpenGL.h"
 
 namespace AnonymousEngine
 {
@@ -22,10 +22,10 @@ namespace AnonymousEngine
 
 		// setting up the ServiceLocator
 		// registering TextureLoader
-		Graphics::TextureLoader_OpenGL textureLoader;
+		Graphics::TextureLoaderOpenGL textureLoader;
 		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::TextureLoader, textureLoader);
 		// registering Renderer
-		Graphics::Renderer_OpenGL renderer;
+		Graphics::RendererOpenGL renderer;
 		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::Renderer, renderer);
 
 		mBattleCity = new BattleCity::BattleCity();

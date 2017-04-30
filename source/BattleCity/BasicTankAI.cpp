@@ -39,6 +39,7 @@ namespace AnonymousEngine
 	/************************************************************************/
 	void BasicTankAI::Notify(EventPublisher& publisher)
 	{
+		publisher;
 		// todo handle collisions here
 		
 	}

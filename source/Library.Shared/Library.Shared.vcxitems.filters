@@ -107,6 +107,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Sprite.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ServiceLocator.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -245,6 +251,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Sprite.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TextureLoaderService.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ServiceLocator.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Service.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RendererService.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
@@ -267,6 +288,9 @@
     </Filter>
     <Filter Include="Graphics">
       <UniqueIdentifier>{9a25cce1-9533-43b7-b8dd-24a0155b27a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{1ef13d38-6e76-48f5-a277-651f82812f0f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
