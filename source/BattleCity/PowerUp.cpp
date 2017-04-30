@@ -27,7 +27,7 @@ namespace AnonymousEngine
 
 	void PowerUp::Activate(TankPlayer& player, Containers::WorldState& worldState)
 	{
-		//The player recieves a score for picking up a power up.
+		//The player receives a score for picking up a power up.
 		ScoreEventMessage scoreMessage(mPowerupKey, worldState);
 		const std::shared_ptr<Core::Event<ScoreEventMessage>> eventptr = std::make_shared<Core::Event<ScoreEventMessage>>(scoreMessage);
 		worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
