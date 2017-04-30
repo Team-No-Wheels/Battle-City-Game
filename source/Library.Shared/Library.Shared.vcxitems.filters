@@ -116,7 +116,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp">
       <Filter>Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)CollisionManager.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)AudioManager.cpp">
@@ -281,7 +281,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h">
       <Filter>Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)CollisionManager.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)AudioManager.h">
