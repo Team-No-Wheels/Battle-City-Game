@@ -14,7 +14,7 @@ namespace AnonymousEngine
 	class ActionFreeze final : public Action, public EventSubscriber
 	{
 
-		RTTI_DECLARATIONS(ActionFreeze, Action);
+		ATTRIBUTED_DECLARATIONS(ActionFreeze, Action);
 
 	public:
 

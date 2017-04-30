@@ -7,7 +7,7 @@ namespace AnonymousEngine
 {
 	class BasicTankAI : public TankBase
 	{
-		RTTI_DECLARATIONS(BasicTankAI, TankBase);
+		ATTRIBUTED_DECLARATIONS(BasicTankAI, TankBase);
 
 	public:
 

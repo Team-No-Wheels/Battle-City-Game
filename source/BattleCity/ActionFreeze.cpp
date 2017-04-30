@@ -5,7 +5,7 @@
 namespace AnonymousEngine
 {
 
-	RTTI_DEFINITIONS(ActionFreeze);
+	ATTRIBUTED_DEFINITIONS(ActionFreeze);
 
 	ActionFreeze::ActionFreeze() :
 		mTimeFrozen(10), mTimeRemaining(0), Zero(0)
@@ -69,6 +69,11 @@ namespace AnonymousEngine
 			if (message->GetSubtype() == "Freeze")
 				mTimeRemaining = mTimeFrozen;
 		}
+	}
+
+	void ActionFreeze::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
 
 	ACTION_FACTORY_DEFINITIONS(ActionFreeze);
