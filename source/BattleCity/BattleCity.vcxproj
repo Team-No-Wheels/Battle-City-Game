@@ -176,6 +176,7 @@
     <ClInclude Include="ActionMove.h" />
     <ClInclude Include="ActionShoot.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="C:\Users\nsundharesan\Desktop\BrownBrick.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="MessageCollision.h" />
     <ClInclude Include="MessageInput.h" />
@@ -187,12 +188,14 @@
     <ClInclude Include="BasicTankAI.h" />
     <ClInclude Include="TankBase.h" />
     <ClInclude Include="TankPlayer.h" />
+    <ClInclude Include="WhiteBrick.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActionFreeze.cpp" />
     <ClCompile Include="ActionMove.cpp" />
     <ClCompile Include="ActionShoot.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="C:\Users\nsundharesan\Desktop\BrownBrick.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="MessageCollision.cpp" />
     <ClCompile Include="MessageInput.cpp" />
@@ -209,6 +212,7 @@
     <ClCompile Include="BasicTankAI.cpp" />
     <ClCompile Include="TankBase.cpp" />
     <ClCompile Include="TankPlayer.cpp" />
+    <ClCompile Include="WhiteBrick.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library.Desktop\Library.Desktop.vcxproj">
