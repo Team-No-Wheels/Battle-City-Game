@@ -3,7 +3,8 @@
 
 namespace BattleCity
 {
-	UIManager::UIManager()
+	UIManager::UIManager() :
+		mActiveUI(UiType::MainMenu)
 	{
 	}
 
@@ -11,23 +12,12 @@ namespace BattleCity
 	{
 	}
 
-	void UIManager::MainMenu()
+	void UIManager::SetActiveUI(UiType uiType)
 	{
+		uiType;
 	}
 
-	void UIManager::PauseMenu()
-	{
-	}
-
-	void UIManager::LevelTransitionUI()
-	{
-	}
-
-	void UIManager::LevelCompletionUI()
-	{
-	}
-
-	void UIManager::UpdateLevelUI()
+	void UIManager::Update()
 	{
 	}
 }
