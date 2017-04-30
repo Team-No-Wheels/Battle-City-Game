@@ -35,7 +35,7 @@ namespace AnonymousEngine
 		void AddTankType(std::string name, std::int32_t value);
 
 		/** Increase the correct field in the total score map. Also if a tank was destroyed
-			decrease the number of tanks.
+			decrease the number of tanks and handle level over if there are no more tanks.
 			@param scoreType The key for the total score map.
 		*/
 		void HandleScore(std::string scoreType, Containers::WorldState& worldState);
@@ -48,8 +48,14 @@ namespace AnonymousEngine
 		/** Either subtract lives from the player or end the level imediately if the damage was
 		*	to the flag.
 		*	@param wasFlag True if the damage was to the flag.
+			@param worldState The current state of the world
 		*/
 		void DamagePlayer(bool wasFlag, Containers::WorldState& worldState);
+
+		/** Add a life to the player
+		*	@param worldState The current state of the world
+		*/
+		void HealPlayer(Containers::WorldState& worldState);
 
 		/** Set all fields for the start of the level
 		*	@param playerLives The starting lives for the player.
@@ -57,6 +63,10 @@ namespace AnonymousEngine
 		*	@param levelNumber	The current level number.
 		*/
 		void HandleLevelStart(std::int32_t playerLives, std::int32_t numberTanks, std::int32_t levelNumber);
+
+		/** Decrease the number of tanks and handle level over if there are no more.
+		*/
+		void ScoreManager::DecreaseNumTanks(Containers::WorldState& worldState);
 
 		/** Notify the score manager about any of several score related events.
 		*  @param publisher The publisher of the event. Event data is retrieved from this publisher

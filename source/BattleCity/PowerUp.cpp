@@ -1,5 +1,7 @@
 #include "Pch.h"
 #include "PowerUp.h"
+#include "Event.h"
+#include "ScoreMessageStructs.h"
 
 namespace AnonymousEngine
 {
@@ -22,13 +24,13 @@ namespace AnonymousEngine
 		mType = newType;
 	}
 
-	void PowerUp::Activate(TankPlayer& player)
+	void PowerUp::Activate(TankPlayer& player, Containers::WorldState& worldState)
 	{
 
 		switch (mType)
 		{
 		case PowerUpType::Tank:
-			ActivateTank(player);
+			ActivateTank(worldState);
 			break;
 
 		case PowerUpType::Clock:
@@ -101,16 +103,18 @@ namespace AnonymousEngine
 				// Activate If Player Collided With This PowerUp
 				if (player != nullptr && power != nullptr && power == this)
 				{
-					Activate(*player);
+					Activate(*player, message->WorldState());
 					break;
 				}
 			}
 		}
 	}
 
-	void PowerUp::ActivateTank(TankPlayer& player)
+	void PowerUp::ActivateTank(Containers::WorldState& worldState)
 	{
-		player.IncrementLives();
+		PlayerSideHealMessage healMessage(worldState);
+		const std::shared_ptr<Core::Event<PlayerSideHealMessage>> eventptr = std::make_shared<Core::Event<PlayerSideHealMessage>>(healMessage);
+		worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
 	}
 
 	void PowerUp::ActivateClock()

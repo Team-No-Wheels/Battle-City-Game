@@ -1,6 +1,8 @@
 #include "Pch.h"
 #include "Bullet.h"
 #include "TankPlayer.h"
+#include "ScoreMessageStructs.h"
+#include "World.h"
 
 namespace AnonymousEngine
 {
@@ -76,7 +78,9 @@ namespace AnonymousEngine
 					// Do Stuff If Player
 					if (player != nullptr && !player->IsInvincible())
 					{
-						player->DecrementLives();
+						PlayerSideDamageMessage damageMessage(false, message->WorldState());
+						const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
+						message->WorldState().mWorld->EventQueue().Enqueue(eventptr, message->WorldState().mGameTime, 0u);
 					}
 
 					// Do Stuff If Enemy
