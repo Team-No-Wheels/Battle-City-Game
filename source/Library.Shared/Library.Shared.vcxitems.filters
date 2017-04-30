@@ -266,6 +266,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h">
       <Filter>Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioManager.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
@@ -291,6 +294,9 @@
     </Filter>
     <Filter Include="Geometry">
       <UniqueIdentifier>{1ef13d38-6e76-48f5-a277-651f82812f0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{7624479e-7152-4401-bddd-e6e12bc18e90}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
