@@ -14,12 +14,12 @@ namespace AnonymousEngine
 	class ActionShoot : public Action
 	{
 
-		RTTI_DECLARATIONS(ActionShoot, Action);
+		ATTRIBUTED_DECLARATIONS(ActionShoot, Action);
 
 	public:
 
 		ActionShoot();
-		~ActionShoot();
+		~ActionShoot() = default;
 
 		void Update(WorldState& worldState) override;
 		void CreateBullet();

@@ -3,7 +3,7 @@
 
 namespace AnonymousEngine
 {
-	RTTI_DEFINITIONS(BasicTankAI);
+	ATTRIBUTED_DEFINITIONS(BasicTankAI);
 	ENTITY_FACTORY_DEFINITIONS(BasicTankAI);
 
 	/************************************************************************/
@@ -15,14 +15,6 @@ namespace AnonymousEngine
 	BasicTankAI::BasicTankAI(const float speed, const int32_t bulletsNum, const int32_t armor):
 		mIsFrozen(false), mSpeed(speed), mBulletsNum(bulletsNum), mArmor(armor)
 	{
-		Event<MessageCollision>::Subscribe(*this);
-	}
-
-	/************************************************************************/
-	BasicTankAI::~BasicTankAI()
-	{
-		// todo unsubsccribe here
-		Event<MessageCollision>::Unsubscribe(*this);
 	}
 
 	/************************************************************************/
@@ -38,12 +30,6 @@ namespace AnonymousEngine
 	}
 
 	/************************************************************************/
-	void BasicTankAI::Notify(EventPublisher&)
-	{
-		// todo handle collisions here
-	}
-
-	/************************************************************************/
 	void BasicTankAI::Freeze()
 	{
 		mIsFrozen = true;
@@ -54,4 +40,10 @@ namespace AnonymousEngine
 	{
 		mIsFrozen = false;
 	}
+
+	void BasicTankAI::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
+	}
+
 }

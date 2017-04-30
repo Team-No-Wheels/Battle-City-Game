@@ -7,5 +7,10 @@ namespace BattleCity
 	{
 		ATTRIBUTED_DEFINITIONS(Grass)
 		ENTITY_FACTORY_DEFINITIONS(Grass)
+
+		void Grass::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+		{
+			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);			
+		}
 	}
 }

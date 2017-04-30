@@ -5,20 +5,20 @@
 
 namespace AnonymousEngine
 {
-	class BasicTankAI : public TankBase, public EventSubscriber
+	class BasicTankAI : public TankBase
 	{
-		RTTI_DECLARATIONS(BasicTankAI, TankBase);
+		ATTRIBUTED_DECLARATIONS(BasicTankAI, TankBase);
 
 	public:
 
 		BasicTankAI(const float speed = DEFAULT_SPEED, const int32_t bulletsNum = DEFAULT_BULLETS_NUM, const int32_t armor = DEFAULT_ARMOR);
-		virtual ~BasicTankAI();
+		virtual ~BasicTankAI() = default;
 
 		BasicTankAI(const BasicTankAI & rhs) = delete;
 		BasicTankAI& operator=(const BasicTankAI& rhs) = delete;
 
 		virtual void Update(WorldState& worldState) override;
-		virtual void Notify(EventPublisher& publisher) override;
+		void HandleCollision();
 
 		void Freeze();
 		void Unfreeze();

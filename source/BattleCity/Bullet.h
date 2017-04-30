@@ -10,7 +10,7 @@ namespace AnonymousEngine
 	class Bullet : public GameObject, public EventSubscriber
 	{
 
-		RTTI_DECLARATIONS(Bullet, GameObject);
+		ATTRIBUTED_DECLARATIONS(Bullet, GameObject);
 
 	public:
 
