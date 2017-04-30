@@ -175,8 +175,8 @@
     <ClInclude Include="ActionFreeze.h" />
     <ClInclude Include="ActionMove.h" />
     <ClInclude Include="ActionShoot.h" />
+    <ClInclude Include="BrownBrick.h" />
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="C:\Users\nsundharesan\Desktop\BrownBrick.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="MessageCollision.h" />
     <ClInclude Include="MessageInput.h" />
@@ -194,8 +194,8 @@
     <ClCompile Include="ActionFreeze.cpp" />
     <ClCompile Include="ActionMove.cpp" />
     <ClCompile Include="ActionShoot.cpp" />
+    <ClCompile Include="BrownBrick.cpp" />
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="C:\Users\nsundharesan\Desktop\BrownBrick.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="MessageCollision.cpp" />
     <ClCompile Include="MessageInput.cpp" />
