@@ -5,6 +5,7 @@
 #include "Metal.h"
 #include "Water.h"
 #include "World.h"
+#include "Sector.h"
 #include "ServiceLocator.h"
 
 using namespace AnonymousEngine;
@@ -15,15 +16,19 @@ namespace BattleCity
 	{
 		typedef Parsers::XmlParseMaster XmlParseMaster;
 		typedef Parsers::WorldParserHelper WorldParserHelper;
-		typedef Parsers::WorldSharedData WorldSharedData;		
+		typedef Parsers::WorldSharedData WorldSharedData;
 		typedef MapEntities::BrickFactory BrickFactory;
 		typedef MapEntities::GrassFactory GrassFactory;
 		typedef MapEntities::MetalFactory MetalFactory;
 		typedef MapEntities::WaterFactory WaterFactory;
 		typedef Containers::World World;
+		typedef Containers::Sector Sector;
 
 		const std::string LevelManager::sServiceName = "LevelManager";
-		const std::string LevelManager::sLevelXmlFile = "LevelFile.xml";
+		const std::string LevelManager::sLevelXmlFile = "BattleCity.xml";
+
+		const std::string LevelManager::sPosX = "posX";
+		const std::string LevelManager::sPosY = "posY";
 
 		LevelManager::LevelManager()
 			:mWorld(nullptr)
@@ -31,22 +36,28 @@ namespace BattleCity
 			Core::ServiceLocator::AddService(sServiceName, *this);
 		}
 
-		Vector<Vector<MapTile>>& LevelManager::GetLevelTiles(std::uint32_t levelNumber)
+		void LevelManager::LoadLevelTiles(std::uint32_t levelNumber)
 		{
-			return const_cast<Vector<Vector<MapTile>>&>(const_cast<const LevelManager*>(this)->GetLevelTiles(levelNumber));
+			assert(mWorld != nullptr);
+			Datum& sectorDatum = mWorld->Sectors();
+			Sector& currentLevel = static_cast<Sector&>(sectorDatum.Get<Scope>(levelNumber));
+			currentLevel;
 		}
 
-		const Vector<Vector<MapTile>>& LevelManager::GetLevelTiles(std::uint32_t levelNumber) const
-
+		Vector<Vector<TileType>>& LevelManager::GetLevelTiles()
 		{
-			UNREFERENCED_PARAMETER(levelNumber);
+			return const_cast<Vector<Vector<TileType>>&>(const_cast<const LevelManager*>(this)->GetLevelTiles());
+		}
+
+		const Vector<Vector<TileType>>& LevelManager::GetLevelTiles() const
+		{
 			return m2DTileArray;
 		}
 
 		World& LevelManager::LoadWorld()
 		{
 			//Resetting
-			delete mWorld;			
+			delete mWorld;
 
 			//Declaring the factories
 			BrickFactory brickFactory;
