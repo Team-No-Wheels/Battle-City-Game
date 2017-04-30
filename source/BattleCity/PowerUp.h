@@ -1,5 +1,5 @@
 #pragma once
-#include "Entity.h"
+#include "GameObject.h"
 #include "EventSubscriber.h"
 #include "Event.h"
 #include "MessageCollision.h"
@@ -15,10 +15,10 @@ namespace AnonymousEngine
 	using namespace Containers;
 	using namespace Core;
 
-	class PowerUp : public Entity, public EventSubscriber
+	class PowerUp : public GameObject, public EventSubscriber
 	{
 
-		RTTI_DECLARATIONS(PowerUp, Entity);
+		RTTI_DECLARATIONS(PowerUp, GameObject);
 
 	public:
 
