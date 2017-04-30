@@ -14,7 +14,7 @@ namespace AnonymousEngine
 		ENTITY_FACTORY_DEFINITIONS(Sprite);
 
 		Sprite::Sprite() :
-			Renderable()
+			Renderable(), isInitialized(false)
 		{
 
 		}
@@ -47,20 +47,21 @@ namespace AnonymousEngine
 
 		void Sprite::Render()
 		{
-			//Geometry::Rectangle uv(0, 0, 1, 0, 0, 1, 1, 1);
-			Geometry::Rectangle uv(0, 1, 1, 1, 0, 0, 1, 0);
-			Geometry::Rectangle position(-100 + 400, 100 + 400,
-				100 + 400, 100 + 400,
-				-100 + 400, -100 + 400,
-				100 + 400, -100 + 400);
+			if (isInitialized)
+			{
+				Geometry::Rectangle uv(0, 1, 1, 1, 0, 0, 1, 0);
+				Geometry::Rectangle position(-100 + 400, 100 + 400,
+					100 + 400, 100 + 400,
+					-100 + 400, -100 + 400,
+					100 + 400, -100 + 400);
 
-			Core::ServiceLocator::GetRenderer()->Render(mTexture, position, uv);
+				Core::ServiceLocator::GetRenderer()->Render(mTexture, position, uv);
 
 
 #ifdef _DEBUG
-			DrawDebugBounds();
+				DrawDebugBounds();
 #endif 
-
+			}
 		}
 
 		void Sprite::DrawDebugBounds()

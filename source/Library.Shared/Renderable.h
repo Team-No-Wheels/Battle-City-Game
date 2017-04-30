@@ -53,6 +53,8 @@ namespace AnonymousEngine
 			std::int32_t mHeight;
 			glm::vec4 mPosition;
 
+			bool isInitialized;
+
 		private:
 			ATTRIBUTED_DECLARATIONS(Renderable, Containers::Entity)
 		};

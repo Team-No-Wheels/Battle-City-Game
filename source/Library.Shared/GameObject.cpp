@@ -25,6 +25,10 @@ namespace AnonymousEngine
 		void GameObject::Update(Containers::WorldState& worldState)
 		{
 			worldState;
+
+			// sprite render and update.
+			mSprite.Render();
+			mSprite.Update(1.0f / 60.0f);
 		}
 
 		void GameObject::OnCollision(GameObject& otherGameObject)
