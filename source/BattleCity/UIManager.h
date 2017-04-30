@@ -1,8 +1,8 @@
 #pragma once
 
-#include <string>
 #include "HashMap.h"
 #include "UIScreen.h"
+#include "Entity.h"
 
 namespace BattleCity
 {

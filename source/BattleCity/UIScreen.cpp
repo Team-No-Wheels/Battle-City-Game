@@ -3,6 +3,8 @@
 
 namespace BattleCity
 {
+	ATTRIBUTED_DEFINITIONS(UIScreen);
+
 	void UIScreen::Update()
 	{
 	}
