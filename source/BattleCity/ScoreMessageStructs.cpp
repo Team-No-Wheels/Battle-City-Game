@@ -1,8 +1,10 @@
 #include "Pch.h"
 #include "ScoreMessageStructs.h"
 
-namespace AnonymousEngine
+namespace BattleCity
 {
+	using namespace AnonymousEngine;
+
 	//TankDefinedMessage functions
 
 	TankDefinedMessage::TankDefinedMessage(std::string name, std::int32_t value) : mName(name), mValue(value)
@@ -38,7 +40,7 @@ namespace AnonymousEngine
 
 	//ScoreEventMessage functions
 
-	ScoreEventMessage::ScoreEventMessage(std::string name, Containers::WorldState& worldState):mName(name), mWorldState(worldState)
+	ScoreEventMessage::ScoreEventMessage(std::string name, AnonymousEngine::Containers::WorldState& worldState):mName(name), mWorldState(worldState)
 	{
 	}
 

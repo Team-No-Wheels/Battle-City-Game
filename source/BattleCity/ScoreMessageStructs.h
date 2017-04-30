@@ -1,8 +1,11 @@
 #pragma once
 #include "HashMap.h"
 #include "WorldState.h"
-namespace AnonymousEngine
+
+namespace BattleCity
 {
+	using namespace AnonymousEngine;
+
 	/** Used for events which fire when a tank definition is recieved by
 	*   the parser.
 	*/
@@ -198,7 +201,7 @@ namespace AnonymousEngine
 	public:
 		/** Construct a player side heal message and fill in it's members
 		*/
-		PlayerSideHealMessage(Containers::WorldState& worldState);
+		PlayerSideHealMessage(AnonymousEngine::Containers::WorldState& worldState);
 
 		/** Returns a reference to the world state.
 		*	@return A reference to the world state.

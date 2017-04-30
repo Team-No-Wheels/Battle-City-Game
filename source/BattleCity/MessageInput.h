@@ -1,22 +1,24 @@
 #pragma once
 #include "Vector.h"
+#include "EventMessageAttributed.h"
 
-namespace AnonymousEngine
+namespace BattleCity
 {
+	using namespace AnonymousEngine::Containers;
 
-	class MessageInput
+	class MessageInput : public EventMessageAttributed
 	{
+		ATTRIBUTED_DECLARATIONS(MessageInput, EventMessageAttributed)
 
 	public:
-
 		MessageInput();
 		bool operator==(const MessageInput& rhs);
 		~MessageInput();
 
 		void AddKey(std::string& key);
-		Vector<std::string*>& GetKeys();
+		AnonymousEngine::Vector<std::string*>& GetKeys();
 
 	private:
-		Vector<std::string*> mKeys;
+		AnonymousEngine::Vector<std::string*> mKeys;
 	};
 }

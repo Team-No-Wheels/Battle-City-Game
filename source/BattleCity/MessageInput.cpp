@@ -1,12 +1,15 @@
 #include "Pch.h"
 #include "MessageInput.h"
 
+using namespace BattleCity;
 using namespace AnonymousEngine;
+
+ATTRIBUTED_DEFINITIONS(MessageInput)
 
 MessageInput::MessageInput() :
 	mKeys(5)
 {
-
+	EventMessageAttributed::SetSubtype("Input");
 }
 
 MessageInput::~MessageInput()

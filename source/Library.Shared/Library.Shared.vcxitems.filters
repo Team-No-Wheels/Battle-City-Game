@@ -113,6 +113,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp">
       <Filter>Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioManager.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
