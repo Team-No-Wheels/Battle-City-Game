@@ -9,6 +9,7 @@
     <ClCompile Include="TextureLoader_OpenGL.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer_OpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h" />
@@ -18,6 +19,7 @@
     <ClInclude Include="TextureLoader_OpenGL.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer_OpenGL.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\default.frag">

@@ -101,7 +101,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EngineSettings.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TextureLoader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Renderable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ServiceLocator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
@@ -234,7 +236,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EngineSettings.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TextureLoader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Renderable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RendererService.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Service.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ServiceLocator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TextureLoaderService.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">

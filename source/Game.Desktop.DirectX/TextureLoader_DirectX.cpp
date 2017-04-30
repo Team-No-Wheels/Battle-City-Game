@@ -15,7 +15,7 @@ namespace AnonymousEngine
 			Purge();
 		}
 
-		std::uint32_t TextureLoader_DirectX::GetTexture(const std::string& pTextureFilePath, bool pForceLoad)
+		std::uint32_t TextureLoader_DirectX::GetTexture(const std::string&, bool)
 		{
 			// TODO : Load texture using DirectX
 			return 0U;

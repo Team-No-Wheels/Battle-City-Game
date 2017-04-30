@@ -15,7 +15,7 @@ namespace AnonymousEngine
 
 		}
 
-		void Renderer_OpenGL::Render(uint32_t pTextureID, const Geometry::Rectangle & pSpriteBounds, const Geometry::Rectangle & pUVBounds)
+		void Renderer_OpenGL::Render(uint32_t, const Geometry::Rectangle&, const Geometry::Rectangle& )
 		{
 			// TODO : implement the draw function for renderer
 		}

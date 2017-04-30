@@ -139,9 +139,6 @@ namespace AnonymousEngine
 
 	void Program::Draw()
 	{
-		
-		
-
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);
