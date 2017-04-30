@@ -36,6 +36,10 @@ namespace AnonymousEngine
 			* Get a reference to the collider contained within this game object.
 			*/
 			Collider& GetCollider();
+			/**
+			* Get a reference to the sprite contained within this game object.
+			*/
+			Graphics::Sprite& GetSprite();
 		private:
 			/**
 			* The position of this game object in the world space.
