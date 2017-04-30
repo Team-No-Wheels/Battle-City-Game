@@ -15,14 +15,6 @@ namespace AnonymousEngine
 	BasicTankAI::BasicTankAI(const float speed, const int32_t bulletsNum, const int32_t armor):
 		mIsFrozen(false), mSpeed(speed), mBulletsNum(bulletsNum), mArmor(armor)
 	{
-		Event<MessageCollision>::Subscribe(*this);
-	}
-
-	/************************************************************************/
-	BasicTankAI::~BasicTankAI()
-	{
-		// todo unsubsccribe here
-		Event<MessageCollision>::Unsubscribe(*this);
 	}
 
 	/************************************************************************/
@@ -35,12 +27,6 @@ namespace AnonymousEngine
 
 		worldState.mEntity = nullptr;
 
-	}
-
-	/************************************************************************/
-	void BasicTankAI::Notify(EventPublisher&)
-	{
-		// todo handle collisions here
 	}
 
 	/************************************************************************/

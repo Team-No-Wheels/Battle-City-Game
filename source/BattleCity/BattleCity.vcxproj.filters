@@ -20,8 +20,8 @@
     <Filter Include="Entities\AI">
       <UniqueIdentifier>{73aa967b-8440-4137-b49b-edb123778fc2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MapEntities">
-      <UniqueIdentifier>{2e30e677-a660-4f72-99c4-2bf52334d24f}</UniqueIdentifier>
+    <Filter Include="Util">
+      <UniqueIdentifier>{7c67a194-f3ce-4bb4-a9ba-e2cd1bae274b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,14 +65,8 @@
     <ClCompile Include="BasicTankAI.cpp">
       <Filter>Entities\AI</Filter>
     </ClCompile>
-    <ClCompile Include="Grass.cpp">
-      <Filter>MapEntities</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>MapEntities</Filter>
-    </ClCompile>
-    <ClCompile Include="Metal.cpp">
-      <Filter>MapEntities</Filter>
+    <ClCompile Include="RandomNumbersGenerator.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
     <ClCompile Include="Water.cpp">
       <Filter>MapEntities</Filter>
@@ -122,14 +116,8 @@
     <ClInclude Include="BasicTankAI.h">
       <Filter>Entities\AI</Filter>
     </ClInclude>
-    <ClInclude Include="Grass.h">
-      <Filter>MapEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="Metal.h">
-      <Filter>MapEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>MapEntities</Filter>
+    <ClInclude Include="RandomNumbersGenerator.h">
+      <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="Water.h">
       <Filter>MapEntities</Filter>
