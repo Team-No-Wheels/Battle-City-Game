@@ -26,7 +26,7 @@ namespace AnonymousEngine
 	private:
 
 		std::chrono::milliseconds mTimeFrozen, mTimeRemaining, Zero;
-
+		bool mFreezeCalled;
 	};
 
 	ACTION_FACTORY_DECLARATIONS(ActionFreeze);

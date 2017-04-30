@@ -5,6 +5,14 @@ namespace AnonymousEngine
 {
 	namespace Graphics
 	{
+		/**
+			Struct that handles the OpenGL texture.
+		*/
+		struct TextureOpenGL : public Texture
+		{
+			GLuint mTextureID;
+		};
+
 		class TextureLoaderOpenGL final : public TextureLoaderService
 		{
 		public:
@@ -25,7 +33,7 @@ namespace AnonymousEngine
 				@param[in] pForceLoad If true it will reload the texture if its already loaded. If false load the texture if not loaded else return the already loaded texture id.
 				@return unsigned int that holds the id of the texture.
 			*/
-			virtual std::uint32_t GetTexture(const std::string& pTextureFilePath, bool pForceLoad = false) override;
+			virtual Texture* GetTexture(const std::string& pTextureFilePath, bool pForceLoad = false) override;
 
 			/**
 				@brief Purge all the textures that are loaded.

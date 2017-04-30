@@ -9,7 +9,6 @@
     <ClCompile Include="TextureLoaderDirectX.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer_DirectX.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -19,7 +18,6 @@
     <ClInclude Include="TextureLoaderDirectX.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer_DirectX.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

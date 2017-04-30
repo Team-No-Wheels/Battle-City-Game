@@ -10,7 +10,7 @@ namespace BattleCity
 
 	void BattleCity::Init()
 	{
-		mSprite->Init("resources/tank.png");
+		mSprite->Init("resources\\tank.png");
 	}
 
 	void BattleCity::Update(float pDeltaTime)

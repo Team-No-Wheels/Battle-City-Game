@@ -115,6 +115,8 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)AudioManager.cpp">
       <Filter>Audio</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CollisionManager.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +273,8 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)AudioManager.h">
       <Filter>Audio</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CollisionManager.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

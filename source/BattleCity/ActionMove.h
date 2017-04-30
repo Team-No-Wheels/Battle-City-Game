@@ -39,14 +39,17 @@ namespace AnonymousEngine
 
 		void Move();
 		void SetSpeed(float speed);
-		void SetDirection(Direction direction);
+		void SetDirection(const Direction direction);
 		Direction GetDirection() const;
+
+		bool GetCanMove() const;
+		void SetCanMove(const bool canMove);
 
 	protected:
 
 		Direction mDirection;
 		float mSpeed;
-		bool mIsEnemy, mCanMove;
+		bool mIsPlayer, mCanMove;
 	};
 
 	ACTION_FACTORY_DECLARATIONS(ActionMove);

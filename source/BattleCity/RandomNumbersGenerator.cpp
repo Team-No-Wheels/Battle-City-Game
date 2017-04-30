@@ -20,7 +20,7 @@ namespace AnonymousEngine
 	}
 
 	/************************************************************************/
-	float RandomNumbersGenerator::GetRangedRandom(const float min, const float max)
+	float RandomNumbersGenerator::GetRangedRandom(const float max, const float min)
 	{
 		mt19937 rng(sRandomDevice());    // random-number engine used (Mersenne-Twister in this case)
 		uniform_real_distribution<float> uni(min, max); // guaranteed unbiased
@@ -29,7 +29,7 @@ namespace AnonymousEngine
 	}
 
 	/************************************************************************/
-	int32_t RandomNumbersGenerator::GetRangedRandom(const int32_t min, const int32_t max)
+	int32_t RandomNumbersGenerator::GetRangedRandom(const int32_t max, const int32_t min)
 	{
 		mt19937 rng(sRandomDevice());    // random-number engine used (Mersenne-Twister in this case)
 		uniform_int_distribution<int32_t> uni(min, max); // guaranteed unbiased
