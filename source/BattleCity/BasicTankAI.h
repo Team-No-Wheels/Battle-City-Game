@@ -11,6 +11,12 @@ namespace AnonymousEngine
 
 	public:
 
+		enum class State
+		{
+			Idle,
+			Moving
+		};
+
 		BasicTankAI(const float speed = DEFAULT_SPEED, const int32_t bulletsNum = DEFAULT_BULLETS_NUM, const int32_t armor = DEFAULT_ARMOR);
 		virtual ~BasicTankAI() = default;
 
@@ -25,16 +31,23 @@ namespace AnonymousEngine
 
 	protected:
 
-		ActionFreeze mActionFreeze;
-		bool mIsFrozen;
-
 		float mSpeed;
 		int32_t mBulletsNum;
 		int32_t mArmor;
 
+	private:
+
+		ActionFreeze mActionFreeze;
+		bool mIsFrozen;
+		State mCurrentState;
+
 		static const float DEFAULT_SPEED;
 		static const int32_t DEFAULT_BULLETS_NUM;
 		static const int32_t DEFAULT_ARMOR;
+
+		// map
+		// nextDestination
+		void DecideNextDestination();
 	};
 
 	ENTITY_FACTORY_DECLARATIONS(BasicTankAI);
