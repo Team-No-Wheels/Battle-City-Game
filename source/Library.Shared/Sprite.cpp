@@ -2,7 +2,7 @@
 #include "Sprite.h"
 #include "ServiceLocator.h"
 #include "Rectangle.h"
-
+#include "GameObject.h"
 
 //#include "TextureLoader.h"
 
@@ -11,10 +11,8 @@ namespace AnonymousEngine
 	namespace Graphics
 	{
 		ATTRIBUTED_DEFINITIONS(Sprite)
-		ENTITY_FACTORY_DEFINITIONS(Sprite);
 
-		Sprite::Sprite() :
-			Renderable()
+		Sprite::Sprite(Core::GameObject& gameObject) : mGameObject(gameObject)
 		{
 
 		}

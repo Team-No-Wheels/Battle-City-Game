@@ -7,7 +7,7 @@ namespace AnonymousEngine
 	{
 		const std::string GameObject::sPositionAttributeName = "Position";
 
-		GameObject::GameObject() : mPosition(std::move(glm::vec4())), mCollider(*this)
+		GameObject::GameObject() : mPosition(std::move(glm::vec4())), mCollider(*this), mSprite(*this)
 		{
 			AddExternalAttribute(sPositionAttributeName, &mPosition, 1);
 		}
@@ -39,6 +39,11 @@ namespace AnonymousEngine
 		Collider& GameObject::GetCollider()
 		{
 			return mCollider;
+		}
+
+		Graphics::Sprite& GameObject::GetSprite()
+		{
+			return mSprite;
 		}
 
 		void GameObject::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
