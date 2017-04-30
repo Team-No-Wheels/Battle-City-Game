@@ -27,6 +27,10 @@ namespace AnonymousEngine
 			* Override to the Update call for entity.
 			*/
 			virtual void Update(WorldState& worldState) override;
+			/**
+			* The method called in case of a collision of this game object with another.
+			*/
+			void OnCollision();
 		protected:
 		private:
 			/**

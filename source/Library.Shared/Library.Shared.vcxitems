@@ -18,6 +18,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)AttributedReaction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Collider.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Compare.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CreateAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h" />
@@ -41,6 +42,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Reaction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Renderable.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RendererService.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RpnEvaluator.h" />
@@ -71,6 +73,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)AttributedReaction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Collider.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Compare.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CreateAction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp" />
@@ -93,6 +96,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Reaction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Renderable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RpnEvaluator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ServiceLocator.cpp" />
