@@ -5,7 +5,8 @@ namespace AnonymousEngine
 {
 	namespace Graphics
 	{
-		TextureLoaderDirectX::TextureLoaderDirectX()
+		TextureLoaderDirectX::TextureLoaderDirectX() :
+			TextureLoaderService()
 		{
 
 		}
@@ -15,12 +16,12 @@ namespace AnonymousEngine
 			Purge();
 		}
 
-		std::uint32_t TextureLoaderDirectX::GetTexture(const std::string& pTextureFilePath, bool pForceLoad)
+		Texture* TextureLoaderDirectX::GetTexture(const std::string& pTextureFilePath, bool pForceLoad)
 		{
 			pTextureFilePath;
 			pForceLoad;
 			// TODO : Load texture using DirectX
-			return 0U;
+			return nullptr;
 		}
 
 		void TextureLoaderDirectX::Purge()

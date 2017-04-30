@@ -2,13 +2,14 @@
 
 #include "Entity.h"
 #include "Sprite.h"
-#include "glm/vec2.hpp"
+#include "Collider.h"
+#include "glm/glm.hpp"
 
 namespace AnonymousEngine
 {
-	namespace Containers
+	namespace Core
 	{
-		class GameObject : public Entity
+		class GameObject : public Containers::Entity
 		{
 		public:
 			GameObject();
@@ -26,12 +27,15 @@ namespace AnonymousEngine
 			/**
 			* Override to the Update call for entity.
 			*/
-			virtual void Update(WorldState& worldState) override;
+			virtual void Update(Containers::WorldState& worldState) override;
 			/**
 			* The method called in case of a collision of this game object with another.
 			*/
-			void OnCollision();
-		protected:
+			virtual void OnCollision(GameObject& otherGameObject);
+			/**
+			* Get a reference to the collider contained within this game object.
+			*/
+			Collider& GetCollider();
 		private:
 			/**
 			* The position of this game object in the world space.
@@ -41,6 +45,11 @@ namespace AnonymousEngine
 			* The sprite representing this game object in the world.
 			*/
 			Graphics::Sprite mSprite;
+			/**
+			* The collider associated with this game object.
+			*/
+			Collider mCollider;
+
 			/** 
 			* The attribute name for the member variable position.
 			*/

@@ -2,6 +2,7 @@
 #include "HashMap.h"
 #include "Service.h"
 #include "Rectangle.h"
+#include "TextureLoaderService.h"
 
 namespace AnonymousEngine
 {
@@ -15,9 +16,17 @@ namespace AnonymousEngine
 		public:
 			/**
 				@brief Calls the appropriate render function.
+				@details Draw the texture with the UV and bounds as passed in params.
+				@param[in] pTexture Texture to be drawn on screen
+				@param[in] pSpriteBounds Bounds of the sprite
+				@param[in] pUVBounds UV mapping
 			*/
-			virtual void Render(uint32_t pTextureID, const Geometry::Rectangle& pSpriteBounds, const Geometry::Rectangle& pUVBounds) = 0;
+			virtual void Render(Texture* pTexture, const Geometry::Rectangle& pSpriteBounds, const Geometry::Rectangle& pUVBounds) = 0;
 
+			/**
+				@brief Draw a rectangle with specified color.
+			*/
+			virtual void DrawRectangle(const Geometry::Rectangle& pRectangle, unsigned char pRed, unsigned char pGreen, unsigned char pBlue) = 0;
 		};
 	}
 }

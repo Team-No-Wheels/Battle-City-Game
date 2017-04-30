@@ -6,10 +6,10 @@
 namespace AnonymousEngine
 {
 
-	class TankBase : public Containers::GameObject
+	class TankBase : public Core::GameObject
 	{
 
-		ATTRIBUTED_DECLARATIONS(TankBase, Containers::GameObject);
+		ATTRIBUTED_DECLARATIONS(TankBase, Core::GameObject);
 
 	public:
 

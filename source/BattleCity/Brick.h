@@ -7,9 +7,9 @@ namespace BattleCity
 	{
 		/** GameObject class for BrownBrick in the map.
 		*/
-		class Brick :public AnonymousEngine::Containers::GameObject
+		class Brick :public AnonymousEngine::Core::GameObject
 		{
-			ATTRIBUTED_DECLARATIONS(Brick, AnonymousEngine::Containers::GameObject)
+			ATTRIBUTED_DECLARATIONS(Brick, AnonymousEngine::Core::GameObject)
 
 		public:
 			/** Defaulted constructor.

@@ -15,12 +15,21 @@ namespace AnonymousEngine
 
 		}
 
-		void RendererDirectX::Render(uint32_t pTextureID, const Geometry::Rectangle& pSpriteBounds, const Geometry::Rectangle& pUVBounds)
+		void RendererDirectX::Render(Texture* pTexture, const Geometry::Rectangle& pSpriteBounds, const Geometry::Rectangle& pUVBounds)
 		{
-			pTextureID;
+			pTexture;
 			pSpriteBounds;
 			pUVBounds;
 			// TODO : implement the draw function for renderer
+		}
+
+		void RendererDirectX::DrawRectangle(const Geometry::Rectangle& pRectangle, unsigned char pRed, unsigned char pGreen, unsigned char pBlue)
+		{
+			pRectangle;
+			pRed;
+			pGreen;
+			pBlue;
+			// TODO : Draw rectangle
 		}
 	}
 }

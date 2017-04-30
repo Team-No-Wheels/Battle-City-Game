@@ -4,28 +4,34 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Pch.cpp" />
-    <ClCompile Include="ShaderCompiler.cpp" />
-    <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="RendererOpenGL.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="TextureLoaderOpenGL.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer_OpenGL.cpp" />
+    <ClCompile Include="ShaderCompiler.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h" />
     <ClInclude Include="Pch.h" />
-    <ClInclude Include="ShaderCompiler.h" />
-    <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="RendererOpenGL.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="TextureLoaderOpenGL.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer_OpenGL.h" />
+    <ClInclude Include="ShaderCompiler.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\default.frag">

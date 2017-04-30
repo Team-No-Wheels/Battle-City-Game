@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "TextureLoaderService.h"
 
 namespace AnonymousEngine
 {
@@ -41,7 +42,7 @@ namespace AnonymousEngine
 			/**
 				Texture ID for this Renderable
 			*/
-			std::uint32_t mTextureID;
+			Texture* mTexture;
 
 			/**
 				Alpha
