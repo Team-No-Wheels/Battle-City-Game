@@ -6,11 +6,12 @@
 
 namespace AnonymousEngine
 {
+	using namespace BattleCity::MapEntities;
 	ATTRIBUTED_DEFINITIONS(Bullet);
 
 	Bullet::Bullet() :
 		mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
-		mShootParent(nullptr), isStrong(false)
+		mShootParent(nullptr), isStrong(false), isPendingKill(false)
 	{
 		Event<MessageCollision>::Subscribe(*this);
 	}
@@ -47,63 +48,102 @@ namespace AnonymousEngine
 		worldState.mEntity = nullptr;
 	}
 
-	void Bullet::Notify(class EventPublisher& publisher)
+	void Bullet::OnCollision(GameObject& otherGameObject)
 	{
-		Event<MessageCollision>* curEvent = publisher.As<Event<MessageCollision>>();
-
-		if (curEvent != nullptr)
+		if(!isPendingKill)
 		{
-			MessageCollision* message = const_cast<MessageCollision*>(&curEvent->Message());
-			Vector<CollisionPair>* entities = &message->GetEntities();
+			mShootParent->PendKillBullet(*this);
+			isPendingKill = true;
 
-			for (CollisionPair e : *entities)
+			// Check If Player
+			TankPlayer* player = otherGameObject.As<TankPlayer>();
+			if (player != nullptr)
 			{
-				// Check If Player
-				TankPlayer* player = e.first->As<TankPlayer>();
-				if (player == nullptr)
-				{
-					player = e.second->As<TankPlayer>();
-				}
+				CollisionWithPlayer(*player);
+				return;
+			}
 
-				// Check If Bullet
-				Bullet* bullet = e.first->As<Bullet>();
-				if (bullet == nullptr)
-				{
-					bullet = e.second->As<Bullet>();
-				}
+			// Check If Enemy Tank
+			BasicTankAI* AI = otherGameObject.As<BasicTankAI>();
+			if (AI != nullptr)
+			{
+				CollisionWithEnemy(*AI);
+				return;
+			}
 
-				// Try Executing Actions If This Bullet Exists In List
-				if (bullet != nullptr && bullet == this)
-				{
-					// Do Stuff If Player
-					if (player != nullptr && !player->IsInvincible())
-					{
-						PlayerSideDamageMessage damageMessage(false, message->WorldState());
-						const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
-						message->WorldState().mWorld->EventQueue().Enqueue(eventptr, message->WorldState().mGameTime, 0u);
-					}
+			// Check If Walls
+			Brick* brick = otherGameObject.As<Brick>();
+			if (brick != nullptr)
+			{
+				CollisionWithBrick(*brick);
+				return;
+			}
 
-					// Do Stuff If Enemy
-					/*
-						std::string tankType = //GET TANK TYPE NAME STRING
-						ScoreEventMessage scoreMessage(tankType, message->WorldState());
-						const std::shared_ptr<Core::Event<PlayerscoreMessageSideDamageMessage>> eventptr = std::make_shared<Core::Event<scoreMessage>>(scoreMessage);
-						message->WorldState().mWorld->EventQueue().Enqueue(eventptr, message->WorldState().mGameTime, 0u);
-					*/
+			Metal* metal = otherGameObject.As<Metal>();
+			if (metal != nullptr)
+			{
+				CollisionWithMetal(*metal);
+				return;
+			}
 
-					// Do Stuff If Wall
+			// Do Stuff if Flag
+			/*
+			PlayerSideDamageMessage damageMessage(true, message->WorldState());
+			const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
+			message->WorldState().mWorld->EventQueue().Enqueue(eventptr, message->WorldState().mGameTime, 0u);
+			*/
+		}
+	}
 
-					// Do Stuff if Flag
-					/*
-						PlayerSideDamageMessage damageMessage(true, message->WorldState());
-						const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
-						message->WorldState().mWorld->EventQueue().Enqueue(eventptr, message->WorldState().mGameTime, 0u);
-					*/
+	void Bullet::CollisionWithPlayer(TankPlayer& player)
+	{
+		if (!player.IsInvincible())
+		{
+			WorldState* state = FindWorldState();
+			PlayerSideDamageMessage damageMessage(false, *state);
+			const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
+			state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
+		}
+	}
 
-					mShootParent->PendKillBullet(*this);
-				}
+	void Bullet::CollisionWithEnemy(BasicTankAI& ai)
+	{
+		WorldState* state = FindWorldState();
+// 		std::string tankType = //GET TANK TYPE NAME STRING
+// 		ScoreEventMessage scoreMessage(tankType, state);
+// 		const std::shared_ptr<Core::Event<PlayerscoreMessageSideDamageMessage>> eventptr = std::make_shared<Core::Event<scoreMessage>>(scoreMessage);
+// 		state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
+		
+	}
+
+	void Bullet::CollisionWithBrick(Brick& brick)
+	{
+
+	}
+
+	void Bullet::CollisionWithMetal(Metal& metal)
+	{
+
+	}
+
+	WorldState* Bullet::FindWorldState()
+	{
+		WorldState* state = nullptr;
+		Scope* curScope = mShootParent->GetParent();
+
+		// Loop Through Parent To Find World
+		while (curScope->GetParent() != nullptr)
+		{
+			curScope = curScope->GetParent();
+
+			// If World, Return WorldState
+			if (curScope->Is(World::TypeIdClass()))
+			{
+				state = &curScope->As<World>()->GetWorldState();
 			}
 		}
+
+		return state;
 	}
 
 	void Bullet::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
