@@ -12,8 +12,8 @@ namespace AnonymousEngine
 	const int32_t BasicTankAI::DEFAULT_ARMOR = 1;
 
 	/************************************************************************/
-	BasicTankAI::BasicTankAI(const float speed, const int32_t bulletsNum, const int32_t armor):
-		mIsFrozen(false), mSpeed(speed), mBulletsNum(bulletsNum), mArmor(armor)
+	BasicTankAI::BasicTankAI(const float speed, const int32_t bulletsNum, const int32_t armor) :
+		mIsFrozen(false), mCurrentState(State::Idle), mSpeed(speed), mBulletsNum(bulletsNum), mArmor(armor)
 	{
 	}
 
@@ -23,7 +23,19 @@ namespace AnonymousEngine
 		TankBase::Update(worldState);
 		worldState.mEntity = this;
 
-		// todo add logic here
+		State previousState = mCurrentState;
+		switch (previousState)
+		{
+			case State::Idle:
+				DecideNextDestination();
+				break;
+
+			case State::Moving:
+
+				break;
+
+			default:;
+		}
 
 		worldState.mEntity = nullptr;
 
@@ -41,7 +53,7 @@ namespace AnonymousEngine
 		mIsFrozen = false;
 	}
 
-	void BasicTankAI::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+	void BasicTankAI::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
