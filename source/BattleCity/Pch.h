@@ -8,6 +8,10 @@
 
 #include <string>
 #include <map>
+#include <memory>
 
 #include <gl/gl.h>
 #include <gl/glu.h>
+
+// random
+#include <random>
