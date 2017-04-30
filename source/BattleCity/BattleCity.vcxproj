@@ -93,7 +93,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\fmod\studio\inc;$(SolutionDir)\..\external\fmod\api\inc;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -104,6 +104,8 @@
     </PreBuildEvent>
     <Lib>
       <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\studio\lib;$(SolutionDir)\..\external\fmod\api\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fmodL_vc.lib;fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -114,7 +116,7 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\fmod\studio\inc;$(SolutionDir)\..\external\fmod\api\inc;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -125,6 +127,8 @@
     </PreBuildEvent>
     <Lib>
       <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\studio\lib;$(SolutionDir)\..\external\fmod\api\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fmodL64_vc.lib;fmodstudioL64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -137,7 +141,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\fmod\studio\inc;$(SolutionDir)\..\external\fmod\api\inc;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -148,6 +152,10 @@
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)resources\*.*" "$(ProjectDir)Bin\$(Platform)\$(Configuration)\resources" /Y /I /E</Command>
     </PreBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\studio\lib;$(SolutionDir)\..\external\fmod\api\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fmod_vc.lib;fmodstudio_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -159,7 +167,7 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\fmod\studio\inc;$(SolutionDir)\..\external\fmod\api\inc;$(SolutionDir)\..\external\glm;$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\source\Library.Shared;$(SolutionDir)\..\external\expat\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -170,6 +178,10 @@
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)resources\*.*" "$(ProjectDir)Bin\$(Platform)\$(Configuration)\resources" /Y /I /E</Command>
     </PreBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\studio\lib;$(SolutionDir)\..\external\fmod\api\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fmodstudio64_vc.lib;fmod64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ActionFreeze.h" />
