@@ -1,6 +1,5 @@
 #pragma once
 #include "EventSubscriber.h"
-#include "EventMessageAttributed.h"
 #include "Event.h"
 #include "Action.h"
 #include "Sector.h"

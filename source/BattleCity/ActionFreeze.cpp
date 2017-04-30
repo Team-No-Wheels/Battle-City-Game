@@ -1,6 +1,7 @@
 #include "Pch.h"
 #include "ActionFreeze.h"
 #include "BasicTankAI.h"
+#include "EventMessageAttributed.h"
 
 namespace AnonymousEngine
 {
