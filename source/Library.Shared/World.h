@@ -38,6 +38,14 @@ namespace AnonymousEngine
 			 */
 			void SetName(const std::string& name);
 
+			/** Initializes the variables to load the game afresh.
+			*/
+			void InitializeWorld();
+
+			/** Resets the variables to load next level.
+			*/
+			void LoadNextLevel();
+
 			/** Return the list of sectors contained within this world
 			 *  @return The list of sectors this world has
 			 */

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameTime.h"
+#include <cstdint>
 
 namespace AnonymousEngine
 {
@@ -43,6 +44,17 @@ namespace AnonymousEngine
 			/** The current time information for the processing methods
 			 */
 			GameTime mGameTime;
+
+			/** Returns the current level of the game.
+			*	@returns Returns the current level of the game.
+			*/
+			std::uint32_t GetCurrentLevel() const;
+			
+			friend class World;
+		private:
+			/** Unsigned integer holding the current level of the game.
+			*/
+			std::uint32_t mCurrentLevel;			
 		};
 	}
 }

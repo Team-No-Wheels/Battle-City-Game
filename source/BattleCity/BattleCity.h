@@ -1,9 +1,14 @@
 #pragma once
 #include "Sprite.h"
 #include "CollisionManager.h"
+#include "LevelManager.h"
 
 namespace BattleCity
 {
+	/** Forwared declaring World.
+	*/
+	class World;
+
 	/**
 		Entry point for the game BattleCity :)
 	*/
@@ -14,11 +19,6 @@ namespace BattleCity
 			@brief Default constructor
 		*/
 		BattleCity();
-
-		/**
-		*
-		*/
-
 
 		/**
 			@brief Call Init with the file name will initialize this Renderable object with the file.
@@ -35,5 +35,13 @@ namespace BattleCity
 	private:
 		AnonymousEngine::Graphics::Sprite* mSprite;
 		AnonymousEngine::Core::CollisionManager mCollisionManager;
+
+		/** Declaring LevelManager for BattleCity Game.
+		*/
+		Managers::LevelManager mLevelManager;
+
+		/** Pointer to the World of the game.
+		*/
+		AnonymousEngine::Containers::World* mWorld;
 	};
 }
