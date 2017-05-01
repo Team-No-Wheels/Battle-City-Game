@@ -26,5 +26,7 @@ namespace AnonymousEngine
 			prescribedAttributeNames.PushBack("width");
 			prescribedAttributeNames.PushBack("height");
 		}
+
+		ENTITY_FACTORY_DEFINITIONS(Frame);
 	}
 }
