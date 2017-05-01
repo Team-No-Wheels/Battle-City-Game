@@ -9,9 +9,8 @@ namespace AnonymousEngine
 {
 	namespace Graphics
 	{
-		ATTRIBUTED_DEFINITIONS(Sprite)
-
-		Sprite::Sprite(Core::GameObject& gameObject) : mGameObject(gameObject)
+		Sprite::Sprite(Core::GameObject& pGameObject) : 
+			mGameObject(pGameObject), mUVBounds(0, 1, 1, 1, 0, 0, 1, 0)
 		{
 
 		}
@@ -58,8 +57,7 @@ namespace AnonymousEngine
 		{
 			if (isInitialized)
 			{
-				Geometry::Rectangle uv(0, 1, 1, 1, 0, 0, 1, 0);
-				Core::ServiceLocator::GetRenderer()->Render(mTexture, Geometry::Rectangle::Translate(mSpriteBounds, mGameObject.GetPosition()), uv);
+				Core::ServiceLocator::GetRenderer()->Render(mTexture, Geometry::Rectangle::Translate(mSpriteBounds, mGameObject.GetPosition()), mUVBounds);
 
 #ifdef _DEBUG
 				DrawDebugBounds();
@@ -75,11 +73,6 @@ namespace AnonymousEngine
 		Core::GameObject& Sprite::GetOwner()
 		{
 			return mGameObject;
-		}
-
-		void Sprite::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
-		{
-			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 		}
 	}
 }

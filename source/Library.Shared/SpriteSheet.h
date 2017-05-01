@@ -1,57 +1,45 @@
 #pragma once
-#include "TextureLoaderService.h"
+#include "Sprite.h"
+#include "Frame.h"
 
 namespace AnonymousEngine
 {
 	namespace Graphics
 	{
-		/**
-			Any object that can be rendered on the screen will extend this class.
-		*/
-		class Renderable abstract
+		class SpriteSheet : public Sprite
 		{
 		public:
 			/**
 				Default constructor
 			*/
-			Renderable();
+			SpriteSheet(Core::GameObject& pGameObject);
+
+			/**
+				Default destructor
+			*/
+			~SpriteSheet();
 
 			/**
 				@brief Call Init with the file name will initialize this Renderable object with the file.
 				@param[in] pFilePath Constant reference to string that holds the path of the file.
 			*/
-			virtual void Init(const std::string& pFilePath);
+			virtual void Init(const std::string& pSpriteFilePath) override;
 
 			/**
 				@brief Called every frame.
 				@param[in] pDeltaTime Time between frames in seconds.
 			*/
-			virtual void Update(float pDeltaTime);
+			virtual void Update(float pDeltaTime) override;
 
 			/**
 				@brief Called every frame.
 			*/
-			virtual void Render() = 0;
+			virtual void Render() override;
 
 			/**
 				@brief If debug is enabled this is called every frame.
 			*/
-			virtual void DrawDebugBounds() = 0;
-		protected:
-			/**
-				Texture ID for this Renderable
-			*/
-			Texture* mTexture;
-
-			/**
-				Alpha
-			*/
-			float mAlpha;
-
-			std::int32_t mWidth;
-			std::int32_t mHeight;
-			
-			bool isInitialized;
+			virtual void DrawDebugBounds() override;
 		};
 	}
 }
