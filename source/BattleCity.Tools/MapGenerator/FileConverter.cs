@@ -37,7 +37,8 @@ namespace MapGenerator
         const string    NAME_IDENTIFIER             = "name";
         const string    VALUE_IDENTIFIER            = "value";
         const string    ENTITY_IDENTIFIER           = "entity";
-        const string    SPRITESHEET_INDENTIFIER     = "spritesheet";
+        const string    ENTITIES_IDENTIFIER         = "entities";
+        const string    SPRITESHEET_INDENTIFIER     = "SpriteSheet";
         const string    OUT_TILES_X_IDENTIFIER      = "numtilesX";
         const string    OUT_TILES_Y_IDENTIFIER      = "numtilesY";
         const string    POSITION_X_IDENTIFIER       = "posX";
@@ -59,6 +60,7 @@ namespace MapGenerator
         const string    BATTLE_CITY                 = "BattleCity";
         const string    DEFINITIONS_FILE            = "Definitions.tmx";
         const string    ZERO                        = "0";
+        const string    UNDERSCORE                  = "_";
 
         const float     BOUNDING_BOX_TOLERANCE      = 0.5f;
 
@@ -84,9 +86,14 @@ namespace MapGenerator
 
             public bool Intersects(float otherx, float othery, float otherw, float otherh)
             {
+                return Intersects(x, y, w, h, otherx, othery, otherw, otherh);
+            }
+
+            public static bool Intersects(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2)
+            {
                 return
-                       (Math.Abs(x - otherx) * 2 <= (w + otherw))
-                   && (Math.Abs(y - othery) * 2 <= (h + otherh));
+                       (Math.Abs(x1 - x2) * 2 <= (w1 + w2))
+                   && (Math.Abs(y1 - y2) * 2 <= (h1 + h2));
             }
         }
 
@@ -305,52 +312,80 @@ namespace MapGenerator
                     Writer.WriteAttributeString(OUT_TILES_Y_IDENTIFIER, MappedData[IN_TILES_Y_IDENTIFIER]);
                 }
                 Writer.WriteEndElement();
-                for (int i = 0; i < Int32.Parse(MappedData[IN_TILES_X_IDENTIFIER]); ++i)
+                Writer.WriteStartElement(ENTITIES_IDENTIFIER);
                 {
-                    for (int j = 0; j < Int32.Parse(MappedData[IN_TILES_Y_IDENTIFIER]); ++j)
+                    for (int i = 0; i < Int32.Parse(MappedData[IN_TILES_X_IDENTIFIER]); ++i)
                     {
-                        Writer.WriteStartElement(ENTITY_IDENTIFIER);
+                        for (int j = 0; j < Int32.Parse(MappedData[IN_TILES_Y_IDENTIFIER]); ++j)
                         {
+                            string classname = "";
+
                             // Check which Object this tile "collides" with.
                             foreach (var Pair in SpriteMappedData)
                             {
                                 float y = (int.Parse(Entities[CurrentPosition]) / int.Parse(MappedData[IN_TILES_X_IDENTIFIER])) * float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]);
                                 float x = (int.Parse(Entities[CurrentPosition]) % int.Parse(MappedData[IN_TILES_X_IDENTIFIER])) * float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]);
+                                float w = int.Parse(MappedData[TILE_WIDTH_IDENTIFIER]);
+                                float h = int.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]);
 
                                 // Slightly reducing the bounding box, otherwise unwanted collisions occur
-                                if (Pair.Value.Intersects(
-                                    x + BOUNDING_BOX_TOLERANCE,
-                                    y + BOUNDING_BOX_TOLERANCE,
-                                    int.Parse(MappedData[TILE_WIDTH_IDENTIFIER]) - BOUNDING_BOX_TOLERANCE,
-                                    int.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]) - BOUNDING_BOX_TOLERANCE
-                                    ))
+                                x += BOUNDING_BOX_TOLERANCE;
+                                y += BOUNDING_BOX_TOLERANCE;
+                                w -= BOUNDING_BOX_TOLERANCE;
+                                h -= BOUNDING_BOX_TOLERANCE;
+
+                                if (Pair.Value.Intersects(x, y, w, h))
                                 {
-                                    if (Pair.Value.classname != null && Pair.Value.classname != "")
+                                    // If it's a single tile, you're fine.
+                                    // Else output only if it's the top left tile.
+
+                                    w += BOUNDING_BOX_TOLERANCE;
+                                    h += BOUNDING_BOX_TOLERANCE;
+
+                                    if (w == float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]) && h == float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]))
                                     {
-                                        Writer.WriteAttributeString(CLASS_IDENTIFIER, Pair.Value.classname);
+                                        classname = Pair.Value.classname;
+                                    }
+                                    else if (w > float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]) || h > float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]))
+                                    {
+                                        if (SpriteData.Intersects(x, y, w, h, Pair.Value.x, Pair.Value.y, float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]), float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER])))
+                                        {
+                                            classname = Pair.Value.classname;
+                                        }
                                     }
 
                                     break;
                                 }
                             }
-                            Writer.WriteStartElement(INTEGER_IDENTIFIER);
-                            {
-                                Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
-                                Writer.WriteAttributeString(VALUE_IDENTIFIER, i.ToString());
-                            }
-                            Writer.WriteEndElement();
 
-                            Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                            if (classname != null && classname != "")
                             {
-                                Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_Y_IDENTIFIER);
-                                Writer.WriteAttributeString(VALUE_IDENTIFIER, j.ToString());
+                                Writer.WriteStartElement(ENTITY_IDENTIFIER);
+                                {
+                                    Writer.WriteAttributeString(CLASS_IDENTIFIER, classname);
+                                    Writer.WriteAttributeString(NAME_IDENTIFIER, OBJECT_IDENTIFIER + UNDERSCORE + CurrentPosition.ToString());
+                                    Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                                    {
+                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
+                                        Writer.WriteAttributeString(VALUE_IDENTIFIER, i.ToString());
+                                    }
+                                    Writer.WriteEndElement();
+
+                                    Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                                    {
+                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_Y_IDENTIFIER);
+                                        Writer.WriteAttributeString(VALUE_IDENTIFIER, j.ToString());
+                                    }
+                                    Writer.WriteEndElement();
+                                }
+                                Writer.WriteEndElement();
                             }
-                            Writer.WriteEndElement();
+
+                            ++CurrentPosition;
                         }
-                        Writer.WriteEndElement();
-                        ++CurrentPosition;
                     }
                 }
+                Writer.WriteEndElement();
             }
             Writer.WriteEndElement();
         }

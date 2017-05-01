@@ -29,17 +29,10 @@ namespace AnonymousEngine
 
 		Rectangle::Rectangle(float pTopLeftX, float pTopLeftY, float pTopRightX, float pTopRightY, float pBottomLeftX, float pBottomLeftY, float pBottomRightX, float pBottomRightY)
 		{
-			TopLeft.x = pTopLeftX;
-			TopLeft.y = pTopLeftY;
-
-			TopRight.x = pTopRightX;
-			TopRight.y = pTopRightY;
-
-			BottomLeft.x = pBottomLeftX;
-			BottomLeft.y = pBottomLeftY;
-
-			BottomRight.x = pBottomRightX;
-			BottomRight.y = pBottomRightY;
+			TopLeft = glm::vec2(pTopLeftX, pTopLeftY);
+			TopRight = glm::vec2(pTopRightX, pTopRightY);
+			BottomLeft = glm::vec2(pBottomLeftX, pBottomLeftY);
+			BottomRight = glm::vec2(pBottomRightX, pBottomRightY);
 		}
 
 		Geometry::Rectangle Rectangle::Translate(Geometry::Rectangle pRectangle, const glm::vec4& pPosition)
