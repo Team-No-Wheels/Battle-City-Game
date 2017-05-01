@@ -12,30 +12,19 @@ namespace BattleCity
 		:mLevelManager(), mWorld(nullptr)
 	{
 		ServiceLocator::AddService(ServiceLocator::sCollisionManager, mCollisionManager);
-		
-		//mSprite = new AnonymousEngine::Graphics::Sprite();
-		//ServiceLocator::GetTextureLoader()->GetTexture("resources\\tank.png");
-		mGameObject = new AnonymousEngine::Core::GameObject();
-		
 	}
 
 	void BattleCity::Init()
 	{
-		//mSprite->Init("resources\\tank.png");
-		mGameObject->GetSprite().Init("resources\\tank.png");
+		mWorld = &mLevelManager.LoadWorld();
+		mWorld->InitializeWorld();
+		mLevelManager.LoadLevelTiles(mWorld->GetWorldState().GetCurrentLevel());
 	}
 
-	void BattleCity::Update(float pDeltaTime)
+	void BattleCity::Update()
 	{
-		pDeltaTime;
-		//mWorld->Update();
-
-		//mSprite->Render();
-		//mSprite->Update(pDeltaTime);
-		
-		mGameObject->GetSprite().Render();
-		mGameObject->GetSprite().Update(pDeltaTime);
-		
+		mGameClock.UpdateGameTime(mWorld->GetWorldState().mGameTime);
+		mWorld->Update();
 		OutputDebugString("BattleCity : Update\n");
 	}
 }
