@@ -3,6 +3,7 @@
 #include "ServiceLocator.h"
 #include "World.h"
 
+
 using namespace AnonymousEngine::Core;
 
 namespace BattleCity
@@ -11,16 +12,17 @@ namespace BattleCity
 		:mLevelManager(), mWorld(nullptr)
 	{
 		ServiceLocator::AddService(ServiceLocator::sCollisionManager, mCollisionManager);
+		
 		//mSprite = new AnonymousEngine::Graphics::Sprite();
+		//ServiceLocator::GetTextureLoader()->GetTexture("resources\\tank.png");
+		mGameObject = new AnonymousEngine::Core::GameObject();
+		
 	}
 
 	void BattleCity::Init()
 	{
 		//mSprite->Init("resources\\tank.png");
-
-		//TODO comment it
-		//mWorld = &mLevelManager.LoadWorld();		
-		//mWorld->InitializeWorld();
+		mGameObject->GetSprite().Init("resources\\tank.png");
 	}
 
 	void BattleCity::Update(float pDeltaTime)
@@ -30,7 +32,10 @@ namespace BattleCity
 
 		//mSprite->Render();
 		//mSprite->Update(pDeltaTime);
-
+		
+		mGameObject->GetSprite().Render();
+		mGameObject->GetSprite().Update(pDeltaTime);
+		
 		OutputDebugString("BattleCity : Update\n");
 	}
 }

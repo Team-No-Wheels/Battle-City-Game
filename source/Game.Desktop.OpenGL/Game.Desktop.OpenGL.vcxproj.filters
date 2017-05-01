@@ -13,9 +13,6 @@
     <ClCompile Include="ShaderCompiler.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="TextureLoader.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h" />
@@ -27,9 +24,6 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="ShaderCompiler.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureLoader.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,5 @@
 #pragma once
-#include "Sprite.h"
+#include "GameObject.h"
 #include "CollisionManager.h"
 #include "LevelManager.h"
 
@@ -33,7 +33,7 @@ namespace BattleCity
 		void Update(float pDeltaTime);
 
 	private:
-		AnonymousEngine::Graphics::Sprite* mSprite;
+		AnonymousEngine::Core::GameObject* mGameObject;
 		AnonymousEngine::Core::CollisionManager mCollisionManager;
 
 		/** Declaring LevelManager for BattleCity Game.

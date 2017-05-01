@@ -212,7 +212,6 @@ xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y</Com
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="RendererOpenGL.cpp" />
     <ClCompile Include="ShaderCompiler.cpp" />
-    <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="TextureLoaderOpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -220,7 +219,6 @@ xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y</Com
     <ClInclude Include="Program.h" />
     <ClInclude Include="RendererOpenGL.h" />
     <ClInclude Include="ShaderCompiler.h" />
-    <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="TextureLoaderOpenGL.h" />
   </ItemGroup>
   <ItemGroup>

@@ -130,13 +130,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 40, 100), 1.0f, 0);
 
 		// begins the 3D scene
-		d3ddev->BeginScene();
+		//d3ddev->BeginScene();
 
 		// do 3D rendering on the back buffer here
 		battleCity->Update(1.0f / 60.0f);
 
 		// ends the 3D scene
-		d3ddev->EndScene();
+		//d3ddev->EndScene();
 
 		d3ddev->Present(NULL, NULL, NULL, NULL);   // displays the created frame on the screen
 #endif
