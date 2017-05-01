@@ -1,5 +1,6 @@
 #include "Pch.h"
 #include "PowerUpSpawner.h"
+#include "PowerUp.h"
 
 namespace AnonymousEngine
 {
@@ -58,8 +59,8 @@ namespace AnonymousEngine
 		// Set Position
 		RandomNumbersGenerator& generator = RandomNumbersGenerator::GetInstance();
 		glm::vec4 position;
-		position.x = generator.GetRangedRandom(4, 252);
-		position.y = generator.GetRangedRandom(4, 236);
+		position.x = (float)generator.GetRangedRandom(4, 252);
+		position.y = (float)generator.GetRangedRandom(4, 236);
 		position.z = 0;
 		position.w = 0;
 		power->SetPosition(position);
