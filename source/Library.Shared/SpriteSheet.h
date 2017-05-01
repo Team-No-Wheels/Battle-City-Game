@@ -1,6 +1,6 @@
 #pragma once
 #include "Sprite.h"
-#include "SpriteFrame.h"
+#include "Frame.h"
 
 namespace AnonymousEngine
 {

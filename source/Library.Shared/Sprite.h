@@ -13,12 +13,11 @@ namespace AnonymousEngine
 		
 		class Sprite : public Renderable
 		{
-			ATTRIBUTED_DECLARATIONS(Sprite, Renderable)
 		public:
 			/**
 				@brief Default constructor.
 			*/
-			Sprite(Core::GameObject& gameObject);
+			Sprite(Core::GameObject& pGameObject);
 			/**
 			* Destructor.
 			*/
@@ -50,12 +49,12 @@ namespace AnonymousEngine
 			* Get the game object which owns this sprite.
 			*/
 			Core::GameObject& GetOwner();
-		private:
+
+		protected:
 			Core::GameObject& mGameObject;
 
 			Geometry::Rectangle mSpriteBounds;
+			Geometry::Rectangle mUVBounds;
 		};
-
-		ENTITY_FACTORY_DECLARATIONS(Sprite);
 	}
 }

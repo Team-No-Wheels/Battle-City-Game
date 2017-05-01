@@ -1,5 +1,4 @@
 #pragma once
-#include "Entity.h"
 #include "TextureLoaderService.h"
 
 namespace AnonymousEngine
@@ -9,7 +8,7 @@ namespace AnonymousEngine
 		/**
 			Any object that can be rendered on the screen will extend this class.
 		*/
-		class Renderable abstract : public Containers::Entity
+		class Renderable abstract
 		{
 		public:
 			/**
@@ -51,12 +50,8 @@ namespace AnonymousEngine
 
 			std::int32_t mWidth;
 			std::int32_t mHeight;
-			glm::vec4 mPosition;
-
+			
 			bool isInitialized;
-
-		private:
-			ATTRIBUTED_DECLARATIONS(Renderable, Containers::Entity)
 		};
 	}
 }
