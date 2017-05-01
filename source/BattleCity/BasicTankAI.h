@@ -25,8 +25,7 @@ namespace AnonymousEngine
 
 		/** BasicTankAI constructor.
 		*/
-		BasicTankAI(const float speed = DEFAULT_SPEED, const int32_t bulletsNum = DEFAULT_BULLETS_NUM, 
-					const int32_t armor = DEFAULT_ARMOR, const uint32_t probToShootInMov = DEFAULT_PROB_TO_SHOOT_IN_MOV);
+		BasicTankAI(const float speed, const int32_t bulletsNum, const int32_t armor, const uint32_t probToShootInMov);
 
 		/** BasicTankAI destructor.
 		*/
