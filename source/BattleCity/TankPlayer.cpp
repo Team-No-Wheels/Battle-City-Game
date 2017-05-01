@@ -1,23 +1,31 @@
 #include "Pch.h"
 #include "TankPlayer.h"
+#include "ScoreMessageStructs.h"
+#include "World.h"
+#include "InputHandler.h"
 
 namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(TankPlayer);
 
-	const std::chrono::milliseconds TankPlayer::sInvincbleLimit = std::chrono::milliseconds(2000);
+	const std::chrono::milliseconds TankPlayer::sInvincbleLimitOnRespawn = std::chrono::seconds(2);
+	const std::chrono::milliseconds TankPlayer::sInvincbleLimitOnPoweUp = std::chrono::seconds(5);
 
+	/************************************************************************/
 	TankPlayer::TankPlayer() :
-		mIsInvincible(false), mStars(0), mTimeInvincible(0)
+		mStars(0), mTimeInvincible(0), mIsInvincible(false), mIsShootPressed(false)
 	{
 		Event<MessageInput>::Subscribe(*this);
+		GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::Player);
 	}
 
+	/************************************************************************/
 	TankPlayer::~TankPlayer()
 	{
 		Event<MessageInput>::Unsubscribe(*this);
 	}
 
+	/************************************************************************/
 	void TankPlayer::IncrementStars()
 	{
 		if (mStars < 3)
@@ -25,44 +33,62 @@ namespace AnonymousEngine
 			++mStars;
 			switch (mStars)
 			{
-			case 1:
-				mShootComponent->SetIsFast(true);
-				break;
-			case 2:
-				mShootComponent->SetCapacityToShoot(2);
-				break;
-			case 3:
-				mShootComponent->SetIsStrong(true);
-				break;
+				case 1:
+					mShootComponent->SetIsFast(true);
+					break;
+				case 2:
+					mShootComponent->SetCapacityToShoot(2);
+					break;
+				case 3:
+					mShootComponent->SetIsStrong(true);
+					break;
+				default:
+					break;
 			}
 
 		}
 	}
 
-	void TankPlayer::SetInvincibility(bool state)
+	/************************************************************************/
+	void TankPlayer::SetInvincibility(bool onRespawn)
 	{
-		mIsInvincible = state;
+		mIsInvincible = true;
+		if (onRespawn)
+		{
+			mTimeInvincible = sInvincbleLimitOnRespawn;
+		}
+		else
+		{
+			mTimeInvincible = sInvincbleLimitOnPoweUp;
+		}
 	}
 
+	/************************************************************************/
 	bool TankPlayer::IsInvincible() const
 	{
 		return mIsInvincible;
 	}
 
+	/************************************************************************/
 	void TankPlayer::Update(WorldState& worldState)
 	{
 		TankBase::Update(worldState);
 
 		worldState.mEntity = this;
 
-		if (mIsInvincible)
+		if (mIsInvincible && mTimeInvincible > std::chrono::milliseconds::zero())
 		{
-			SetInvincibility((mTimeInvincible += worldState.mGameTime.ElapsedGameTime()) < sInvincbleLimit);
+			mTimeInvincible -= worldState.mGameTime.ElapsedGameTime();
+		}
+		else
+		{
+			mIsInvincible = false;
 		}
 
 		worldState.mEntity = nullptr;
 	}
 
+	/************************************************************************/
 	void TankPlayer::Notify(class EventPublisher& publisher)
 	{
 		Event<MessageInput>* curEvent = publisher.As<Event<MessageInput>>();
@@ -70,54 +96,157 @@ namespace AnonymousEngine
 		if (curEvent != nullptr)
 		{
 			MessageInput* message = &const_cast<MessageInput&>(curEvent->Message());
-			Vector<std::string>& Keys = message->GetKeys();
+			HashMap<InputType, KeyState>& Keys = message->GetKeys();
 			WorldState& worldState = message->GetWorldState();
+			worldState;
 
 			// React To Certain Key Presses
-			for (const auto& key : Keys)
+			for (const auto& entry : Keys)
 			{
 				// Move Up
-				if (key == "Up")
+				if (entry.first == InputType::Up)
 				{
-					mMoveComponent->SetDirection(ActionMove::Direction::Up);
-					mMoveComponent->Move(worldState);
+					switch (entry.second)
+					{
+						case KeyState::Pressed:
+							mMoveComponent->SetCanMove();
+							mMoveComponent->SetDirection(ActionMove::Direction::Up);
+							break;
+
+						case KeyState::Released:
+							if (mMoveComponent->GetDirection() == ActionMove::Direction::Up)
+							{
+								mMoveComponent->SetCanMove(false);
+							}
+							break;
+
+						default:
+							break;
+					}
 					break;
 				}
 
 				// Move Down
-				else if (key == "Down")
+				else if (entry.first == InputType::Down)
 				{
-					mMoveComponent->SetDirection(ActionMove::Direction::Down);
-					mMoveComponent->Move(worldState);
+					switch (entry.second)
+					{
+						case KeyState::Pressed:
+							mMoveComponent->SetCanMove();
+							mMoveComponent->SetDirection(ActionMove::Direction::Down);
+							break;
+
+						case KeyState::Released:
+							if (mMoveComponent->GetDirection() == ActionMove::Direction::Down)
+							{
+								mMoveComponent->SetCanMove(false);
+							}
+							break;
+
+						default:
+							break;
+					}
 					break;
 				}
 
 				// Move Left
-				else if (key == "Left")
+				else if (entry.first == InputType::Left)
 				{
-					mMoveComponent->SetDirection(ActionMove::Direction::Left);
-					mMoveComponent->Move(worldState);
+					switch (entry.second)
+					{
+						case KeyState::Pressed:
+							mMoveComponent->SetCanMove();
+							mMoveComponent->SetDirection(ActionMove::Direction::Left);
+							break;
+
+						case KeyState::Released:
+							if (mMoveComponent->GetDirection() == ActionMove::Direction::Left)
+							{
+								mMoveComponent->SetCanMove(false);
+							}
+							break;
+
+						default:
+							break;
+					}
 					break;
 				}
 
 				// Move Right
-				else if (key == "Right")
+				else if (entry.first == InputType::Right)
 				{
-					mMoveComponent->SetDirection(ActionMove::Direction::Right);
-					mMoveComponent->Move(worldState);
+					switch (entry.second)
+					{
+						case KeyState::Pressed:
+							mMoveComponent->SetCanMove();
+							mMoveComponent->SetDirection(ActionMove::Direction::Right);
+							break;
+
+						case KeyState::Released:
+							if (mMoveComponent->GetDirection() == ActionMove::Direction::Up)
+							{
+								mMoveComponent->SetCanMove(false);
+							}
+							break;
+
+						default:
+							break;
+					}
 					break;
 				}
 
 				// Try Shooting
-				if (key == "Shoot" && mShootComponent->CanShoot())
+				if (entry.first == InputType::Shoot && entry.second == KeyState::Pressed && !mIsShootPressed)
 				{
+					mIsShootPressed = true;
 					mShootComponent->CreateBullet();
 					break;
+				}
+
+				if (entry.first == InputType::Shoot && entry.second == KeyState::Released)
+				{
+					mIsShootPressed = false;
 				}
 			}
 		}
 	}
 
+	/************************************************************************/
+	void TankPlayer::OnCollision(GameObject& otherGameObject)
+	{
+		auto tag = otherGameObject.GetCollider().GetTag();
+
+		switch (tag)
+		{
+			case Collider::ColliderTag::Enemy:
+			case Collider::ColliderTag::MetalWall:
+			case Collider::ColliderTag::BrickWall:
+			case Collider::ColliderTag::MapBorder:
+			case Collider::ColliderTag::Water:
+			case Collider::ColliderTag::MuricanEagle:
+				mMoveComponent->SetCanMove(false);
+				break;
+
+			default:
+
+				break;
+		}
+	}
+
+	/************************************************************************/
+	void TankPlayer::Respawn()
+	{
+		WorldState* state = GetWorldState();
+
+		PlayerSideDamageMessage damageMessage(false, *state);
+		const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
+		state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
+
+		// todo set position
+		SetInvincibility(true);
+	}
+
+	/************************************************************************/
 	void TankPlayer::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);

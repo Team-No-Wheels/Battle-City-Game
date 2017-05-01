@@ -112,7 +112,7 @@
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
 
-xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
+xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources\\BattleCity.xml" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -138,7 +138,7 @@ xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Com
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
 
-xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
+xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources\\BattleCity.xml" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -167,7 +167,7 @@ xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Com
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
 
-xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
+xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources\\BattleCity.xml" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -196,7 +196,7 @@ xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Com
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
 
-xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
+xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources\\BattleCity.xml" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -11,6 +11,7 @@ namespace BattleCity
 		Grass::Grass() :
 			TileBase(TileType::GRASS)
 		{
+			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::Grass);
 		}
 
 		void Grass::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

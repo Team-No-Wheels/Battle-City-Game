@@ -72,7 +72,7 @@ namespace AnonymousEngine
 
 	private:
 
-		ActionFreeze mActionFreeze;
+		ActionFreeze* mActionFreeze;
 		State mCurrentState;
 
 		std::chrono::milliseconds mShotCooldownTimer;
@@ -94,6 +94,7 @@ namespace AnonymousEngine
 		// collision helper methods
 		void HandleCollisionWithPlayer(const GameObject& gameObject);
 		void HandleCollisionWithDestructable();
+		void HandleCollisionWithUndestructable();
 
 		void TryToShoot(const uint32_t probability) const;
 

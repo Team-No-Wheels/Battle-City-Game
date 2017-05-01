@@ -22,5 +22,10 @@ namespace AnonymousEngine
 		{
 			return EventMessageAttributed::GetSubtype();
 		}
+
+		void MessageAudio::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
+		{
+			EventMessageAttributed::AppendPrescribedAttributeNames(prescribedAttributeNames);
+		}
 	}
 }

@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "World.h"
 #include "SpriteSheet.h"
+#include "WorldState.h"
 
 namespace AnonymousEngine
 {
@@ -12,7 +13,7 @@ namespace AnonymousEngine
 		const std::string GameObject::sHeightAttributeName = "height";
 
 		GameObject::GameObject() : 
-			mPosition(std::move(glm::vec4())), mCollider(*this), mSprite(nullptr)
+			mPosition(std::move(glm::vec4())), mSprite(nullptr), mCollider(*this)
 		{
 			AddExternalAttribute(sPositionAttributeName, &mPosition, 1);
 			AddExternalAttribute("SpriteName", &mSpriteName, 1);
@@ -72,9 +73,31 @@ namespace AnonymousEngine
 			return *mSprite;
 		}
 
-		void GameObject::SetMarkForDelete(bool value /* = true */)
+		void GameObject::SetMarkForDelete(bool value)
 		{
 			mMarkedForDelete = value;
+		}
+
+		AnonymousEngine::Containers::WorldState* GameObject::GetWorldState() const
+		{
+			static AnonymousEngine::Containers::WorldState* state = nullptr;
+			if (state == nullptr)
+			{
+				// Loop Through Parent To Find World
+				auto parent = GetParent();
+				while (parent != nullptr)
+				{
+					parent = parent->GetParent();
+
+					// If World, Return WorldState
+					if (parent->Is(Containers::World::TypeIdClass()))
+					{
+						state = &parent->As<Containers::World>()->GetWorldState();
+					}
+				}
+			}
+
+			return state;
 		}
 
 		void GameObject::SetRotation(float pAngle)

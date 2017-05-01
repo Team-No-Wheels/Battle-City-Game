@@ -186,6 +186,7 @@
     <ClInclude Include="MainMenuScreen.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="powerupspawner.h" />
     <ClInclude Include="TankAAI.h" />
     <ClInclude Include="TankBAI.h" />
     <ClInclude Include="TankCAI.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="MainMenuScreen.cpp" />
+    <ClCompile Include="PowerUpSpawner.cpp" />
     <ClCompile Include="TankAAI.cpp" />
     <ClCompile Include="TankBAI.cpp" />
     <ClCompile Include="TankCAI.cpp" />

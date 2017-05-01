@@ -3,6 +3,7 @@
 #include "GLFW/glfw3.h"
 #include "SList.h"
 #include "BattleCity.h"
+#include "InputHandler.h"
 
 
 namespace AnonymousEngine
@@ -53,10 +54,15 @@ namespace AnonymousEngine
 		void InitShaders();
 		// Draws the triangles on to screen
 		void Draw();
-		// Keyboard input handler. Sets window close if ESC key is pressed.
-		static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 		// BattleCity
 		BattleCity::BattleCity* mBattleCity;
+
+		static Program* thisProgram;
+		// Keyboard input handler. Sets window close if ESC key is pressed.
+		static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
+
+		static const HashMap<int, InputType> KeyCodeToInputMap;
+		static const HashMap<int, KeyState> KeyActionToKeyStateMap;
 	};
 }

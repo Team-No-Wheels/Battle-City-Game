@@ -4,6 +4,7 @@
 #include "ScoreMessageStructs.h"
 #include "World.h"
 
+
 namespace AnonymousEngine
 {
 	using namespace BattleCity::MapEntities;
@@ -15,6 +16,14 @@ namespace AnonymousEngine
 		mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
 		mShootParent(parent)
 	{
+		if (parent->GetParent()->As<TankPlayer>())
+		{
+			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::PlayerBullet);
+		}
+		else
+		{
+			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::EnemyBullet);
+		}
 	}
 
 	/************************************************************************/
@@ -107,12 +116,9 @@ namespace AnonymousEngine
 	{
 		if (!player.IsInvincible())
 		{
-			WorldState* state = FindWorldState();
-
-			PlayerSideDamageMessage damageMessage(false, *state);
-			const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
-			state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
+			player.Respawn();
 		}
+		mShootParent->KillBullet(*this);
 	}
 
 	/************************************************************************/
@@ -123,22 +129,21 @@ namespace AnonymousEngine
 			bool isDead = ai.DecrementArmor();
 			if (isDead)
 			{
-				WorldState* state = FindWorldState();
+				WorldState* state = GetWorldState();
 				std::string tankType = ai.GetTankType();
 				ScoreEventMessage scoreMessage(tankType, *state);
 				const std::shared_ptr<Core::Event<ScoreEventMessage>> eventptr = std::make_shared<Core::Event<ScoreEventMessage>>(scoreMessage);
 				state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
 			}
+
+			mShootParent->KillBullet(*this);
 		}
 	}
 
 	/************************************************************************/
 	void Bullet::CollisionWithOtherBullet(Bullet& bullet)
 	{
-		// destroy the other bullet
-		bullet.GetShootParent()->KillBullet(bullet);
-
-		// destroy this bullet
+		bullet;
 		mShootParent->KillBullet(*this);
 	}
 
@@ -149,43 +154,26 @@ namespace AnonymousEngine
 		{
 			metal.SetMarkForDelete();
 		}
+		mShootParent->KillBullet(*this);
 	}
 
 	/************************************************************************/
 	void Bullet::CollisionWithBrickWall(Brick& brick)
 	{
 		brick.SetMarkForDelete();
+		mShootParent->KillBullet(*this);
 	}
 
 	/************************************************************************/
 	void Bullet::CollisionWithFlag()
 	{
-		WorldState* state = FindWorldState();
+		WorldState* state = GetWorldState();
 
 		PlayerSideDamageMessage damageMessage(true, *state);
 		const std::shared_ptr<Core::Event<PlayerSideDamageMessage>> eventptr = std::make_shared<Core::Event<PlayerSideDamageMessage>>(damageMessage);
 		state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
-	}
 
-	/************************************************************************/
-	WorldState* Bullet::FindWorldState() const
-	{
-		WorldState* state = nullptr;
-		Scope* curScope = mShootParent->GetParent();
-
-		// Loop Through Parent To Find World
-		while (curScope->GetParent() != nullptr)
-		{
-			curScope = curScope->GetParent();
-
-			// If World, Return WorldState
-			if (curScope->Is(World::TypeIdClass()))
-			{
-				state = &curScope->As<World>()->GetWorldState();
-			}
-		}
-
-		return state;
+		mShootParent->KillBullet(*this);
 	}
 
 	/************************************************************************/

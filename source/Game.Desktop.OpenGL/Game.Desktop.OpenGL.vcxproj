@@ -113,10 +113,10 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y
-
 xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
-
-xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
+xcopy "$(SolutionDir)..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\*.dll" "$(OutDir)" /i /r /y
+xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y
+xcopy "$(SolutionDir)..\sound\*.wav" "$(OutDir)\sounds\" /i /r /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -143,10 +143,10 @@ xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Com
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y
-
 xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
-
-xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
+xcopy "$(SolutionDir)..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\*.dll" "$(OutDir)" /i /r /y
+xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y
+xcopy "$(SolutionDir)..\sound\*.wav" "$(OutDir)\sounds\" /i /r /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -175,10 +175,10 @@ xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Com
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y
-
 xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
-
-xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
+xcopy "$(SolutionDir)..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\*.dll" "$(OutDir)" /i /r /y
+xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y
+xcopy "$(SolutionDir)..\sound\*.wav" "$(OutDir)\sounds\" /i /r /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -207,10 +207,10 @@ xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Com
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y
-
 xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
-
-xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
+xcopy "$(SolutionDir)..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\*.dll" "$(OutDir)" /i /r /y
+xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y
+xcopy "$(SolutionDir)..\sound\*.wav" "$(OutDir)\sounds\" /i /r /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

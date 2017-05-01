@@ -1,18 +1,22 @@
 #include "Pch.h"
 #include "TankBase.h"
 
+#define MOVE_COMP_NAME "MoveComponent"
+#define SHOOT_COMP_NAME "ShootComponent"
+#define ACTION_SHOOT_NAME "ActionShoot"
+#define ACTION_MOVE_NAME "ActionMove"
+
 namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(TankBase);
 
-	const std::string TankBase::sMoveComponentName = "MoveComponent";
-	const std::string TankBase::sShootComponentName = "ShootComponent";
+	//const std::string TankBase::sMoveComponentName = "MoveComponent";
+	//const std::string TankBase::sShootComponentName = "ShootComponent";
 
 	TankBase::TankBase() :
-		mMoveComponent(nullptr), //CreateAction(sMoveComponentName, "ActionMove").As<ActionMove>()),
-		mShootComponent(nullptr) //(CreateAction(sShootComponentName, "ActionShoot").As<ActionShoot>())
+		mShootComponent(CreateAction(SHOOT_COMP_NAME, ACTION_SHOOT_NAME).As<ActionShoot>()),
+		mMoveComponent(CreateAction(MOVE_COMP_NAME, ACTION_MOVE_NAME).As<ActionMove>())
 	{
-
 	}
 
 	TankBase::~TankBase()
@@ -41,5 +45,8 @@ namespace AnonymousEngine
 	void TankBase::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
+
+		prescribedAttributeNames.PushBack(MOVE_COMP_NAME);
+		prescribedAttributeNames.PushBack(SHOOT_COMP_NAME);
 	}
 }

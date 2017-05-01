@@ -6,6 +6,11 @@
 
 namespace AnonymousEngine
 {
+	namespace Audio
+	{
+		class AudioManager;
+	}
+
 	namespace Containers
 	{
 		class Sector;

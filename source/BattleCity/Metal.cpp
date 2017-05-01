@@ -12,6 +12,7 @@ namespace BattleCity
 			TileBase(TileType::METAL)
 		{
 			mSpriteName = "Metal";
+			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::MetalWall);
 		}
 
 		void Metal::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

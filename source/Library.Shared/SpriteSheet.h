@@ -47,7 +47,7 @@ namespace AnonymousEngine
 			void SetFrame(Frame& pFrame);
 
 		private:
-			Frame* mFrameData;
+			Frame* mCurrentFrameData;
 		};
 	}
 }

@@ -20,7 +20,7 @@ namespace BattleCity
 	public:
 		BattleCityAudio() = default;
 
-		~BattleCityAudio() = default;
+		~BattleCityAudio();
 
 		void Initialize();
 
@@ -31,7 +31,7 @@ namespace BattleCity
 		void Notify(Core::EventPublisher& publisher) override;
 
 	private:
-		const std::uint32_t mChannelCount = 17;
+		const std::uint32_t mChannelCount = 18;
 		static const AnonymousEngine::Vector<std::string> mSoundValues;
 		HashMap<std::string, FMOD::Sound*> mSoundMap;
 	};

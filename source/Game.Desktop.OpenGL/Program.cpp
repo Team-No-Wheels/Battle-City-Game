@@ -3,10 +3,25 @@
 #include <fstream>
 #include "ShaderCompiler.h"
 
-
-
 namespace AnonymousEngine
 {
+	const HashMap<int, InputType> Program::KeyCodeToInputMap = {
+		{GLFW_KEY_ESCAPE, InputType::Esc},
+		{GLFW_KEY_LEFT, InputType::Left},
+		{GLFW_KEY_RIGHT, InputType::Right},
+		{GLFW_KEY_UP, InputType::Up},
+		{GLFW_KEY_DOWN, InputType::Down},
+		{GLFW_KEY_Z, InputType::Shoot}
+	};
+
+	const HashMap<int, KeyState> Program::KeyActionToKeyStateMap = {
+		{GLFW_PRESS, KeyState::Pressed},
+		{GLFW_RELEASE, KeyState::Released},
+		{GLFW_REPEAT, KeyState::Repeat}
+	};
+
+	Program* Program::thisProgram = nullptr;
+
 	Program::Program(int width, int height, std::string title)
 		: width(width), height(height), title(title), window(nullptr), shaderProgram(0), VAO(0)
 	{
@@ -51,6 +66,7 @@ namespace AnonymousEngine
 		glOrtho(0.0f, (GLfloat)256, (GLfloat)240, 0.0f ,-100.0f, 100.0f);
 
 		// register keyboard handler
+		thisProgram = this;
 		glfwSetKeyCallback(window, KeyCallback);
 		//InitShaders();
 
@@ -64,7 +80,7 @@ namespace AnonymousEngine
 		while (!glfwWindowShouldClose(window))
 		{
 			glfwPollEvents();
-			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 			
 			mBattleCity->Update();
@@ -135,6 +151,11 @@ namespace AnonymousEngine
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS && mode == 0)
 		{
 			glfwSetWindowShouldClose(window, GL_TRUE);
+		}
+
+		if (KeyCodeToInputMap.ContainsKey(key))
+		{
+			thisProgram->mBattleCity->InputHandler().SetKeyState(KeyCodeToInputMap[key], KeyActionToKeyStateMap[action]);
 		}
 	}
 }

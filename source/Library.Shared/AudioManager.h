@@ -11,7 +11,10 @@ namespace FMOD
 
 namespace AnonymousEngine
 {
-	class Core::EventPublisher;
+	namespace Core 
+	{
+		class EventPublisher;
+	}
 
 	namespace Audio
 	{
@@ -23,8 +26,6 @@ namespace AnonymousEngine
 			*/
 			AudioManager();
 
-			void Initialize(std::uint32_t numChannels);
-
 			/**
 			* The default destructor of class.
 			*/
@@ -33,10 +34,11 @@ namespace AnonymousEngine
 			AudioManager(const AudioManager&) = delete;
 			AudioManager(AudioManager&&) = delete;
 
+			void Initialize(std::uint32_t numChannels);
 
-			void CreateSound(FMOD::Sound* sound, const std::string& filePath);
+			void CreateSound(FMOD::Sound** sound, const std::string& filePath);
 
-			void PlaySound(FMOD::Sound* sound, bool loop = false);
+			void PlaySoundBC(FMOD::Sound* sound, bool loop = false);
 
 			void ReleaseSound(FMOD::Sound* sound);
 

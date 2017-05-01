@@ -35,6 +35,9 @@ namespace AnonymousEngine
 				BrickWall,
 				MapBorder,
 				Water,
+				Flag,
+				Grass,
+				PowerUp,
 				MuricanEagle
 			};
 

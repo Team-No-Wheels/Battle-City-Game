@@ -2,6 +2,7 @@
 #include "PowerUp.h"
 #include "Event.h"
 #include "ScoreMessageStructs.h"
+#include "PowerUpSpawner.h"
 
 namespace AnonymousEngine
 {
@@ -10,9 +11,9 @@ namespace AnonymousEngine
 	ATTRIBUTED_DEFINITIONS(PowerUp);
 
 	PowerUp::PowerUp() :
-		mType(PowerUpType::Tank)
+		mType(PowerUpType::Tank), mSpawner(nullptr)
 	{
-
+		GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::PowerUp);
 	}
 
 	void PowerUp::SetType(PowerUpType newType)
@@ -56,6 +57,8 @@ namespace AnonymousEngine
 		default:
 			break;
 		}
+	
+		mSpawner->PendKillPowerUp(*this);
 	}
 
 	void PowerUp::Update(WorldState& worldState)
@@ -91,7 +94,7 @@ namespace AnonymousEngine
 
 	void PowerUp::ActivateShield(TankPlayer& player)
 	{
-		player.SetInvincibility(true);
+		player.SetInvincibility(false);
 	}
 
 	void PowerUp::ActivateBomb(TankPlayer& player, Containers::WorldState& worldState)
@@ -128,6 +131,11 @@ namespace AnonymousEngine
 	void PowerUp::ActivateStar(TankPlayer& player)
 	{
 		player.IncrementStars();
+	}
+
+	void PowerUp::SetSpawner(PowerUpSpawner& spawner)
+	{
+		mSpawner = &spawner;
 	}
 
 	WorldState* PowerUp::FindWorldState()

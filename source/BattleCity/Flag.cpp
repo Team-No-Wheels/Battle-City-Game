@@ -12,6 +12,7 @@ namespace BattleCity
 			TileBase(TileType::FLAG)
 		{
 			mSpriteName = "Flag";
+			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::Flag);
 		}
 
 		void Flag::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

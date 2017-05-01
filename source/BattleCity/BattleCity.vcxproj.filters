@@ -122,6 +122,9 @@
     <ClCompile Include="UIElement.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="PowerUpSpawner.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -213,6 +216,9 @@
     </ClInclude>
     <ClInclude Include="UIElement.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="powerupspawner.h">
+      <Filter>Other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
