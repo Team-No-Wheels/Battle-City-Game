@@ -4,6 +4,7 @@
 #include "ScoreMessageStructs.h"
 #include "World.h"
 
+
 namespace AnonymousEngine
 {
 	using namespace BattleCity::MapEntities;
@@ -15,6 +16,14 @@ namespace AnonymousEngine
 		mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
 		mShootParent(parent)
 	{
+		if (parent->GetParent()->As<TankPlayer>())
+		{
+			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::PlayerBullet);
+		}
+		else
+		{
+			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::EnemyBullet);
+		}
 	}
 
 	/************************************************************************/

@@ -16,6 +16,7 @@ namespace AnonymousEngine
 		mStars(0), mTimeInvincible(0), mIsInvincible(false)
 	{
 		Event<MessageInput>::Subscribe(*this);
+		GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::Player);
 	}
 
 	/************************************************************************/
