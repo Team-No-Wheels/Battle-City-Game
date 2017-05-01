@@ -1,8 +1,12 @@
 #pragma once
 #include "HashMap.h"
-#include "WorldState.h"
 namespace AnonymousEngine
 {
+	namespace Containers
+	{
+		class WorldState;
+	}
+
 	/** Used for events which fire when a tank definition is recieved by
 	*   the parser.
 	*/

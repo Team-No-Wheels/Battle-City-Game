@@ -1,5 +1,6 @@
 #include "Pch.h"
 #include "ScoreMessageStructs.h"
+#include "WorldState.h"
 
 namespace AnonymousEngine
 {

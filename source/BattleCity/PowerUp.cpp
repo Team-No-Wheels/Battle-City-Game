@@ -117,11 +117,11 @@ namespace AnonymousEngine
 
 			for (std::uint32_t i = 0; i < size; ++i)
 			{
-				TankBase* e = entities.Get<Scope*>(i)->As<TankBase>();
+				TankBase* tank = entities.Get<Scope*>(i)->As<TankBase>();
 
-				if (e != nullptr)
+				if (tank != nullptr)
 				{
-					// Destroy Enemy Tanks
+					tank->SetMarkForDelete();
 
 					// Tell score manager that a tank was destroyed
 					TankDestroyedNoScoreMessage message(worldState);

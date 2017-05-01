@@ -19,7 +19,7 @@ namespace AnonymousEngine
 
 	public:
 
-		ActionShoot();
+		ActionShoot(bool isPlayer = false);
 		~ActionShoot() = default;
 
 		void Update(WorldState& worldState) override;
@@ -27,8 +27,28 @@ namespace AnonymousEngine
 		void PendKillBullet(Bullet& bullet);
 		void DestroyPendingBullets();
 
+		/** Return if shooting is currently possible
+		*	@return True if shooting is currently possible
+		*/
 		bool CanShoot() const;
-		bool IsDouble() const;
+
+		/** Return whether the bullet was created by the player.
+		*	@return True if the bullet was created by the player.
+		*/
+		bool IsPlayer() const;
+
+		/** Sets whether the bullet created will be fast
+		*/
+		void SetIsFast(const bool isFast);
+		
+		/** Sets whether the bullet created will be strong
+		*/
+		void SetIsStrong(const bool isStrong);
+
+		/** Gets whether the bullet can shoot through metal.
+		*	@return True if the bullet can shoot through metal.
+		*/
+		bool IsStrong() const;
 
 		uint32_t GetCapacityToShoot() const;
 		void SetCapacityToShoot(const uint32_t capacityToShoot);
@@ -36,7 +56,8 @@ namespace AnonymousEngine
 	private:
 
 		uint32_t mBulletsCapacity;
-		bool isFast, isDouble, isStrong; // For Star Power Up
+		bool mIsFast, mIsStrong; // For Star Power Up
+		bool mIsPlayer;
 		Vector<Bullet*> mBulletsLiving, mBulletsPending;
 	};
 

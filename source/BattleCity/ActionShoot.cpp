@@ -7,8 +7,8 @@ namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(ActionShoot);
 
-	ActionShoot::ActionShoot() : 
-		mBulletsCapacity(1), isFast(false), isDouble(false), isStrong(false), mBulletsLiving(3), mBulletsPending(3)
+	ActionShoot::ActionShoot(bool isPlayer) :
+		mBulletsCapacity(1), mIsFast(false), mIsStrong(false), mBulletsLiving(3), mBulletsPending(3), mIsPlayer(isPlayer)
 	{
 	}
 
@@ -42,15 +42,9 @@ namespace AnonymousEngine
 		else
 			moveComponent->SetDirection(ActionMove::Direction::Up);
 
-		if (isFast)
+		if (mIsFast)
 		{
 			moveComponent->SetSpeed(2 * moveComponent->sDefaultSpeed);
-		}
-
-		// Set Bullet To Destroy Steel BLocks
-		if (isStrong)
-		{
-			curBullet->isStrong = true;
 		}
 	}
 
@@ -77,9 +71,24 @@ namespace AnonymousEngine
 		return mBulletsLiving.Size() < mBulletsCapacity;
 	}
 
-	bool ActionShoot::IsDouble() const
+	bool ActionShoot::IsPlayer() const
 	{
-		return isDouble;
+		return mIsPlayer;
+	}
+
+	void ActionShoot::SetIsFast(const bool isFast)
+	{
+		mIsFast = isFast;
+	}
+
+	void ActionShoot::SetIsStrong(const bool isStrong)
+	{
+		mIsStrong = isStrong;
+	}
+
+	bool ActionShoot::IsStrong() const
+	{
+		return mIsStrong;
 	}
 
 	uint32_t ActionShoot::GetCapacityToShoot() const

@@ -21,8 +21,19 @@ namespace AnonymousEngine
 		if (mStars < 3)
 		{
 			++mStars;
-			if (mStars == 2)
+			switch (mStars)
+			{
+			case 1:
+				mShootComponent->SetIsFast(true);
+				break;
+			case 2:
 				mShootComponent->SetCapacityToShoot(2);
+				break;
+			case 3:
+				mShootComponent->SetIsStrong(true);
+				break;
+			}
+
 		}
 	}
 
