@@ -46,7 +46,7 @@ namespace AnonymousEngine
 	public:
 		/** Construct a level over message and fill in it's members
 		*/
-		LevelOverMessage(bool wasWin, HashMap<std::string, std::int32_t> finalScores);
+		LevelOverMessage(const bool wasWin, const HashMap<std::string, std::int32_t>& finalScores);
 
 		/** Returns whether the level was a win or loss.
 		*	@return Whether the level was a win or loss.
