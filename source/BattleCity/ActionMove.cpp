@@ -11,10 +11,11 @@ namespace AnonymousEngine
 	ActionMove::ActionMove() :
 		mDirection(Direction::Up), mSpeed(sDefaultSpeed), mIsPlayer(false), mCanMove(true)
 	{
-		if (GetParent()->Is(TankPlayer::TypeIdClass()))
-		{
+		// TODO Move this logic to an init method, cannot be done here since the parent isn't set yet.
+		//if (GetParent()->Is(TankPlayer::TypeIdClass()))
+		//{
 			mIsPlayer = true;
-		}
+		//}
 	}
 
 	void ActionMove::Update(WorldState& worldState)
@@ -44,16 +45,16 @@ namespace AnonymousEngine
 			switch (mDirection)
 			{
 				case Direction::Up:
-					position.y += (mSpeed * deltaTime) / 1000;
+					position.y += (mSpeed * deltaTime) / 10;
 					break;
 				case Direction::Down:
-					position.y -= (mSpeed * deltaTime) / 1000;
+					position.y -= (mSpeed * deltaTime) / 10;
 					break;
 				case Direction::Left:
-					position.x -= (mSpeed * deltaTime) / 1000;
+					position.x -= (mSpeed * deltaTime) / 10;
 					break;
 				case Direction::Right:
-					position.x += (mSpeed * deltaTime) / 1000;
+					position.x += (mSpeed * deltaTime) / 10;
 					break;
 				default:
 					break;

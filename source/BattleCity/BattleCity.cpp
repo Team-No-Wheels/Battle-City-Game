@@ -4,8 +4,9 @@
 #include "World.h"
 #include "SpriteSheet.h"
 
-
 using namespace AnonymousEngine::Core;
+//
+using namespace AnonymousEngine::Containers;
 
 namespace BattleCity
 {
@@ -16,7 +17,11 @@ namespace BattleCity
 		
 		//mSprite = new AnonymousEngine::Graphics::Sprite();
 		//ServiceLocator::GetTextureLoader()->GetTexture("resources\\tank.png");
-		mGameObject = new AnonymousEngine::Core::GameObject();
+		
+		//mGameObject = new AnonymousEngine::Core::GameObject();
+		//
+		mGameObject = new AnonymousEngine::TankPlayer;
+
 		AnonymousEngine::Graphics::SpriteSheet* spritesheet = new AnonymousEngine::Graphics::SpriteSheet(*mGameObject);
 
 		AnonymousEngine::Graphics::Frame* frame = new AnonymousEngine::Graphics::Frame;
@@ -29,6 +34,9 @@ namespace BattleCity
 
 		spritesheet->SetFrame(*frame);
 		mGameObject->SetPosition(glm::vec4(100.0f, 100.0f, 0.0f, 0.0f));
+
+		mWorld = new AnonymousEngine::World("World");
+		mWorldState.mWorld = mWorld;
 	}
 
 	void BattleCity::Init()
@@ -37,6 +45,9 @@ namespace BattleCity
 		//mWorld->InitializeWorld();
 		//mLevelManager.LoadLevelTiles(mWorld->GetWorldState().GetCurrentLevel());
 		mGameObject->GetSprite().Init("resources\\General.png");
+
+		//
+		mInputHandler = new AnonymousEngine::InputHandler();
 	}
 
 	void BattleCity::Update()
@@ -49,9 +60,13 @@ namespace BattleCity
 		
 		//mGameObject->SetPosition(mGameObject->GetPosition() + glm::vec4(0.0f, -1.0f, 0.0f, 0.0f) * pDeltaTime);
 
-		mGameObject->GetSprite().Render();
-		mGameObject->GetSprite().Update(1.0f / 60.0f);
+		
 
 		OutputDebugString("BattleCity : Update\n");
+
+		//
+		mWorldState;
+		mInputHandler->Update(mWorldState);
+		mGameObject->Update(mWorldState);
 	}
 }
