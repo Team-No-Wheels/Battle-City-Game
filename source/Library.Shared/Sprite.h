@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderable.h"
+#include "Rectangle.h"
 
 namespace AnonymousEngine
 {
@@ -44,8 +45,15 @@ namespace AnonymousEngine
 				@brief If debug is enabled this is called every frame.
 			*/
 			virtual void DrawDebugBounds() override;
+
+			/**
+			* Get the game object which owns this sprite.
+			*/
+			Core::GameObject& GetOwner();
 		private:
 			Core::GameObject& mGameObject;
+
+			Geometry::Rectangle mSpriteBounds;
 		};
 
 		ENTITY_FACTORY_DECLARATIONS(Sprite);

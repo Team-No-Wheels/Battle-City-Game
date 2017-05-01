@@ -3,8 +3,7 @@
 #include "GLFW/glfw3.h"
 #include "SList.h"
 #include "BattleCity.h"
-#include "TextureLoaderOpenGL.h"
-#include "RendererOpenGL.h"
+
 
 namespace AnonymousEngine
 {
@@ -56,10 +55,6 @@ namespace AnonymousEngine
 		void Draw();
 		// Keyboard input handler. Sets window close if ESC key is pressed.
 		static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
-
-		// saving the ServiceLocators
-		Graphics::TextureLoaderOpenGL* mTextureLoader;
-		Graphics::RendererOpenGL* mRenderer;
 
 		// BattleCity
 		BattleCity::BattleCity* mBattleCity;

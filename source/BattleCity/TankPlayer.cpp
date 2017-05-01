@@ -19,7 +19,11 @@ namespace AnonymousEngine
 	void TankPlayer::IncrementStars()
 	{
 		if (mStars < 3)
+		{
 			++mStars;
+			if (mStars == 2)
+				mShootComponent->SetCapacityToShoot(2);
+		}
 	}
 
 	void TankPlayer::SetInvincibility(bool state)
@@ -94,17 +98,6 @@ namespace AnonymousEngine
 				if (key == "Shoot" && mShootComponent->CanShoot())
 				{
 					mShootComponent->CreateBullet();
-
-					// Delay Creation Of 2nd Bullet For Double Shot
-					if (mShootComponent->IsDouble())
-					{
-						std::async(std::launch::async, [this]()
-						{
-							std::this_thread::sleep_for(std::chrono::milliseconds(10));
-							mShootComponent->CreateBullet();
-						});
-					}
-
 					break;
 				}
 			}

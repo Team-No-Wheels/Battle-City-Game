@@ -40,7 +40,12 @@ namespace AnonymousEngine
 			* Get a reference to the sprite contained within this game object.
 			*/
 			Graphics::Sprite& GetSprite();
+			/**
+			* Set whether an game object should be deleted or not before next Update call.
+			*/
+			void SetMarkForDelete(bool value = true);
 		private:
+			void AddToDeleteQueue(Containers::WorldState& worldState);
 			/**
 			* The position of this game object in the world space.
 			*/
@@ -53,6 +58,10 @@ namespace AnonymousEngine
 			* The collider associated with this game object.
 			*/
 			Collider mCollider;
+			/**
+			* Whether this game object is marked for delete.
+			*/
+			bool mMarkedForDelete;
 
 			/** 
 			* The attribute name for the member variable position.

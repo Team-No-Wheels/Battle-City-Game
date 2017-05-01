@@ -16,7 +16,7 @@ namespace AnonymousEngine
 	using namespace Containers;
 	using namespace Core;
 
-	class PowerUp : public GameObject, public EventSubscriber
+	class PowerUp : public GameObject
 	{
 		ATTRIBUTED_DECLARATIONS(PowerUp, GameObject);
 
@@ -40,7 +40,7 @@ namespace AnonymousEngine
 		void setType(PowerUpType newType);
 		void Activate(TankPlayer& player, Containers::WorldState& worldState);
 		void Update(WorldState& worldState) override;
-		void Notify(class EventPublisher& publisher);
+		void OnCollision(GameObject& otherGameObject) override;
 
 	private:
 		typedef std::pair<Entity*, Entity*> CollisionPair;
@@ -53,6 +53,8 @@ namespace AnonymousEngine
 		void ActivateBomb(TankPlayer& player, Containers::WorldState& worldState);
 		void ActivateShovel();
 		void ActivateStar(TankPlayer& player);
+
+		WorldState* FindWorldState();
 
 		static const std::string mPowerupKey;
 	};

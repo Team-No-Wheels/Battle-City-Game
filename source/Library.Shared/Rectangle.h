@@ -27,6 +27,8 @@ namespace AnonymousEngine
 				Parameter constructor.
 			*/
 			Rectangle(float pTopLeftX, float pTopLeftY, float pTopRightX, float pTopRightY, float pBottomLeftX, float pBottomLeftY, float pBottomRightX, float pBottomRightY);
+
+			static Geometry::Rectangle Translate(Geometry::Rectangle pRectangle, const glm::vec4& pPosition);
 		};
 	}
 }

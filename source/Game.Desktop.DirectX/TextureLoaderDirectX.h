@@ -8,7 +8,7 @@ namespace AnonymousEngine
 		/**
 			Struct that handles the DirectX texture.
 		*/
-		struct TextureOpenGL : public Texture
+		struct TextureDirectX : public Texture
 		{
 			IDirect3DTexture9* mTextureID;
 		};

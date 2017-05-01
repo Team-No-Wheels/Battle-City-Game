@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cstdint>
 #include "UIScreen.h"
 
 namespace BattleCity
@@ -8,10 +7,29 @@ namespace BattleCity
 	class MainMenuScreen final : public UIScreen
 	{
 	public:
+		/** The options in the menu
+		 */
+		enum MenuOptions
+		{
+			Invalid,
+			StartGame,
+			Exit,
+			MaxOptions
+		};
+
+		/** Initialize the menu
+		 */
 		MainMenuScreen();
-		void Update() override;
+
+		/** Update menu state
+		 *  @param worldState The current world state
+		 */
+		void Update(AnonymousEngine::Containers::WorldState& worldState) override;
 	private:
-		std::uint32_t mCurrentOption;
+		// Currently selected option
+		MenuOptions mCurrentOption;
+
+		ATTRIBUTED_DECLARATIONS(MainMenuScreen, UIScreen);
 	};
 
 	CONCRETE_FACTORY_DECLARATIONS(UIScreen, MainMenuScreen);

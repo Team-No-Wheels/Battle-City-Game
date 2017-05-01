@@ -38,5 +38,10 @@ namespace AnonymousEngine
 		{
 			mColliders.PushBack(&collider);
 		}
+
+		void CollisionManager::Unregister(Collider& collider)
+		{
+			mColliders.Remove(&collider);
+		}
 	}
 }

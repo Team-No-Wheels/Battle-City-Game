@@ -77,9 +77,6 @@
     <ClCompile Include="RandomNumbersGenerator.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>Other</Filter>
-    </ClCompile>
     <ClCompile Include="MainMenuScreen.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -100,6 +97,12 @@
     </ClCompile>
     <ClCompile Include="LevelManager.cpp">
       <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Flag.cpp">
+      <Filter>MapEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="TileBase.cpp">
+      <Filter>MapEntities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,9 +151,6 @@
     <ClInclude Include="RandomNumbersGenerator.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>Other</Filter>
-    </ClInclude>
     <ClInclude Include="UIScreen.h">
       <Filter>UI</Filter>
     </ClInclude>
@@ -171,6 +171,12 @@
     </ClInclude>
     <ClInclude Include="LevelManager.h">
       <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Flag.h">
+      <Filter>MapEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="TileBase.h">
+      <Filter>MapEntities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

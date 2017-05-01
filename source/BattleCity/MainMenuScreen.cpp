@@ -3,11 +3,13 @@
 
 namespace BattleCity
 {
-	MainMenuScreen::MainMenuScreen() : mCurrentOption(1)
+	ATTRIBUTED_DEFINITIONS(MainMenuScreen);
+
+	MainMenuScreen::MainMenuScreen() : mCurrentOption(StartGame)
 	{
 	}
 
-	void MainMenuScreen::Update()
+	void MainMenuScreenUpdate(AnonymousEngine::Containers::WorldState&)
 	{
 	}
 

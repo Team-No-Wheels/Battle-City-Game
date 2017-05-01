@@ -2,7 +2,6 @@
 #include "MessageInput.h"
 #include "Action.h"
 #include "EventSubscriber.h"
-#include "Bullet.h"
 #include "Factory.h"
 
 namespace AnonymousEngine
@@ -10,6 +9,8 @@ namespace AnonymousEngine
 
 	using namespace Containers;
 	using namespace Core;
+
+	class Bullet;
 
 	class ActionShoot : public Action
 	{
