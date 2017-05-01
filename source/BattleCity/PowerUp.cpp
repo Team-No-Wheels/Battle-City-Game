@@ -10,7 +10,7 @@ namespace AnonymousEngine
 	ATTRIBUTED_DEFINITIONS(PowerUp);
 
 	PowerUp::PowerUp() :
-		mType(PowerUpType::Tank), mClockActivated(false)
+		mType(PowerUpType::Tank)
 	{
 
 	}
@@ -39,7 +39,7 @@ namespace AnonymousEngine
 			break;
 
 		case PowerUpType::Clock:
-			ActivateClock();
+			ActivateClock(worldState);
 			break;
 
 		case PowerUpType::Shield:
@@ -67,16 +67,6 @@ namespace AnonymousEngine
 	{
 		worldState.mEntity = this;
 
-		if (mClockActivated)
-		{
-			mClockActivated = false;
-			EventQueue* mEventQueue = &worldState.mWorld->EventQueue();
-			EventMessageAttributed msg;
-			msg.SetSubtype("Freeze");
-			msg.SetWorld(*worldState.mWorld);
-			mEventQueue->Enqueue(std::make_shared<Event<EventMessageAttributed>>(Event<EventMessageAttributed>(msg)), worldState.mGameTime, 0U);
-		}
-
 		worldState.mEntity = nullptr;
 	}
 
@@ -96,9 +86,12 @@ namespace AnonymousEngine
 		worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
 	}
 
-	void PowerUp::ActivateClock()
+	void PowerUp::ActivateClock(Containers::WorldState& worldState)
 	{
-		mClockActivated = true;
+		EventMessageAttributed msg;
+		msg.SetSubtype("Freeze");
+		msg.SetWorld(*worldState.mWorld);
+		worldState.mWorld->EventQueue().Enqueue(std::make_shared<Event<EventMessageAttributed>>(Event<EventMessageAttributed>(msg)), worldState.mGameTime, 0U);
 	}
 
 	void PowerUp::ActivateShield(TankPlayer& player)
