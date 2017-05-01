@@ -50,6 +50,7 @@ namespace MapGenerator
         const string    HEIGHT_IDENTIFIER           = "height";
 
         const string    OBJECT_IDENTIFIER           = "object";
+        const string    PROPERTY_IDENTIFIER         = "property";
         const string    FRAMEMANAGER_IDENTIFIER     = "FrameManager";
         const string    FRAME_IDENTIFIER            = "Frame";
         const string    ID_IDENTIFIER               = "id";
@@ -59,46 +60,33 @@ namespace MapGenerator
         const string    DEFINITIONS_FILE            = "Definitions.tmx";
         const string    ZERO                        = "0";
 
+        const float     BOUNDING_BOX_TOLERANCE      = 0.5f;
+
         Dictionary<string, SpriteData> SpriteMappedData = new Dictionary<string, SpriteData>();
 
         class SpriteData
         {
             public string id;
-            public string x;
-            public string y;
-            public string w;
-            public string h;
+            public string classname;
+            public float x;
+            public float y;
+            public float w;
+            public float h;
 
-            public SpriteData(string ID, string X, string Y, string W, string H)
+            public SpriteData(string ID, float X, float Y, float W, float H)
             {
-                id      = ID;
-                x       = X;
-                y       = Y;
-                w       = W;
-                h       = H;
-            }
-        }
-
-        class BoundingBox
-        {
-            public int x;
-            public int y;
-            public int w;
-            public int h;
-
-            public BoundingBox(int X, int Y, int W, int H)
-            {
-                x = X;
-                y = Y;
-                w = W;
-                h = H;
+                id  = ID;
+                x   = X;
+                y   = Y;
+                w   = W;
+                h   = H;
             }
 
-            public bool Intersects(BoundingBox other)
+            public bool Intersects(float otherx, float othery, float otherw, float otherh)
             {
                 return
-                        (Math.Abs(x - other.x) * 2 <= (w + other.w))
-                    &&  (Math.Abs(y - other.y) * 2 <= (h + other.h));
+                       (Math.Abs(x - otherx) * 2 <= (w + otherw))
+                   && (Math.Abs(y - othery) * 2 <= (h + otherh));
             }
         }
 
@@ -111,6 +99,7 @@ namespace MapGenerator
             Settings.MaxCharactersFromEntities = MAX_CHARS_FROM_ENTITIES;
             XmlReader Reader = XmlReader.Create(DefinitionsFile, Settings);
 
+            string CurrentElement = "";
             while (Reader.Read())
             {
                 if (Reader.IsStartElement())
@@ -125,14 +114,24 @@ namespace MapGenerator
 
                         case OBJECT_IDENTIFIER:
                             {
-                                SpriteMappedData[Reader[NAME_IDENTIFIER]]
+                                CurrentElement = Reader[NAME_IDENTIFIER];
+                                SpriteMappedData[CurrentElement]
                                     = new SpriteData(
                                         Reader[ID_IDENTIFIER],
-                                        Reader[X_IDENTIFIER],
-                                        Reader[Y_IDENTIFIER],
-                                        Reader[WIDTH_IDENTIFIER],
-                                        Reader[HEIGHT_IDENTIFIER]
+                                        float.Parse(Reader[X_IDENTIFIER]),
+                                        float.Parse(Reader[Y_IDENTIFIER]),
+                                        float.Parse(Reader[WIDTH_IDENTIFIER]),
+                                        float.Parse(Reader[HEIGHT_IDENTIFIER])
                                       );
+                            }
+                            break;
+
+                        case PROPERTY_IDENTIFIER:
+                            {
+                                if (Reader[NAME_IDENTIFIER] == CLASS_IDENTIFIER)
+                                {
+                                    SpriteMappedData[CurrentElement].classname = Reader[VALUE_IDENTIFIER];
+                                }
                             }
                             break;
                     }
@@ -166,8 +165,8 @@ namespace MapGenerator
                         Writer.WriteStartElement(VECTOR_IDENTIFIER);
                         {
                             Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_IDENTIFIER);
-                            Writer.WriteAttributeString(X_IDENTIFIER, Pair.Value.x);
-                            Writer.WriteAttributeString(Y_IDENTIFIER, Pair.Value.y);
+                            Writer.WriteAttributeString(X_IDENTIFIER, Pair.Value.x.ToString());
+                            Writer.WriteAttributeString(Y_IDENTIFIER, Pair.Value.y.ToString());
                             Writer.WriteAttributeString(Z_IDENTIFIER, ZERO);
                             Writer.WriteAttributeString(W_IDENTIFIER, ZERO);
                         }
@@ -175,13 +174,13 @@ namespace MapGenerator
                         Writer.WriteStartElement(INTEGER_IDENTIFIER);
                         {
                             Writer.WriteAttributeString(NAME_IDENTIFIER, WIDTH_IDENTIFIER);
-                            Writer.WriteAttributeString(VALUE_IDENTIFIER, Pair.Value.w);
+                            Writer.WriteAttributeString(VALUE_IDENTIFIER, Pair.Value.w.ToString());
                         }
                         Writer.WriteEndElement();
                         Writer.WriteStartElement(INTEGER_IDENTIFIER);
                         {
                             Writer.WriteAttributeString(NAME_IDENTIFIER, HEIGHT_IDENTIFIER);
-                            Writer.WriteAttributeString(VALUE_IDENTIFIER, Pair.Value.h);
+                            Writer.WriteAttributeString(VALUE_IDENTIFIER, Pair.Value.h.ToString());
                         }
                         Writer.WriteEndElement();
                     }
@@ -312,10 +311,28 @@ namespace MapGenerator
                     {
                         Writer.WriteStartElement(ENTITY_IDENTIFIER);
                         {
-                            //
-                            
-                            //
-                            Writer.WriteAttributeString(CLASS_IDENTIFIER, Entities[CurrentPosition]);
+                            // Check which Object this tile "collides" with.
+                            foreach (var Pair in SpriteMappedData)
+                            {
+                                float y = (int.Parse(Entities[CurrentPosition]) / int.Parse(MappedData[IN_TILES_X_IDENTIFIER])) * float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]);
+                                float x = (int.Parse(Entities[CurrentPosition]) % int.Parse(MappedData[IN_TILES_X_IDENTIFIER])) * float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]);
+
+                                // Slightly reducing the bounding box, otherwise unwanted collisions occur
+                                if (Pair.Value.Intersects(
+                                    x + BOUNDING_BOX_TOLERANCE,
+                                    y + BOUNDING_BOX_TOLERANCE,
+                                    int.Parse(MappedData[TILE_WIDTH_IDENTIFIER]) - BOUNDING_BOX_TOLERANCE,
+                                    int.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]) - BOUNDING_BOX_TOLERANCE
+                                    ))
+                                {
+                                    if (Pair.Value.classname != null && Pair.Value.classname != "")
+                                    {
+                                        Writer.WriteAttributeString(CLASS_IDENTIFIER, Pair.Value.classname);
+                                    }
+
+                                    break;
+                                }
+                            }
                             Writer.WriteStartElement(INTEGER_IDENTIFIER);
                             {
                                 Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
