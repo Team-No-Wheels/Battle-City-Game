@@ -11,7 +11,7 @@ using namespace AnonymousEngine::Core;
 namespace BattleCity
 {
 	BattleCity::BattleCity()
-		:mLevelManager(), mWorld(nullptr), mTestAudio(false)
+		:mLevelManager(), mWorld(nullptr)
 	{
 		ServiceLocator::AddService(ServiceLocator::sCollisionManager, mCollisionManager);
 	}
@@ -19,7 +19,6 @@ namespace BattleCity
 	void BattleCity::Init()
 	{
 		mAudio.Initialize();
-		mGameObject->GetSprite().Init("resources\\General.png");
 		mWorld = &mLevelManager.LoadWorld();
 		mWorld->InitializeWorld();
 		mLevelManager.LoadLevelTiles(mWorld->GetWorldState().GetCurrentLevel());
