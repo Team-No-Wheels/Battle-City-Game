@@ -16,6 +16,7 @@ namespace AnonymousEngine
 		mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
 		mShootParent(parent)
 	{
+
 		if (parent->GetParent()->As<TankPlayer>())
 		{
 			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::PlayerBullet);

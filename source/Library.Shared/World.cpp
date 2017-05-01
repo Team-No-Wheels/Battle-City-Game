@@ -44,6 +44,7 @@ namespace AnonymousEngine
 			for (std::uint32_t index = 0; index < entities.Size(); ++index)
 			{
 				Core::GameObject& gameObj = static_cast<Core::GameObject&>(entities.Get<Scope>(index));
+				
 				const std::string& frameName = gameObj["SpriteName"].Get<std::string>();
 				if (!frameName.empty())
 				{
@@ -51,6 +52,8 @@ namespace AnonymousEngine
 					Graphics::Frame& frame = *frameManager.GetFrameEntity(frameName);
 					spriteSheet->Init(frame.mFilePath);
 					spriteSheet->SetFrame(frame);
+
+					gameObj.GetSprite().SetTint(gameObj.GetTint());
 				}
 			}
 		}

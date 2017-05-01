@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "Collider.h"
 #include "glm/glm.hpp"
+#include "Color.h"
 
 namespace AnonymousEngine
 {
@@ -69,6 +70,9 @@ namespace AnonymousEngine
 				@brief get rotation.
 			*/
 			float GetRotation();
+
+			Graphics::Color GetTint();
+
 		protected:
 
 			class AnonymousEngine::Containers::WorldState* GetWorldState() const;
@@ -97,6 +101,8 @@ namespace AnonymousEngine
 			* Whether this game object is marked for delete.
 			*/
 			bool mMarkedForDelete;
+			
+			Graphics::Color mTint;
 
 			/** 
 			* The attribute name for the member variable position.

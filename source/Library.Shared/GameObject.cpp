@@ -33,6 +33,7 @@ namespace AnonymousEngine
 
 		void GameObject::Update(Containers::WorldState& worldState)
 		{
+			Entity::Update(worldState);
 			worldState.mEntity = this;
 			// Handle if the object is marked for delete
 			if (mMarkedForDelete)
@@ -126,6 +127,11 @@ namespace AnonymousEngine
 			prescribedAttributeNames.PushBack("SpriteName");
 			prescribedAttributeNames.PushBack("width");
 			prescribedAttributeNames.PushBack("height");
+		}
+
+		Graphics::Color GameObject::GetTint()
+		{
+			return mTint;
 		}
 
 		ATTRIBUTED_DEFINITIONS(GameObject)

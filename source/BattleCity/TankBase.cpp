@@ -10,13 +10,12 @@ namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(TankBase);
 
-	//const std::string TankBase::sMoveComponentName = "MoveComponent";
-	//const std::string TankBase::sShootComponentName = "ShootComponent";
-
-	TankBase::TankBase() :
-		mShootComponent(CreateAction(SHOOT_COMP_NAME, ACTION_SHOOT_NAME).As<ActionShoot>()),
-		mMoveComponent(CreateAction(MOVE_COMP_NAME, ACTION_MOVE_NAME).As<ActionMove>())
+	TankBase::TankBase()
 	{
+		mShootComponent = CreateAction(SHOOT_COMP_NAME, ACTION_SHOOT_NAME).As<ActionShoot>();
+		mMoveComponent = CreateAction(MOVE_COMP_NAME, ACTION_MOVE_NAME).As<ActionMove>();
+		
+		GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::Enemy);
 	}
 
 	TankBase::~TankBase()

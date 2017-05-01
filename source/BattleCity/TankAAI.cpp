@@ -20,11 +20,23 @@ namespace AnonymousEngine
 	TankAAI::TankAAI(const float speed, const int32_t bulletsNum, const int32_t armor, const uint32_t probToShootInMov):
 		BasicTankAI(speed, bulletsNum, armor, probToShootInMov)
 	{
+		mSpriteName = "Tank1_00";
 	}
 
 	/************************************************************************/
 	std::string TankAAI::GetTankType()
 	{
 		return TYPE_NAME;
+	}
+
+	void TankAAI::Update(WorldState& worldState)
+	{
+		BasicTankAI::Update(worldState);
+	}
+
+	/************************************************************************/
+	void TankAAI::AppendPrescribedAttributeNames(Vector<string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
 }

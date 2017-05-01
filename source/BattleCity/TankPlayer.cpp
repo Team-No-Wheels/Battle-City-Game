@@ -15,6 +15,9 @@ namespace AnonymousEngine
 	TankPlayer::TankPlayer() :
 		mStars(0), mTimeInvincible(0), mIsInvincible(false), mIsShootPressed(false)
 	{
+		mSpriteName = "Tank3_00";		
+		mTint = Graphics::Color::GREEN;
+
 		Event<MessageInput>::Subscribe(*this);
 		GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::Player);
 	}

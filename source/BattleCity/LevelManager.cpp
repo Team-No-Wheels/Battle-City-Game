@@ -10,6 +10,9 @@
 #include "ServiceLocator.h"
 #include "UIElement.h"
 #include "PowerUp.h"
+#include "TankAAI.h"
+#include "TankBAI.h"
+#include "TankCAI.h"
 
 using namespace AnonymousEngine;
 
@@ -73,9 +76,10 @@ namespace BattleCity
 			FrameFactory frameFactory;
 			UIElementFactory uiElementFactory;
 			PowerUpFactory powerUpFactory;
-			TankPlayerFactory tankPlayerFactory;
-			ActionShootFactory actionShootFactory;
-			ActionMoveFactory actionMoveFactory;
+			TankPlayerFactory tankPlayerFactory;					
+			TankAAIFactory tankAAIFactory;
+			TankBAIFactory tankBAIFactory;
+			TankCAIFactory tankCAIFactory;
 
 			//Start parsing xml file.
 			WorldSharedData worldSharedData;

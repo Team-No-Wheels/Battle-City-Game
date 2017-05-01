@@ -8,9 +8,7 @@ namespace AnonymousEngine
 	/** This class represents the base for all of the Tank AIs.
 	*/
 	class BasicTankAI : public TankBase
-	{
-		ATTRIBUTED_DECLARATIONS(BasicTankAI, TankBase);
-
+	{		
 	public:
 
 		/** Enumeration representing the Tank AI State.
@@ -98,5 +96,6 @@ namespace AnonymousEngine
 
 		void TryToShoot(const uint32_t probability) const;
 
+		ATTRIBUTED_DECLARATIONS(BasicTankAI, TankBase);
 	};
 }

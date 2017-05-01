@@ -5,13 +5,17 @@
 #include "WorldSharedData.h"
 #include "Service.h"
 #include "TileBase.h"
+#include "ActionFreeze.h"
+#include "ActionMove.h"
+#include "ActionShoot.h"
 
 namespace BattleCity
 {
 	typedef MapEntities::TileType TileType;
 
 	namespace Managers
-	{		
+	{
+		
 		/** LevelManager class which loads the entire levels of the game, transitions to a new level, returns the tile types for the map.
 		*/
 		class LevelManager : public AnonymousEngine::Core::Service
@@ -64,6 +68,11 @@ namespace BattleCity
 			/** The attribute name of posY
 			*/
 			static const std::string sPosY;
+
+			//Declaring the factories
+			AnonymousEngine::ActionShootFactory actionShootFactory;
+			AnonymousEngine::ActionFreezeFactory actionFreezeFactory;
+			AnonymousEngine::ActionMoveFactory actionMoveFactory;
 
 			/** Pointer to the parsed World object.
 			*/

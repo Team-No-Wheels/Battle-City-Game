@@ -12,12 +12,14 @@ namespace AnonymousEngine
 
 		/** TankAAI constructor.
 		*/
-		explicit TankAAI(const float speed = DEFAULT_SPEED, const int32_t bulletsNum = DEFAULT_BULLETS_NUM,
-					const int32_t armor = DEFAULT_ARMOR, const uint32_t probToShootInMov = DEFAULT_PROB_TO_SHOOT_IN_MOV);
+		TankAAI(const float speed = DEFAULT_SPEED, const int32_t bulletsNum = DEFAULT_BULLETS_NUM,
+			const int32_t armor = DEFAULT_ARMOR, const uint32_t probToShootInMov = DEFAULT_PROB_TO_SHOOT_IN_MOV);
 
 		virtual ~TankAAI() = default;
 
 		virtual std::string GetTankType() override;
+
+		virtual void Update(WorldState& worldState) override;
 
 	private:
 

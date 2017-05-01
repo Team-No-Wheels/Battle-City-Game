@@ -27,4 +27,10 @@ namespace AnonymousEngine
 	{
 		return TYPE_NAME;
 	}
+
+	/************************************************************************/
+	void TankDAI::AppendPrescribedAttributeNames(Vector<string>& prescribedAttributeNames)
+	{
+		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
+	}
 }

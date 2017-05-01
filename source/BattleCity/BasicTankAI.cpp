@@ -10,9 +10,7 @@ using namespace std;
 using namespace chrono;
 
 namespace AnonymousEngine
-{
-	ATTRIBUTED_DEFINITIONS(BasicTankAI);
-
+{	
 	/************************************************************************/
 	const uint32_t BasicTankAI::DEFAULT_PROB_TO_SHOOT_IN_COL_PLAYER = 70;
 	const uint32_t BasicTankAI::DEFAULT_PROB_TO_SHOOT_IN_COL_WALL = 50;
@@ -24,9 +22,9 @@ namespace AnonymousEngine
 	/************************************************************************/
 	BasicTankAI::BasicTankAI(const float speed, const int32_t bulletsNum, const int32_t armor, const uint32_t probToShootInMov) :
 		mSpeed(speed), mBulletsNum(bulletsNum), mArmor(armor), mProbToShootWhileMoving(probToShootInMov),
-		mActionFreeze(CreateAction(FREEZE_COMP_NAME, ACTION_FREEZE_NAME).As<ActionFreeze>()), mCurrentState(State::Idle), 
+		mActionFreeze(CreateAction(FREEZE_COMP_NAME, ACTION_FREEZE_NAME).As<ActionFreeze>()), mCurrentState(State::Idle),
 		mShotCooldownTimer(DEFAULT_SHOT_COOLDOWN_TIME), mMovingInSameDirectionTimer(MAX_TIME_IN_SAME_DIRECTION)
-	{
+	{		
 		GetCollider().SetTag(Collider::ColliderTag::Enemy);
 		mMoveComponent->SetSpeed(mSpeed);
 		mMoveComponent->SetDirection(ActionMove::Direction::Down);
@@ -245,4 +243,6 @@ namespace AnonymousEngine
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
+
+	ATTRIBUTED_DEFINITIONS(BasicTankAI);
 }
