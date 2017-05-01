@@ -7,6 +7,7 @@ namespace AnonymousEngine
 	namespace Core
 	{
 		class GameObject;
+
 		class Collider final
 		{
 		public:
@@ -15,11 +16,9 @@ namespace AnonymousEngine
 			* @param gameObject The game object to which this collider belongs.
 			*/
 			Collider(Core::GameObject& gameObject);
+
 			/**
 			* Destructor - Unregister the collider from the collision manager.
-			*/
-			/**
-			*
 			*/
 			~Collider();
 			/**

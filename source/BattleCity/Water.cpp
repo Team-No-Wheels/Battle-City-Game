@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Pch.h"
 #include "Water.h"
 
@@ -8,6 +9,11 @@ namespace BattleCity
 	{
 		ATTRIBUTED_DEFINITIONS(Water)
 		ENTITY_FACTORY_DEFINITIONS(Water)
+
+		Water::Water() :
+			TileBase(TileType::WATER)
+		{
+		}
 
 		void Water::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
 		{

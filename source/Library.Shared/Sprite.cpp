@@ -39,16 +39,6 @@ namespace AnonymousEngine
 
 			mSpriteBounds.BottomRight.x = (float)mWidth;
 			mSpriteBounds.BottomRight.y = 0.0f;
-
-			//glClearColor(backRed, backGreen, backGreen, 0.0f);			// Background Color
-			glClearDepth(1.0f);											// Depth Buffer Setup
-
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);			// Enable Alpha Blending
-			glEnable(GL_BLEND);											// Enable Blending
-			glEnable(GL_TEXTURE_2D);									// Enable Texture Mapping
-			glEnable(GL_CULL_FACE);										// Remove Back Face
-			//glEnable(GL_DEPTH_TEST);
-			glDepthFunc(GL_LEQUAL);										// Type Of Depth Testing
 		}
 
 		void Sprite::Update(float pDeltaTime)

@@ -4,7 +4,8 @@ namespace AnonymousEngine
 {
 	namespace Core
 	{
-		class Service abstract{
+		class Service
+		{
 		};
 	}
 }

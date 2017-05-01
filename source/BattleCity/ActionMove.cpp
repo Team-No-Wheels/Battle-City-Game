@@ -93,5 +93,6 @@ namespace AnonymousEngine
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
-	ACTION_FACTORY_DEFINITIONS(ActionMove)
+
+	ACTION_FACTORY_DEFINITIONS(ActionMove);
 }

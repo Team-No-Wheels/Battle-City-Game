@@ -14,7 +14,7 @@ namespace BattleCity
 		public:
 			/** Defaulted constructor.
 			*/
-			Water() = default;
+			Water();
 
 			/** Defaulted destructor.
 			*/

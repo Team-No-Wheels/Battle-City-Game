@@ -8,6 +8,11 @@ namespace BattleCity
 		ATTRIBUTED_DEFINITIONS(Flag)
 		ENTITY_FACTORY_DEFINITIONS(Flag)
 
+		Flag::Flag() :
+			TileBase(TileType::FLAG)
+		{
+		}
+
 		void Flag::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);

@@ -14,7 +14,7 @@ namespace BattleCity
 		public:
 			/** Defaulted constructor.
 			*/
-			Grass() = default;
+			Grass();
 
 			/** Defaulted destructor.
 			*/

@@ -14,9 +14,14 @@ namespace AnonymousEngine
 			friend class Graphics::Sprite;
 
 		public:
-			
-
+			/**
+			* Initialize a game object
+			*/
 			GameObject();
+
+			/**
+			* Default destructor
+			*/
 			virtual ~GameObject() = default;
 			
 			/**
@@ -54,12 +59,17 @@ namespace AnonymousEngine
 			* Set whether an game object should be deleted or not before next Update call.
 			*/
 			void SetMarkForDelete(bool value = true);
+
 		protected:
+
 			void AddToDeleteQueue(Containers::WorldState& worldState);
 			/**
 			* The position of this game object in the world space.
 			*/
 			glm::vec4 mPosition;
+			/** The name of the sprite to query from frame manager
+			*/
+			std::string mSpriteName;
 			/**
 			* The sprite representing this game object in the world.
 			*/

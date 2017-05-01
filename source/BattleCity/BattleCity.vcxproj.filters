@@ -99,7 +99,7 @@
       <Filter>Managers</Filter>
     </ClCompile>
     <ClCompile Include="BattleCityAudio.cpp">
-	  <Filter>Managers</Filter>
+      <Filter>Managers</Filter>
     </ClCompile>
     <ClCompile Include="Flag.cpp">
       <Filter>MapEntities</Filter>
@@ -118,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="TankDAI.cpp">
       <Filter>Entities\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -189,8 +192,8 @@
     </ClInclude>
     <ClInclude Include="BattleCityAudio.h">
       <Filter>Managers</Filter>
-	</ClInclude>
-	<ClInclude Include="Flag.h">
+    </ClInclude>
+    <ClInclude Include="Flag.h">
       <Filter>MapEntities</Filter>
     </ClInclude>
     <ClInclude Include="TileBase.h">
@@ -207,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="TankDAI.h">
       <Filter>Entities\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
