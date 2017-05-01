@@ -2,6 +2,8 @@
 #include "FrameManager.h"
 #include "Datum.h"
 
+#define SpriteSheetAttributeName "SpriteSheet"
+
 using namespace std;
 
 namespace AnonymousEngine
@@ -11,19 +13,12 @@ namespace AnonymousEngine
 		ATTRIBUTED_DEFINITIONS(FrameManager)
 		ENTITY_FACTORY_DEFINITIONS(FrameManager)
 
-		const string FrameManager::sSpriteSheetAttributeName = "spritesheet";
 		const string FrameManager::sFrameIDAttribute = "id";
 
-		FrameManager::FrameManager()
-			:mSpriteSheetName(), mHashmapSpriteID(100)
+		FrameManager::FrameManager() :
+			mSpriteSheetName(), mHashmapSpriteID(100)
 		{
-			AddExternalAttribute(sSpriteSheetAttributeName, &mSpriteSheetName, 1);
-		}
-
-		void FrameManager::AppendPrescribedAttributeNames(AnonymousEngine::Vector<string>& prescribedAttributeNames)
-		{
-			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
-			prescribedAttributeNames.PushBack(sSpriteSheetAttributeName);
+			AddExternalAttribute(SpriteSheetAttributeName, &mSpriteSheetName, 1);
 		}
 
 		Frame* FrameManager::GetFrameEntity(const string& name)
@@ -82,6 +77,12 @@ namespace AnonymousEngine
 			{
 				return hashmapIterator->second;
 			}
+		}
+
+		void FrameManager::AppendPrescribedAttributeNames(AnonymousEngine::Vector<string>& prescribedAttributeNames)
+		{
+			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
+			prescribedAttributeNames.PushBack(SpriteSheetAttributeName);
 		}
 	}
 }

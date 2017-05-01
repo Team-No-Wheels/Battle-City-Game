@@ -8,13 +8,18 @@ namespace AnonymousEngine
 		/**
 			Any object that can be rendered on the screen will extend this class.
 		*/
-		class Renderable abstract
+		class Renderable
 		{
 		public:
 			/**
 				Default constructor
 			*/
 			Renderable();
+
+			/**
+			    Default destructor
+			*/
+			virtual ~Renderable() = default;
 
 			/**
 				@brief Call Init with the file name will initialize this Renderable object with the file.

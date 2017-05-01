@@ -3,7 +3,6 @@
 #include "ServiceLocator.h"
 #include "World.h"
 
-
 using namespace AnonymousEngine::Core;
 
 namespace BattleCity

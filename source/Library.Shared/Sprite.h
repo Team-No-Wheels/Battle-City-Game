@@ -8,9 +8,9 @@ namespace AnonymousEngine
 	{
 		class GameObject;
 	}
+
 	namespace Graphics
 	{
-		
 		class Sprite : public Renderable
 		{
 		public:
@@ -21,7 +21,7 @@ namespace AnonymousEngine
 			/**
 			* Destructor.
 			*/
-			~Sprite() = default;
+			virtual ~Sprite() = default;
 
 			/**
 				@brief Call Init with the file name will initialize this Renderable object with the file.
