@@ -7,114 +7,102 @@
 namespace AnonymousEngine
 {
 	using namespace BattleCity::MapEntities;
+
 	ATTRIBUTED_DEFINITIONS(Bullet);
 
+	/************************************************************************/
 	Bullet::Bullet(ActionShoot* parent) :
 		mMoveComponent(CreateAction("MovementComponent", "ActionMove").As<ActionMove>()),
 		mShootParent(parent)
 	{
 	}
 
-	Bullet::~Bullet()
-	{
-		mShootParent = nullptr;
-	}
-
+	/************************************************************************/
 	void Bullet::SetShootParent(ActionShoot& parent)
 	{
 		mShootParent = &parent;
 	}
 
+	/************************************************************************/
 	ActionShoot* Bullet::GetShootParent()
 	{
 		return mShootParent;
 	}
 
-	ActionMove& Bullet::MoveComponent()
+	/************************************************************************/
+	ActionMove& Bullet::GetMoveComponent()
 	{
 		return *mMoveComponent;
 	}
 
+	/************************************************************************/
 	void Bullet::Update(WorldState& worldState)
 	{
-		Entity::Update(worldState);
+		GameObject::Update(worldState);
 
 		worldState.mEntity = this;
 
 		worldState.mEntity = nullptr;
 	}
 
+	/************************************************************************/
 	void Bullet::OnCollision(GameObject& otherGameObject)
 	{
-		if(!mIsPendingKill)
+		auto tag = otherGameObject.GetCollider().GetTag();
+
+		switch (tag)
 		{
+			case Collider::ColliderTag::Player:
+				CollisionWithPlayer(*otherGameObject.As<TankPlayer>());
+				break;
 
-			bool shouldKillBullet = false;;
+			case Collider::ColliderTag::Enemy:
+				CollisionWithEnemy(*otherGameObject.As<BasicTankAI>());
+				break;
 
-			// Check If Player
-			TankPlayer* player = otherGameObject.As<TankPlayer>();
-			if (player != nullptr)
+			case Collider::ColliderTag::PlayerBullet:
 			{
-				shouldKillBullet = true;
-				CollisionWithPlayer(*player);
-				return;
-			}
-
-			// Check If Enemy Tank
-			BasicTankAI* AI = otherGameObject.As<BasicTankAI>();
-			if (AI != nullptr)
-			{
-				shouldKillBullet = true;
-				CollisionWithEnemy(*AI);
-				return;
-			}
-
-			// Check If Walls
-			Brick* brick = otherGameObject.As<Brick>();
-			if (brick != nullptr)
-			{
-				shouldKillBullet = true;
-				CollisionWithBrick(*brick);
-				return;
-			}
-
-			Metal* metal = otherGameObject.As<Metal>();
-			if (metal != nullptr)
-			{
-				shouldKillBullet = true;
-				CollisionWithMetal(*metal);
-				return;
-			}
-
-			// Check If Flag
-			Flag* flag = otherGameObject.As<Flag>();
-			if (flag != nullptr)
-			{
-				shouldKillBullet = true;
-				CollisionWithFlag(*flag);
-				return;
-			}
-
-			// If this is the player bullet check if the collision
-			// is with the enemy bullet
-			if (mShootParent->IsPlayer())
-			{
-				Bullet* bullet = otherGameObject.As<Bullet>();
-				if (!(bullet->GetShootParent()->IsPlayer()))
+				auto bullet = otherGameObject.As<Bullet>();
+				if (!bullet->GetShootParent()->IsOwnedByPlayer())
 				{
-					shouldKillBullet = true;
-					bullet->SetMarkForDelete();
+					CollisionWithOtherBullet(*bullet);
 				}
+				break;
 			}
 
-			if (shouldKillBullet)
+			case Collider::ColliderTag::EnemyBullet:
 			{
-				mShootParent->KillBullet(*this);
-				mIsPendingKill = true;
+				auto otherBullet = otherGameObject.As<Bullet>();
+				if (otherBullet->GetShootParent()->IsOwnedByPlayer())
+				{
+					CollisionWithOtherBullet(*otherBullet);
+				}
+				break;
 			}
+
+			case Collider::ColliderTag::MetalWall:
+				CollisionWithMetalWall(*otherGameObject.As<Metal>());
+				break;
+
+			case Collider::ColliderTag::BrickWall:
+				CollisionWithBrickWall(*otherGameObject.As<Brick>());
+				break;
+
+			case Collider::ColliderTag::MuricanEagle:
+				CollisionWithFlag();
+				break;
+
+			case Collider::ColliderTag::MapBorder:
+				mShootParent->KillBullet(*this);
+				break;
+
+			default:
+				// do nothing
+				break;
 		}
 	}
 
+	/************************************************************************/
 	void Bullet::CollisionWithPlayer(TankPlayer& player)
 	{
 		if (!player.IsInvincible())
@@ -127,25 +115,35 @@ namespace AnonymousEngine
 		}
 	}
 
+	/************************************************************************/
 	void Bullet::CollisionWithEnemy(BasicTankAI& ai)
 	{
-		bool isDead = ai.DecrementArmor();
-		if (isDead)
+		if (mShootParent->IsOwnedByPlayer())
 		{
-			WorldState* state = FindWorldState();
-			std::string tankType = ai.GetTankType();
-			ScoreEventMessage scoreMessage(tankType, *state);
-			const std::shared_ptr<Core::Event<ScoreEventMessage>> eventptr = std::make_shared<Core::Event<ScoreEventMessage>>(scoreMessage);
-			state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
+			bool isDead = ai.DecrementArmor();
+			if (isDead)
+			{
+				WorldState* state = FindWorldState();
+				std::string tankType = ai.GetTankType();
+				ScoreEventMessage scoreMessage(tankType, *state);
+				const std::shared_ptr<Core::Event<ScoreEventMessage>> eventptr = std::make_shared<Core::Event<ScoreEventMessage>>(scoreMessage);
+				state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
+			}
 		}
 	}
 
-	void Bullet::CollisionWithBrick(Brick& brick)
+	/************************************************************************/
+	void Bullet::CollisionWithOtherBullet(Bullet& bullet)
 	{
-		brick.SetMarkForDelete();
+		// destroy the other bullet
+		bullet.GetShootParent()->KillBullet(bullet);
+
+		// destroy this bullet
+		mShootParent->KillBullet(*this);
 	}
 
-	void Bullet::CollisionWithMetal(Metal& metal)
+	/************************************************************************/
+	void Bullet::CollisionWithMetalWall(Metal& metal)
 	{
 		if (mShootParent->IsStrong())
 		{
@@ -153,10 +151,15 @@ namespace AnonymousEngine
 		}
 	}
 
-	void Bullet::CollisionWithFlag(Flag& flag)
+	/************************************************************************/
+	void Bullet::CollisionWithBrickWall(Brick& brick)
 	{
-		UNREFERENCED_PARAMETER(flag);
+		brick.SetMarkForDelete();
+	}
 
+	/************************************************************************/
+	void Bullet::CollisionWithFlag()
+	{
 		WorldState* state = FindWorldState();
 
 		PlayerSideDamageMessage damageMessage(true, *state);
@@ -164,7 +167,8 @@ namespace AnonymousEngine
 		state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
 	}
 
-	WorldState* Bullet::FindWorldState()
+	/************************************************************************/
+	WorldState* Bullet::FindWorldState() const
 	{
 		WorldState* state = nullptr;
 		Scope* curScope = mShootParent->GetParent();
@@ -184,6 +188,7 @@ namespace AnonymousEngine
 		return state;
 	}
 
+	/************************************************************************/
 	void Bullet::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);

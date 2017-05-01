@@ -83,7 +83,7 @@ namespace AnonymousEngine
 		return mCanMove;
 	}
 
-	void ActionMove::SetCanMove(bool canMove /* = true */)
+	void ActionMove::SetCanMove(bool canMove)
 	{
 		mCanMove = canMove;
 	}
@@ -92,6 +92,5 @@ namespace AnonymousEngine
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
-
 	ACTION_FACTORY_DEFINITIONS(ActionMove)
 }

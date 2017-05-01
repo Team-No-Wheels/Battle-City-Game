@@ -35,7 +35,7 @@ namespace AnonymousEngine
 		};
 
 		PowerUp();
-		~PowerUp();
+		~PowerUp() = default;
 
 		void SetType(PowerUpType newType);
 		void Activate(TankPlayer& player, Containers::WorldState& worldState);
@@ -45,10 +45,9 @@ namespace AnonymousEngine
 	private:
 		typedef std::pair<Entity*, Entity*> CollisionPair;
 		PowerUpType mType;
-		bool mClockActivated;
 
 		void ActivateTank(Containers::WorldState& worldState);
-		void ActivateClock();
+		void ActivateClock(Containers::WorldState& worldState);
 		void ActivateShield(TankPlayer& player);
 		void ActivateBomb(TankPlayer& player, Containers::WorldState& worldState);
 		void ActivateShovel();

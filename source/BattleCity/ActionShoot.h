@@ -34,7 +34,7 @@ namespace AnonymousEngine
 		/** Return whether the bullet was created by the player.
 		*	@return True if the bullet was created by the player.
 		*/
-		bool IsPlayer() const;
+		bool IsOwnedByPlayer() const;
 
 		/** Sets whether the bullet created will be fast
 		*/
@@ -56,7 +56,7 @@ namespace AnonymousEngine
 
 		uint32_t mBulletsCapacity;
 		bool mIsFast, mIsStrong; // For Star Power Up
-		bool mIsPlayer;
+		bool mIsOwnedByPlayer;
 		Vector<Bullet*> mBulletsLiving;
 	};
 
