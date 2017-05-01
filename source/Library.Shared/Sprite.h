@@ -48,8 +48,17 @@ namespace AnonymousEngine
 			/**
 			* Get the game object which owns this sprite.
 			*/
-			Core::GameObject& GetOwner();
+			Core::GameObject& GetOwner() const;
 
+			/**
+				Return the sprite bounds
+			*/
+			Geometry::Rectangle GetSpriteBounds() const;
+
+			/**
+				Return the sprite uv
+			*/
+			const Geometry::Rectangle& GetUVBounds() const;
 		protected:
 			Core::GameObject& mGameObject;
 
