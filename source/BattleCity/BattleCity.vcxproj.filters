@@ -92,6 +92,7 @@
     <ClCompile Include="LevelManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="BattleCityAudio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -157,8 +158,8 @@
     <ClInclude Include="LevelManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
-    <ClInclude Include="MessageAudio.h">
-      <Filter>Events / Messages</Filter>
+    <ClInclude Include="BattleCityAudio.h">
+      <Filter>Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

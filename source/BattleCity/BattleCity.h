@@ -1,5 +1,7 @@
 #pragma once
+
 #include "Sprite.h"
+#include "Vector.h"
 
 namespace BattleCity
 {
