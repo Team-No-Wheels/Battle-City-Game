@@ -33,7 +33,7 @@ namespace BattleCity
 		typedef Containers::Sector Sector;
 
 		const std::string LevelManager::sServiceName = "LevelManager";
-		const std::string LevelManager::sLevelXmlFile = "BattleCity.xml";
+		const std::string LevelManager::sLevelXmlFile = "resources\\BattleCity.xml";
 
 		LevelManager::LevelManager()
 			:mWorld(nullptr)
