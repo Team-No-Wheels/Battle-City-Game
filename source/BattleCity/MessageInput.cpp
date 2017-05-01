@@ -4,7 +4,7 @@
 namespace AnonymousEngine
 {
 	MessageInput::MessageInput() :
-		mKeys(5)
+		mKeys(5), mWorldState(nullptr)
 	{
 
 	}
@@ -39,5 +39,19 @@ namespace AnonymousEngine
 	Vector<std::string>& MessageInput::GetKeys()
 	{
 		return mKeys;
+	}
+	
+	void MessageInput::SetWorldState(Containers::WorldState& worldState)
+	{
+		mWorldState = &worldState;
+	}
+
+	Containers::WorldState& MessageInput::GetWorldState() const
+	{
+		if (!mWorldState)
+		{
+			std::runtime_error("Input message has no reference to the world state.");
+		}
+		return *mWorldState;
 	}
 }
