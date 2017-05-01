@@ -245,39 +245,39 @@
     <property name="class" value="Bullet"/>
    </properties>
   </object>
-  <object id="49" name="PowerupHelmet" x="80" y="0" width="16" height="16">
+  <object id="49" name="PowerUpHelmet" x="80" y="0" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="50" name="PowerupBomb" x="80" y="16" width="16" height="16">
+  <object id="50" name="PowerUpBomb" x="80" y="16" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="51" name="PowerupSpade" x="80" y="32" width="16" height="16">
+  <object id="51" name="PowerUpSpade" x="80" y="32" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="52" name="PowerupStarfish" x="80" y="48" width="16" height="16">
+  <object id="52" name="PowerUpStarfish" x="80" y="48" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="53" name="PowerupGrenade" x="80" y="64" width="16" height="16">
+  <object id="53" name="PowerUpGrenade" x="80" y="64" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="54" name="PowerupTank" x="80" y="80" width="16" height="16">
+  <object id="54" name="PowerUpTank" x="80" y="80" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="55" name="PowerupGun" x="80" y="96" width="16" height="16">
+  <object id="55" name="PowerUpGun" x="80" y="96" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
   <object id="56" name="Score100" x="96" y="0" width="16" height="16">
