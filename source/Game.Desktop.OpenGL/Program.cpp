@@ -48,7 +48,7 @@ namespace AnonymousEngine
 		// initialize viewport
 		glfwGetFramebufferSize(window, nullptr, nullptr);
 		glViewport(0, 0, width, height);
-		glOrtho(0.0f, (GLfloat)width, 0.0f, (GLfloat)height, -100.0f, 100.0f);
+		glOrtho(0.0f, (GLfloat)256, (GLfloat)240, 0.0f ,-100.0f, 100.0f);
 
 		// register keyboard handler
 		glfwSetKeyCallback(window, KeyCallback);
