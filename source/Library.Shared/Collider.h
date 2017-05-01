@@ -7,7 +7,7 @@ namespace AnonymousEngine
 	namespace Core
 	{
 		class GameObject;
-		class Collider
+		class Collider final
 		{
 		public:
 			/**

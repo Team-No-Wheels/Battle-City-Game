@@ -44,7 +44,7 @@ namespace AnonymousEngine
 
 		if (isFast)
 		{
-			moveComponent->SetSpeed(2 * moveComponent->DEFAULTSPEED);
+			moveComponent->SetSpeed(2 * moveComponent->sDefaultSpeed);
 		}
 
 		// Set Bullet To Destroy Steel BLocks

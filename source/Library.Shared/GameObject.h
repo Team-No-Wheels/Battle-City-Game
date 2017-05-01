@@ -13,7 +13,7 @@ namespace AnonymousEngine
 		{
 		public:
 			GameObject();
-			~GameObject() = default;
+			virtual ~GameObject() = default;
 			
 			/**
 			* Set the position of this game object.
