@@ -13,6 +13,7 @@ namespace BattleCity
 		Water::Water() :
 			TileBase(TileType::WATER)
 		{
+			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::Water);
 		}
 
 		void Water::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

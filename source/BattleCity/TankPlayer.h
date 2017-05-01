@@ -35,6 +35,8 @@ namespace AnonymousEngine
 		std::chrono::milliseconds mTimeInvincible;
 		bool mIsInvincible;
 
+		bool mIsShootPressed;
+
 		static const std::chrono::milliseconds sInvincbleLimitOnRespawn;
 		static const std::chrono::milliseconds sInvincbleLimitOnPoweUp;
 	};

@@ -3,6 +3,9 @@
 #include "RandomNumbersGenerator.h"
 #include "TankPlayer.h"
 
+#define FREEZE_COMP_NAME "FreezeComponent"
+#define ACTION_FREEZE_NAME "ActionFreeze"
+
 using namespace std;
 using namespace chrono;
 
@@ -21,7 +24,8 @@ namespace AnonymousEngine
 	/************************************************************************/
 	BasicTankAI::BasicTankAI(const float speed, const int32_t bulletsNum, const int32_t armor, const uint32_t probToShootInMov) :
 		mSpeed(speed), mBulletsNum(bulletsNum), mArmor(armor), mProbToShootWhileMoving(probToShootInMov),
-		mCurrentState(State::Idle), mShotCooldownTimer(DEFAULT_SHOT_COOLDOWN_TIME), mMovingInSameDirectionTimer(MAX_TIME_IN_SAME_DIRECTION)
+		mActionFreeze(CreateAction(FREEZE_COMP_NAME, ACTION_FREEZE_NAME).As<ActionFreeze>()), mCurrentState(State::Idle), 
+		mShotCooldownTimer(DEFAULT_SHOT_COOLDOWN_TIME), mMovingInSameDirectionTimer(MAX_TIME_IN_SAME_DIRECTION)
 	{
 		GetCollider().SetTag(Collider::ColliderTag::Enemy);
 		mMoveComponent->SetSpeed(mSpeed);
