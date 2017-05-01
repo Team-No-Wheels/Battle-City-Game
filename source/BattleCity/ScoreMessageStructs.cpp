@@ -22,7 +22,7 @@ namespace AnonymousEngine
 
 	//LevelOverMessage functions
 
-	LevelOverMessage::LevelOverMessage(bool wasWin, const HashMap<std::string, std::int32_t>& finalScores) : mWasWin(wasWin), mFinalScores(finalScores)
+	LevelOverMessage::LevelOverMessage(const bool wasWin, const HashMap<std::string, std::int32_t>& finalScores) : mWasWin(wasWin), mFinalScores(finalScores)
 	{
 	}
 
