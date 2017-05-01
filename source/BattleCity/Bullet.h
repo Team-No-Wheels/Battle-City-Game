@@ -14,7 +14,7 @@ namespace AnonymousEngine
 
 	class ActionShoot;
 
-	class Bullet : public GameObject
+	class Bullet final : public GameObject
 	{
 
 		ATTRIBUTED_DECLARATIONS(Bullet, GameObject);
@@ -22,7 +22,7 @@ namespace AnonymousEngine
 	public:
 
 		Bullet(ActionShoot* parent = nullptr);
-		~Bullet();
+		~Bullet() = default;
 
 		void SetShootParent(ActionShoot& parent);
 
@@ -30,25 +30,24 @@ namespace AnonymousEngine
 			@return A reference to the shoot parent.
 		*/
 		ActionShoot* GetShootParent();
-		ActionMove& MoveComponent();
+		ActionMove& GetMoveComponent();
 
 		void Update(WorldState& worldState) override;
 
 		void OnCollision(GameObject& otherGameObject) override;
 
 	private:
-		typedef std::pair<Entity*, Entity*> CollisionPair;
 
 		ActionMove* mMoveComponent;
 		ActionShoot* mShootParent;
-		bool mIsPendingKill;
 
 		void CollisionWithPlayer(TankPlayer& player);
 		void CollisionWithEnemy(BasicTankAI& ai);
-		void CollisionWithBrick(Brick& brick);
-		void CollisionWithMetal(Metal& metal);
-		void CollisionWithFlag(Flag& flag);
-		WorldState* FindWorldState();
+		void CollisionWithOtherBullet(Bullet& bullet);
+		void CollisionWithMetalWall(Metal& metal);
+		void CollisionWithBrickWall(Brick& brick);
+		void CollisionWithFlag();
+		WorldState* FindWorldState() const;
 		
 	};
 

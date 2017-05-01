@@ -9,10 +9,10 @@ namespace AnonymousEngine
 	ENTITY_FACTORY_DEFINITIONS(TankBAI);
 
 	/************************************************************************/
-	const float TankBAI::DEFAULT_SPEED = 1.0f;
+	const float TankBAI::DEFAULT_SPEED = 3.0f;
 	const int32_t TankBAI::DEFAULT_BULLETS_NUM = 1;
 	const int32_t TankBAI::DEFAULT_ARMOR = 1;
-	const uint32_t TankBAI::DEFAULT_PROB_TO_SHOOT_IN_MOV = 10;
+	const uint32_t TankBAI::DEFAULT_PROB_TO_SHOOT_IN_MOV = 15;
 
 	const string TankBAI::TYPE_NAME = "TankB";
 

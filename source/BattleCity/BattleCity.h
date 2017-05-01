@@ -49,7 +49,7 @@ namespace BattleCity
 		BattleCityAudio mAudio;
 
 		AnonymousEngine::GameClock mGameClock;
-
 		bool mTestAudio;
+		AnonymousEngine::Core::GameObject* mGameObject;
 	};
 }

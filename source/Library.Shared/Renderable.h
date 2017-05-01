@@ -3,6 +3,10 @@
 
 namespace AnonymousEngine
 {
+	namespace Core
+	{
+		class GameObject;
+	}
 	namespace Graphics
 	{
 		/**
@@ -10,6 +14,7 @@ namespace AnonymousEngine
 		*/
 		class Renderable abstract
 		{
+			friend class Core::GameObject;
 		public:
 			/**
 				Default constructor
@@ -31,12 +36,12 @@ namespace AnonymousEngine
 			/**
 				@brief Called every frame.
 			*/
-			virtual void Render() = 0;
+			virtual void Render() const = 0;
 
 			/**
 				@brief If debug is enabled this is called every frame.
 			*/
-			virtual void DrawDebugBounds() = 0;
+			virtual void DrawDebugBounds() const = 0;
 
 			/**
 				@brief return pointer to texture.
