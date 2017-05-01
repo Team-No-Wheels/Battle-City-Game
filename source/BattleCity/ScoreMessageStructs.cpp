@@ -1,32 +1,32 @@
 #include "Pch.h"
 #include "ScoreMessageStructs.h"
+#include "WorldState.h"
 
 namespace AnonymousEngine
 {
 	//TankDefinedMessage functions
 
-	TankDefinedMessage::TankDefinedMessage(std::string name, std::int32_t value) : mName(name), mValue(value)
+	TankDefinedMessage::TankDefinedMessage(const std::string& name, const std::int32_t value) : mName(name), mValue(value)
 	{
 	}
 
-	std::string TankDefinedMessage::Name()
+	std::string TankDefinedMessage::Name() const
 	{
 		return mName;
 	}
 
-	std::int32_t TankDefinedMessage::Value()
+	std::int32_t TankDefinedMessage::Value() const
 	{
 		return mValue;
 	}
 
-
 	//LevelOverMessage functions
 
-	LevelOverMessage::LevelOverMessage(bool wasWin, HashMap<std::string, std::int32_t> finalScores) : mWasWin(wasWin), mFinalScores(finalScores)
+	LevelOverMessage::LevelOverMessage(const bool wasWin, const HashMap<std::string, std::int32_t>& finalScores) : mWasWin(wasWin), mFinalScores(finalScores)
 	{
 	}
 
-	bool LevelOverMessage::WasWin()
+	bool LevelOverMessage::WasWin() const
 	{
 		return mWasWin;
 	}

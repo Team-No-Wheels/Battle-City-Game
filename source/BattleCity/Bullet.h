@@ -21,25 +21,27 @@ namespace AnonymousEngine
 
 	public:
 
-		Bullet();
-		Bullet( ActionShoot& parent);
+		Bullet(ActionShoot* parent = nullptr);
 		~Bullet();
 
 		void SetShootParent(ActionShoot& parent);
+
+		/** Return the shoot parent.
+			@return A reference to the shoot parent.
+		*/
+		ActionShoot* GetShootParent();
 		ActionMove& MoveComponent();
 
 		void Update(WorldState& worldState) override;
 
 		void OnCollision(GameObject& otherGameObject) override;
 
-		bool isStrong;
-
 	private:
 		typedef std::pair<Entity*, Entity*> CollisionPair;
 
 		ActionMove* mMoveComponent;
 		ActionShoot* mShootParent;
-		bool isPendingKill;
+		bool mIsPendingKill;
 
 		void CollisionWithPlayer(TankPlayer& player);
 		void CollisionWithEnemy(BasicTankAI& ai);

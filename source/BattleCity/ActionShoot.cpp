@@ -7,19 +7,14 @@ namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(ActionShoot);
 
-	ActionShoot::ActionShoot() : 
-		mBulletsCapacity(1), isFast(false), isDouble(false), isStrong(false), mBulletsLiving(3), mBulletsPending(3)
+	ActionShoot::ActionShoot(bool isPlayer) :
+		mBulletsCapacity(1), mIsFast(false), mIsStrong(false), mBulletsLiving(3), mIsPlayer(isPlayer)
 	{
 	}
 
 	void ActionShoot::Update(WorldState& worldState)
 	{
 		worldState.mAction = this;
-
-		if (mBulletsPending.Size() != 0)
-		{
-			DestroyPendingBullets();
-		}
 
 		worldState.mAction = nullptr;
 	}
@@ -42,34 +37,17 @@ namespace AnonymousEngine
 		else
 			moveComponent->SetDirection(ActionMove::Direction::Up);
 
-		if (isFast)
+		if (mIsFast)
 		{
 			moveComponent->SetSpeed(2 * moveComponent->sDefaultSpeed);
 		}
-
-		// Set Bullet To Destroy Steel BLocks
-		if (isStrong)
-		{
-			curBullet->isStrong = true;
-		}
 	}
 
-	void ActionShoot::PendKillBullet(Bullet& bullet)
+	void ActionShoot::KillBullet(Bullet& bullet)
 	{
 		// Move Bullet To PendingKill Vector (Gets Destroyed Next Update)
 		mBulletsLiving.Remove(&bullet);
-		mBulletsPending.PushBack(&bullet);
-	}
-
-	void ActionShoot::DestroyPendingBullets()
-	{
-		// Destroy Pending Bullets
-		for (std::uint32_t i = 0; i < mBulletsPending.Size(); ++i)
-		{
-			delete mBulletsPending[i];
-		}
-
-		mBulletsPending.Clear();
+		bullet.SetMarkForDelete();
 	}
 
 	bool ActionShoot::CanShoot() const
@@ -77,9 +55,24 @@ namespace AnonymousEngine
 		return mBulletsLiving.Size() < mBulletsCapacity;
 	}
 
-	bool ActionShoot::IsDouble() const
+	bool ActionShoot::IsPlayer() const
 	{
-		return isDouble;
+		return mIsPlayer;
+	}
+
+	void ActionShoot::SetIsFast(const bool isFast)
+	{
+		mIsFast = isFast;
+	}
+
+	void ActionShoot::SetIsStrong(const bool isStrong)
+	{
+		mIsStrong = isStrong;
+	}
+
+	bool ActionShoot::IsStrong() const
+	{
+		return mIsStrong;
 	}
 
 	uint32_t ActionShoot::GetCapacityToShoot() const
