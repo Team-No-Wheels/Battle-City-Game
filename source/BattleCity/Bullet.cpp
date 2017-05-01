@@ -48,8 +48,6 @@ namespace AnonymousEngine
 	/************************************************************************/
 	void Bullet::OnCollision(GameObject& otherGameObject)
 	{
-		bool shouldKillBullet = false;;
-
 		auto tag = otherGameObject.GetCollider().GetTag();
 
 		switch (tag)
@@ -63,20 +61,24 @@ namespace AnonymousEngine
 				break;
 
 			case Collider::ColliderTag::PlayerBullet:
+			{
 				auto bullet = otherGameObject.As<Bullet>();
 				if (!bullet->GetShootParent()->IsOwnedByPlayer())
 				{
 					CollisionWithOtherBullet(*bullet);
 				}
 				break;
+			}
 
 			case Collider::ColliderTag::EnemyBullet:
+			{
 				auto otherBullet = otherGameObject.As<Bullet>();
 				if (otherBullet->GetShootParent()->IsOwnedByPlayer())
 				{
 					CollisionWithOtherBullet(*otherBullet);
 				}
 				break;
+			}
 
 			case Collider::ColliderTag::MetalWall:
 				CollisionWithMetalWall(*otherGameObject.As<Metal>());
@@ -95,7 +97,7 @@ namespace AnonymousEngine
 				break;
 
 			default:
-			// do nothing
+				// do nothing
 				break;
 		}
 	}
