@@ -1,10 +1,11 @@
 #include "Pch.h"
 #include "MessageInput.h"
+#include "InputHandler.h"
 
 namespace AnonymousEngine
 {
 	MessageInput::MessageInput() :
-		mKeys(5), mWorldState(nullptr)
+		mWorldState(nullptr)
 	{
 
 	}
@@ -16,27 +17,15 @@ namespace AnonymousEngine
 
 	bool MessageInput::operator==(const MessageInput& rhs)
 	{
-		if (mKeys.Size() != rhs.mKeys.Size())
-		{
-			return false;
-		}
-
-		for (std::uint32_t i = 0; i < mKeys.Size(); ++i)
-		{
-			if (mKeys[i] != rhs.mKeys[i])
-			{
-				return false;
-			}
-		}
-		return true;
+		return mKeys == rhs.mKeys;
 	}
 
-	void MessageInput::AddKey(const std::string& key)
+	void MessageInput::AddKey(InputType key, KeyState state)
 	{
-		mKeys.PushBack(key);
+		mKeys[key] = state;
 	}
 
-	Vector<std::string>& MessageInput::GetKeys()
+	HashMap<InputType, KeyState>& MessageInput::GetKeys()
 	{
 		return mKeys;
 	}

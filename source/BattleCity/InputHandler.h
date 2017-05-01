@@ -12,6 +12,23 @@ namespace AnonymousEngine
 	using namespace Containers;
 	using namespace Core;
 
+	enum class InputType
+	{
+		Esc,
+		Up,
+		Down,
+		Left,
+		Right,
+		Shoot
+	};
+
+	enum class KeyState
+	{
+		Pressed,
+		Released,
+		Repeat
+	};
+
 	class InputHandler final : public Action
 	{
 		ATTRIBUTED_DECLARATIONS(InputHandler, Action);
@@ -22,14 +39,13 @@ namespace AnonymousEngine
 
 		void Update(WorldState& worldState) override;
 
+		void SetKeyState(InputType key, KeyState state);
+
 	private:
-		HANDLE handle;        // handle to read console
 		EventQueue* mEventQueue;
 
-		static const std::string LEFT;
-		static const std::string RIGHT;
-		static const std::string UP;
-		static const std::string DOWN;
-		static const std::string SHOOT;
+		HashMap<InputType, KeyState> mKeyStates;
+
+		static HashMap<InputType, std::string> KeyEnumStringMap;
 	};
 }

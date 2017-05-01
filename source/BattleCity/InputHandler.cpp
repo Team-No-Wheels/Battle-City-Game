@@ -10,77 +10,47 @@ namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(InputHandler);
 
-	const std::string InputHandler::LEFT = "Left";
-	const std::string InputHandler::RIGHT = "Right";
-	const std::string InputHandler::UP = "Up";
-	const std::string InputHandler::DOWN = "Down";
-	const std::string InputHandler::SHOOT = "Shoot";
+	HashMap<InputType, std::string> InputHandler::KeyEnumStringMap = {
+		{ InputType::Esc, "Escape"},
+		{ InputType::Up, "Up"},
+		{ InputType::Down, "Down"},
+		{ InputType::Left, "Left"},
+		{ InputType::Right, "Right"},
+		{ InputType::Shoot, "Shoot"}
+	};
 
-	InputHandler::InputHandler() :
-		handle(GetStdHandle(STD_INPUT_HANDLE)), mEventQueue(nullptr)
+	InputHandler::InputHandler() : mEventQueue(nullptr)
 	{
+	}
+
+	void InputHandler::SetKeyState(InputType key, KeyState state)
+	{
+		mKeyStates[key] = state;
 	}
 
 	void InputHandler::Update(WorldState& worldState)
 	{
 		worldState.mAction = this;
 
-		DWORD events = 0;     // Event count
-		DWORD eventsRead = 0; // Events read from console
-
-		GetNumberOfConsoleInputEvents(handle, &events);
 		mEventQueue = &worldState.mWorld->EventQueue();
 
-		if (mEventQueue != nullptr && events != 0)
+		if (mEventQueue != nullptr)
 		{
 			MessageInput input;
-			INPUT_RECORD* eventBuffer = new INPUT_RECORD[events]; //static_cast<INPUT_RECORD*>(malloc(events * sizeof(INPUT_RECORD)));
-			ReadConsoleInput(handle, eventBuffer, events, &eventsRead);
 
 			// Read Keys
-			for (DWORD i = 0; i < eventsRead; ++i)
+			for (auto& entry: mKeyStates)
 			{
-				if (eventBuffer[i].EventType == KEY_EVENT && eventBuffer[i].Event.KeyEvent.bKeyDown)
-				{
-					// Add Acceptable Keys To MessageInput
-					switch (eventBuffer[i].Event.KeyEvent.wVirtualKeyCode)
-					{
-						case VK_LEFT:
-							input.AddKey(LEFT);
-							break;
-
-						case VK_RIGHT:
-							input.AddKey(RIGHT);
-							break;
-
-						case VK_UP:
-							input.AddKey(UP);
-							break;
-
-						case VK_DOWN:
-							input.AddKey(DOWN);
-							break;
-
-						case VK_Z:
-							input.AddKey(SHOOT);
-							break;
-
-						default:
-							break;
-					}
-				}
+				input.AddKey(entry.first, entry.second);
 			}
 
 			// Send MessageInput if not empty
-			if (!input.GetKeys().IsEmpty())
+			if (input.GetKeys().Size() != 0)
 			{
 				input.SetWorldState(worldState);
 				mEventQueue->Enqueue(std::make_shared<Event<MessageInput>>(Event<MessageInput>(input)), worldState.mGameTime, 0U);
 			}
-
-			delete[] eventBuffer;
 		}
-
 		worldState.mAction = nullptr;
 	}
 

@@ -2,6 +2,7 @@
 #include "TankPlayer.h"
 #include "ScoreMessageStructs.h"
 #include "World.h"
+#include "InputHandler.h"
 
 namespace AnonymousEngine
 {
@@ -94,13 +95,15 @@ namespace AnonymousEngine
 		if (curEvent != nullptr)
 		{
 			MessageInput* message = &const_cast<MessageInput&>(curEvent->Message());
-			Vector<std::string>& Keys = message->GetKeys();
-			
+			HashMap<InputType, KeyState>& Keys = message->GetKeys();
+			WorldState& worldState = message->GetWorldState();
+			worldState;
+
 			// React To Certain Key Presses
-			for (const auto& key : Keys)
+			for (const auto& entry : Keys)
 			{
 				// Move Up
-				if (key == "Up")
+				if (entry.first == InputType::Up && entry.second == KeyState::Pressed)
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Up);
 					//mMoveComponent->Move(worldState);
@@ -108,7 +111,7 @@ namespace AnonymousEngine
 				}
 
 				// Move Down
-				else if (key == "Down")
+				else if (entry.first == InputType::Down && entry.second == KeyState::Pressed)
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Down);
 					//mMoveComponent->Move(worldState);
@@ -116,7 +119,7 @@ namespace AnonymousEngine
 				}
 
 				// Move Left
-				else if (key == "Left")
+				else if (entry.first == InputType::Left && entry.second == KeyState::Pressed)
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Left);
 					//mMoveComponent->Move(worldState);
@@ -124,7 +127,7 @@ namespace AnonymousEngine
 				}
 
 				// Move Right
-				else if (key == "Right")
+				else if (entry.first == InputType::Right && entry.second == KeyState::Pressed)
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Right);
 					//mMoveComponent->Move(worldState);
@@ -132,7 +135,7 @@ namespace AnonymousEngine
 				}
 
 				// Try Shooting
-				if (key == "Shoot" && mShootComponent->CanShoot())
+				if (entry.first == InputType::Shoot && entry.second == KeyState::Pressed)
 				{
 					mShootComponent->CreateBullet();
 					break;
