@@ -17,6 +17,7 @@ namespace AnonymousEngine
 		*/
 		enum class State
 		{
+			// todo maybe add a delayed state, where the tank just stands there breifly
 			Idle,
 			Moving,
 			Frozen
@@ -43,7 +44,7 @@ namespace AnonymousEngine
 
 		/** Handles collision event for the TankAI.
 		*/
-		void OnCollision() /*override*/;
+		virtual void OnCollision(GameObject& otherGameObject) override;
 
 		/** Freezes the TankAI and stops it from doing anything.
 		*/
@@ -52,6 +53,8 @@ namespace AnonymousEngine
 		/** Unfreezes the TankAI.
 		*/
 		void Unfreeze();
+
+		bool DecrementArmor();
 
 	protected:
 
@@ -66,6 +69,7 @@ namespace AnonymousEngine
 		State mCurrentState;
 
 		std::chrono::milliseconds mShotCooldownTimer;
+		std::chrono::milliseconds mMovingInSameDirectionTimer;
 
 		static const float DEFAULT_SPEED;
 		static const int32_t DEFAULT_BULLETS_NUM;
@@ -75,10 +79,19 @@ namespace AnonymousEngine
 		static const uint32_t DEFAULT_PROB_TO_SHOOT_IN_COL_WALL;
 		static const int32_t MAX_PROB;
 		static const std::chrono::milliseconds DEFAULT_SHOT_COOLDOWN_TIME;
+		static const std::chrono::milliseconds MIN_TIME_IN_SAME_DIRECTION;
+		static const std::chrono::milliseconds MAX_TIME_IN_SAME_DIRECTION;
+
+		void HandleMovingState(const WorldState& worldState);
 
 		// map
 		// nextDestination
 		void DecideNextDestination();
+
+		// collision helper methods
+		void HandleCollisionWithPlayer(const GameObject& gameObject);
+		void HandleCollisionWithDestructable();
+
 		void TryToShoot(const uint32_t probability) const;
 
 	};

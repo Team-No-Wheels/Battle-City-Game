@@ -25,6 +25,9 @@ namespace AnonymousEngine
 			{
 				return itr->second;
 			}
+			FILE* f;
+			fopen_s(&f, pTextureFilePath.c_str(), "r");
+			f;
 
 			// load the texture and then save the texture in the bank
 			std::uint32_t texture = SOIL_load_OGL_texture(pTextureFilePath.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,

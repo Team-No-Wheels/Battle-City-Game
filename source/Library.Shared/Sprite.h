@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderable.h"
+#include "Rectangle.h"
 
 namespace AnonymousEngine
 {
@@ -51,6 +52,8 @@ namespace AnonymousEngine
 			Core::GameObject& GetOwner();
 		private:
 			Core::GameObject& mGameObject;
+
+			Geometry::Rectangle mSpriteBounds;
 		};
 
 		ENTITY_FACTORY_DECLARATIONS(Sprite);

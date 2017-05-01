@@ -8,11 +8,32 @@ namespace AnonymousEngine
 	namespace Graphics
 	{
 		//struct CustomVertex { FLOAT X, Y, Z, RHW; DWORD COLOR; };
+		/*struct CUSTOMVERTEX
+		{
+			float X, Y, Z, RHW;    // from the D3DFVF_XYZRHW flag
+			DWORD COLOR;    // from the D3DFVF_DIFFUSE flag
+			float U, V;
+		};*/
+
 		struct CUSTOMVERTEX
 		{
-			FLOAT x, y, z, rhw;    // from the D3DFVF_XYZRHW flag
-			DWORD color;    // from the D3DFVF_DIFFUSE flag
+			float x, y, z, rhw;    // from the D3DFVF_XYZRHW flag
+			DWORD colour;    // from the D3DFVF_DIFFUSE flag
+			float u, v;
 		};
+
+		//Custom vertex
+		/*struct TLVERTEX
+		{
+			float x;
+			float y;
+			float z;
+			float rhw;
+			D3DCOLOR colour;
+			float u;
+			float v;
+		};*/
+
 
 		class RendererDirectX final : public RendererService
 		{
@@ -52,6 +73,11 @@ namespace AnonymousEngine
 			IDirect3DDevice9* mD3DDevice;
 
 			IDirect3DVertexBuffer9* v_buffer;
+			VOID* pVoid;    // a void pointer
+
+			//TLVERTEX* vertices;
+			
+			//ID3DXSprite* mSprite;
 		};
 	}
 }
