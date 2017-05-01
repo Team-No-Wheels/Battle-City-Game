@@ -47,7 +47,7 @@ namespace AnonymousEngine
 			mSystem->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &sound);
 		}
 
-		void AudioManager::PlaySound(FMOD::Sound* sound, bool loop)
+		void AudioManager::PlaySoundBC(FMOD::Sound* sound, bool loop)
 		{
 			if (!loop)
 			{

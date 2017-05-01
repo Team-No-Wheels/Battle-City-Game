@@ -38,7 +38,7 @@ namespace AnonymousEngine
 
 			void CreateSound(FMOD::Sound* sound, const std::string& filePath);
 
-			void PlaySound(FMOD::Sound* sound, bool loop = false);
+			void PlaySoundBC(FMOD::Sound* sound, bool loop = false);
 
 			void ReleaseSound(FMOD::Sound* sound);
 

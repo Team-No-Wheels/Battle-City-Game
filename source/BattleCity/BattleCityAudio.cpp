@@ -55,7 +55,7 @@ namespace BattleCity
 	{
 		assert(publisher.Is(Core::Event<MessageAudio>::TypeIdClass()));
 		MessageAudio message = static_cast<Core::Event<MessageAudio>&>(publisher).Message();
-		//AudioManager::PlaySound(mSoundMap[message.AudioType()]);
+		PlaySoundBC(mSoundMap[message.AudioType()]);
 	}
 
 	void BattleCityAudio::ReleaseAllSounds()
