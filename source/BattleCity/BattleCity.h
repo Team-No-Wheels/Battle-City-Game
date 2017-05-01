@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "CollisionManager.h"
 #include "LevelManager.h"
+#include "GameClock.h"
 
 namespace BattleCity
 {
@@ -28,12 +29,12 @@ namespace BattleCity
 
 		/**
 			@brief Called every frame.
-			@param[in] pDeltaTime Time between frames in seconds.
 		*/
-		void Update(float pDeltaTime);
+		void Update();
 
 	private:
-		AnonymousEngine::Core::GameObject* mGameObject;
+		/** Collision manager
+		 */
 		AnonymousEngine::Core::CollisionManager mCollisionManager;
 
 		/** Declaring LevelManager for BattleCity Game.
@@ -43,5 +44,7 @@ namespace BattleCity
 		/** Pointer to the World of the game.
 		*/
 		AnonymousEngine::Containers::World* mWorld;
+
+		AnonymousEngine::GameClock mGameClock;
 	};
 }

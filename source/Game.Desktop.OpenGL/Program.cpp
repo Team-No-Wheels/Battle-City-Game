@@ -67,8 +67,7 @@ namespace AnonymousEngine
 			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 			
-			//Draw();
-			mBattleCity->Update(1.0f / 60.0f);
+			mBattleCity->Update();
 
 			glfwSwapBuffers(window);
 		}
