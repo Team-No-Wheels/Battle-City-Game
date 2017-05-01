@@ -9,10 +9,10 @@ namespace AnonymousEngine
 	ENTITY_FACTORY_DEFINITIONS(TankDAI);
 
 	/************************************************************************/
-	const float TankDAI::DEFAULT_SPEED = 1.0f;
+	const float TankDAI::DEFAULT_SPEED = 0.5f;
 	const int32_t TankDAI::DEFAULT_BULLETS_NUM = 1;
-	const int32_t TankDAI::DEFAULT_ARMOR = 1;
-	const uint32_t TankDAI::DEFAULT_PROB_TO_SHOOT_IN_MOV = 10;
+	const int32_t TankDAI::DEFAULT_ARMOR = 4;
+	const uint32_t TankDAI::DEFAULT_PROB_TO_SHOOT_IN_MOV = 15;
 
 	const string TankDAI::TYPE_NAME = "TankD";
 

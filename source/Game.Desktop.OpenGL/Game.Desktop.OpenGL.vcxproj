@@ -113,7 +113,8 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y
-xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y</Command>
+xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
+xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -140,7 +141,8 @@ xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y</Com
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y
-xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y</Command>
+xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
+xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

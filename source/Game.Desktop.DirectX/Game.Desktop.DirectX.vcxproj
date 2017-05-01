@@ -110,7 +110,8 @@
       <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y</Command>
+      <Command>xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
+xcopy "$(SolutionDir)..\maps\BattleCity.xml $(OutDir)\resources" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -134,7 +135,8 @@
       <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y</Command>
+      <Command>xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
+xcopy "$(SolutionDir)..\maps\BattleCity.xml $(OutDir)\resources" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

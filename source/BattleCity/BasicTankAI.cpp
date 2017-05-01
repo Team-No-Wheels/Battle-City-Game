@@ -23,6 +23,7 @@ namespace AnonymousEngine
 		mSpeed(speed), mBulletsNum(bulletsNum), mArmor(armor), mProbToShootWhileMoving(probToShootInMov),
 		mCurrentState(State::Idle), mShotCooldownTimer(DEFAULT_SHOT_COOLDOWN_TIME), mMovingInSameDirectionTimer(MAX_TIME_IN_SAME_DIRECTION)
 	{
+		GetCollider().SetTag(Collider::ColliderTag::Enemy);
 		mMoveComponent->SetSpeed(mSpeed);
 		mMoveComponent->SetDirection(ActionMove::Direction::Down);
 		mShootComponent->SetCapacityToShoot(mBulletsNum);
@@ -59,8 +60,6 @@ namespace AnonymousEngine
 	/************************************************************************/
 	void BasicTankAI::OnCollision(GameObject& otherGameObject)
 	{
-		// todo depending on the type of collision(tag of the collider of the go passed), we either decrement armor if bullet
-		// decide to go idle if it's unbreakable wall, decide to go idle or shoot(50% ~ 70%) if it's brick or flag, or shoot if it's the player
 		auto tag = otherGameObject.GetCollider().GetTag();
 		switch (tag)
 		{
@@ -69,8 +68,10 @@ namespace AnonymousEngine
 				HandleCollisionWithPlayer(otherGameObject);
 				break;
 
-			case Collider::ColliderTag::Wall:
+			case Collider::ColliderTag::MetalWall:
 			case Collider::ColliderTag::Enemy:
+			case Collider::ColliderTag::MapBorder:
+			case Collider::ColliderTag::Water:
 
 				mCurrentState = State::Idle;
 				break;
@@ -85,7 +86,7 @@ namespace AnonymousEngine
 				// nothing happens
 				break;
 
-			case Collider::ColliderTag::Destructable:
+			case Collider::ColliderTag::BrickWall:
 			case Collider::ColliderTag::MuricanEagle:
 
 				HandleCollisionWithDestructable();
@@ -119,7 +120,8 @@ namespace AnonymousEngine
 
 		if (mArmor == 0)
 		{
-			// todo mark this for delete
+			// destroy tank
+			SetMarkForDelete();
 			return true;
 		}
 		return false;

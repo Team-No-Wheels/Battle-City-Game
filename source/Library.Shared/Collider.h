@@ -32,8 +32,10 @@ namespace AnonymousEngine
 				Enemy,
 				PlayerBullet,
 				EnemyBullet,
-				Wall,
-				Destructable,
+				MetalWall,
+				BrickWall,
+				MapBorder,
+				Water,
 				MuricanEagle
 			};
 

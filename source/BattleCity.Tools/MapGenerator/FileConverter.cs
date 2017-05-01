@@ -10,70 +10,72 @@ namespace MapGenerator
 {
     class FileConverter
     {
-        const string    SOURCE_EXT_FILTER           = "*.tmx";
+        const string    SOURCE_EXT_FILTER               = "*.tmx";
 
-        const string    MAP_IDENTIFIER              = "map";
-        const string    TILE_WIDTH_IDENTIFIER       = "tilewidth";
-        const string    TILE_HEIGHT_IDENTIFIER      = "tileheight";
-        const string    IN_TILES_X_IDENTIFIER       = "width";
-        const string    IN_TILES_Y_IDENTIFIER       = "height";
-        const string    IMAGE_IDENTIFIER            = "image";
-        const string    SOURCE_IDENTIFIER           = "source";
-        const string    DATA_IDENTIFIER             = "data";
-        const string    ERROR_MALFORMED_XML         = "The XML File is in a different format that this parser expects.";
-        const string    ERROR_DEFINITIONS_NOT_FOUND = "Definitions file was not found!";
-        const int       MAX_CHARS_FROM_ENTITIES     = 4096;
-        const char      COMMA_SEPARATOR             = ',';
-        const string    NEWLINE                     = "\n";
-        const string    EMPTY_STR                   = "";
+        const string    MAP_IDENTIFIER                  = "map";
+        const string    TILE_WIDTH_IDENTIFIER           = "tilewidth";
+        const string    TILE_HEIGHT_IDENTIFIER          = "tileheight";
+        const string    IN_TILES_X_IDENTIFIER           = "width";
+        const string    IN_TILES_Y_IDENTIFIER           = "height";
+        const string    IMAGE_IDENTIFIER                = "image";
+        const string    SOURCE_IDENTIFIER               = "source";
+        const string    DATA_IDENTIFIER                 = "data";
+        const string    ERROR_MALFORMED_XML             = "The XML File is in a different format that this parser expects.";
+        const string    ERROR_DEFINITIONS_NOT_FOUND     = "Definitions file was not found!";
+        const int       MAX_CHARS_FROM_ENTITIES         = 4096;
+        const char      COMMA_SEPARATOR                 = ',';
+        const string    NEWLINE                         = "\n";
+        const string    EMPTY_STR                       = "";
 
-        const string    INTEGER_IDENTIFIER          = "integer";
-        const string    STRING_IDENTIFIER           = "string";
-        const string    VECTOR_IDENTIFIER           = "vector";
-        const string    CLASS_IDENTIFIER            = "class";
-        const string    WORLD_IDENTIFIER            = "world";
-        const string    SECTORS_IDENTIFIER          = "sectors";
-        const string    SECTOR_IDENTIFIER           = "sector";
-        const string    NAME_IDENTIFIER             = "name";
-        const string    VALUE_IDENTIFIER            = "value";
-        const string    ENTITY_IDENTIFIER           = "entity";
-        const string    ENTITIES_IDENTIFIER         = "entities";
-        const string    SPRITESHEET_INDENTIFIER     = "SpriteSheet";
-        const string    OUT_TILES_X_IDENTIFIER      = "numtilesX";
-        const string    OUT_TILES_Y_IDENTIFIER      = "numtilesY";
-        const string    POSITION_X_IDENTIFIER       = "posX";
-        const string    POSITION_Y_IDENTIFIER       = "posY";
-        const string    X_IDENTIFIER                = "x";
-        const string    Y_IDENTIFIER                = "y";
-        const string    Z_IDENTIFIER                = "z";
-        const string    W_IDENTIFIER                = "w";
-        const string    WIDTH_IDENTIFIER            = "width";
-        const string    HEIGHT_IDENTIFIER           = "height";
+        const string    INTEGER_IDENTIFIER              = "integer";
+        const string    STRING_IDENTIFIER               = "string";
+        const string    VECTOR_IDENTIFIER               = "vector";
+        const string    CLASS_IDENTIFIER                = "class";
+        const string    WORLD_IDENTIFIER                = "world";
+        const string    SECTORS_IDENTIFIER              = "sectors";
+        const string    SECTOR_IDENTIFIER               = "sector";
+        const string    NAME_IDENTIFIER                 = "name";
+        const string    VALUE_IDENTIFIER                = "value";
+        const string    ENTITY_IDENTIFIER               = "entity";
+        const string    ENTITIES_IDENTIFIER             = "entities";
+        const string    SPRITESHEET_INDENTIFIER         = "SpriteSheet";
+        const string    SPRITESHEET_WIDTH_INDENTIFIER   = "SpriteSheetWidth";
+        const string    SPRITESHEET_HEIGHT_INDENTIFIER  = "SpriteSheetHeight";
+        const string    OUT_TILES_X_IDENTIFIER          = "numtilesX";
+        const string    OUT_TILES_Y_IDENTIFIER          = "numtilesY";
+        const string    POSITION_X_IDENTIFIER           = "posX";
+        const string    POSITION_Y_IDENTIFIER           = "posY";
+        const string    X_IDENTIFIER                    = "x";
+        const string    Y_IDENTIFIER                    = "y";
+        const string    Z_IDENTIFIER                    = "z";
+        const string    W_IDENTIFIER                    = "w";
+        const string    WIDTH_IDENTIFIER                = "width";
+        const string    HEIGHT_IDENTIFIER               = "height";
 
-        const string    OBJECT_IDENTIFIER           = "object";
-        const string    PROPERTY_IDENTIFIER         = "property";
-        const string    FRAMEMANAGER_IDENTIFIER     = "FrameManager";
-        const string    FRAME_IDENTIFIER            = "Frame";
-        const string    ID_IDENTIFIER               = "id";
-        const string    POSITION_IDENTIFIER         = "Position";
+        const string    OBJECT_IDENTIFIER               = "object";
+        const string    PROPERTY_IDENTIFIER             = "property";
+        const string    FRAMEMANAGER_IDENTIFIER         = "FrameManager";
+        const string    FRAME_IDENTIFIER                = "Frame";
+        const string    ID_IDENTIFIER                   = "id";
+        const string    POSITION_IDENTIFIER             = "Position";
 
-        const string    BATTLE_CITY                 = "BattleCity";
-        const string    DEFINITIONS_FILE            = "Definitions.tmx";
-        const string    ZERO                        = "0";
-        const string    UNDERSCORE                  = "_";
+        const string    BATTLE_CITY                     = "BattleCity";
+        const string    DEFINITIONS_FILE                = "Definitions.tmx";
+        const string    ZERO                            = "0";
+        const string    UNDERSCORE                      = "_";
 
-        const float     BOUNDING_BOX_TOLERANCE      = 0.5f;
+        const float     BOUNDING_BOX_TOLERANCE          = 0.5f;
 
         Dictionary<string, SpriteData> SpriteMappedData = new Dictionary<string, SpriteData>();
 
         class SpriteData
         {
-            public string id;
-            public string classname;
-            public float x;
-            public float y;
-            public float w;
-            public float h;
+            public string   id;
+            public string   classname;
+            public float    x;
+            public float    y;
+            public float    w;
+            public float    h;
 
             public SpriteData(string ID, float X, float Y, float W, float H)
             {
@@ -99,7 +101,9 @@ namespace MapGenerator
 
         private void WriteSpriteData(string DefinitionsFile, XmlWriter Writer)
         {
-            string SpriteSheetName = "";
+            string SpriteSheetName      = "";
+            string SpriteSheetWidth     = "";
+            string SpriteSheetHeight    = "";
 
             XmlReaderSettings Settings = new XmlReaderSettings();
             Settings.DtdProcessing = DtdProcessing.Parse;
@@ -115,7 +119,9 @@ namespace MapGenerator
                     {
                         case IMAGE_IDENTIFIER:
                             {
-                                SpriteSheetName = Path.GetFileName(Reader[SOURCE_IDENTIFIER]);
+                                SpriteSheetName     = Path.GetFileName(Reader[SOURCE_IDENTIFIER]);
+                                SpriteSheetWidth    = Path.GetFileName(Reader[WIDTH_IDENTIFIER]);
+                                SpriteSheetHeight   = Path.GetFileName(Reader[HEIGHT_IDENTIFIER]);
                             }
                             break;
 
@@ -155,6 +161,18 @@ namespace MapGenerator
                 {
                     Writer.WriteAttributeString(NAME_IDENTIFIER, SPRITESHEET_INDENTIFIER);
                     Writer.WriteAttributeString(VALUE_IDENTIFIER, SpriteSheetName);
+                }
+                Writer.WriteEndElement();
+                Writer.WriteStartElement(STRING_IDENTIFIER);
+                {
+                    Writer.WriteAttributeString(NAME_IDENTIFIER, SPRITESHEET_WIDTH_INDENTIFIER);
+                    Writer.WriteAttributeString(VALUE_IDENTIFIER, SpriteSheetWidth);
+                }
+                Writer.WriteEndElement();
+                Writer.WriteStartElement(STRING_IDENTIFIER);
+                {
+                    Writer.WriteAttributeString(NAME_IDENTIFIER, SPRITESHEET_HEIGHT_INDENTIFIER);
+                    Writer.WriteAttributeString(VALUE_IDENTIFIER, SpriteSheetHeight);
                 }
                 Writer.WriteEndElement();
                 foreach (var Pair in SpriteMappedData)
@@ -255,10 +273,10 @@ namespace MapGenerator
                     {
                         case MAP_IDENTIFIER:
                             {
-                                MappedData[IN_TILES_X_IDENTIFIER] = Reader[IN_TILES_X_IDENTIFIER];
-                                MappedData[IN_TILES_Y_IDENTIFIER] = Reader[IN_TILES_Y_IDENTIFIER];
-                                MappedData[TILE_WIDTH_IDENTIFIER] = Reader[TILE_WIDTH_IDENTIFIER];
-                                MappedData[TILE_HEIGHT_IDENTIFIER] = Reader[TILE_HEIGHT_IDENTIFIER];
+                                MappedData[IN_TILES_X_IDENTIFIER]   = Reader[IN_TILES_X_IDENTIFIER];
+                                MappedData[IN_TILES_Y_IDENTIFIER]   = Reader[IN_TILES_Y_IDENTIFIER];
+                                MappedData[TILE_WIDTH_IDENTIFIER]   = Reader[TILE_WIDTH_IDENTIFIER];
+                                MappedData[TILE_HEIGHT_IDENTIFIER]  = Reader[TILE_HEIGHT_IDENTIFIER];
                             }
                             break;
 
@@ -294,22 +312,26 @@ namespace MapGenerator
                 Writer.WriteAttributeString (NAME_IDENTIFIER, Path.GetFileNameWithoutExtension(SourceFile));
                 Writer.WriteStartElement(INTEGER_IDENTIFIER);
                 {
-                    Writer.WriteAttributeString(TILE_WIDTH_IDENTIFIER, MappedData[TILE_WIDTH_IDENTIFIER]);
+                    Writer.WriteAttributeString(NAME_IDENTIFIER, TILE_WIDTH_IDENTIFIER);
+                    Writer.WriteAttributeString(VALUE_IDENTIFIER, MappedData[TILE_WIDTH_IDENTIFIER]);
                 }
                 Writer.WriteEndElement();
                 Writer.WriteStartElement(INTEGER_IDENTIFIER);
                 {
-                    Writer.WriteAttributeString(TILE_HEIGHT_IDENTIFIER, MappedData[TILE_HEIGHT_IDENTIFIER]);
+                    Writer.WriteAttributeString(NAME_IDENTIFIER, TILE_HEIGHT_IDENTIFIER);
+                    Writer.WriteAttributeString(VALUE_IDENTIFIER, MappedData[TILE_HEIGHT_IDENTIFIER]);
                 }
                 Writer.WriteEndElement();
                 Writer.WriteStartElement(INTEGER_IDENTIFIER);
                 {
-                    Writer.WriteAttributeString(OUT_TILES_X_IDENTIFIER, MappedData[IN_TILES_X_IDENTIFIER]);
+                    Writer.WriteAttributeString(NAME_IDENTIFIER, OUT_TILES_X_IDENTIFIER);
+                    Writer.WriteAttributeString(VALUE_IDENTIFIER, MappedData[IN_TILES_X_IDENTIFIER]);
                 }
                 Writer.WriteEndElement();
                 Writer.WriteStartElement(INTEGER_IDENTIFIER);
                 {
-                    Writer.WriteAttributeString(OUT_TILES_Y_IDENTIFIER, MappedData[IN_TILES_Y_IDENTIFIER]);
+                    Writer.WriteAttributeString(NAME_IDENTIFIER, OUT_TILES_Y_IDENTIFIER);
+                    Writer.WriteAttributeString(VALUE_IDENTIFIER, MappedData[IN_TILES_Y_IDENTIFIER]);
                 }
                 Writer.WriteEndElement();
                 Writer.WriteStartElement(ENTITIES_IDENTIFIER);
