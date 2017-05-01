@@ -43,7 +43,7 @@ namespace AnonymousEngine
 		Direction GetDirection() const;
 
 		bool GetCanMove() const;
-		void SetCanMove(const bool canMove = true);
+		void SetCanMove(bool canMove = true);
 
 	protected:
 
