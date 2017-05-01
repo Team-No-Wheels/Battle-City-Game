@@ -45,6 +45,10 @@ namespace AnonymousEngine
 		*/
 		virtual void OnCollision(GameObject& otherGameObject) override;
 
+		/** Gets the type name of the tank.
+		 * This method is pure virtual and it needs to be extended by any derived class.
+		 * @return String representing the type.
+		 */
 		virtual std::string GetTankType() = 0;
 
 		/** Freezes the TankAI and stops it from doing anything.
@@ -55,6 +59,8 @@ namespace AnonymousEngine
 		*/
 		void Unfreeze();
 
+		/** Decrements the tanks armor. If the armor reaches 0, the tank is destroyed.
+		*/
 		bool DecrementArmor();
 
 	protected:

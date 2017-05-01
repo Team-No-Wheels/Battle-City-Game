@@ -8,7 +8,7 @@ namespace AnonymousEngine
 	ATTRIBUTED_DEFINITIONS(ActionShoot);
 
 	ActionShoot::ActionShoot(bool isPlayer) :
-		mBulletsCapacity(1), mIsFast(false), mIsStrong(false), mBulletsLiving(3), mIsPlayer(isPlayer)
+		mBulletsCapacity(1), mIsFast(false), mIsStrong(false), mIsOwnedByPlayer(isPlayer), mBulletsLiving(3)
 	{
 	}
 
@@ -21,15 +21,14 @@ namespace AnonymousEngine
 
 	void ActionShoot::CreateBullet()
 	{
-		Bullet* curBullet = Factory<Entity>::Create(std::string("Bullet"))->As<Bullet>();
+		Bullet* curBullet = new Bullet(this);
 
 		//Store Reference To Bullet
 		mBulletsLiving.PushBack(curBullet);
-		curBullet->SetShootParent(*this);
 
 		//Get A Reference To Bullet MoveComponent And Parent
 		TankBase* tank = GetParent()->As<TankBase>();
-		ActionMove* moveComponent = &curBullet->MoveComponent();
+		ActionMove* moveComponent = &curBullet->GetMoveComponent();
 
 		// Set Direction Of Bullet
 		if (tank != nullptr)
@@ -40,6 +39,16 @@ namespace AnonymousEngine
 		if (mIsFast)
 		{
 			moveComponent->SetSpeed(2 * moveComponent->sDefaultSpeed);
+		}
+
+		// set the tag for the bullet
+		if (mIsOwnedByPlayer)
+		{
+			curBullet->GetCollider().SetTag(Collider::ColliderTag::PlayerBullet);
+		}
+		else
+		{
+			curBullet->GetCollider().SetTag(Collider::ColliderTag::EnemyBullet);
 		}
 	}
 
@@ -55,9 +64,9 @@ namespace AnonymousEngine
 		return mBulletsLiving.Size() < mBulletsCapacity;
 	}
 
-	bool ActionShoot::IsPlayer() const
+	bool ActionShoot::IsOwnedByPlayer() const
 	{
-		return mIsPlayer;
+		return mIsOwnedByPlayer;
 	}
 
 	void ActionShoot::SetIsFast(const bool isFast)
@@ -89,7 +98,6 @@ namespace AnonymousEngine
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
-
 
 	ACTION_FACTORY_DEFINITIONS(ActionShoot);
 }
