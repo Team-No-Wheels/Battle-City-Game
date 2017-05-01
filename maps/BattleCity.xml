@@ -364,7 +364,7 @@
       <integer name="width" value="8" />
       <integer name="height" value="16" />
     </entity>
-    <entity class="Frame" name="PlayerTankUISymbol">
+    <entity class="Frame" name="TankPlayerUISymbol">
       <integer name="id" value="65" />
       <vector name="Position" x="56" y="120" z="0" w="0" />
       <integer name="width" value="8" />

@@ -11,6 +11,7 @@ namespace BattleCity
 		Flag::Flag() :
 			TileBase(TileType::FLAG)
 		{
+			mSpriteName = "Flag";
 			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::Flag);
 		}
 

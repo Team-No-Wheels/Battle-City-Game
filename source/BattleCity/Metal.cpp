@@ -11,6 +11,7 @@ namespace BattleCity
 		Metal::Metal() :
 			TileBase(TileType::METAL)
 		{
+			mSpriteName = "Metal";
 			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::MetalWall);
 		}
 
