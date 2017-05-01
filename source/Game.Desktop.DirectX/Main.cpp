@@ -144,7 +144,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 void InitD3D(HWND hWnd)
 {
 #if DX_VERSION == 9
-	d3d = Direct3DCreate9(D3D_SDK_VERSION);    // create the Direct3D interface
+	//d3d = Direct3DCreate9(D3D_SDK_VERSION);    // create the Direct3D interface
 
 	D3DPRESENT_PARAMETERS d3dpp;    // create a struct to hold various device information
 
