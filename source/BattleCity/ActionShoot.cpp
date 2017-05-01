@@ -8,18 +8,13 @@ namespace AnonymousEngine
 	ATTRIBUTED_DEFINITIONS(ActionShoot);
 
 	ActionShoot::ActionShoot(bool isPlayer) :
-		mBulletsCapacity(1), mIsFast(false), mIsStrong(false), mBulletsLiving(3), mBulletsPending(3), mIsPlayer(isPlayer)
+		mBulletsCapacity(1), mIsFast(false), mIsStrong(false), mBulletsLiving(3), mIsPlayer(isPlayer)
 	{
 	}
 
 	void ActionShoot::Update(WorldState& worldState)
 	{
 		worldState.mAction = this;
-
-		if (mBulletsPending.Size() != 0)
-		{
-			DestroyPendingBullets();
-		}
 
 		worldState.mAction = nullptr;
 	}
@@ -48,22 +43,11 @@ namespace AnonymousEngine
 		}
 	}
 
-	void ActionShoot::PendKillBullet(Bullet& bullet)
+	void ActionShoot::KillBullet(Bullet& bullet)
 	{
 		// Move Bullet To PendingKill Vector (Gets Destroyed Next Update)
 		mBulletsLiving.Remove(&bullet);
-		mBulletsPending.PushBack(&bullet);
-	}
-
-	void ActionShoot::DestroyPendingBullets()
-	{
-		// Destroy Pending Bullets
-		for (std::uint32_t i = 0; i < mBulletsPending.Size(); ++i)
-		{
-			delete mBulletsPending[i];
-		}
-
-		mBulletsPending.Clear();
+		bullet.SetMarkForDelete();
 	}
 
 	bool ActionShoot::CanShoot() const

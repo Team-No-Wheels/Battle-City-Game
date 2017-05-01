@@ -24,8 +24,7 @@ namespace AnonymousEngine
 
 		void Update(WorldState& worldState) override;
 		void CreateBullet();
-		void PendKillBullet(Bullet& bullet);
-		void DestroyPendingBullets();
+		void KillBullet(Bullet& bullet);
 
 		/** Return if shooting is currently possible
 		*	@return True if shooting is currently possible
@@ -58,7 +57,7 @@ namespace AnonymousEngine
 		uint32_t mBulletsCapacity;
 		bool mIsFast, mIsStrong; // For Star Power Up
 		bool mIsPlayer;
-		Vector<Bullet*> mBulletsLiving, mBulletsPending;
+		Vector<Bullet*> mBulletsLiving;
 	};
 
 	ACTION_FACTORY_DECLARATIONS(ActionShoot);

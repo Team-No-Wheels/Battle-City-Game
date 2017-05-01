@@ -109,7 +109,7 @@ namespace AnonymousEngine
 
 			if (shouldKillBullet)
 			{
-				mShootParent->PendKillBullet(*this);
+				mShootParent->KillBullet(*this);
 				mIsPendingKill = true;
 			}
 		}
@@ -129,14 +129,15 @@ namespace AnonymousEngine
 
 	void Bullet::CollisionWithEnemy(BasicTankAI& ai)
 	{
-		UNREFERENCED_PARAMETER(ai);
-		//ONLY DO THIS IF THE AI IS DESTROYED!
-//		WorldState* state = FindWorldState();
-// 		std::string tankType = //GET TANK TYPE NAME STRING
-// 		ScoreEventMessage scoreMessage(tankType, state);
-// 		const std::shared_ptr<Core::Event<PlayerscoreMessageSideDamageMessage>> eventptr = std::make_shared<Core::Event<scoreMessage>>(scoreMessage);
-// 		state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
-		
+		bool isDead = ai.DecrementArmor();
+		if (isDead)
+		{
+			WorldState* state = FindWorldState();
+			std::string tankType = ai.GetTankType();
+			ScoreEventMessage scoreMessage(tankType, *state);
+			const std::shared_ptr<Core::Event<ScoreEventMessage>> eventptr = std::make_shared<Core::Event<ScoreEventMessage>>(scoreMessage);
+			state->mWorld->EventQueue().Enqueue(eventptr, state->mGameTime, 0u);
+		}
 	}
 
 	void Bullet::CollisionWithBrick(Brick& brick)
