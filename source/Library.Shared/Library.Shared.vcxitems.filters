@@ -129,9 +129,6 @@
       <Filter>Audio</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Frame.cpp">
-        <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)SpriteManager.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -306,9 +303,6 @@
       <Filter>Audio</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Frame.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)SpriteManager.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
