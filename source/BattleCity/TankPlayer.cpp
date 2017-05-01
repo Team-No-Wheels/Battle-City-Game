@@ -5,7 +5,7 @@ namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(TankPlayer);
 
-	const std::chrono::milliseconds TankPlayer::sInvincbleLimit = std::chrono::milliseconds(2);
+	const std::chrono::milliseconds TankPlayer::sInvincbleLimit = std::chrono::milliseconds(2000);
 
 	TankPlayer::TankPlayer() :
 		mIsInvincible(false), mStars(0), mTimeInvincible(0)
