@@ -46,6 +46,8 @@ namespace AnonymousEngine
 		*/
 		virtual void OnCollision(GameObject& otherGameObject) override;
 
+		virtual std::string GetTankType() = 0;
+
 		/** Freezes the TankAI and stops it from doing anything.
 		*/
 		void Freeze();
@@ -71,10 +73,6 @@ namespace AnonymousEngine
 		std::chrono::milliseconds mShotCooldownTimer;
 		std::chrono::milliseconds mMovingInSameDirectionTimer;
 
-		static const float DEFAULT_SPEED;
-		static const int32_t DEFAULT_BULLETS_NUM;
-		static const int32_t DEFAULT_ARMOR;
-		static const uint32_t DEFAULT_PROB_TO_SHOOT_IN_MOV;
 		static const uint32_t DEFAULT_PROB_TO_SHOOT_IN_COL_PLAYER;
 		static const uint32_t DEFAULT_PROB_TO_SHOOT_IN_COL_WALL;
 		static const int32_t MAX_PROB;
@@ -95,6 +93,4 @@ namespace AnonymousEngine
 		void TryToShoot(const uint32_t probability) const;
 
 	};
-
-	ENTITY_FACTORY_DECLARATIONS(BasicTankAI);
 }

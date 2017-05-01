@@ -104,6 +104,18 @@
     <ClCompile Include="TileBase.cpp">
       <Filter>MapEntities</Filter>
     </ClCompile>
+    <ClCompile Include="TankAAI.cpp">
+      <Filter>Entities\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="TankBAI.cpp">
+      <Filter>Entities\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="TankCAI.cpp">
+      <Filter>Entities\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="TankDAI.cpp">
+      <Filter>Entities\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -177,6 +189,18 @@
     </ClInclude>
     <ClInclude Include="TileBase.h">
       <Filter>MapEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="TankAAI.h">
+      <Filter>Entities\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="TankBAI.h">
+      <Filter>Entities\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="TankCAI.h">
+      <Filter>Entities\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="TankDAI.h">
+      <Filter>Entities\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

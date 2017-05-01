@@ -182,6 +182,10 @@
     <ClInclude Include="MainMenuScreen.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="TankAAI.h" />
+    <ClInclude Include="TankBAI.h" />
+    <ClInclude Include="TankCAI.h" />
+    <ClInclude Include="TankDAI.h" />
     <ClInclude Include="TileBase.h" />
     <ClInclude Include="MessageCollision.h" />
     <ClInclude Include="MessageInput.h" />
@@ -209,6 +213,10 @@
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="MainMenuScreen.cpp" />
+    <ClCompile Include="TankAAI.cpp" />
+    <ClCompile Include="TankBAI.cpp" />
+    <ClCompile Include="TankCAI.cpp" />
+    <ClCompile Include="TankDAI.cpp" />
     <ClCompile Include="TileBase.cpp" />
     <ClCompile Include="MessageCollision.cpp" />
     <ClCompile Include="MessageInput.cpp" />
