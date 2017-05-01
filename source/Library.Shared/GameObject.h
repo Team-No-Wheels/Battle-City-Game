@@ -71,6 +71,8 @@ namespace AnonymousEngine
 			float GetRotation();
 		protected:
 
+			class AnonymousEngine::Containers::WorldState* GetWorldState() const;
+
 			void AddToDeleteQueue(Containers::WorldState& worldState);
 			/**
 			* The position of this game object in the world space.

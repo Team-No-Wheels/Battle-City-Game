@@ -91,7 +91,7 @@ namespace AnonymousEngine
 
 	void PowerUp::ActivateShield(TankPlayer& player)
 	{
-		player.SetInvincibility(true);
+		player.SetInvincibility(false);
 	}
 
 	void PowerUp::ActivateBomb(TankPlayer& player, Containers::WorldState& worldState)
