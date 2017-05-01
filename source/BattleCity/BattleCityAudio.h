@@ -20,7 +20,7 @@ namespace BattleCity
 	public:
 		BattleCityAudio() = default;
 
-		~BattleCityAudio() = default;
+		~BattleCityAudio();
 
 		void Initialize();
 

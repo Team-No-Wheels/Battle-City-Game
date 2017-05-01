@@ -3,7 +3,6 @@
 #include "Event.h"
 #include "MessageAudio.h"
 #include "fmod.hpp"
-//#include "fmod_common.h"
 #include <exception>
 
 namespace AnonymousEngine
@@ -42,12 +41,12 @@ namespace AnonymousEngine
 			Event<MessageAudio>::Unsubscribe(*this);
 		}
 
-		void AudioManager::CreateSound(FMOD::Sound* sound, const std::string& filePath)
+		void AudioManager::CreateSound(FMOD::Sound** sound, const std::string& filePath)
 		{
-			mSystem->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &sound);
+			mSystem->createSound(filePath.c_str(), FMOD_DEFAULT, 0, sound);
 		}
 
-		void AudioManager::PlaySound(FMOD::Sound* sound, bool loop)
+		void AudioManager::PlaySoundBC(FMOD::Sound* sound, bool loop)
 		{
 			if (!loop)
 			{

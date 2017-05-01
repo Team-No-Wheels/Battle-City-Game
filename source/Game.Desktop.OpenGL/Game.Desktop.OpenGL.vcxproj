@@ -113,9 +113,8 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y
-
 xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
-
+xcopy "$(SolutionDir)..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\*.dll" "$(OutDir)" /i /r /y
 xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -143,9 +142,8 @@ xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Com
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y
-
 xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
-
+xcopy "$(SolutionDir)..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\*.dll" "$(OutDir)" /i /r /y
 xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -175,9 +173,8 @@ xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Com
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y
-
 xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
-
+xcopy "$(SolutionDir)..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\*.dll" "$(OutDir)" /i /r /y
 xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -207,9 +204,8 @@ xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Com
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\shaders" "$(OutDir)\shaders" /I /R /Y
-
 xcopy "$(ProjectDir)..\BattleCity\resources" "$(OutDir)\resources" /I /R /Y
-
+xcopy "$(SolutionDir)..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\*.dll" "$(OutDir)" /i /r /y
 xcopy "$(SolutionDir)..\maps\BattleCity.xml" "$(OutDir)\resources" /I /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

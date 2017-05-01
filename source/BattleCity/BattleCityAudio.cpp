@@ -23,11 +23,16 @@ namespace BattleCity
 																"PowerUpBomb",
 																"PowerUpClock",
 																"PowerUpExtraLife",
-																"PowerUpSheild",
+																"PowerUpShield",
 																"PowerUpShovel",
 																"Unknown(2)",
 																"Unknown"
 	};
+
+	BattleCityAudio::~BattleCityAudio()
+	{
+		ReleaseAllSounds();
+	}
 
 	void BattleCityAudio::Initialize()
 	{
@@ -37,19 +42,20 @@ namespace BattleCity
 
 	void BattleCityAudio::PopulateSounds()
 	{
-		//for (uint32_t i = 0; i < mChannelCount; ++i)
-		//{
-		//	FMOD::Sound* tempSound = nullptr;
-		//	//string tempName = mSoundValues[i];
-		//	//CreateSound(tempSound, tempName.append(".wav"));
-		//	//mSoundMap.Insert(std::pair<std::string, FMOD::Sound*>(mSoundValues[i], tempSound));
-		//}
+		for (uint32_t i = 0; i < mChannelCount; ++i)
+		{
+			FMOD::Sound* tempSound = nullptr;
+			string tempName = mSoundValues[i];
+			CreateSound(&tempSound, tempName.append(".wav"));
+			mSoundMap.Insert(std::pair<std::string, FMOD::Sound*>(mSoundValues[i], tempSound));
+		}
 	}
 
 	void BattleCityAudio::Notify(Core::EventPublisher& publisher)
 	{
 		assert(publisher.Is(Core::Event<MessageAudio>::TypeIdClass()));
 		MessageAudio message = static_cast<Core::Event<MessageAudio>&>(publisher).Message();
+		PlaySoundBC(mSoundMap[message.AudioType()]);
 	}
 
 	void BattleCityAudio::ReleaseAllSounds()
