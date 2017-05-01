@@ -83,6 +83,10 @@ namespace AnonymousEngine
 			 *  @return The current world state
 			 */
 			WorldState& GetWorldState();
+
+			/** The name of the sectors prescribed attribute
+			 */
+			static const std::string SectorsAttributeName;
 		private:
 			// The name of this world
 			std::string mName;
@@ -99,9 +103,6 @@ namespace AnonymousEngine
 			Vector<Attributed*> mGarbageQueue;
 			// Mutex for garbage queue
 			std::mutex mGarbageQueueMutex;
-
-			// The name of the sectors prescribed attribute
-			static const std::string SectorsAttributeName;
 
 			ATTRIBUTED_DECLARATIONS(World, Attributed)
 		};

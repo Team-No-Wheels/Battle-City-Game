@@ -196,10 +196,19 @@ namespace AnonymousEngine
 		{
 			ValidateSharedDataNotNull(sharedData);
 			ValidateRequiredAttributes(attributes);
-			ValidateSharedDataScopeType(sharedData, Sector);
 			ValidateFactoryInputAttributes(attributes);
-			ValidateParentIsList(sharedData, "entities");
-			Entity* entity = &(static_cast<Sector*>(sharedData.mAttributed)->CreateEntity(attributes[NAME], attributes[CLASS]));
+
+			Entity* entity = Factory<Entity>::Create(attributes[CLASS]);
+			entity->SetName(attributes[NAME]);
+
+			if (sharedData.mElementStack.Back() == "entities")
+			{
+				sharedData.mAttributed->Adopt(*entity, Sector::EntitiesAttributeName);
+			}
+			else
+			{
+				sharedData.mAttributed->Adopt(*entity, entity->Name());
+			}
 			sharedData.mAttributed = entity;
 		}
 
