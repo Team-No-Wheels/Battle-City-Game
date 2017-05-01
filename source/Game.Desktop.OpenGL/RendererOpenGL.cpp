@@ -1,5 +1,6 @@
 #include "Pch.h"
 #include "RendererOpenGL.h"
+#include "GameObject.h"
 #include "TextureLoaderOpenGL.h"
 
 namespace AnonymousEngine
@@ -12,10 +13,12 @@ namespace AnonymousEngine
 		RendererOpenGL::~RendererOpenGL()
 		{}
 
-		void RendererOpenGL::Render(Texture* pTexture, const Geometry::Rectangle& pSpriteBounds, const Geometry::Rectangle& pUVBounds)
+		void RendererOpenGL::Render(const Sprite& pSprite) const
 		{
-			TextureOpenGL* openglTex = static_cast<TextureOpenGL*>(pTexture);
-			
+			TextureOpenGL* openglTex = static_cast<TextureOpenGL*>(pSprite.GetTexture());
+			const Geometry::Rectangle& uvBounds = pSprite.GetUVBounds();
+			Geometry::Rectangle spriteBounds = pSprite.GetSpriteBounds();
+
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, openglTex->mTextureID);
 			
@@ -24,30 +27,34 @@ namespace AnonymousEngine
 				// tint
 				glColor4ub((GLubyte)255, (GLubyte)255, (GLubyte)255, (GLubyte)255);
 
-				// bottom left
-				glTexCoord2f(pUVBounds.BottomLeft.x, pUVBounds.BottomLeft.y);
-				glVertex3f(pSpriteBounds.BottomLeft.x, pSpriteBounds.BottomLeft.y, 0.0f);
-
-				// bottom right
-				glTexCoord2f(pUVBounds.BottomRight.x, pUVBounds.BottomRight.y);
-				glVertex3f(pSpriteBounds.BottomRight.x, pSpriteBounds.BottomRight.y, 0.0f);
+				// top left
+				glTexCoord2f(uvBounds.TopLeft.x, uvBounds.TopLeft.y);
+				glVertex3f(spriteBounds.TopLeft.x, spriteBounds.TopLeft.y, 0.0f);
 
 				// top right
-				glTexCoord2f(pUVBounds.TopRight.x, pUVBounds.TopRight.y);
-				glVertex3f(pSpriteBounds.TopRight.x, pSpriteBounds.TopRight.y, 0.0f);
+				glTexCoord2f(uvBounds.TopRight.x, uvBounds.TopRight.y);
+				glVertex3f(spriteBounds.TopRight.x, spriteBounds.TopRight.y, 0.0f);
 
-				// top left
-				glTexCoord2f(pUVBounds.TopLeft.x, pUVBounds.TopLeft.y);
-				glVertex3f(pSpriteBounds.TopLeft.x, pSpriteBounds.TopLeft.y, 0.0f);
+				// bottom right
+				glTexCoord2f(uvBounds.BottomRight.x, uvBounds.BottomRight.y);
+				glVertex3f(spriteBounds.BottomRight.x, spriteBounds.BottomRight.y, 0.0f);
 
 				// bottom left
-				glTexCoord2f(pUVBounds.BottomLeft.x, pUVBounds.BottomLeft.y);
-				glVertex3f(pSpriteBounds.BottomLeft.x, pSpriteBounds.BottomLeft.y, 0.0f);
+				glTexCoord2f(uvBounds.BottomLeft.x, uvBounds.BottomLeft.y);
+				glVertex3f(spriteBounds.BottomLeft.x, spriteBounds.BottomLeft.y, 0.0f);
+
+				
+
+				
+
+				
+
+				
 
 			glEnd();
 		}
 
-		void RendererOpenGL::DrawRectangle(const Geometry::Rectangle& pRectangle, unsigned char pRed, unsigned char pGreen, unsigned char pBlue)
+		void RendererOpenGL::DrawRectangle(const Geometry::Rectangle& pRectangle, unsigned char pRed, unsigned char pGreen, unsigned char pBlue) const
 		{
 			glLineWidth(1);
 			

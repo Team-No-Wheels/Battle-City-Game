@@ -16,7 +16,7 @@ namespace BattleCity
 		//mSprite = new AnonymousEngine::Graphics::Sprite();
 		//ServiceLocator::GetTextureLoader()->GetTexture("resources\\tank.png");
 		mGameObject = new AnonymousEngine::Core::GameObject();
-		
+		mGameObject->SetPosition(glm::vec4(100.0f, 100.0f, 0.0f, 0.0f));
 	}
 
 	void BattleCity::Init()
