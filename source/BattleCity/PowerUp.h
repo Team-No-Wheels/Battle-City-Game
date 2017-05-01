@@ -37,7 +37,7 @@ namespace AnonymousEngine
 		PowerUp();
 		~PowerUp();
 
-		void setType(PowerUpType newType);
+		void SetType(PowerUpType newType);
 		void Activate(TankPlayer& player, Containers::WorldState& worldState);
 		void Update(WorldState& worldState) override;
 		void OnCollision(GameObject& otherGameObject) override;
