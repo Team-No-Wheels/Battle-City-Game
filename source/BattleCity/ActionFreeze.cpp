@@ -2,6 +2,7 @@
 #include "ActionFreeze.h"
 #include "BasicTankAI.h"
 #include "EventMessageAttributed.h"
+#include "Scope.h"
 
 namespace AnonymousEngine
 {
@@ -28,7 +29,7 @@ namespace AnonymousEngine
 			mTimeRemaining -= worldState.mGameTime.ElapsedGameTime();
 			Sector* curSector = worldState.mSector;
 
-			if (curSector != nullptr)
+			if (curSector)
 			{
 				Datum& entities = curSector->Entities();
 				uint32_t size = entities.Size();
@@ -36,7 +37,7 @@ namespace AnonymousEngine
 				// Look For All Enemy Tanks
 				for (uint32_t i = 0; i < size; ++i)
 				{
-					BasicTankAI* tank = entities.Get<Scope*>(i)->As<BasicTankAI>();
+					BasicTankAI* tank = entities.Get<Scope>(i).As<BasicTankAI>();
 
 					if (tank != nullptr)
 					{

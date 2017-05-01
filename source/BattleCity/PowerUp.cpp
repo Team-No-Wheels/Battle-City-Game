@@ -15,11 +15,6 @@ namespace AnonymousEngine
 
 	}
 
-	PowerUp::~PowerUp()
-	{
-
-	}
-
 	void PowerUp::SetType(PowerUpType newType)
 	{
 		mType = newType;
