@@ -20,16 +20,33 @@ namespace AnonymousEngine
 		InputHandler();
 		~InputHandler() = default;
 
+		enum class InputType
+		{
+			Esc,
+			Up,
+			Down,
+			Left,
+			Right,
+			Shoot
+		};
+
+		enum class KeyState
+		{
+			Invalid,
+			Pressed,
+			Released,
+			Repeat
+		};
+
 		void Update(WorldState& worldState) override;
 
+		void SetKeyState(InputType key, KeyState state);
+
 	private:
-		HANDLE handle;        // handle to read console
 		EventQueue* mEventQueue;
 
-		static const std::string LEFT;
-		static const std::string RIGHT;
-		static const std::string UP;
-		static const std::string DOWN;
-		static const std::string SHOOT;
+		HashMap<InputType, KeyState> mKeyStates;
+
+		static HashMap<InputType, std::string> KeyEnumStringMap;
 	};
 }

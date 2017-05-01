@@ -7,8 +7,8 @@
 #include "TextureLoaderDirectX.h"
 #include "RendererDirectX.h"
 
-#define WINDOW_WIDTH	800
-#define WINDOW_HEIGHT	600
+#define WINDOW_WIDTH	256 * 3
+#define WINDOW_HEIGHT	240 * 3
 #define WINDOW_TITLE	L"Anonymous Engine Demo - DirectX"
 
 #define DX_VERSION 9
@@ -161,6 +161,12 @@ void InitD3D(HWND hWnd)
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 		&d3dpp,
 		&d3ddev);
+	
+	/*float width = 256;
+	float height = 240;
+
+	D3DVIEWPORT9 viewData = { 0, 0, (DWORD)width, (DWORD)height, 0.0f, 100.0f };
+	d3ddev->SetViewport(&viewData);*/
 #endif
 }
 

@@ -1,0 +1,3360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<world name="BattleCity">
+  <entity class="FrameManager" name="FrameManager">
+    <string name="SpriteSheet" value="resources\\General.png" />
+    <string name="SpriteSheetWidth" value="128" />
+    <string name="SpriteSheetHeight" value="128" />
+    <entity class="Frame" name="Tank1_00">
+      <integer name="id" value="1" />
+      <vector name="Position" x="0" y="0" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank1_01">
+      <integer name="id" value="2" />
+      <vector name="Position" x="16" y="0" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank2_00">
+      <integer name="id" value="3" />
+      <vector name="Position" x="0" y="16" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank2_01">
+      <integer name="id" value="4" />
+      <vector name="Position" x="16" y="16" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank3_00">
+      <integer name="id" value="5" />
+      <vector name="Position" x="0" y="32" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank3_01">
+      <integer name="id" value="10" />
+      <vector name="Position" x="16" y="32" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank4_00">
+      <integer name="id" value="11" />
+      <vector name="Position" x="0" y="48" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank4_01">
+      <integer name="id" value="12" />
+      <vector name="Position" x="16" y="48" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank5_00">
+      <integer name="id" value="13" />
+      <vector name="Position" x="0" y="64" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank5_01">
+      <integer name="id" value="14" />
+      <vector name="Position" x="16" y="64" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank6_00">
+      <integer name="id" value="15" />
+      <vector name="Position" x="0" y="80" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank6_01">
+      <integer name="id" value="16" />
+      <vector name="Position" x="16" y="80" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank7_00">
+      <integer name="id" value="17" />
+      <vector name="Position" x="0" y="96" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank7_01">
+      <integer name="id" value="18" />
+      <vector name="Position" x="16" y="96" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank8_00">
+      <integer name="id" value="19" />
+      <vector name="Position" x="0" y="112" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Tank8_01">
+      <integer name="id" value="20" />
+      <vector name="Position" x="16" y="112" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Brick_Full">
+      <integer name="id" value="21" />
+      <vector name="Position" x="32" y="0" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="Brick_RightHalf">
+      <integer name="id" value="22" />
+      <vector name="Position" x="40" y="0" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="Brick_BottomHalf">
+      <integer name="id" value="23" />
+      <vector name="Position" x="48" y="0" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="Brick_LeftHalf">
+      <integer name="id" value="24" />
+      <vector name="Position" x="56" y="0" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="Brick_TopHalf">
+      <integer name="id" value="25" />
+      <vector name="Position" x="64" y="0" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="Metal">
+      <integer name="id" value="26" />
+      <vector name="Position" x="32" y="8" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="Grass">
+      <integer name="id" value="27" />
+      <vector name="Position" x="40" y="8" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="Concrete">
+      <integer name="id" value="28" />
+      <vector name="Position" x="48" y="8" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="Water1">
+      <integer name="id" value="29" />
+      <vector name="Position" x="32" y="16" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="Water2">
+      <integer name="id" value="30" />
+      <vector name="Position" x="40" y="16" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="Water3">
+      <integer name="id" value="31" />
+      <vector name="Position" x="48" y="16" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="OilDrop">
+      <integer name="id" value="32" />
+      <vector name="Position" x="56" y="8" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="SmallExplosion_00">
+      <integer name="id" value="33" />
+      <vector name="Position" x="32" y="24" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="SmallExplosion_01">
+      <integer name="id" value="34" />
+      <vector name="Position" x="48" y="24" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="SmallExplosion_02">
+      <integer name="id" value="35" />
+      <vector name="Position" x="64" y="24" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Shield_00">
+      <integer name="id" value="36" />
+      <vector name="Position" x="32" y="40" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Shield_01">
+      <integer name="id" value="37" />
+      <vector name="Position" x="48" y="40" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="ExplosionLarge_00">
+      <integer name="id" value="38" />
+      <vector name="Position" x="32" y="56" z="0" w="0" />
+      <integer name="width" value="32" />
+      <integer name="height" value="32" />
+    </entity>
+    <entity class="Frame" name="ExplosionLarge_01">
+      <integer name="id" value="39" />
+      <vector name="Position" x="32" y="88" z="0" w="0" />
+      <integer name="width" value="32" />
+      <integer name="height" value="32" />
+    </entity>
+    <entity class="Frame" name="Spawn_00">
+      <integer name="id" value="40" />
+      <vector name="Position" x="64" y="40" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Spawn_01">
+      <integer name="id" value="41" />
+      <vector name="Position" x="64" y="56" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Spawn_02">
+      <integer name="id" value="42" />
+      <vector name="Position" x="64" y="72" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Spawn_03">
+      <integer name="id" value="43" />
+      <vector name="Position" x="64" y="88" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Flag">
+      <integer name="id" value="44" />
+      <vector name="Position" x="64" y="104" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="RomanOne">
+      <integer name="id" value="45" />
+      <vector name="Position" x="32" y="120" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="RomanTwo">
+      <integer name="id" value="46" />
+      <vector name="Position" x="40" y="120" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="LetterP">
+      <integer name="id" value="47" />
+      <vector name="Position" x="48" y="120" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BulletUp">
+      <integer name="id" value="48" />
+      <vector name="Position" x="72" y="0" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="PowerUpHelmet">
+      <integer name="id" value="49" />
+      <vector name="Position" x="80" y="0" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="PowerUpBomb">
+      <integer name="id" value="50" />
+      <vector name="Position" x="80" y="16" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="PowerUpSpade">
+      <integer name="id" value="51" />
+      <vector name="Position" x="80" y="32" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="PowerUpStarfish">
+      <integer name="id" value="52" />
+      <vector name="Position" x="80" y="48" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="PowerUpGrenade">
+      <integer name="id" value="53" />
+      <vector name="Position" x="80" y="64" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="PowerUpTank">
+      <integer name="id" value="54" />
+      <vector name="Position" x="80" y="80" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="PowerUpGun">
+      <integer name="id" value="55" />
+      <vector name="Position" x="80" y="96" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Score100">
+      <integer name="id" value="56" />
+      <vector name="Position" x="96" y="0" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Score200">
+      <integer name="id" value="57" />
+      <vector name="Position" x="96" y="16" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Score300">
+      <integer name="id" value="58" />
+      <vector name="Position" x="96" y="32" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Score400">
+      <integer name="id" value="59" />
+      <vector name="Position" x="96" y="48" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Score500">
+      <integer name="id" value="60" />
+      <vector name="Position" x="96" y="64" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="Eagle">
+      <integer name="id" value="61" />
+      <vector name="Position" x="96" y="80" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="WiltedFlag">
+      <integer name="id" value="62" />
+      <vector name="Position" x="96" y="96" z="0" w="0" />
+      <integer name="width" value="16" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="GameOver">
+      <integer name="id" value="63" />
+      <vector name="Position" x="80" y="112" z="0" w="0" />
+      <integer name="width" value="32" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="BulletLeft">
+      <integer name="id" value="64" />
+      <vector name="Position" x="112" y="96" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="16" />
+    </entity>
+    <entity class="Frame" name="PlayerTankUISymbol">
+      <integer name="id" value="65" />
+      <vector name="Position" x="56" y="120" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="ColorRed">
+      <integer name="id" value="66" />
+      <vector name="Position" x="64" y="120" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="ColorOrange">
+      <integer name="id" value="67" />
+      <vector name="Position" x="72" y="120" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="ColorBlack">
+      <integer name="id" value="69" />
+      <vector name="Position" x="72" y="16" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackLetterS">
+      <integer name="id" value="70" />
+      <vector name="Position" x="112" y="0" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackLetterT">
+      <integer name="id" value="71" />
+      <vector name="Position" x="120" y="0" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackLetterA">
+      <integer name="id" value="74" />
+      <vector name="Position" x="112" y="8" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackLetterG">
+      <integer name="id" value="75" />
+      <vector name="Position" x="120" y="8" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackLetterE">
+      <integer name="id" value="76" />
+      <vector name="Position" x="112" y="16" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackNumber0">
+      <integer name="id" value="77" />
+      <vector name="Position" x="120" y="16" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackNumber1">
+      <integer name="id" value="78" />
+      <vector name="Position" x="112" y="24" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackNumber2">
+      <integer name="id" value="79" />
+      <vector name="Position" x="120" y="24" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackNumber3">
+      <integer name="id" value="80" />
+      <vector name="Position" x="112" y="32" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackNumber4">
+      <integer name="id" value="83" />
+      <vector name="Position" x="120" y="32" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackNumber5">
+      <integer name="id" value="84" />
+      <vector name="Position" x="112" y="40" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackNumber6">
+      <integer name="id" value="85" />
+      <vector name="Position" x="120" y="40" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackNumber7">
+      <integer name="id" value="86" />
+      <vector name="Position" x="112" y="48" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackNumber8">
+      <integer name="id" value="87" />
+      <vector name="Position" x="120" y="48" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="BlackNumber9">
+      <integer name="id" value="88" />
+      <vector name="Position" x="112" y="56" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="AITankUISymbol">
+      <integer name="id" value="89" />
+      <vector name="Position" x="120" y="56" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="ColorGrey">
+      <integer name="id" value="90" />
+      <vector name="Position" x="112" y="64" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="RedLetterP">
+      <integer name="id" value="91" />
+      <vector name="Position" x="112" y="72" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="RedLetterA">
+      <integer name="id" value="92" />
+      <vector name="Position" x="120" y="72" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="RedLetterU">
+      <integer name="id" value="96" />
+      <vector name="Position" x="112" y="80" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="RedLetterS">
+      <integer name="id" value="97" />
+      <vector name="Position" x="120" y="80" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+    <entity class="Frame" name="RedLetterE">
+      <integer name="id" value="98" />
+      <vector name="Position" x="112" y="88" z="0" w="0" />
+      <integer name="width" value="8" />
+      <integer name="height" value="8" />
+    </entity>
+  </entity>
+  <sectors>
+    <sector name="Level1">
+      <integer name="tilewidth" value="8" />
+      <integer name="tileheight" value="8" />
+      <integer name="numtilesX" value="32" />
+      <integer name="numtilesY" value="30" />
+      <entities>
+        <entity class="UIElement" name="object_0">
+          <vector name="Position" x="0" y="0" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_1">
+          <vector name="Position" x="0" y="8" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_2">
+          <vector name="Position" x="0" y="16" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_3">
+          <vector name="Position" x="0" y="24" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_4">
+          <vector name="Position" x="0" y="32" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_5">
+          <vector name="Position" x="0" y="40" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_6">
+          <vector name="Position" x="0" y="48" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_7">
+          <vector name="Position" x="0" y="56" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_8">
+          <vector name="Position" x="0" y="64" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_9">
+          <vector name="Position" x="0" y="72" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_10">
+          <vector name="Position" x="0" y="80" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_11">
+          <vector name="Position" x="0" y="88" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_12">
+          <vector name="Position" x="0" y="96" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_13">
+          <vector name="Position" x="0" y="104" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_14">
+          <vector name="Position" x="0" y="112" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_15">
+          <vector name="Position" x="0" y="120" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_16">
+          <vector name="Position" x="0" y="128" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_17">
+          <vector name="Position" x="0" y="136" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_18">
+          <vector name="Position" x="0" y="144" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_19">
+          <vector name="Position" x="0" y="152" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_20">
+          <vector name="Position" x="0" y="160" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_21">
+          <vector name="Position" x="0" y="168" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_22">
+          <vector name="Position" x="0" y="176" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_23">
+          <vector name="Position" x="0" y="184" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_24">
+          <vector name="Position" x="0" y="192" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_25">
+          <vector name="Position" x="0" y="200" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_26">
+          <vector name="Position" x="0" y="208" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_27">
+          <vector name="Position" x="0" y="216" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_28">
+          <vector name="Position" x="0" y="224" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_29">
+          <vector name="Position" x="0" y="232" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_30">
+          <vector name="Position" x="8" y="0" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_31">
+          <vector name="Position" x="8" y="8" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_32">
+          <vector name="Position" x="8" y="16" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_33">
+          <vector name="Position" x="8" y="24" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_34">
+          <vector name="Position" x="8" y="32" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_35">
+          <vector name="Position" x="8" y="40" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_36">
+          <vector name="Position" x="8" y="48" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_37">
+          <vector name="Position" x="8" y="56" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_38">
+          <vector name="Position" x="8" y="64" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_39">
+          <vector name="Position" x="8" y="72" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_40">
+          <vector name="Position" x="8" y="80" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_41">
+          <vector name="Position" x="8" y="88" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_42">
+          <vector name="Position" x="8" y="96" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_43">
+          <vector name="Position" x="8" y="104" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_44">
+          <vector name="Position" x="8" y="112" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_45">
+          <vector name="Position" x="8" y="120" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_46">
+          <vector name="Position" x="8" y="128" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_47">
+          <vector name="Position" x="8" y="136" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_48">
+          <vector name="Position" x="8" y="144" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_49">
+          <vector name="Position" x="8" y="152" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_50">
+          <vector name="Position" x="8" y="160" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_51">
+          <vector name="Position" x="8" y="168" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_52">
+          <vector name="Position" x="8" y="176" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_53">
+          <vector name="Position" x="8" y="184" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_54">
+          <vector name="Position" x="8" y="192" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_55">
+          <vector name="Position" x="8" y="200" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_56">
+          <vector name="Position" x="8" y="208" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_57">
+          <vector name="Position" x="8" y="216" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_58">
+          <vector name="Position" x="8" y="224" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_59">
+          <vector name="Position" x="8" y="232" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_60">
+          <vector name="Position" x="16" y="0" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_61">
+          <vector name="Position" x="16" y="8" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_62">
+          <vector name="Position" x="16" y="16" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_63">
+          <vector name="Position" x="16" y="24" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_64">
+          <vector name="Position" x="16" y="32" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_65">
+          <vector name="Position" x="16" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_66">
+          <vector name="Position" x="16" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_67">
+          <vector name="Position" x="16" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_68">
+          <vector name="Position" x="16" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_69">
+          <vector name="Position" x="16" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_70">
+          <vector name="Position" x="16" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_71">
+          <vector name="Position" x="16" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_72">
+          <vector name="Position" x="16" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_73">
+          <vector name="Position" x="16" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_74">
+          <vector name="Position" x="16" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_75">
+          <vector name="Position" x="16" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_76">
+          <vector name="Position" x="16" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_77">
+          <vector name="Position" x="16" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_78">
+          <vector name="Position" x="16" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_79">
+          <vector name="Position" x="16" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_80">
+          <vector name="Position" x="16" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_81">
+          <vector name="Position" x="16" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_82">
+          <vector name="Position" x="16" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_83">
+          <vector name="Position" x="16" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_84">
+          <vector name="Position" x="16" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_85">
+          <vector name="Position" x="16" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_86">
+          <vector name="Position" x="16" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_87">
+          <vector name="Position" x="16" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_88">
+          <vector name="Position" x="16" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_89">
+          <vector name="Position" x="16" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_90">
+          <vector name="Position" x="24" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_91">
+          <vector name="Position" x="24" y="8" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_92">
+          <vector name="Position" x="24" y="16" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_93">
+          <vector name="Position" x="24" y="24" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_94">
+          <vector name="Position" x="24" y="32" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_95">
+          <vector name="Position" x="24" y="40" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_96">
+          <vector name="Position" x="24" y="48" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_97">
+          <vector name="Position" x="24" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_98">
+          <vector name="Position" x="24" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_99">
+          <vector name="Position" x="24" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_100">
+          <vector name="Position" x="24" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_101">
+          <vector name="Position" x="24" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_102">
+          <vector name="Position" x="24" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_103">
+          <vector name="Position" x="24" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_104">
+          <vector name="Position" x="24" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_105">
+          <vector name="Position" x="24" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_106">
+          <vector name="Position" x="24" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_107">
+          <vector name="Position" x="24" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_108">
+          <vector name="Position" x="24" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_109">
+          <vector name="Position" x="24" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_110">
+          <vector name="Position" x="24" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_111">
+          <vector name="Position" x="24" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_112">
+          <vector name="Position" x="24" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_113">
+          <vector name="Position" x="24" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_114">
+          <vector name="Position" x="24" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_115">
+          <vector name="Position" x="24" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_116">
+          <vector name="Position" x="24" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_117">
+          <vector name="Position" x="24" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_118">
+          <vector name="Position" x="24" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_119">
+          <vector name="Position" x="24" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_120">
+          <vector name="Position" x="32" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_121">
+          <vector name="Position" x="32" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_122">
+          <vector name="Position" x="32" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_123">
+          <vector name="Position" x="32" y="24" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_124">
+          <vector name="Position" x="32" y="32" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_125">
+          <vector name="Position" x="32" y="40" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_126">
+          <vector name="Position" x="32" y="48" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_127">
+          <vector name="Position" x="32" y="56" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_128">
+          <vector name="Position" x="32" y="64" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_129">
+          <vector name="Position" x="32" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_130">
+          <vector name="Position" x="32" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_131">
+          <vector name="Position" x="32" y="88" z="0" w="0" />
+        </entity>
+        <entity class="Metal" name="object_132">
+          <vector name="Position" x="32" y="96" z="0" w="0" />
+        </entity>
+        <entity class="Metal" name="object_133">
+          <vector name="Position" x="32" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_134">
+          <vector name="Position" x="32" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_135">
+          <vector name="Position" x="32" y="120" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_136">
+          <vector name="Position" x="32" y="128" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_137">
+          <vector name="Position" x="32" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_138">
+          <vector name="Position" x="32" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_139">
+          <vector name="Position" x="32" y="152" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_140">
+          <vector name="Position" x="32" y="160" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_141">
+          <vector name="Position" x="32" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_142">
+          <vector name="Position" x="32" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_143">
+          <vector name="Position" x="32" y="184" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_144">
+          <vector name="Position" x="32" y="192" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_145">
+          <vector name="Position" x="32" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_146">
+          <vector name="Position" x="32" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_147">
+          <vector name="Position" x="32" y="216" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_148">
+          <vector name="Position" x="32" y="224" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_149">
+          <vector name="Position" x="32" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_150">
+          <vector name="Position" x="40" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_151">
+          <vector name="Position" x="40" y="8" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_152">
+          <vector name="Position" x="40" y="16" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_153">
+          <vector name="Position" x="40" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_154">
+          <vector name="Position" x="40" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_155">
+          <vector name="Position" x="40" y="40" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_156">
+          <vector name="Position" x="40" y="48" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_157">
+          <vector name="Position" x="40" y="56" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_158">
+          <vector name="Position" x="40" y="64" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_159">
+          <vector name="Position" x="40" y="72" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_160">
+          <vector name="Position" x="40" y="80" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_161">
+          <vector name="Position" x="40" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_162">
+          <vector name="Position" x="40" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_163">
+          <vector name="Position" x="40" y="104" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_164">
+          <vector name="Position" x="40" y="112" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_165">
+          <vector name="Position" x="40" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_166">
+          <vector name="Position" x="40" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_167">
+          <vector name="Position" x="40" y="136" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_168">
+          <vector name="Position" x="40" y="144" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_169">
+          <vector name="Position" x="40" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_170">
+          <vector name="Position" x="40" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_171">
+          <vector name="Position" x="40" y="168" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_172">
+          <vector name="Position" x="40" y="176" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_173">
+          <vector name="Position" x="40" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_174">
+          <vector name="Position" x="40" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_175">
+          <vector name="Position" x="40" y="200" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_176">
+          <vector name="Position" x="40" y="208" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_177">
+          <vector name="Position" x="40" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_178">
+          <vector name="Position" x="40" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_179">
+          <vector name="Position" x="40" y="232" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_180">
+          <vector name="Position" x="48" y="0" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_181">
+          <vector name="Position" x="48" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_182">
+          <vector name="Position" x="48" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_183">
+          <vector name="Position" x="48" y="24" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_184">
+          <vector name="Position" x="48" y="32" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_185">
+          <vector name="Position" x="48" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_186">
+          <vector name="Position" x="48" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_187">
+          <vector name="Position" x="48" y="56" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_188">
+          <vector name="Position" x="48" y="64" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_189">
+          <vector name="Position" x="48" y="72" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_190">
+          <vector name="Position" x="48" y="80" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_191">
+          <vector name="Position" x="48" y="88" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_192">
+          <vector name="Position" x="48" y="96" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_193">
+          <vector name="Position" x="48" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_194">
+          <vector name="Position" x="48" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_195">
+          <vector name="Position" x="48" y="120" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_196">
+          <vector name="Position" x="48" y="128" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_197">
+          <vector name="Position" x="48" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_198">
+          <vector name="Position" x="48" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_199">
+          <vector name="Position" x="48" y="152" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_200">
+          <vector name="Position" x="48" y="160" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_201">
+          <vector name="Position" x="48" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_202">
+          <vector name="Position" x="48" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_203">
+          <vector name="Position" x="48" y="184" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_204">
+          <vector name="Position" x="48" y="192" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_205">
+          <vector name="Position" x="48" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_206">
+          <vector name="Position" x="48" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_207">
+          <vector name="Position" x="48" y="216" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_208">
+          <vector name="Position" x="48" y="224" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_209">
+          <vector name="Position" x="48" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_210">
+          <vector name="Position" x="56" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_211">
+          <vector name="Position" x="56" y="8" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_212">
+          <vector name="Position" x="56" y="16" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_213">
+          <vector name="Position" x="56" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_214">
+          <vector name="Position" x="56" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_215">
+          <vector name="Position" x="56" y="40" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_216">
+          <vector name="Position" x="56" y="48" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_217">
+          <vector name="Position" x="56" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_218">
+          <vector name="Position" x="56" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_219">
+          <vector name="Position" x="56" y="72" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_220">
+          <vector name="Position" x="56" y="80" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_221">
+          <vector name="Position" x="56" y="88" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_222">
+          <vector name="Position" x="56" y="96" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_223">
+          <vector name="Position" x="56" y="104" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_224">
+          <vector name="Position" x="56" y="112" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_225">
+          <vector name="Position" x="56" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_226">
+          <vector name="Position" x="56" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_227">
+          <vector name="Position" x="56" y="136" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_228">
+          <vector name="Position" x="56" y="144" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_229">
+          <vector name="Position" x="56" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_230">
+          <vector name="Position" x="56" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_231">
+          <vector name="Position" x="56" y="168" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_232">
+          <vector name="Position" x="56" y="176" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_233">
+          <vector name="Position" x="56" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_234">
+          <vector name="Position" x="56" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_235">
+          <vector name="Position" x="56" y="200" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_236">
+          <vector name="Position" x="56" y="208" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_237">
+          <vector name="Position" x="56" y="216" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_240">
+          <vector name="Position" x="64" y="0" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_241">
+          <vector name="Position" x="64" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_242">
+          <vector name="Position" x="64" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_243">
+          <vector name="Position" x="64" y="24" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_244">
+          <vector name="Position" x="64" y="32" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_245">
+          <vector name="Position" x="64" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_246">
+          <vector name="Position" x="64" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_247">
+          <vector name="Position" x="64" y="56" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_248">
+          <vector name="Position" x="64" y="64" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_249">
+          <vector name="Position" x="64" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_250">
+          <vector name="Position" x="64" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_251">
+          <vector name="Position" x="64" y="88" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_252">
+          <vector name="Position" x="64" y="96" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_253">
+          <vector name="Position" x="64" y="104" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_254">
+          <vector name="Position" x="64" y="112" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_255">
+          <vector name="Position" x="64" y="120" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_256">
+          <vector name="Position" x="64" y="128" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_257">
+          <vector name="Position" x="64" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_258">
+          <vector name="Position" x="64" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_259">
+          <vector name="Position" x="64" y="152" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_260">
+          <vector name="Position" x="64" y="160" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_261">
+          <vector name="Position" x="64" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_262">
+          <vector name="Position" x="64" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_263">
+          <vector name="Position" x="64" y="184" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_264">
+          <vector name="Position" x="64" y="192" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_265">
+          <vector name="Position" x="64" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_266">
+          <vector name="Position" x="64" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_267">
+          <vector name="Position" x="64" y="216" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_268">
+          <vector name="Position" x="64" y="224" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_269">
+          <vector name="Position" x="64" y="232" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_272">
+          <vector name="Position" x="72" y="16" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_273">
+          <vector name="Position" x="72" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_274">
+          <vector name="Position" x="72" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_275">
+          <vector name="Position" x="72" y="40" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_276">
+          <vector name="Position" x="72" y="48" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_277">
+          <vector name="Position" x="72" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_278">
+          <vector name="Position" x="72" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_279">
+          <vector name="Position" x="72" y="72" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_280">
+          <vector name="Position" x="72" y="80" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_281">
+          <vector name="Position" x="72" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_282">
+          <vector name="Position" x="72" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_283">
+          <vector name="Position" x="72" y="104" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_284">
+          <vector name="Position" x="72" y="112" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_285">
+          <vector name="Position" x="72" y="120" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_286">
+          <vector name="Position" x="72" y="128" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_287">
+          <vector name="Position" x="72" y="136" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_288">
+          <vector name="Position" x="72" y="144" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_289">
+          <vector name="Position" x="72" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_290">
+          <vector name="Position" x="72" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_291">
+          <vector name="Position" x="72" y="168" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_292">
+          <vector name="Position" x="72" y="176" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_293">
+          <vector name="Position" x="72" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_294">
+          <vector name="Position" x="72" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_295">
+          <vector name="Position" x="72" y="200" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_296">
+          <vector name="Position" x="72" y="208" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_297">
+          <vector name="Position" x="72" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_298">
+          <vector name="Position" x="72" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_299">
+          <vector name="Position" x="72" y="232" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_300">
+          <vector name="Position" x="80" y="0" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_301">
+          <vector name="Position" x="80" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_302">
+          <vector name="Position" x="80" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_303">
+          <vector name="Position" x="80" y="24" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_304">
+          <vector name="Position" x="80" y="32" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_305">
+          <vector name="Position" x="80" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_306">
+          <vector name="Position" x="80" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_307">
+          <vector name="Position" x="80" y="56" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_308">
+          <vector name="Position" x="80" y="64" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_309">
+          <vector name="Position" x="80" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_310">
+          <vector name="Position" x="80" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_311">
+          <vector name="Position" x="80" y="88" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_312">
+          <vector name="Position" x="80" y="96" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_313">
+          <vector name="Position" x="80" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_314">
+          <vector name="Position" x="80" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_315">
+          <vector name="Position" x="80" y="120" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_316">
+          <vector name="Position" x="80" y="128" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_317">
+          <vector name="Position" x="80" y="136" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_318">
+          <vector name="Position" x="80" y="144" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_319">
+          <vector name="Position" x="80" y="152" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_320">
+          <vector name="Position" x="80" y="160" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_321">
+          <vector name="Position" x="80" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_322">
+          <vector name="Position" x="80" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_323">
+          <vector name="Position" x="80" y="184" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_324">
+          <vector name="Position" x="80" y="192" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_325">
+          <vector name="Position" x="80" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_326">
+          <vector name="Position" x="80" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_327">
+          <vector name="Position" x="80" y="216" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_328">
+          <vector name="Position" x="80" y="224" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_329">
+          <vector name="Position" x="80" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_330">
+          <vector name="Position" x="88" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_331">
+          <vector name="Position" x="88" y="8" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_332">
+          <vector name="Position" x="88" y="16" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_333">
+          <vector name="Position" x="88" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_334">
+          <vector name="Position" x="88" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_335">
+          <vector name="Position" x="88" y="40" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_336">
+          <vector name="Position" x="88" y="48" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_337">
+          <vector name="Position" x="88" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_338">
+          <vector name="Position" x="88" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_339">
+          <vector name="Position" x="88" y="72" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_340">
+          <vector name="Position" x="88" y="80" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_341">
+          <vector name="Position" x="88" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_342">
+          <vector name="Position" x="88" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_343">
+          <vector name="Position" x="88" y="104" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_344">
+          <vector name="Position" x="88" y="112" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_345">
+          <vector name="Position" x="88" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_346">
+          <vector name="Position" x="88" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_347">
+          <vector name="Position" x="88" y="136" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_348">
+          <vector name="Position" x="88" y="144" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_349">
+          <vector name="Position" x="88" y="152" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_350">
+          <vector name="Position" x="88" y="160" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_351">
+          <vector name="Position" x="88" y="168" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_352">
+          <vector name="Position" x="88" y="176" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_353">
+          <vector name="Position" x="88" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_354">
+          <vector name="Position" x="88" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_355">
+          <vector name="Position" x="88" y="200" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_356">
+          <vector name="Position" x="88" y="208" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_357">
+          <vector name="Position" x="88" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_358">
+          <vector name="Position" x="88" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_359">
+          <vector name="Position" x="88" y="232" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_360">
+          <vector name="Position" x="96" y="0" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_361">
+          <vector name="Position" x="96" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_362">
+          <vector name="Position" x="96" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_363">
+          <vector name="Position" x="96" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_364">
+          <vector name="Position" x="96" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_365">
+          <vector name="Position" x="96" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_366">
+          <vector name="Position" x="96" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_367">
+          <vector name="Position" x="96" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_368">
+          <vector name="Position" x="96" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_369">
+          <vector name="Position" x="96" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_370">
+          <vector name="Position" x="96" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_371">
+          <vector name="Position" x="96" y="88" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_372">
+          <vector name="Position" x="96" y="96" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_373">
+          <vector name="Position" x="96" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_374">
+          <vector name="Position" x="96" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_375">
+          <vector name="Position" x="96" y="120" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_376">
+          <vector name="Position" x="96" y="128" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_377">
+          <vector name="Position" x="96" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_378">
+          <vector name="Position" x="96" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_379">
+          <vector name="Position" x="96" y="152" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_380">
+          <vector name="Position" x="96" y="160" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_381">
+          <vector name="Position" x="96" y="168" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_382">
+          <vector name="Position" x="96" y="176" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_383">
+          <vector name="Position" x="96" y="184" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_384">
+          <vector name="Position" x="96" y="192" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_385">
+          <vector name="Position" x="96" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_386">
+          <vector name="Position" x="96" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_387">
+          <vector name="Position" x="96" y="216" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_388">
+          <vector name="Position" x="96" y="224" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_389">
+          <vector name="Position" x="96" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_390">
+          <vector name="Position" x="104" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_391">
+          <vector name="Position" x="104" y="8" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_392">
+          <vector name="Position" x="104" y="16" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_393">
+          <vector name="Position" x="104" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_394">
+          <vector name="Position" x="104" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_395">
+          <vector name="Position" x="104" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_396">
+          <vector name="Position" x="104" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_397">
+          <vector name="Position" x="104" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_398">
+          <vector name="Position" x="104" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_399">
+          <vector name="Position" x="104" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_400">
+          <vector name="Position" x="104" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_401">
+          <vector name="Position" x="104" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_402">
+          <vector name="Position" x="104" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_403">
+          <vector name="Position" x="104" y="104" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_404">
+          <vector name="Position" x="104" y="112" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_405">
+          <vector name="Position" x="104" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_406">
+          <vector name="Position" x="104" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_407">
+          <vector name="Position" x="104" y="136" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_408">
+          <vector name="Position" x="104" y="144" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_409">
+          <vector name="Position" x="104" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_410">
+          <vector name="Position" x="104" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_411">
+          <vector name="Position" x="104" y="168" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_412">
+          <vector name="Position" x="104" y="176" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_413">
+          <vector name="Position" x="104" y="184" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_414">
+          <vector name="Position" x="104" y="192" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_415">
+          <vector name="Position" x="104" y="200" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_416">
+          <vector name="Position" x="104" y="208" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_417">
+          <vector name="Position" x="104" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_418">
+          <vector name="Position" x="104" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_419">
+          <vector name="Position" x="104" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_420">
+          <vector name="Position" x="112" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_421">
+          <vector name="Position" x="112" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_422">
+          <vector name="Position" x="112" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_423">
+          <vector name="Position" x="112" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_424">
+          <vector name="Position" x="112" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_425">
+          <vector name="Position" x="112" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_426">
+          <vector name="Position" x="112" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_427">
+          <vector name="Position" x="112" y="56" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_428">
+          <vector name="Position" x="112" y="64" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_429">
+          <vector name="Position" x="112" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_430">
+          <vector name="Position" x="112" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_431">
+          <vector name="Position" x="112" y="88" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_432">
+          <vector name="Position" x="112" y="96" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_433">
+          <vector name="Position" x="112" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_434">
+          <vector name="Position" x="112" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_435">
+          <vector name="Position" x="112" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_436">
+          <vector name="Position" x="112" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_437">
+          <vector name="Position" x="112" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_438">
+          <vector name="Position" x="112" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_439">
+          <vector name="Position" x="112" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_440">
+          <vector name="Position" x="112" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_441">
+          <vector name="Position" x="112" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_442">
+          <vector name="Position" x="112" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_443">
+          <vector name="Position" x="112" y="184" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_444">
+          <vector name="Position" x="112" y="192" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_445">
+          <vector name="Position" x="112" y="200" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_446">
+          <vector name="Position" x="112" y="208" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_447">
+          <vector name="Position" x="112" y="216" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_448">
+          <vector name="Position" x="112" y="224" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_449">
+          <vector name="Position" x="112" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_450">
+          <vector name="Position" x="120" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_451">
+          <vector name="Position" x="120" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_452">
+          <vector name="Position" x="120" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_453">
+          <vector name="Position" x="120" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_454">
+          <vector name="Position" x="120" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_455">
+          <vector name="Position" x="120" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_456">
+          <vector name="Position" x="120" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_457">
+          <vector name="Position" x="120" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_458">
+          <vector name="Position" x="120" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_459">
+          <vector name="Position" x="120" y="72" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_460">
+          <vector name="Position" x="120" y="80" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_461">
+          <vector name="Position" x="120" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_462">
+          <vector name="Position" x="120" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_463">
+          <vector name="Position" x="120" y="104" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_464">
+          <vector name="Position" x="120" y="112" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_465">
+          <vector name="Position" x="120" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_466">
+          <vector name="Position" x="120" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_467">
+          <vector name="Position" x="120" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_468">
+          <vector name="Position" x="120" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_469">
+          <vector name="Position" x="120" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_470">
+          <vector name="Position" x="120" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_471">
+          <vector name="Position" x="120" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_472">
+          <vector name="Position" x="120" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_473">
+          <vector name="Position" x="120" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_474">
+          <vector name="Position" x="120" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_475">
+          <vector name="Position" x="120" y="200" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_476">
+          <vector name="Position" x="120" y="208" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_477">
+          <vector name="Position" x="120" y="216" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_478">
+          <vector name="Position" x="120" y="224" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_479">
+          <vector name="Position" x="120" y="232" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_480">
+          <vector name="Position" x="128" y="0" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_481">
+          <vector name="Position" x="128" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_482">
+          <vector name="Position" x="128" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_483">
+          <vector name="Position" x="128" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_484">
+          <vector name="Position" x="128" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_485">
+          <vector name="Position" x="128" y="40" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_486">
+          <vector name="Position" x="128" y="48" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_487">
+          <vector name="Position" x="128" y="56" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_488">
+          <vector name="Position" x="128" y="64" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_489">
+          <vector name="Position" x="128" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_490">
+          <vector name="Position" x="128" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_491">
+          <vector name="Position" x="128" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_492">
+          <vector name="Position" x="128" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_493">
+          <vector name="Position" x="128" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_494">
+          <vector name="Position" x="128" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_495">
+          <vector name="Position" x="128" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_496">
+          <vector name="Position" x="128" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_497">
+          <vector name="Position" x="128" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_498">
+          <vector name="Position" x="128" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_499">
+          <vector name="Position" x="128" y="152" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_500">
+          <vector name="Position" x="128" y="160" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_501">
+          <vector name="Position" x="128" y="168" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_502">
+          <vector name="Position" x="128" y="176" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_503">
+          <vector name="Position" x="128" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_504">
+          <vector name="Position" x="128" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_505">
+          <vector name="Position" x="128" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_506">
+          <vector name="Position" x="128" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_507">
+          <vector name="Position" x="128" y="216" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_508">
+          <vector name="Position" x="128" y="224" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_509">
+          <vector name="Position" x="128" y="232" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_510">
+          <vector name="Position" x="136" y="0" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_511">
+          <vector name="Position" x="136" y="8" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_512">
+          <vector name="Position" x="136" y="16" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_513">
+          <vector name="Position" x="136" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_516">
+          <vector name="Position" x="136" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_517">
+          <vector name="Position" x="136" y="56" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_518">
+          <vector name="Position" x="136" y="64" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_519">
+          <vector name="Position" x="136" y="72" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_520">
+          <vector name="Position" x="136" y="80" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_521">
+          <vector name="Position" x="136" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_522">
+          <vector name="Position" x="136" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_523">
+          <vector name="Position" x="136" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_524">
+          <vector name="Position" x="136" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_525">
+          <vector name="Position" x="136" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_526">
+          <vector name="Position" x="136" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_527">
+          <vector name="Position" x="136" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_528">
+          <vector name="Position" x="136" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_529">
+          <vector name="Position" x="136" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_530">
+          <vector name="Position" x="136" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_531">
+          <vector name="Position" x="136" y="168" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_532">
+          <vector name="Position" x="136" y="176" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_533">
+          <vector name="Position" x="136" y="184" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_534">
+          <vector name="Position" x="136" y="192" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_535">
+          <vector name="Position" x="136" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_536">
+          <vector name="Position" x="136" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_537">
+          <vector name="Position" x="136" y="216" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_540">
+          <vector name="Position" x="144" y="0" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_541">
+          <vector name="Position" x="144" y="8" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_542">
+          <vector name="Position" x="144" y="16" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_543">
+          <vector name="Position" x="144" y="24" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_544">
+          <vector name="Position" x="144" y="32" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_545">
+          <vector name="Position" x="144" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_546">
+          <vector name="Position" x="144" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_547">
+          <vector name="Position" x="144" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_548">
+          <vector name="Position" x="144" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_549">
+          <vector name="Position" x="144" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_550">
+          <vector name="Position" x="144" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_551">
+          <vector name="Position" x="144" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_552">
+          <vector name="Position" x="144" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_553">
+          <vector name="Position" x="144" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_554">
+          <vector name="Position" x="144" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_555">
+          <vector name="Position" x="144" y="120" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_556">
+          <vector name="Position" x="144" y="128" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_557">
+          <vector name="Position" x="144" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_558">
+          <vector name="Position" x="144" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_559">
+          <vector name="Position" x="144" y="152" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_560">
+          <vector name="Position" x="144" y="160" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_561">
+          <vector name="Position" x="144" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_562">
+          <vector name="Position" x="144" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_563">
+          <vector name="Position" x="144" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_564">
+          <vector name="Position" x="144" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_565">
+          <vector name="Position" x="144" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_566">
+          <vector name="Position" x="144" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_567">
+          <vector name="Position" x="144" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_568">
+          <vector name="Position" x="144" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_569">
+          <vector name="Position" x="144" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_570">
+          <vector name="Position" x="152" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_571">
+          <vector name="Position" x="152" y="8" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_572">
+          <vector name="Position" x="152" y="16" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_575">
+          <vector name="Position" x="152" y="40" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_576">
+          <vector name="Position" x="152" y="48" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_577">
+          <vector name="Position" x="152" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_578">
+          <vector name="Position" x="152" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_579">
+          <vector name="Position" x="152" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_580">
+          <vector name="Position" x="152" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_581">
+          <vector name="Position" x="152" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_582">
+          <vector name="Position" x="152" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_583">
+          <vector name="Position" x="152" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_584">
+          <vector name="Position" x="152" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_585">
+          <vector name="Position" x="152" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_586">
+          <vector name="Position" x="152" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_587">
+          <vector name="Position" x="152" y="136" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_588">
+          <vector name="Position" x="152" y="144" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_589">
+          <vector name="Position" x="152" y="152" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_590">
+          <vector name="Position" x="152" y="160" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_591">
+          <vector name="Position" x="152" y="168" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_592">
+          <vector name="Position" x="152" y="176" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_593">
+          <vector name="Position" x="152" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_594">
+          <vector name="Position" x="152" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_595">
+          <vector name="Position" x="152" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_596">
+          <vector name="Position" x="152" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_597">
+          <vector name="Position" x="152" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_598">
+          <vector name="Position" x="152" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_599">
+          <vector name="Position" x="152" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_600">
+          <vector name="Position" x="160" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_601">
+          <vector name="Position" x="160" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_602">
+          <vector name="Position" x="160" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_603">
+          <vector name="Position" x="160" y="24" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_604">
+          <vector name="Position" x="160" y="32" z="0" w="0" />
+        </entity>
+        <entity class="TankPlayer" name="object_606">
+          <vector name="Position" x="160" y="48" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_607">
+          <vector name="Position" x="160" y="56" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_608">
+          <vector name="Position" x="160" y="64" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_609">
+          <vector name="Position" x="160" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_610">
+          <vector name="Position" x="160" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_611">
+          <vector name="Position" x="160" y="88" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_612">
+          <vector name="Position" x="160" y="96" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_613">
+          <vector name="Position" x="160" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_614">
+          <vector name="Position" x="160" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_615">
+          <vector name="Position" x="160" y="120" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_616">
+          <vector name="Position" x="160" y="128" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_617">
+          <vector name="Position" x="160" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_618">
+          <vector name="Position" x="160" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_619">
+          <vector name="Position" x="160" y="152" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_620">
+          <vector name="Position" x="160" y="160" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_621">
+          <vector name="Position" x="160" y="168" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_622">
+          <vector name="Position" x="160" y="176" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_623">
+          <vector name="Position" x="160" y="184" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_624">
+          <vector name="Position" x="160" y="192" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_625">
+          <vector name="Position" x="160" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_626">
+          <vector name="Position" x="160" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_627">
+          <vector name="Position" x="160" y="216" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_628">
+          <vector name="Position" x="160" y="224" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_629">
+          <vector name="Position" x="160" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_630">
+          <vector name="Position" x="168" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_631">
+          <vector name="Position" x="168" y="8" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_632">
+          <vector name="Position" x="168" y="16" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_633">
+          <vector name="Position" x="168" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_634">
+          <vector name="Position" x="168" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_635">
+          <vector name="Position" x="168" y="40" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_636">
+          <vector name="Position" x="168" y="48" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_637">
+          <vector name="Position" x="168" y="56" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_638">
+          <vector name="Position" x="168" y="64" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_639">
+          <vector name="Position" x="168" y="72" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_640">
+          <vector name="Position" x="168" y="80" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_641">
+          <vector name="Position" x="168" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_642">
+          <vector name="Position" x="168" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_643">
+          <vector name="Position" x="168" y="104" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_644">
+          <vector name="Position" x="168" y="112" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_645">
+          <vector name="Position" x="168" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_646">
+          <vector name="Position" x="168" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_647">
+          <vector name="Position" x="168" y="136" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_648">
+          <vector name="Position" x="168" y="144" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_649">
+          <vector name="Position" x="168" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_650">
+          <vector name="Position" x="168" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_651">
+          <vector name="Position" x="168" y="168" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_652">
+          <vector name="Position" x="168" y="176" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_653">
+          <vector name="Position" x="168" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_654">
+          <vector name="Position" x="168" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_655">
+          <vector name="Position" x="168" y="200" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_656">
+          <vector name="Position" x="168" y="208" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_657">
+          <vector name="Position" x="168" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_658">
+          <vector name="Position" x="168" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_659">
+          <vector name="Position" x="168" y="232" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_660">
+          <vector name="Position" x="176" y="0" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_661">
+          <vector name="Position" x="176" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_662">
+          <vector name="Position" x="176" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_663">
+          <vector name="Position" x="176" y="24" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_664">
+          <vector name="Position" x="176" y="32" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_665">
+          <vector name="Position" x="176" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_666">
+          <vector name="Position" x="176" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_667">
+          <vector name="Position" x="176" y="56" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_668">
+          <vector name="Position" x="176" y="64" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_669">
+          <vector name="Position" x="176" y="72" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_670">
+          <vector name="Position" x="176" y="80" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_671">
+          <vector name="Position" x="176" y="88" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_672">
+          <vector name="Position" x="176" y="96" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_673">
+          <vector name="Position" x="176" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_674">
+          <vector name="Position" x="176" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_675">
+          <vector name="Position" x="176" y="120" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_676">
+          <vector name="Position" x="176" y="128" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_677">
+          <vector name="Position" x="176" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_678">
+          <vector name="Position" x="176" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_679">
+          <vector name="Position" x="176" y="152" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_680">
+          <vector name="Position" x="176" y="160" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_681">
+          <vector name="Position" x="176" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_682">
+          <vector name="Position" x="176" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_683">
+          <vector name="Position" x="176" y="184" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_684">
+          <vector name="Position" x="176" y="192" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_685">
+          <vector name="Position" x="176" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_686">
+          <vector name="Position" x="176" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_687">
+          <vector name="Position" x="176" y="216" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_688">
+          <vector name="Position" x="176" y="224" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_689">
+          <vector name="Position" x="176" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_690">
+          <vector name="Position" x="184" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_691">
+          <vector name="Position" x="184" y="8" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_692">
+          <vector name="Position" x="184" y="16" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_693">
+          <vector name="Position" x="184" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_694">
+          <vector name="Position" x="184" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_695">
+          <vector name="Position" x="184" y="40" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_696">
+          <vector name="Position" x="184" y="48" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_697">
+          <vector name="Position" x="184" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_698">
+          <vector name="Position" x="184" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_699">
+          <vector name="Position" x="184" y="72" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_700">
+          <vector name="Position" x="184" y="80" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_701">
+          <vector name="Position" x="184" y="88" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_702">
+          <vector name="Position" x="184" y="96" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_703">
+          <vector name="Position" x="184" y="104" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_704">
+          <vector name="Position" x="184" y="112" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_705">
+          <vector name="Position" x="184" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_706">
+          <vector name="Position" x="184" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_707">
+          <vector name="Position" x="184" y="136" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_708">
+          <vector name="Position" x="184" y="144" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_709">
+          <vector name="Position" x="184" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_710">
+          <vector name="Position" x="184" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_711">
+          <vector name="Position" x="184" y="168" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_712">
+          <vector name="Position" x="184" y="176" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_713">
+          <vector name="Position" x="184" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_714">
+          <vector name="Position" x="184" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_715">
+          <vector name="Position" x="184" y="200" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_716">
+          <vector name="Position" x="184" y="208" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_717">
+          <vector name="Position" x="184" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_718">
+          <vector name="Position" x="184" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_719">
+          <vector name="Position" x="184" y="232" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_720">
+          <vector name="Position" x="192" y="0" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_721">
+          <vector name="Position" x="192" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_722">
+          <vector name="Position" x="192" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_723">
+          <vector name="Position" x="192" y="24" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_724">
+          <vector name="Position" x="192" y="32" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_725">
+          <vector name="Position" x="192" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_726">
+          <vector name="Position" x="192" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_727">
+          <vector name="Position" x="192" y="56" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_728">
+          <vector name="Position" x="192" y="64" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_729">
+          <vector name="Position" x="192" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_730">
+          <vector name="Position" x="192" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_731">
+          <vector name="Position" x="192" y="88" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_732">
+          <vector name="Position" x="192" y="96" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_733">
+          <vector name="Position" x="192" y="104" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_734">
+          <vector name="Position" x="192" y="112" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_735">
+          <vector name="Position" x="192" y="120" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_736">
+          <vector name="Position" x="192" y="128" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_737">
+          <vector name="Position" x="192" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_738">
+          <vector name="Position" x="192" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_739">
+          <vector name="Position" x="192" y="152" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_740">
+          <vector name="Position" x="192" y="160" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_741">
+          <vector name="Position" x="192" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_742">
+          <vector name="Position" x="192" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_743">
+          <vector name="Position" x="192" y="184" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_744">
+          <vector name="Position" x="192" y="192" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_745">
+          <vector name="Position" x="192" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_746">
+          <vector name="Position" x="192" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_747">
+          <vector name="Position" x="192" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_748">
+          <vector name="Position" x="192" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_749">
+          <vector name="Position" x="192" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_750">
+          <vector name="Position" x="200" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_751">
+          <vector name="Position" x="200" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_752">
+          <vector name="Position" x="200" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_753">
+          <vector name="Position" x="200" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_754">
+          <vector name="Position" x="200" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_755">
+          <vector name="Position" x="200" y="40" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_756">
+          <vector name="Position" x="200" y="48" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_757">
+          <vector name="Position" x="200" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_758">
+          <vector name="Position" x="200" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_759">
+          <vector name="Position" x="200" y="72" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_760">
+          <vector name="Position" x="200" y="80" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_761">
+          <vector name="Position" x="200" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_762">
+          <vector name="Position" x="200" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_763">
+          <vector name="Position" x="200" y="104" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_764">
+          <vector name="Position" x="200" y="112" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_767">
+          <vector name="Position" x="200" y="136" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_768">
+          <vector name="Position" x="200" y="144" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_769">
+          <vector name="Position" x="200" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_770">
+          <vector name="Position" x="200" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_771">
+          <vector name="Position" x="200" y="168" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_772">
+          <vector name="Position" x="200" y="176" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_773">
+          <vector name="Position" x="200" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_774">
+          <vector name="Position" x="200" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_775">
+          <vector name="Position" x="200" y="200" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_776">
+          <vector name="Position" x="200" y="208" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_777">
+          <vector name="Position" x="200" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_778">
+          <vector name="Position" x="200" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_779">
+          <vector name="Position" x="200" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_780">
+          <vector name="Position" x="208" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_781">
+          <vector name="Position" x="208" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_782">
+          <vector name="Position" x="208" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_783">
+          <vector name="Position" x="208" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_784">
+          <vector name="Position" x="208" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_785">
+          <vector name="Position" x="208" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_786">
+          <vector name="Position" x="208" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_787">
+          <vector name="Position" x="208" y="56" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_788">
+          <vector name="Position" x="208" y="64" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_789">
+          <vector name="Position" x="208" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_790">
+          <vector name="Position" x="208" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_791">
+          <vector name="Position" x="208" y="88" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_792">
+          <vector name="Position" x="208" y="96" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_793">
+          <vector name="Position" x="208" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_794">
+          <vector name="Position" x="208" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_795">
+          <vector name="Position" x="208" y="120" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_796">
+          <vector name="Position" x="208" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_798">
+          <vector name="Position" x="208" y="144" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_799">
+          <vector name="Position" x="208" y="152" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_800">
+          <vector name="Position" x="208" y="160" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_801">
+          <vector name="Position" x="208" y="168" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_802">
+          <vector name="Position" x="208" y="176" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_803">
+          <vector name="Position" x="208" y="184" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_804">
+          <vector name="Position" x="208" y="192" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_805">
+          <vector name="Position" x="208" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_806">
+          <vector name="Position" x="208" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_807">
+          <vector name="Position" x="208" y="216" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_808">
+          <vector name="Position" x="208" y="224" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_809">
+          <vector name="Position" x="208" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_810">
+          <vector name="Position" x="216" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_811">
+          <vector name="Position" x="216" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_812">
+          <vector name="Position" x="216" y="16" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_813">
+          <vector name="Position" x="216" y="24" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_814">
+          <vector name="Position" x="216" y="32" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_815">
+          <vector name="Position" x="216" y="40" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_816">
+          <vector name="Position" x="216" y="48" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_817">
+          <vector name="Position" x="216" y="56" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_818">
+          <vector name="Position" x="216" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_819">
+          <vector name="Position" x="216" y="72" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_820">
+          <vector name="Position" x="216" y="80" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_821">
+          <vector name="Position" x="216" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_822">
+          <vector name="Position" x="216" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_823">
+          <vector name="Position" x="216" y="104" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_824">
+          <vector name="Position" x="216" y="112" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_825">
+          <vector name="Position" x="216" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_826">
+          <vector name="Position" x="216" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_827">
+          <vector name="Position" x="216" y="136" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_828">
+          <vector name="Position" x="216" y="144" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_829">
+          <vector name="Position" x="216" y="152" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_831">
+          <vector name="Position" x="216" y="168" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_832">
+          <vector name="Position" x="216" y="176" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_833">
+          <vector name="Position" x="216" y="184" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_834">
+          <vector name="Position" x="216" y="192" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_835">
+          <vector name="Position" x="216" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_836">
+          <vector name="Position" x="216" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_837">
+          <vector name="Position" x="216" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_838">
+          <vector name="Position" x="216" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_839">
+          <vector name="Position" x="216" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_840">
+          <vector name="Position" x="224" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_841">
+          <vector name="Position" x="224" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_842">
+          <vector name="Position" x="224" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_843">
+          <vector name="Position" x="224" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_844">
+          <vector name="Position" x="224" y="32" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_845">
+          <vector name="Position" x="224" y="40" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_847">
+          <vector name="Position" x="224" y="56" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_848">
+          <vector name="Position" x="224" y="64" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_849">
+          <vector name="Position" x="224" y="72" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_850">
+          <vector name="Position" x="224" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_851">
+          <vector name="Position" x="224" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_852">
+          <vector name="Position" x="224" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_853">
+          <vector name="Position" x="224" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_854">
+          <vector name="Position" x="224" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_855">
+          <vector name="Position" x="224" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_856">
+          <vector name="Position" x="224" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_857">
+          <vector name="Position" x="224" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_858">
+          <vector name="Position" x="224" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_859">
+          <vector name="Position" x="224" y="152" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_860">
+          <vector name="Position" x="224" y="160" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_861">
+          <vector name="Position" x="224" y="168" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_862">
+          <vector name="Position" x="224" y="176" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_863">
+          <vector name="Position" x="224" y="184" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_864">
+          <vector name="Position" x="224" y="192" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_865">
+          <vector name="Position" x="224" y="200" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_866">
+          <vector name="Position" x="224" y="208" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_867">
+          <vector name="Position" x="224" y="216" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_868">
+          <vector name="Position" x="224" y="224" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_869">
+          <vector name="Position" x="224" y="232" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_870">
+          <vector name="Position" x="232" y="0" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_871">
+          <vector name="Position" x="232" y="8" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_872">
+          <vector name="Position" x="232" y="16" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_873">
+          <vector name="Position" x="232" y="24" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_874">
+          <vector name="Position" x="232" y="32" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_875">
+          <vector name="Position" x="232" y="40" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_876">
+          <vector name="Position" x="232" y="48" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_877">
+          <vector name="Position" x="232" y="56" z="0" w="0" />
+        </entity>
+        <entity class="Brick" name="object_880">
+          <vector name="Position" x="232" y="80" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_881">
+          <vector name="Position" x="232" y="88" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_882">
+          <vector name="Position" x="232" y="96" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_883">
+          <vector name="Position" x="232" y="104" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_884">
+          <vector name="Position" x="232" y="112" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_885">
+          <vector name="Position" x="232" y="120" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_886">
+          <vector name="Position" x="232" y="128" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_887">
+          <vector name="Position" x="232" y="136" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_888">
+          <vector name="Position" x="232" y="144" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_889">
+          <vector name="Position" x="232" y="152" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_890">
+          <vector name="Position" x="232" y="160" z="0" w="0" />
+        </entity>
+        <entity class="PowerUp" name="object_891">
+          <vector name="Position" x="232" y="168" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_892">
+          <vector name="Position" x="232" y="176" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_893">
+          <vector name="Position" x="232" y="184" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_894">
+          <vector name="Position" x="232" y="192" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_895">
+          <vector name="Position" x="232" y="200" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_896">
+          <vector name="Position" x="232" y="208" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_897">
+          <vector name="Position" x="232" y="216" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_898">
+          <vector name="Position" x="232" y="224" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_899">
+          <vector name="Position" x="232" y="232" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_900">
+          <vector name="Position" x="240" y="0" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_901">
+          <vector name="Position" x="240" y="8" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_902">
+          <vector name="Position" x="240" y="16" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_903">
+          <vector name="Position" x="240" y="24" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_904">
+          <vector name="Position" x="240" y="32" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_905">
+          <vector name="Position" x="240" y="40" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_906">
+          <vector name="Position" x="240" y="48" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_907">
+          <vector name="Position" x="240" y="56" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_908">
+          <vector name="Position" x="240" y="64" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_909">
+          <vector name="Position" x="240" y="72" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_910">
+          <vector name="Position" x="240" y="80" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_911">
+          <vector name="Position" x="240" y="88" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_912">
+          <vector name="Position" x="240" y="96" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_913">
+          <vector name="Position" x="240" y="104" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_914">
+          <vector name="Position" x="240" y="112" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_915">
+          <vector name="Position" x="240" y="120" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_916">
+          <vector name="Position" x="240" y="128" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_917">
+          <vector name="Position" x="240" y="136" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_918">
+          <vector name="Position" x="240" y="144" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_919">
+          <vector name="Position" x="240" y="152" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_920">
+          <vector name="Position" x="240" y="160" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_921">
+          <vector name="Position" x="240" y="168" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_922">
+          <vector name="Position" x="240" y="176" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_923">
+          <vector name="Position" x="240" y="184" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_924">
+          <vector name="Position" x="240" y="192" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_925">
+          <vector name="Position" x="240" y="200" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_926">
+          <vector name="Position" x="240" y="208" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_927">
+          <vector name="Position" x="240" y="216" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_928">
+          <vector name="Position" x="240" y="224" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_929">
+          <vector name="Position" x="240" y="232" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_930">
+          <vector name="Position" x="248" y="0" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_931">
+          <vector name="Position" x="248" y="8" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_932">
+          <vector name="Position" x="248" y="16" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_933">
+          <vector name="Position" x="248" y="24" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_934">
+          <vector name="Position" x="248" y="32" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_935">
+          <vector name="Position" x="248" y="40" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_936">
+          <vector name="Position" x="248" y="48" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_937">
+          <vector name="Position" x="248" y="56" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_938">
+          <vector name="Position" x="248" y="64" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_939">
+          <vector name="Position" x="248" y="72" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_940">
+          <vector name="Position" x="248" y="80" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_941">
+          <vector name="Position" x="248" y="88" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_942">
+          <vector name="Position" x="248" y="96" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_943">
+          <vector name="Position" x="248" y="104" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_944">
+          <vector name="Position" x="248" y="112" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_945">
+          <vector name="Position" x="248" y="120" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_946">
+          <vector name="Position" x="248" y="128" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_947">
+          <vector name="Position" x="248" y="136" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_948">
+          <vector name="Position" x="248" y="144" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_949">
+          <vector name="Position" x="248" y="152" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_950">
+          <vector name="Position" x="248" y="160" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_951">
+          <vector name="Position" x="248" y="168" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_952">
+          <vector name="Position" x="248" y="176" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_953">
+          <vector name="Position" x="248" y="184" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_954">
+          <vector name="Position" x="248" y="192" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_955">
+          <vector name="Position" x="248" y="200" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_956">
+          <vector name="Position" x="248" y="208" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_957">
+          <vector name="Position" x="248" y="216" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_958">
+          <vector name="Position" x="248" y="224" z="0" w="0" />
+        </entity>
+        <entity class="UIElement" name="object_959">
+          <vector name="Position" x="248" y="232" z="0" w="0" />
+        </entity>
+      </entities>
+    </sector>
+  </sectors>
+</world>

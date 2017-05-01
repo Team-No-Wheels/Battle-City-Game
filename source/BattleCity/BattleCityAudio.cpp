@@ -17,6 +17,7 @@ namespace BattleCity
 																"EnemyTankDestroyed",
 																"EnemyTankMovement",
 																"GameOver",
+																"LetThereBeRock",
 																"PlayerBlockedByWall",
 																"PlayerMovement",
 																"PlayerTankDestroyed",

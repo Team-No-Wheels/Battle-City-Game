@@ -3,10 +3,25 @@
 #include <fstream>
 #include "ShaderCompiler.h"
 
-
-
 namespace AnonymousEngine
 {
+	const HashMap<int, InputHandler::InputType> Program::KeyCodeToInputMap = {
+		{GLFW_KEY_ESCAPE, InputHandler::InputType::Esc},
+		{GLFW_KEY_LEFT, InputHandler::InputType::Left},
+		{GLFW_KEY_RIGHT, InputHandler::InputType::Right},
+		{GLFW_KEY_UP, InputHandler::InputType::Up},
+		{GLFW_KEY_DOWN, InputHandler::InputType::Down},
+		{GLFW_KEY_Z, InputHandler::InputType::Shoot}
+	};
+
+	const HashMap<int, InputHandler::KeyState> Program::KeyActionToKeyStateMap = {
+		{GLFW_PRESS, InputHandler::KeyState::Pressed},
+		{GLFW_RELEASE, InputHandler::KeyState::Released},
+		{GLFW_REPEAT, InputHandler::KeyState::Repeat}
+	};
+
+	Program* Program::thisProgram = nullptr;
+
 	Program::Program(int width, int height, std::string title)
 		: width(width), height(height), title(title), window(nullptr), shaderProgram(0), VAO(0)
 	{
@@ -51,6 +66,7 @@ namespace AnonymousEngine
 		glOrtho(0.0f, (GLfloat)256, (GLfloat)240, 0.0f ,-100.0f, 100.0f);
 
 		// register keyboard handler
+		thisProgram = this;
 		glfwSetKeyCallback(window, KeyCallback);
 		//InitShaders();
 
@@ -64,7 +80,7 @@ namespace AnonymousEngine
 		while (!glfwWindowShouldClose(window))
 		{
 			glfwPollEvents();
-			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 			
 			mBattleCity->Update();
@@ -135,6 +151,11 @@ namespace AnonymousEngine
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS && mode == 0)
 		{
 			glfwSetWindowShouldClose(window, GL_TRUE);
+		}
+
+		if (KeyCodeToInputMap.ContainsKey(key))
+		{
+			thisProgram->mBattleCity->InputHandler().SetKeyState(KeyCodeToInputMap[key], KeyActionToKeyStateMap[action]);
 		}
 	}
 }
