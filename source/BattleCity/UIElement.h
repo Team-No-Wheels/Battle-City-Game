@@ -8,7 +8,7 @@ namespace BattleCity
 	class UIElement : public AnonymousEngine::Core::GameObject
 	{
 	public:
-		UIElement() = default;
+		UIElement();
 		virtual ~UIElement() = default;
 
 		ATTRIBUTED_DECLARATIONS(UIElement, AnonymousEngine::Core::GameObject);

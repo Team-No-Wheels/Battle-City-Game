@@ -11,6 +11,7 @@ namespace BattleCity
 		Flag::Flag() :
 			TileBase(TileType::FLAG)
 		{
+			mSpriteName = "Flag";
 		}
 
 		void Flag::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

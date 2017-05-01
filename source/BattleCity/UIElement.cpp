@@ -5,6 +5,10 @@ namespace BattleCity
 {
 	ATTRIBUTED_DEFINITIONS(UIElement);
 
+	UIElement::UIElement()
+	{
+		mSpriteName = "ColorBlack";
+	}
 
 	void UIElement::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
 	{

@@ -11,6 +11,7 @@ namespace BattleCity
 		Metal::Metal() :
 			TileBase(TileType::METAL)
 		{
+			mSpriteName = "Metal";
 		}
 
 		void Metal::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
