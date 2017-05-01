@@ -62,7 +62,7 @@ namespace AnonymousEngine
 		// Keyboard input handler. Sets window close if ESC key is pressed.
 		static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
-		static const HashMap<int, InputHandler::InputType> KeyCodeToInputMap;
-		static const HashMap<int, InputHandler::KeyState> KeyActionToKeyStateMap;
+		static const HashMap<int, InputType> KeyCodeToInputMap;
+		static const HashMap<int, KeyState> KeyActionToKeyStateMap;
 	};
 }

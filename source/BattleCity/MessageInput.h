@@ -1,10 +1,13 @@
 #pragma once
 
-#include "Vector.h"
 #include "WorldState.h"
+#include "HashMap.h"
 
 namespace AnonymousEngine
 {
+	enum class InputType;
+	enum class KeyState;
+
 	class MessageInput
 	{
 	public:
@@ -12,8 +15,8 @@ namespace AnonymousEngine
 		bool operator==(const MessageInput& rhs);
 		~MessageInput();
 
-		void AddKey(const std::string& key);
-		Vector<std::string>& GetKeys();
+		void AddKey(InputType key, KeyState state);
+		HashMap<InputType, KeyState>& GetKeys();
 		/**
 		* Set the world state associated with this method.
 		* @param worldState The world state object to set.
@@ -24,7 +27,7 @@ namespace AnonymousEngine
 		*/
 		Containers::WorldState& GetWorldState() const;
 	private:
-		Vector<std::string> mKeys;
+		HashMap<InputType, KeyState> mKeys;
 		/**
 		* A pointer to the associated world state.
 		*/
