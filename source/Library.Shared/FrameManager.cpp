@@ -34,9 +34,10 @@ namespace AnonymousEngine
 				return nullptr;
 			}
 			assert(entityDatum->Size() == 1);
-			assert(entityDatum->Get<Scope>(0).Is("Frame"));
-
-			return &(static_cast<Frame&>(entityDatum->Get<Scope>(0)));
+			assert(entityDatum->Get<Scope>(0).Is(Frame::TypeIdClass()));
+			Frame& frame = static_cast<Frame&>(entityDatum->Get<Scope>());
+			frame.mFilePath = mSpriteSheetName;
+			return &frame;
 		}
 
 		void FrameManager::StoreAllFrames()

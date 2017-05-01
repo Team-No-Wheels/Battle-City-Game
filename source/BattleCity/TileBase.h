@@ -19,7 +19,7 @@ namespace BattleCity
 
 		/** Base GameObject class for all the tiles
 		*/
-		class TileBase :public AnonymousEngine::Core::GameObject
+		class TileBase : public AnonymousEngine::Core::GameObject
 		{
 			ATTRIBUTED_DECLARATIONS(TileBase, AnonymousEngine::Core::GameObject)
 

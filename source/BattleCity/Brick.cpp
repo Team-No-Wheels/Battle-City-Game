@@ -11,6 +11,7 @@ namespace BattleCity
 		Brick::Brick() :
 			TileBase(TileType::BRICK)
 		{
+			mSpriteName = "Brick_Full";
 		}
 
 		void Brick::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

@@ -9,8 +9,8 @@ namespace AnonymousEngine
 	const std::string TankBase::sShootComponentName = "ShootComponent";
 
 	TankBase::TankBase() :
-		mMoveComponent(CreateAction(sMoveComponentName, "ActionMove").As<ActionMove>()),
-		mShootComponent(CreateAction(sShootComponentName, "ActionShoot").As<ActionShoot>())
+		mMoveComponent(nullptr), //CreateAction(sMoveComponentName, "ActionMove").As<ActionMove>()),
+		mShootComponent(nullptr) //(CreateAction(sShootComponentName, "ActionShoot").As<ActionShoot>())
 	{
 
 	}

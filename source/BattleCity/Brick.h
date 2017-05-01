@@ -7,7 +7,7 @@ namespace BattleCity
 	{
 		/** GameObject class for BrownBrick in the map.
 		*/
-		class Brick :public TileBase
+		class Brick : public TileBase
 		{
 			ATTRIBUTED_DECLARATIONS(Brick, TileBase)
 

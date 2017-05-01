@@ -4,6 +4,9 @@
 #include "Action.h"
 #include "Sector.h"
 #include "WorldState.h"
+#include "FrameManager.h"
+#include "GameObject.h"
+#include "SpriteSheet.h"
 
 namespace AnonymousEngine
 {
@@ -36,6 +39,20 @@ namespace AnonymousEngine
 		void World::InitializeWorld()
 		{
 			mWorldState.mCurrentLevel = 0;
+			Graphics::FrameManager& frameManager = static_cast<Graphics::FrameManager&>((*this)["FrameManager"].Get<Scope>());
+			Datum& entities = static_cast<Sector&>(mSectors->Get<Scope>(mWorldState.GetCurrentLevel())).Entities();
+			for (std::uint32_t index = 0; index < entities.Size(); ++index)
+			{
+				Core::GameObject& gameObj = static_cast<Core::GameObject&>(entities.Get<Scope>(index));
+				const std::string& frameName = gameObj["SpriteName"].Get<std::string>();
+				if (!frameName.empty())
+				{
+					Graphics::SpriteSheet* spriteSheet = new Graphics::SpriteSheet(gameObj);
+					Graphics::Frame& frame = *frameManager.GetFrameEntity(frameName);
+					spriteSheet->Init(frame.mFilePath);
+					spriteSheet->SetFrame(frame);
+				}
+			}
 		}
 
 		void World::LoadNextLevel()

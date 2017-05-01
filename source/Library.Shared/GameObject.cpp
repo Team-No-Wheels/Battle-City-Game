@@ -15,6 +15,7 @@ namespace AnonymousEngine
 			mPosition(std::move(glm::vec4())), mCollider(*this), mSprite(nullptr)
 		{
 			AddExternalAttribute(sPositionAttributeName, &mPosition, 1);
+			AddExternalAttribute("SpriteName", &mSpriteName, 1);
 		}
 
 		void GameObject::SetPosition(const glm::vec4& position)
@@ -82,9 +83,10 @@ namespace AnonymousEngine
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 
-			prescribedAttributeNames.PushBack(sPositionAttributeName);
-			prescribedAttributeNames.PushBack(sWidthAttributeName);
-			prescribedAttributeNames.PushBack(sHeightAttributeName);
+			prescribedAttributeNames.PushBack("Position");
+			prescribedAttributeNames.PushBack("SpriteName");
+			prescribedAttributeNames.PushBack("width");
+			prescribedAttributeNames.PushBack("height");
 		}
 
 		ATTRIBUTED_DEFINITIONS(GameObject)

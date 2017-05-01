@@ -8,6 +8,8 @@
 #include "World.h"
 #include "Sector.h"
 #include "ServiceLocator.h"
+#include "UIElement.h"
+#include "PowerUp.h"
 
 using namespace AnonymousEngine;
 
@@ -69,6 +71,11 @@ namespace BattleCity
 			MetalFactory metalFactory;
 			FrameManagerFactory frameManagerFactory;
 			FrameFactory frameFactory;
+			UIElementFactory uiElementFactory;
+			PowerUpFactory powerUpFactory;
+			TankPlayerFactory tankPlayerFactory;
+			ActionShootFactory actionShootFactory;
+			ActionMoveFactory actionMoveFactory;
 
 			//Start parsing xml file.
 			WorldSharedData worldSharedData;

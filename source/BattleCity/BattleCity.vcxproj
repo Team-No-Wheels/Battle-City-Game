@@ -203,6 +203,7 @@
     <ClInclude Include="TankBase.h" />
     <ClInclude Include="TankPlayer.h" />
     <ClInclude Include="Metal.h" />
+    <ClInclude Include="UIElement.h" />
     <ClInclude Include="UIScreen.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
@@ -240,6 +241,7 @@
     <ClCompile Include="TankBase.cpp" />
     <ClCompile Include="TankPlayer.cpp" />
     <ClCompile Include="Metal.cpp" />
+    <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="UIScreen.cpp" />
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
