@@ -3,6 +3,7 @@
 #include "CollisionManager.h"
 #include "LevelManager.h"
 #include "GameClock.h"
+#include "BattleCityAudio.h"
 
 namespace BattleCity
 {
@@ -45,6 +46,10 @@ namespace BattleCity
 		*/
 		AnonymousEngine::Containers::World* mWorld;
 
+		BattleCityAudio mAudio;
+
 		AnonymousEngine::GameClock mGameClock;
+
+		bool mTestAudio;
 	};
 }

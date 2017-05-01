@@ -105,7 +105,7 @@
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
       <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\api\lib;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Expat.lib;fmodL_vc.lib</AdditionalDependencies>
+      <AdditionalDependencies>Expat.lib;fmodL_vc.lib;</AdditionalDependencies>
       <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <PostBuildEvent>

@@ -243,7 +243,7 @@ namespace AnonymousEngine
 			RTTI_DECLARATIONS(Type, ParentType)
 
 
-// This macro needs to be added to any class definition that falls under the Attribute hierrarchy
+// This macro needs to be added to any class definition that falls under the Attribute hierarchy
 #define ATTRIBUTED_DEFINITIONS(Type)																		\
 	const std::uint32_t Type::sPrescribedAttributeCount = Type::InitializePrescribedAttributeNames();       \
 	RTTI_DEFINITIONS(Type)
