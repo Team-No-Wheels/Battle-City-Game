@@ -5,8 +5,8 @@
 #include "TextureLoaderOpenGL.h"
 #include "RendererOpenGL.h"
 
-#define WINDOW_WIDTH	800
-#define WINDOW_HEIGHT	600
+#define WINDOW_WIDTH	256 * 4
+#define WINDOW_HEIGHT	240 * 4
 #define WINDOW_TITLE	"Anonymous Engine Demo - OpenGL"
 #define OpenGL
 

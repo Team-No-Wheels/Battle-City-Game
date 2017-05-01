@@ -10,10 +10,8 @@ namespace AnonymousEngine
 	namespace Graphics
 	{
 		Sprite::Sprite(Core::GameObject& pGameObject) : 
-			mGameObject(pGameObject), mUVBounds(0, 1, 1, 1, 0, 0, 1, 0)
-		{
-
-		}
+			mGameObject(pGameObject), mUVBounds(0, 0, 1, 0, 0, 1, 1, 1)
+		{}
 
 
 		void Sprite::Init(const std::string& pSpriteFilePath)
@@ -57,7 +55,7 @@ namespace AnonymousEngine
 		{
 			if (isInitialized)
 			{
-				Core::ServiceLocator::GetRenderer()->Render(mTexture, Geometry::Rectangle::Translate(mSpriteBounds, mGameObject.GetPosition()), mUVBounds);
+				Core::ServiceLocator::GetRenderer()->Render(*this);
 
 #ifdef _DEBUG
 				DrawDebugBounds();
@@ -67,12 +65,24 @@ namespace AnonymousEngine
 
 		void Sprite::DrawDebugBounds()
 		{
-			Core::ServiceLocator::GetRenderer()->DrawRectangle(Geometry::Rectangle::Translate(mSpriteBounds, mGameObject.GetPosition()), 255, 0, 0);
+			Core::ServiceLocator::GetRenderer()->DrawRectangle(GetSpriteBounds(), 255, 0, 0);
 		}
 
-		Core::GameObject& Sprite::GetOwner()
+		Core::GameObject& Sprite::GetOwner() const
 		{
 			return mGameObject;
+		}
+
+		Geometry::Rectangle Sprite::GetSpriteBounds() const
+		{
+			// translate the bounds to sprite position
+			glm::vec4 translationValue = GetOwner().GetPosition() - glm::vec4(GetWidth() / 2.0f, GetHeight() / 2.0f, 0.0f, 0.0f);
+			return Geometry::Rectangle::Translate(mSpriteBounds, translationValue);
+		}
+
+		const Geometry::Rectangle& Sprite::GetUVBounds() const
+		{
+			return mUVBounds;
 		}
 	}
 }

@@ -21,5 +21,20 @@ namespace AnonymousEngine
 			pDeltaTime;
 		}
 
+		Texture * Renderable::GetTexture() const
+		{
+			return mTexture;
+		}
+
+		int Renderable::GetWidth() const
+		{
+			return mWidth;
+		}
+
+		int32_t Renderable::GetHeight() const
+		{
+			return mHeight;
+		}
+
 	}	
 }
