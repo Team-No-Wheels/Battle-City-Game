@@ -13,9 +13,10 @@ namespace AnonymousEngine
 
 	/************************************************************************/
 	TankPlayer::TankPlayer() :
-		mStars(0), mTimeInvincible(0), mIsInvincible(false)
+		mStars(0), mTimeInvincible(0), mIsInvincible(false), mIsShootPressed(false)
 	{
 		Event<MessageInput>::Subscribe(*this);
+		GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::Player);
 	}
 
 	/************************************************************************/
@@ -103,42 +104,108 @@ namespace AnonymousEngine
 			for (const auto& entry : Keys)
 			{
 				// Move Up
-				if (entry.first == InputType::Up && entry.second == KeyState::Pressed)
+				if (entry.first == InputType::Up)
 				{
-					mMoveComponent->SetDirection(ActionMove::Direction::Up);
-					//mMoveComponent->Move(worldState);
+					switch (entry.second)
+					{
+						case KeyState::Pressed:
+							mMoveComponent->SetCanMove();
+							mMoveComponent->SetDirection(ActionMove::Direction::Up);
+							break;
+
+						case KeyState::Released:
+							if (mMoveComponent->GetDirection() == ActionMove::Direction::Up)
+							{
+								mMoveComponent->SetCanMove(false);
+							}
+							break;
+
+						default:
+							break;
+					}
 					break;
 				}
 
 				// Move Down
-				else if (entry.first == InputType::Down && entry.second == KeyState::Pressed)
+				else if (entry.first == InputType::Down)
 				{
-					mMoveComponent->SetDirection(ActionMove::Direction::Down);
-					//mMoveComponent->Move(worldState);
+					switch (entry.second)
+					{
+						case KeyState::Pressed:
+							mMoveComponent->SetCanMove();
+							mMoveComponent->SetDirection(ActionMove::Direction::Down);
+							break;
+
+						case KeyState::Released:
+							if (mMoveComponent->GetDirection() == ActionMove::Direction::Down)
+							{
+								mMoveComponent->SetCanMove(false);
+							}
+							break;
+
+						default:
+							break;
+					}
 					break;
 				}
 
 				// Move Left
-				else if (entry.first == InputType::Left && entry.second == KeyState::Pressed)
+				else if (entry.first == InputType::Left)
 				{
-					mMoveComponent->SetDirection(ActionMove::Direction::Left);
-					//mMoveComponent->Move(worldState);
+					switch (entry.second)
+					{
+						case KeyState::Pressed:
+							mMoveComponent->SetCanMove();
+							mMoveComponent->SetDirection(ActionMove::Direction::Left);
+							break;
+
+						case KeyState::Released:
+							if (mMoveComponent->GetDirection() == ActionMove::Direction::Left)
+							{
+								mMoveComponent->SetCanMove(false);
+							}
+							break;
+
+						default:
+							break;
+					}
 					break;
 				}
 
 				// Move Right
-				else if (entry.first == InputType::Right && entry.second == KeyState::Pressed)
+				else if (entry.first == InputType::Right)
 				{
-					mMoveComponent->SetDirection(ActionMove::Direction::Right);
-					//mMoveComponent->Move(worldState);
+					switch (entry.second)
+					{
+						case KeyState::Pressed:
+							mMoveComponent->SetCanMove();
+							mMoveComponent->SetDirection(ActionMove::Direction::Right);
+							break;
+
+						case KeyState::Released:
+							if (mMoveComponent->GetDirection() == ActionMove::Direction::Up)
+							{
+								mMoveComponent->SetCanMove(false);
+							}
+							break;
+
+						default:
+							break;
+					}
 					break;
 				}
 
 				// Try Shooting
-				if (entry.first == InputType::Shoot && entry.second == KeyState::Pressed)
+				if (entry.first == InputType::Shoot && entry.second == KeyState::Pressed && !mIsShootPressed)
 				{
+					mIsShootPressed = true;
 					mShootComponent->CreateBullet();
 					break;
+				}
+
+				if (entry.first == InputType::Shoot && entry.second == KeyState::Released)
+				{
+					mIsShootPressed = false;
 				}
 			}
 		}

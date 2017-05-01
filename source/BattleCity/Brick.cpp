@@ -12,6 +12,7 @@ namespace BattleCity
 			TileBase(TileType::BRICK)
 		{
 			mSpriteName = "Brick_Full";
+			GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::BrickWall);
 		}
 
 		void Brick::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

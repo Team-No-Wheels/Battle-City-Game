@@ -32,7 +32,7 @@ namespace AnonymousEngine
 	{
 		worldState.mAction = this;
 
-		mEventQueue = &worldState.mWorld->EventQueue();
+		mEventQueue = &(worldState.mWorld->EventQueue());
 
 		if (mEventQueue != nullptr)
 		{

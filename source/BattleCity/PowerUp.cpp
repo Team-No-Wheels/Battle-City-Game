@@ -12,7 +12,7 @@ namespace AnonymousEngine
 	PowerUp::PowerUp() :
 		mType(PowerUpType::Tank), mSpawner(nullptr)
 	{
-
+		GetCollider().SetTag(AnonymousEngine::Core::Collider::ColliderTag::PowerUp);
 	}
 
 	void PowerUp::SetType(PowerUpType newType)
