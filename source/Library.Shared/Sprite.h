@@ -13,6 +13,8 @@ namespace AnonymousEngine
 		
 		class Sprite : public Renderable
 		{
+			friend class GameObject;
+
 		public:
 			/**
 				@brief Default constructor.
@@ -38,12 +40,12 @@ namespace AnonymousEngine
 			/**
 				@brief Called every frame.
 			*/
-			virtual void Render() override;
+			virtual void Render() const override;
 
 			/**
 				@brief If debug is enabled this is called every frame.
 			*/
-			virtual void DrawDebugBounds() override;
+			virtual void DrawDebugBounds() const override;
 
 			/**
 			* Get the game object which owns this sprite.

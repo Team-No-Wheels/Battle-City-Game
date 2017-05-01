@@ -46,5 +46,7 @@ namespace BattleCity
 		AnonymousEngine::Containers::World* mWorld;
 
 		AnonymousEngine::GameClock mGameClock;
+
+		AnonymousEngine::Core::GameObject* mGameObject;
 	};
 }

@@ -11,7 +11,11 @@ namespace AnonymousEngine
 	{
 		class GameObject : public Containers::Entity
 		{
+			friend class Graphics::Sprite;
+
 		public:
+			
+
 			GameObject();
 			virtual ~GameObject() = default;
 			
@@ -36,6 +40,12 @@ namespace AnonymousEngine
 			* Get a reference to the collider contained within this game object.
 			*/
 			Collider& GetCollider();
+
+			/**
+				@brief set the sprite
+			*/
+			void SetSprite(Graphics::Sprite& pSprite);
+
 			/**
 			* Get a reference to the sprite contained within this game object.
 			*/
@@ -44,7 +54,7 @@ namespace AnonymousEngine
 			* Set whether an game object should be deleted or not before next Update call.
 			*/
 			void SetMarkForDelete(bool value = true);
-		private:
+		protected:
 			void AddToDeleteQueue(Containers::WorldState& worldState);
 			/**
 			* The position of this game object in the world space.
@@ -53,7 +63,7 @@ namespace AnonymousEngine
 			/**
 			* The sprite representing this game object in the world.
 			*/
-			Graphics::Sprite mSprite;
+			Graphics::Sprite* mSprite;
 			/**
 			* The collider associated with this game object.
 			*/
@@ -67,6 +77,8 @@ namespace AnonymousEngine
 			* The attribute name for the member variable position.
 			*/
 			static const std::string sPositionAttributeName;
+			static const std::string sWidthAttributeName;
+			static const std::string sHeightAttributeName;
 
 			ATTRIBUTED_DECLARATIONS(GameObject, Entity)
 		};
