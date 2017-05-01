@@ -133,7 +133,7 @@ namespace AnonymousEngine
 			}
 		}
 
-		void XmlParseMaster::StartElementHandler(void *userData, const XML_Char *name, const XML_Char **attributes)
+		void XmlParseMaster::StartElementHandler(void* userData, const char* name, const char** attributes)
 		{
 			SharedData* sharedData = reinterpret_cast<SharedData*>(userData);
 			XmlParseMaster* parseMaster = sharedData->GetXmlParseMaster();
@@ -162,7 +162,7 @@ namespace AnonymousEngine
 			}
 		}
 
-		void XmlParseMaster::EndElementHandler(void *userData, const XML_Char *name)
+		void XmlParseMaster::EndElementHandler(void* userData, const char* name)
 		{
 			SharedData* sharedData = reinterpret_cast<SharedData*>(userData);
 			XmlParseMaster* parseMaster = sharedData->GetXmlParseMaster();
@@ -179,7 +179,7 @@ namespace AnonymousEngine
 			sharedData->DecrementDepth();
 		}
 
-		void XmlParseMaster::CharDataHandler(void* userData, const XML_Char* buffer, int length)
+		void XmlParseMaster::CharDataHandler(void* userData, const char* buffer, int length)
 		{
 			SharedData* sharedData = reinterpret_cast<SharedData*>(userData);
 			XmlParseMaster* parseMaster = sharedData->GetXmlParseMaster();

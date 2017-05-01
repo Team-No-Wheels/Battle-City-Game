@@ -1,11 +1,12 @@
 #pragma once
 
 #include <cstdint>
-#include "expat.h"
 #include "IXmlParseHelper.h"
 #include "Vector.h"
 #include "RTTI.h"
 #include "SharedData.h"
+
+struct XML_ParserStruct;
 
 namespace AnonymousEngine
 {
@@ -75,12 +76,12 @@ namespace AnonymousEngine
 		private:
 			void Initialize();
 
-			static void StartElementHandler(void* userData, const XML_Char* name, const XML_Char** attributes);
-			static void EndElementHandler(void* userData, const XML_Char* name);
-			static void CharDataHandler(void* userData, const XML_Char* buffer, int length);
+			static void StartElementHandler(void* userData, const char* name, const char** attributes);
+			static void EndElementHandler(void* userData, const char* name);
+			static void CharDataHandler(void* userData, const char* buffer, int length);
 			static std::string TrimString(const std::string& string);
 
-			XML_Parser mParser;
+			XML_ParserStruct* mParser;
 			Vector<IXmlParserHelper*> mHelpers;
 			IXmlParserHelper* mCurrentElementHelper;
 			std::string mFilename;

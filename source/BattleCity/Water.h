@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "TileBase.h"
 
 namespace BattleCity
 {
@@ -7,9 +7,9 @@ namespace BattleCity
 	{
 		/** GameObject class for Water on the map.
 		*/
-		class Water :public AnonymousEngine::Core::GameObject
+		class Water :public TileBase
 		{
-			ATTRIBUTED_DECLARATIONS(Water, AnonymousEngine::Core::GameObject)
+			ATTRIBUTED_DECLARATIONS(Water, TileBase)
 
 		public:
 			/** Defaulted constructor.

@@ -11,14 +11,17 @@ namespace AnonymousEngine
 		{
 		public:
 			/**
-			* Constructor
+			* Constructor - Registers the collider to the collision manager.
 			* @param gameObject The game object to which this collider belongs.
 			*/
 			Collider(Core::GameObject& gameObject);
 			/**
+			* Destructor - Unregister the collider from the collision manager.
+			*/
+			/**
 			*
 			*/
-			~Collider() = default;
+			~Collider();
 			/**
 			* An enum represent the tags a collider could take.
 			*/

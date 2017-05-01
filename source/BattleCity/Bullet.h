@@ -2,13 +2,19 @@
 #include "ActionMove.h"
 #include "MessageCollision.h"
 #include "GameObject.h"
+#include "BasicTankAI.h"
+#include "Brick.h"
+#include "Metal.h"
+#include "Flag.h"
+#include "ScoreMessageStructs.h"
 
 namespace AnonymousEngine
 {
+	using namespace BattleCity::MapEntities;
+
 	class ActionShoot;
 
-	// todo remove event sub, and override the OnCollision method to handle collision
-	class Bullet : public GameObject, public EventSubscriber
+	class Bullet : public GameObject
 	{
 
 		ATTRIBUTED_DECLARATIONS(Bullet, GameObject);
@@ -23,7 +29,8 @@ namespace AnonymousEngine
 		ActionMove& MoveComponent();
 
 		void Update(WorldState& worldState) override;
-		void Notify(class EventPublisher& publisher);
+
+		void OnCollision(GameObject& otherGameObject) override;
 
 		bool isStrong;
 
@@ -32,6 +39,14 @@ namespace AnonymousEngine
 
 		ActionMove* mMoveComponent;
 		ActionShoot* mShootParent;
+		bool isPendingKill;
+
+		void CollisionWithPlayer(TankPlayer& player);
+		void CollisionWithEnemy(BasicTankAI& ai);
+		void CollisionWithBrick(Brick& brick);
+		void CollisionWithMetal(Metal& metal);
+		void CollisionWithFlag(Flag& flag);
+		WorldState* FindWorldState();
 		
 	};
 

@@ -1,5 +1,6 @@
 #include "Pch.h"
 #include "GameObject.h"
+#include "World.h"
 
 namespace AnonymousEngine
 {
@@ -24,11 +25,18 @@ namespace AnonymousEngine
 
 		void GameObject::Update(Containers::WorldState& worldState)
 		{
-			worldState;
-
+			worldState.mEntity = this;
+			// Handle if the object is marked for delete
+			if (mMarkedForDelete)
+			{
+				AddToDeleteQueue(worldState);
+				return;
+			}
 			// sprite render and update.
 			mSprite.Render();
 			mSprite.Update(1.0f / 60.0f);
+
+			worldState.mEntity = nullptr;
 		}
 
 		void GameObject::OnCollision(GameObject& otherGameObject)
@@ -44,6 +52,17 @@ namespace AnonymousEngine
 		Graphics::Sprite& GameObject::GetSprite()
 		{
 			return mSprite;
+		}
+
+		void GameObject::SetMarkForDelete(bool value /* = true */)
+		{
+			mMarkedForDelete = value;
+		}
+
+		void GameObject::AddToDeleteQueue(Containers::WorldState& worldState)
+		{
+			worldState.mWorld->MarkForDelete(*this);
+			worldState.mEntity = nullptr;
 		}
 
 		void GameObject::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

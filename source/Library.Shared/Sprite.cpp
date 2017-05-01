@@ -71,6 +71,11 @@ namespace AnonymousEngine
 			Core::ServiceLocator::GetRenderer()->DrawRectangle(position, 255, 0, 0);
 		}
 
+		Core::GameObject& Sprite::GetOwner()
+		{
+			return mGameObject;
+		}
+
 		void Sprite::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);

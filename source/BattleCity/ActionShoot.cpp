@@ -1,6 +1,7 @@
 #include "Pch.h"
 #include "ActionShoot.h"
 #include "TankPlayer.h"
+#include "Bullet.h"
 
 namespace AnonymousEngine
 {
