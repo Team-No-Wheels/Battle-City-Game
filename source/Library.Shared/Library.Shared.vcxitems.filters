@@ -1,122 +1,376 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Action.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)AttributedReaction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)AudioManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Collider.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)CollisionManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Compare.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)CreateAction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)DestroyAction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)EngineSettings.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Entity.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)EventAction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)EventMessageAttributed.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)EventPublisher.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)EventQueue.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)FrameManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameTime.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)HashFunctors.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)IXmlParseHelper.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)MessageAudio.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Pch.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Reaction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Renderable.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)RpnEvaluator.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ServiceLocator.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)SetValue.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ScopeSharedData.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Sprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Frame.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)SpriteSheet.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Switch.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)WorldParserHelper.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Sector.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)SharedData.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ScopeParseHelper.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)World.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)WorldSharedData.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)WorldState.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)HashFunctors.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Compare.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp">
+      <Filter>Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IXmlParseHelper.cpp">
+      <Filter>Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SharedData.cpp">
+      <Filter>Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScopeSharedData.cpp">
+      <Filter>Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScopeParseHelper.cpp">
+      <Filter>Parsers\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)World.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sector.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Entity.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Action.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameTime.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldState.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldSharedData.cpp">
+      <Filter>Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldParserHelper.cpp">
+      <Filter>Parsers\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SetValue.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Switch.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CreateAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DestroyAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RpnEvaluator.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventQueue.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventPublisher.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Reaction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventMessageAttributed.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AttributedReaction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EngineSettings.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Renderable.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sprite.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ServiceLocator.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Collider.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpriteSheet.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CollisionManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioManager.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Frame.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FrameManager.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MessageAudio.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Action.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)AttributedReaction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)AudioManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Collider.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)CollisionManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Compare.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)CreateAction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EngineSettings.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Event.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EventAction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EventMessageAttributed.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EventPublisher.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EventQueue.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EventSubscriber.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)FrameManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameClock.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameTime.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)HashFunctors.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)DefaultVectorCapacityStrategy.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)HashMap.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)InfixParser.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)MessageAudio.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Reaction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Renderable.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)RendererService.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)RpnEvaluator.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Service.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ServiceLocator.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)SetValue.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ScopeSharedData.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Sprite.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Frame.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)SpriteSheet.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Switch.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)RpnTypes.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)TextureLoaderService.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Sector.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)SharedData.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)SList.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ScopeParseHelper.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Vector.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)CapacityStrategy.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)World.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)WorldSharedData.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)WorldState.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseMaster.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SList.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Vector.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CapacityStrategy.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DefaultVectorCapacityStrategy.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HashFunctors.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HashMap.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Compare.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h">
+      <Filter>Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseMaster.h">
+      <Filter>Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SharedData.h">
+      <Filter>Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScopeSharedData.h">
+      <Filter>Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScopeParseHelper.h">
+      <Filter>Parsers\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)World.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sector.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Action.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameClock.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameTime.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldState.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldSharedData.h">
+      <Filter>Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldParserHelper.h">
+      <Filter>Parsers\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SetValue.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Switch.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CreateAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DestroyAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)InfixParser.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RpnEvaluator.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RpnTypes.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventSubscriber.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventQueue.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventPublisher.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Reaction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventMessageAttributed.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributedReaction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EngineSettings.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Renderable.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sprite.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TextureLoaderService.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ServiceLocator.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Service.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RendererService.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Collider.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpriteSheet.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CollisionManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioManager.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Frame.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FrameManager.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MessageAudio.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Compare.inl" />
-    <None Include="$(MSBuildThisFileDirectory)Datum.inl" />
-    <None Include="$(MSBuildThisFileDirectory)Event.inl" />
-    <None Include="$(MSBuildThisFileDirectory)Factory.inl" />
-    <None Include="$(MSBuildThisFileDirectory)HashFunctors.inl" />
-    <None Include="$(MSBuildThisFileDirectory)HashMap.inl" />
-    <None Include="$(MSBuildThisFileDirectory)SList.inl" />
-    <None Include="$(MSBuildThisFileDirectory)Vector.inl" />
+    <Filter Include="Containers">
+      <UniqueIdentifier>{cd38dc33-ad1d-4308-8c8e-59b2a017d5ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parsers">
+      <UniqueIdentifier>{e679a601-4adf-4200-ace2-f0699933835a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parsers\Helpers">
+      <UniqueIdentifier>{359e9ec9-e9d4-432d-bf8f-cdc91daa032c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{f822b7cc-3c0b-4683-bff9-da063ca19d64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{b0a89a71-260c-45f6-9e43-551a2828a234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actions">
+      <UniqueIdentifier>{95658011-e196-425f-bded-e181e951755a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{9a25cce1-9533-43b7-b8dd-24a0155b27a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{8ff969f1-1971-4817-a986-af7fb6f66ec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{0e950589-1e0d-4cc0-a80e-62078b843a82}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Vector.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)SList.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)HashFunctors.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)HashMap.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Compare.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Datum.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Factory.inl">
+      <Filter>Core</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Event.inl">
+      <Filter>Core</Filter>
+    </None>
   </ItemGroup>
 </Project>
