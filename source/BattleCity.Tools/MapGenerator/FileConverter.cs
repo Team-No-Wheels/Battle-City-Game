@@ -294,22 +294,26 @@ namespace MapGenerator
                 Writer.WriteAttributeString (NAME_IDENTIFIER, Path.GetFileNameWithoutExtension(SourceFile));
                 Writer.WriteStartElement(INTEGER_IDENTIFIER);
                 {
-                    Writer.WriteAttributeString(TILE_WIDTH_IDENTIFIER, MappedData[TILE_WIDTH_IDENTIFIER]);
+                    Writer.WriteAttributeString(NAME_IDENTIFIER, TILE_WIDTH_IDENTIFIER);
+                    Writer.WriteAttributeString(VALUE_IDENTIFIER, MappedData[TILE_WIDTH_IDENTIFIER]);
                 }
                 Writer.WriteEndElement();
                 Writer.WriteStartElement(INTEGER_IDENTIFIER);
                 {
-                    Writer.WriteAttributeString(TILE_HEIGHT_IDENTIFIER, MappedData[TILE_HEIGHT_IDENTIFIER]);
+                    Writer.WriteAttributeString(NAME_IDENTIFIER, TILE_HEIGHT_IDENTIFIER);
+                    Writer.WriteAttributeString(VALUE_IDENTIFIER, MappedData[TILE_HEIGHT_IDENTIFIER]);
                 }
                 Writer.WriteEndElement();
                 Writer.WriteStartElement(INTEGER_IDENTIFIER);
                 {
-                    Writer.WriteAttributeString(OUT_TILES_X_IDENTIFIER, MappedData[IN_TILES_X_IDENTIFIER]);
+                    Writer.WriteAttributeString(NAME_IDENTIFIER, OUT_TILES_X_IDENTIFIER);
+                    Writer.WriteAttributeString(VALUE_IDENTIFIER, MappedData[IN_TILES_X_IDENTIFIER]);
                 }
                 Writer.WriteEndElement();
                 Writer.WriteStartElement(INTEGER_IDENTIFIER);
                 {
-                    Writer.WriteAttributeString(OUT_TILES_Y_IDENTIFIER, MappedData[IN_TILES_Y_IDENTIFIER]);
+                    Writer.WriteAttributeString(NAME_IDENTIFIER, OUT_TILES_Y_IDENTIFIER);
+                    Writer.WriteAttributeString(VALUE_IDENTIFIER, MappedData[IN_TILES_Y_IDENTIFIER]);
                 }
                 Writer.WriteEndElement();
                 Writer.WriteStartElement(ENTITIES_IDENTIFIER);
