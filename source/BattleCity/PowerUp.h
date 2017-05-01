@@ -10,11 +10,14 @@
 #include "EventQueue.h"
 #include "World.h"
 #include "WorldState.h"
+#include "PowerUpSpawner.h"
 
 namespace AnonymousEngine
 {
 	using namespace Containers;
 	using namespace Core;
+
+	class PowerUpSpawner;
 
 	class PowerUp : public GameObject
 	{
@@ -41,10 +44,12 @@ namespace AnonymousEngine
 		void Activate(TankPlayer& player, Containers::WorldState& worldState);
 		void Update(WorldState& worldState) override;
 		void OnCollision(GameObject& otherGameObject) override;
+		void SetSpawner(PowerUpSpawner& spawner);
 
 	private:
 		typedef std::pair<Entity*, Entity*> CollisionPair;
 		PowerUpType mType;
+		PowerUpSpawner* mSpawner;
 
 		void ActivateTank(Containers::WorldState& worldState);
 		void ActivateClock(Containers::WorldState& worldState);

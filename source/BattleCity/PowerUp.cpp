@@ -10,7 +10,7 @@ namespace AnonymousEngine
 	ATTRIBUTED_DEFINITIONS(PowerUp);
 
 	PowerUp::PowerUp() :
-		mType(PowerUpType::Tank)
+		mType(PowerUpType::Tank), mSpawner(nullptr)
 	{
 
 	}
@@ -56,6 +56,8 @@ namespace AnonymousEngine
 		default:
 			break;
 		}
+	
+		mSpawner->PendKillPowerUp(*this);
 	}
 
 	void PowerUp::Update(WorldState& worldState)
@@ -128,6 +130,11 @@ namespace AnonymousEngine
 	void PowerUp::ActivateStar(TankPlayer& player)
 	{
 		player.IncrementStars();
+	}
+
+	void PowerUp::SetSpawner(PowerUpSpawner& spawner)
+	{
+		mSpawner = &spawner;
 	}
 
 	WorldState* PowerUp::FindWorldState()
