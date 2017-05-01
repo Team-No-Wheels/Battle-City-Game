@@ -186,7 +186,7 @@
     <ClInclude Include="MainMenuScreen.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="LevelManager.h" />
-    <ClInclude Include="powerupspawner.h" />
+    <ClInclude Include="PowerUpSpawner.h" />
     <ClInclude Include="TankAAI.h" />
     <ClInclude Include="TankBAI.h" />
     <ClInclude Include="TankCAI.h" />

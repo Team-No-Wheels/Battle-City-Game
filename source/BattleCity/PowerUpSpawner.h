@@ -2,7 +2,6 @@
 #include "MessageInput.h"
 #include "Action.h"
 #include "Factory.h"
-#include "PowerUp.h"
 #include "RandomNumbersGenerator.h"
 #include "Vector.h"
 
@@ -11,6 +10,8 @@ namespace AnonymousEngine
 
 	using namespace Containers;
 	//using namespace Core;
+
+	class PowerUp;
 
 	class PowerUpSpawner : public Action
 	{

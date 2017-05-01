@@ -1,5 +1,6 @@
 #include "Pch.h"
 #include "PowerUpSpawner.h"
+#include "PowerUp.h"
 
 namespace AnonymousEngine
 {
