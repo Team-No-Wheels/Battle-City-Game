@@ -109,7 +109,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		d3ddev->BeginScene();
 
 		// do 3D rendering on the back buffer here
-		battleCity->Update(1.0f / 60.0f);
+		battleCity->Update();
 
 		// ends the 3D scene
 		d3ddev->EndScene();

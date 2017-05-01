@@ -1,5 +1,6 @@
 #include "Pch.h"
 #include "FrameManager.h"
+#include "Datum.h"
 
 using namespace std;
 
@@ -11,6 +12,7 @@ namespace AnonymousEngine
 		ENTITY_FACTORY_DEFINITIONS(FrameManager)
 
 		const string FrameManager::sSpriteSheetAttributeName = "SpriteSheet";
+		const string FrameManager::sFrameIDAttributeName = "name";
 
 		FrameManager::FrameManager()
 			:mSpriteSheetName(), mHashmapSpriteID(100)
@@ -35,6 +37,25 @@ namespace AnonymousEngine
 			assert(entityDatum->Get<Scope>(0).Is("Frame"));
 
 			return &(static_cast<Frame&>(entityDatum->Get<Scope>(0)));
-		}			
+		}
+
+		void FrameManager::StoreAllFrames()
+		{
+			for (pair<const string, Datum>* stringDatumPair : mOrderVector)
+			{
+				Datum& datum = stringDatumPair->second;
+				if (datum.Type() == Datum::DatumType::Scope && datum.Get<Scope>().Is(Frame::TypeIdClass()))
+				{
+					assert(datum.Size() == 1);
+					Frame* frame = &static_cast<Frame&>(datum.Get<Scope>());
+					Datum* integerIDDatum = frame->Find(sFrameIDAttributeName);
+
+					if (integerIDDatum == nullptr)
+					{
+						
+					}
+				}
+			}
+		}
 	}
 }

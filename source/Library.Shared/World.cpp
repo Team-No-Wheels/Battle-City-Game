@@ -81,11 +81,8 @@ namespace AnonymousEngine
 			}
 
 			// update sectors
-			for (std::uint32_t index = 0; index < Sectors().Size(); ++index)
-			{
-				Sector* sector = static_cast<Sector*>(&mSectors->Get<Scope>(index));
-				sector->Update(mWorldState);
-			}
+			Sector* sector = static_cast<Sector*>(&mSectors->Get<Scope>(mWorldState.GetCurrentLevel()));
+			sector->Update(mWorldState);
 
 			// garbage collection
 			for (auto attributed : mGarbageQueue)

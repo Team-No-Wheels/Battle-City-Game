@@ -22,6 +22,11 @@ namespace AnonymousEngine
 			*/
 			Frame* GetFrameEntity(const std::string& name);
 
+			/** Iterates through all the child frames and stores a pointer to them in the Hashmap.
+			*	Note: This must be called once.
+			*/
+			void StoreAllFrames();
+
 			/** Defaulted destructor.
 			*/
 			~FrameManager() = default;
@@ -29,6 +34,10 @@ namespace AnonymousEngine
 			/** Prescribed attribute for the name/file of the sprite sheet.
 			*/
 			std::string mSpriteSheetName;
+
+			/** Attribute name for the Frame 
+			*/
+			static const std::string sFrameIDAttributeName;
 
 			/** Attribute name for the name/file of the sprite sheet.
 			*/
