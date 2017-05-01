@@ -23,5 +23,9 @@ namespace AnonymousEngine
 
 		ActionShoot* mShootComponent;
 		ActionMove* mMoveComponent;
+
+	private:
+		static const std::string sShootComponentName;
+		static const std::string sMoveComponentName;
 	};
 }

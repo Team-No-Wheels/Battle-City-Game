@@ -5,6 +5,8 @@ namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(TankPlayer);
 
+	const std::chrono::milliseconds TankPlayer::sInvincbleLimit = std::chrono::milliseconds(2);
+
 	TankPlayer::TankPlayer() :
 		mIsInvincible(false), mStars(0), mTimeInvincible(0)
 	{
@@ -49,13 +51,13 @@ namespace AnonymousEngine
 
 	void TankPlayer::Update(WorldState& worldState)
 	{
-		Entity::Update(worldState);
+		TankBase::Update(worldState);
 
 		worldState.mEntity = this;
 
 		if (mIsInvincible)
 		{
-			SetInvincibility((mTimeInvincible += worldState.mGameTime.ElapsedGameTime()) < mInvincbleLimit);
+			SetInvincibility((mTimeInvincible += worldState.mGameTime.ElapsedGameTime()) < sInvincbleLimit);
 		}
 
 		worldState.mEntity = nullptr;
