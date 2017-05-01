@@ -8,7 +8,7 @@ namespace AnonymousEngine
 		/**
 			Struct that handles the DirectX texture.
 		*/
-		struct TextureOpenGL : public Texture
+		struct TextureDirectX : public Texture
 		{
 			IDirect3DTexture9* mTextureID;
 		};
@@ -19,7 +19,7 @@ namespace AnonymousEngine
 			/**
 				Default constructor.
 			*/
-			TextureLoaderDirectX();
+			TextureLoaderDirectX(IDirect3DDevice9& pD3DDevice);
 
 			/**
 				Default constructor
@@ -41,10 +41,11 @@ namespace AnonymousEngine
 			virtual void Purge() override;
 
 		private:
+
 			/**
-				Private constructor so that object of this class cannot be created anywhere outside the ServiceLocator.
+				The pointer to the device class.
 			*/
-			//TextureLoader_DirectX();
+			IDirect3DDevice9* mD3DDevice;
 		};
 	}
 }

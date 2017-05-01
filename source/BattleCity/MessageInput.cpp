@@ -1,41 +1,57 @@
 #include "Pch.h"
 #include "MessageInput.h"
 
-using namespace AnonymousEngine;
-
-MessageInput::MessageInput() :
-	mKeys(5)
+namespace AnonymousEngine
 {
-
-}
-
-MessageInput::~MessageInput()
-{
-
-}
-
-bool MessageInput::operator==(const MessageInput& rhs)
-{
-	if (mKeys.Size() != rhs.mKeys.Size())
-		return false;
-
-	for (std::uint32_t i = 0; i < mKeys.Size(); ++i)
+	MessageInput::MessageInput() :
+		mKeys(5), mWorldState(nullptr)
 	{
-		if (mKeys[i] != rhs.mKeys[i])
+
+	}
+
+	MessageInput::~MessageInput()
+	{
+
+	}
+
+	bool MessageInput::operator==(const MessageInput& rhs)
+	{
+		if (mKeys.Size() != rhs.mKeys.Size())
 		{
 			return false;
 		}
+
+		for (std::uint32_t i = 0; i < mKeys.Size(); ++i)
+		{
+			if (mKeys[i] != rhs.mKeys[i])
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
-	return true;
-}
+	void MessageInput::AddKey(const std::string& key)
+	{
+		mKeys.PushBack(key);
+	}
 
-void MessageInput::AddKey(std::string& key)
-{
-	mKeys.PushBack(&key);
-}
+	Vector<std::string>& MessageInput::GetKeys()
+	{
+		return mKeys;
+	}
+	
+	void MessageInput::SetWorldState(Containers::WorldState& worldState)
+	{
+		mWorldState = &worldState;
+	}
 
-Vector<std::string*>& MessageInput::GetKeys()
-{
-	return mKeys;
+	Containers::WorldState& MessageInput::GetWorldState() const
+	{
+		if (!mWorldState)
+		{
+			std::runtime_error("Input message has no reference to the world state.");
+		}
+		return *mWorldState;
+	}
 }

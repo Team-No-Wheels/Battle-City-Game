@@ -1,5 +1,6 @@
 #include "Pch.h"
 #include "Rectangle.h"
+#include "glm/vec4.hpp"
 
 namespace AnonymousEngine
 {
@@ -40,5 +41,21 @@ namespace AnonymousEngine
 			BottomRight.x = pBottomRightX;
 			BottomRight.y = pBottomRightY;
 		}
+
+		Geometry::Rectangle Rectangle::Translate(Geometry::Rectangle pRectangle, const glm::vec4& pPosition)
+		{
+			pRectangle.TopLeft.x += pPosition.x;
+			pRectangle.TopRight.x += pPosition.x;
+			pRectangle.BottomLeft.x += pPosition.x;
+			pRectangle.BottomRight.x += pPosition.x;
+
+			pRectangle.TopLeft.y += pPosition.y;
+			pRectangle.TopRight.y += pPosition.y;
+			pRectangle.BottomLeft.y += pPosition.y;
+			pRectangle.BottomRight.y += pPosition.y;
+
+			return pRectangle;
+		}
+
 	}
 }

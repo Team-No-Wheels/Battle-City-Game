@@ -1,34 +1,44 @@
 #include "Pch.h"
 #include "InputHandler.h"
+#include "MessageInput.h"
+
+
+#define VK_Z 0x5A
+
 
 namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(InputHandler);
 
+	const std::string InputHandler::LEFT = "Left";
+	const std::string InputHandler::RIGHT = "Right";
+	const std::string InputHandler::UP = "Up";
+	const std::string InputHandler::DOWN = "Down";
+	const std::string InputHandler::SHOOT = "Shoot";
+
 	InputHandler::InputHandler() :
 		handle(GetStdHandle(STD_INPUT_HANDLE)), mEventQueue(nullptr)
 	{
-
 	}
 
 	void InputHandler::Update(WorldState& worldState)
 	{
 		worldState.mAction = this;
 
-		DWORD Events = 0;     // Event count
-		DWORD EventsRead = 0; // Events read from console
+		DWORD events = 0;     // Event count
+		DWORD eventsRead = 0; // Events read from console
 
-		GetNumberOfConsoleInputEvents(handle, &Events);
+		GetNumberOfConsoleInputEvents(handle, &events);
 		mEventQueue = &worldState.mWorld->EventQueue();
 
-		if (mEventQueue != nullptr && Events != 0)
+		if (mEventQueue != nullptr && events != 0)
 		{
 			MessageInput input;
-			INPUT_RECORD* eventBuffer = static_cast<INPUT_RECORD*>(malloc(Events * sizeof(INPUT_RECORD)));
-			ReadConsoleInput(handle, eventBuffer, Events, &EventsRead);
+			INPUT_RECORD* eventBuffer = new INPUT_RECORD[events]; //static_cast<INPUT_RECORD*>(malloc(events * sizeof(INPUT_RECORD)));
+			ReadConsoleInput(handle, eventBuffer, events, &eventsRead);
 
 			// Read Keys
-			for (DWORD i = 0; i < EventsRead; ++i)
+			for (DWORD i = 0; i < eventsRead; ++i)
 			{
 				if (eventBuffer[i].EventType == KEY_EVENT && eventBuffer[i].Event.KeyEvent.bKeyDown)
 				{
@@ -51,7 +61,7 @@ namespace AnonymousEngine
 							input.AddKey(DOWN);
 							break;
 
-						case 0x5A || 0x7A: // Z Key
+						case VK_Z:
 							input.AddKey(SHOOT);
 							break;
 
@@ -64,10 +74,11 @@ namespace AnonymousEngine
 			// Send MessageInput if not empty
 			if (!input.GetKeys().IsEmpty())
 			{
+				input.SetWorldState(worldState);
 				mEventQueue->Enqueue(std::make_shared<Event<MessageInput>>(Event<MessageInput>(input)), worldState.mGameTime, 0U);
 			}
 
-			delete eventBuffer;
+			delete[] eventBuffer;
 		}
 
 		worldState.mAction = nullptr;
@@ -77,6 +88,4 @@ namespace AnonymousEngine
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
-
 }
-

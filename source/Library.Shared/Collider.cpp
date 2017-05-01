@@ -1,6 +1,7 @@
 #include "Collider.h"
 #include "glm/glm.hpp"
 #include "GameObject.h"
+#include "ServiceLocator.h"
 
 using namespace AnonymousEngine::Core;
 
@@ -8,7 +9,20 @@ namespace AnonymousEngine
 {
 	Collider::Collider(GameObject& gameObject) : mGameObject(gameObject), mColliderTag(ColliderTag::Invalid), mHeight(0), mWidth(0)
 	{
-		// TODO Register collider to the CollisionManager.
+		CollisionManager* collisionManager = static_cast<CollisionManager*>(ServiceLocator::GetService(ServiceLocator::sCollisionManager));
+		if (collisionManager)
+		{
+			collisionManager->Register(*this);
+		}
+	}
+
+	Core::Collider::~Collider()
+	{
+		CollisionManager* collisionManager = static_cast<CollisionManager*>(ServiceLocator::GetService(ServiceLocator::sCollisionManager));
+		if (collisionManager)
+		{
+			collisionManager->Unregister(*this);
+		}
 	}
 
 	void Collider::SetTag(const Collider::ColliderTag& tag)

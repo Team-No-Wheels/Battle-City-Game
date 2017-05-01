@@ -1,5 +1,4 @@
 #pragma once
-#include "Entity.h"
 #include "TextureLoaderService.h"
 
 namespace AnonymousEngine
@@ -9,7 +8,7 @@ namespace AnonymousEngine
 		/**
 			Any object that can be rendered on the screen will extend this class.
 		*/
-		class Renderable abstract : public Containers::Entity
+		class Renderable abstract
 		{
 		public:
 			/**
@@ -38,6 +37,21 @@ namespace AnonymousEngine
 				@brief If debug is enabled this is called every frame.
 			*/
 			virtual void DrawDebugBounds() = 0;
+
+			/**
+				@brief return pointer to texture.
+				@return Pointer to texture.
+			*/
+			Texture* GetTexture() const;
+			/**
+				@brief Get width
+			*/
+			int32_t GetWidth() const;
+
+			/**
+				@brief Get height
+			*/
+			int32_t GetHeight() const;
 		protected:
 			/**
 				Texture ID for this Renderable
@@ -51,10 +65,8 @@ namespace AnonymousEngine
 
 			std::int32_t mWidth;
 			std::int32_t mHeight;
-			glm::vec4 mPosition;
-
-		private:
-			ATTRIBUTED_DECLARATIONS(Renderable, Containers::Entity)
+			
+			bool isInitialized;
 		};
 	}
 }

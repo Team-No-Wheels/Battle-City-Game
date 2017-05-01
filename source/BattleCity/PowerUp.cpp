@@ -80,38 +80,12 @@ namespace AnonymousEngine
 		worldState.mEntity = nullptr;
 	}
 
-	void PowerUp::Notify(class EventPublisher& publisher)
+	void PowerUp::OnCollision(GameObject& otherGameObject)
 	{
-		Event<MessageCollision>* curEvent = publisher.As<Event<MessageCollision>>();
-
-		if (curEvent != nullptr)
+		TankPlayer* player = otherGameObject.As<TankPlayer>();
+		if (player != nullptr)
 		{
-			MessageCollision* message = const_cast<MessageCollision*>(&curEvent->Message());
-			Vector<CollisionPair>* entities = &message->GetEntities();
-
-			for (CollisionPair e : *entities)
-			{
-				// Check Player
-				TankPlayer* player = e.first->As<TankPlayer>();
-				if (player == nullptr)
-				{
-					player = e.second->As<TankPlayer>();
-				}
-
-				// Check PowerUp
-				PowerUp* power = e.first->As<PowerUp>();
-				if (power == nullptr)
-				{
-					power = e.second->As<PowerUp>();
-				}
-
-				// Activate If Player Collided With This PowerUp
-				if (player != nullptr && power != nullptr && power == this)
-				{
-					Activate(*player, message->WorldState());
-					break;
-				}
-			}
+			Activate(*player, *FindWorldState());
 		}
 	}
 
@@ -143,11 +117,11 @@ namespace AnonymousEngine
 
 			for (std::uint32_t i = 0; i < size; ++i)
 			{
-				TankBase* e = entities.Get<Scope*>(i)->As<TankBase>();
+				TankBase* tank = entities.Get<Scope*>(i)->As<TankBase>();
 
-				if (e != nullptr)
+				if (tank != nullptr)
 				{
-					// Destroy Enemy Tanks
+					tank->SetMarkForDelete();
 
 					// Tell score manager that a tank was destroyed
 					TankDestroyedNoScoreMessage message(worldState);
@@ -166,6 +140,26 @@ namespace AnonymousEngine
 	void PowerUp::ActivateStar(TankPlayer& player)
 	{
 		player.IncrementStars();
+	}
+
+	WorldState* PowerUp::FindWorldState()
+	{
+		WorldState* state = nullptr;
+		Scope* curScope = GetParent();
+
+		// Loop Through Parent To Find World
+		while (curScope->GetParent() != nullptr)
+		{
+			curScope = curScope->GetParent();
+
+			// If World, Return WorldState
+			if (curScope->Is(World::TypeIdClass()))
+			{
+				state = &curScope->As<World>()->GetWorldState();
+			}
+		}
+
+		return state;
 	}
 
 	void PowerUp::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)

@@ -116,6 +116,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Rectangle.cpp">
       <Filter>Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpriteSheet.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CollisionManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -124,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MessageAudio.cpp">
       <Filter>Audio</Filter>
+	</ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Frame.cpp">
+      <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +290,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h">
       <Filter>Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpriteSheet.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CollisionManager.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -289,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MessageAudio.h">
       <Filter>Audio</Filter>
+	</ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Frame.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

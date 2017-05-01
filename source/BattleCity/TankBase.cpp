@@ -22,6 +22,15 @@ namespace AnonymousEngine
 		return *mMoveComponent;
 	}
 
+	void TankBase::Update(WorldState& worldState)
+	{
+		GameObject::Update(worldState);
+
+		worldState.mEntity = this->As<Entity>();
+
+		worldState.mEntity = nullptr;
+	}
+
 	void TankBase::AppendPrescribedAttributeNames(AnonymousEngine::Vector<std::string>& prescribedAttributeNames)
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);

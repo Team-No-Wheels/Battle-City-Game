@@ -2,36 +2,53 @@
 #include "ActionMove.h"
 #include "MessageCollision.h"
 #include "GameObject.h"
+#include "BasicTankAI.h"
+#include "Brick.h"
+#include "Metal.h"
+#include "Flag.h"
+#include "ScoreMessageStructs.h"
 
 namespace AnonymousEngine
 {
+	using namespace BattleCity::MapEntities;
+
 	class ActionShoot;
 
-	// todo remove event sub, and override the OnCollision method to handle collision
-	class Bullet : public GameObject, public EventSubscriber
+	class Bullet : public GameObject
 	{
 
 		ATTRIBUTED_DECLARATIONS(Bullet, GameObject);
 
 	public:
 
-		Bullet();
-		Bullet( ActionShoot& parent);
+		Bullet(ActionShoot* parent = nullptr);
 		~Bullet();
 
 		void SetShootParent(ActionShoot& parent);
+
+		/** Return the shoot parent.
+			@return A reference to the shoot parent.
+		*/
+		ActionShoot* GetShootParent();
 		ActionMove& MoveComponent();
 
 		void Update(WorldState& worldState) override;
-		void Notify(class EventPublisher& publisher);
 
-		bool isStrong;
+		void OnCollision(GameObject& otherGameObject) override;
 
 	private:
 		typedef std::pair<Entity*, Entity*> CollisionPair;
 
 		ActionMove* mMoveComponent;
 		ActionShoot* mShootParent;
+		bool mIsPendingKill;
+
+		void CollisionWithPlayer(TankPlayer& player);
+		void CollisionWithEnemy(BasicTankAI& ai);
+		void CollisionWithBrick(Brick& brick);
+		void CollisionWithMetal(Metal& metal);
+		void CollisionWithFlag(Flag& flag);
+		WorldState* FindWorldState();
 		
 	};
 

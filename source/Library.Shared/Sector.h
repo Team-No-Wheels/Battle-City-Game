@@ -64,6 +64,10 @@ namespace AnonymousEngine
 			 *  @worldState The world context object that is passed for the update
 			 */
 			void Update(WorldState& worldState);
+
+			/** The name of the prescribed attribute that stores the entities
+			 */
+			static const std::string EntitiesAttributeName;
 		private:
 			// The name of this sector
 			std::string mName;
@@ -71,9 +75,6 @@ namespace AnonymousEngine
 			Datum* mEntities;
 			// The list of actions within this sector
 			Datum* mActions;
-
-			// The name of the prescribed attribute that stores the entities
-			static const std::string EntitiesAttributeName;
 
 			ATTRIBUTED_DECLARATIONS(Sector, Attributed)
 		};

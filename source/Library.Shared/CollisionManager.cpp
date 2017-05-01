@@ -18,12 +18,12 @@ namespace AnonymousEngine
 			{
 				for (it = current; it != end; ++it)
 				{
-					Collider& currentCollider = **current;
-					Collider& otherCollider = **it;
-					if (currentCollider.InCollision(otherCollider))
+					Collider* currentCollider = *current;
+					Collider* otherCollider = *it;
+					if (currentCollider->InCollision(*otherCollider))
 					{
-						GameObject& currentObject = currentCollider.GetOwner();
-						GameObject& otherObject = otherCollider.GetOwner();
+						GameObject& currentObject = currentCollider->GetOwner();
+						GameObject& otherObject = otherCollider->GetOwner();
 
 						currentObject.OnCollision(otherObject);
 						otherObject.OnCollision(currentObject);
@@ -37,6 +37,11 @@ namespace AnonymousEngine
 		void CollisionManager::Register(Collider& collider)
 		{
 			mColliders.PushBack(&collider);
+		}
+
+		void CollisionManager::Unregister(Collider& collider)
+		{
+			mColliders.Remove(&collider);
 		}
 	}
 }

@@ -61,7 +61,7 @@ namespace UnitTestLibraryDesktop
 
 				Containers::World* world = data.ExtractWorld();
 				std::string output = world->ToString();
-				//Assert::AreEqual(TestWorldDataString, output);
+				Assert::AreEqual(TestWorldDataString, output);
 				Assert::AreEqual(xmlFile, parser.GetFileName());
 				delete world;
 			}
@@ -85,14 +85,14 @@ namespace UnitTestLibraryDesktop
 			parser1.ParseFromFile(TestXmlFiles[0]);
 			Containers::World* world1 = data1.ExtractWorld();
 			std::string output = world1->ToString();
-			//Assert::AreEqual(TestWorldDataString, output);
+			Assert::AreEqual(TestWorldDataString, output);
 
 			WorldSharedData data2;
 			parser1.SetSharedData(data2);
 			parser1.ParseFromFile(TestXmlFiles[0]);
 			Containers::World* world2 = data2.ExtractWorld();
 			output = world2->ToString();
-			//Assert::AreEqual(TestWorldDataString, output);
+			Assert::AreEqual(TestWorldDataString, output);
 			Assert::AreEqual(0U, data1.Depth());
 			Assert::AreEqual(0U, data2.Depth());
 			delete world1;
@@ -167,7 +167,7 @@ namespace UnitTestLibraryDesktop
 			Containers::World* worldPtr = data.ExtractWorld();
 			Containers::World& world = *worldPtr;
 			std::string output = world.ToString();
-			//Assert::AreEqual(TestWorldDataString, output);
+			Assert::AreEqual(TestWorldDataString, output);
 			Containers::WorldState& state = world.GetWorldState();
 			GameClock clock;
 			clock.StartTime();
@@ -222,13 +222,13 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD_INITIALIZE(Setup)
 		{
 			Core::Event<Containers::EventMessageAttributed>::UnsubscribeAll();
-			//mHelper.Setup();
+			mHelper.Setup();
 		}
 
 		TEST_METHOD_CLEANUP(Teardown)
 		{
 			Core::Event<Containers::EventMessageAttributed>::UnsubscribeAll();
-			//mHelper.Teardown();
+			mHelper.Teardown();
 		}
 
 		TEST_CLASS_CLEANUP(CleanupClass)
@@ -252,5 +252,5 @@ namespace UnitTestLibraryDesktop
 		"<foo></foo>"
 	};
 
-	const std::string WorldXmlParserTest::TestWorldDataString = "{\"Name\": \"Skyrim\", \"Sectors\": [{\"Name\": \"Whiterun\", \"Entities\": [{\"Name\": \"Bannered Mare\", \"Actions\": [{\"Name\": \"Init\", \"Capacity\": \"10\"}, {\"Name\": \"Upgrade\", \"Capacity\": \"5\"}, {\"Name\": \"Update\", \"Actions\": [{\"Name\": \"UpdateBeds\", \"Target\": \"Beds\", \"Value\": \"BanneredMareBeds\", \"Index\": \"0\"}, {\"Name\": \"UpdatePrice\", \"Target\": \"Price\", \"Value\": \"min(200.0, pow(Price, 2))\", \"Index\": \"0\"}, {\"Name\": \"UpdatePrice\", \"Target\": \"Price\", \"Value\": \"min(200.0, pow(Price, 2))\", \"Index\": \"0\"}, {\"Name\": \"CheckIfOwnerIsRich\", \"Actions\": {\"Name\": \"1\", \"Target\": \"IsOwnerRich\", \"Value\": \"1\", \"Index\": \"0\"}, \"Expression\": \"Price > 150\"}, {\"Name\": \"CheckIfInnHasLotOfRooms\", \"Target\": \"HasLotOfBeds\", \"Value\": \"Beds > 10\", \"Index\": \"0\"}]}], \"Owner\": \"Hulda\", \"IsOwnerRich\": \"0\", \"HasLotOfBeds\": \"0\", \"Beds\": \"10\", \"Price\": \"10.500000\", \"Location\": \"0.500000,10.200000,100.000000,1.000000\", \"Transform\": \"1.200000,10.200000,0.005000,1.000000,3.600000,102.000000,0.010000,1.000000,1000.000000,177.199997,101.000000,1.000000,11.000000,13.600000,100.000351,1.000000\"}, {\"Name\": \"Dragonsreach\", \"Owner\": \"Balgruuf the Greater\", \"Location\": \"50.400002,12.300000,10.000000,1.000000\"}], \"Actions\": [{\"Name\": \"Init\", \"MaxStudents\": \"100\"}, {\"Name\": \"UpdatePopulation\", \"Target\": \"WhiterunPopulation\", \"Value\": \"500\", \"Index\": \"0\"}, {\"Name\": \"DestroyWorldTest\", \"InstanceName\": \"TestSetValue\"}, {\"Name\": \"UpgradeBanneredMare\", \"Target\": \"BanneredMareBeds\", \"Value\": \"Entities[0].Beds + 1\", \"Index\": \"0\"}], \"BanneredMareBeds\": \"0\", \"Jarl\": \"Balgruuf the Greater\"}, {\"Name\": \"Winterhold\", \"Entities\": {\"Name\": \"College of Winterhold\", \"Actions\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Arch-Mage\": \"Savos Aren\", \"Location\": \"77.040001,27.900000,20.000000,1.000000\"}, \"Jarl\": \"Korir\"}], \"Actions\": [{\"Name\": \"Init\", \"InstanceName\": \"TestAction\", \"ClassName\": \"ActionList\"}, {\"Name\": \"Destroy\", \"InstanceName\": \"TestAction\"}, {\"Name\": \"CheckPopulation\", \"Actions\": [{\"Name\": \"1013\", \"Actions\": [{\"Name\": \"UpdatePopulation\", \"Target\": \"Population\", \"Value\": \"1000\", \"Index\": \"0\"}, {\"Name\": \"RaisePopulationChangeEvent\", \"Subtype\": \"World.Population\", \"Delay\": \"500\", \"Alduin\": \"WorldEater\"}]}, {\"Name\": \"1000000\", \"Target\": \"Population\", \"Value\": \"Population/1000+2+(3*4)-1\", \"Index\": \"0\"}], \"Expression\": \"Population\", \"DefaultCase\": {\"Name\": \"DefaultCase\", \"Target\": \"Population\", \"Value\": \"100\", \"Index\": \"0\"}}, {\"Name\": \"CheckCapital\", \"Actions\": {\"Name\": \"Solitude\", \"Target\": \"Capital\", \"Value\": \"'Whiterun'\", \"Index\": \"0\"}, \"Expression\": \"Capital\"}], \"Population\": \"1000000\", \"GDP\": \"50000000\", \"PerCapita\": \"50\", \"Capital\": \"Solitude\", \"WhiterunPopulation\": \"100\", \"ReactToPopulationChange\": {\"Name\": \"ReactToPopulationChange\", \"Actions\": {\"Name\": \"UpdatePerCapita\", \"Target\": \"PerCapita\", \"Value\": \"GDP / Population\", \"Index\": \"0\"}, \"Subtype\": [\"World.Capital\", \"World.Population\"]}}";
+	const std::string WorldXmlParserTest::TestWorldDataString = "{\"Name\": \"Skyrim\", \"Sectors\": [{\"Name\": \"Whiterun\", \"Entities\": [{\"Name\": \"Bannered Mare\", \"Actions\": [{\"Name\": \"Init\", \"Capacity\": \"10\"}, {\"Name\": \"Upgrade\", \"Capacity\": \"5\"}, {\"Name\": \"Update\", \"Actions\": [{\"Name\": \"UpdateBeds\", \"Target\": \"Beds\", \"Value\": \"BanneredMareBeds\", \"Index\": \"0\"}, {\"Name\": \"UpdateDummyVector\", \"Target\": \"DummyVector\", \"Value\": \"Location\", \"Index\": \"0\"}, {\"Name\": \"UpdateDummyMatrix\", \"Target\": \"DummyTransform\", \"Value\": \"Transform\", \"Index\": \"0\"}, {\"Name\": \"UpdatePrice\", \"Target\": \"Price\", \"Value\": \"min(200.0, pow(Price, 2))\", \"Index\": \"0\"}, {\"Name\": \"UpdatePrice\", \"Target\": \"Price\", \"Value\": \"min(200.0, pow(Price, 2))\", \"Index\": \"0\"}, {\"Name\": \"CheckIfOwnerIsRich\", \"Actions\": {\"Name\": \"1\", \"Target\": \"IsOwnerRich\", \"Value\": \"1\", \"Index\": \"0\"}, \"Expression\": \"Price > 150\"}, {\"Name\": \"CheckIfInnHasLotOfRooms\", \"Target\": \"HasLotOfBeds\", \"Value\": \"Beds > 10\", \"Index\": \"0\"}]}], \"Owner\": \"Hulda\", \"IsOwnerRich\": \"0\", \"HasLotOfBeds\": \"0\", \"Beds\": \"10\", \"Price\": \"10.500000\", \"Location\": \"0.500000,10.200000,100.000000,1.000000\", \"Transform\": \"1.200000,10.200000,0.005000,1.000000,3.600000,102.000000,0.010000,1.000000,1000.000000,177.199997,101.000000,1.000000,11.000000,13.600000,100.000351,1.000000\", \"DummyVector\": \"0.000000,0.000000,0.000000,0.000000\", \"DummyTransform\": \"1.200000,10.200000,0.005000,1.000000,3.600000,102.000000,0.010000,1.000000,1000.000000,177.199997,101.000000,1.000000,11.000000,13.600000,100.000351,1.000000\"}, {\"Name\": \"Dragonsreach\", \"Owner\": \"Balgruuf the Greater\", \"Location\": \"50.400002,12.300000,10.000000,1.000000\"}], \"Actions\": [{\"Name\": \"Init\", \"MaxStudents\": \"100\"}, {\"Name\": \"UpdatePopulation\", \"Target\": \"WhiterunPopulation\", \"Value\": \"500\", \"Index\": \"0\"}, {\"Name\": \"DestroyWorldTest\", \"InstanceName\": \"TestSetValue\"}, {\"Name\": \"UpgradeBanneredMare\", \"Target\": \"BanneredMareBeds\", \"Value\": \"Entities[0].Beds + 1\", \"Index\": \"0\"}], \"BanneredMareBeds\": \"0\", \"Jarl\": \"Balgruuf the Greater\"}, {\"Name\": \"Winterhold\", \"Entities\": {\"Name\": \"College of Winterhold\", \"Actions\": {\"Name\": \"Init\", \"MaxStudents\": \"100\"}, \"Arch-Mage\": \"Savos Aren\", \"Location\": \"77.040001,27.900000,20.000000,1.000000\"}, \"Jarl\": \"Korir\"}], \"Actions\": [{\"Name\": \"Init\", \"InstanceName\": \"TestAction\", \"ClassName\": \"ActionList\"}, {\"Name\": \"Destroy\", \"InstanceName\": \"TestAction\"}, {\"Name\": \"CheckPopulation\", \"Actions\": [{\"Name\": \"1013\", \"Actions\": [{\"Name\": \"UpdatePopulation\", \"Target\": \"Population\", \"Value\": \"1000\", \"Index\": \"0\"}, {\"Name\": \"RaisePopulationChangeEvent\", \"Subtype\": \"World.Population\", \"Delay\": \"500\", \"Alduin\": \"WorldEater\"}]}, {\"Name\": \"1000000\", \"Actions\": [{\"Name\": \"UpdateValue\", \"Target\": \"Population\", \"Value\": \"Population/1000+2+(3*4)-1\", \"Index\": \"0\"}, {\"Name\": \"RaisePopulationChangeEventDummy\", \"Subtype\": \"World.PopulationNothing\", \"Delay\": \"100\"}]}], \"Expression\": \"Population\", \"DefaultCase\": {\"Name\": \"DefaultCase\", \"Target\": \"Population\", \"Value\": \"100\", \"Index\": \"0\"}}, {\"Name\": \"CheckCapital\", \"Actions\": {\"Name\": \"Solitude\", \"Target\": \"Capital\", \"Value\": \"'Whiterun'\", \"Index\": \"0\"}, \"Expression\": \"Capital\"}], \"Entities\": {\"Name\": \"TestManager\", \"Object1\": {\"Name\": \"Object1\", \"Id\": \"1\"}, \"Object2\": {\"Name\": \"Object2\", \"Id\": \"2\"}}, \"RandomObject\": {\"Name\": \"RandomObject\", \"Greeting\": \"Hello Traveller!\"}, \"Population\": \"1000000\", \"GDP\": \"50000000\", \"PerCapita\": \"50\", \"Capital\": \"Solitude\", \"WhiterunPopulation\": \"100\", \"ReactToPopulationChange\": {\"Name\": \"ReactToPopulationChange\", \"Actions\": {\"Name\": \"UpdatePerCapita\", \"Target\": \"PerCapita\", \"Value\": \"GDP / Population\", \"Index\": \"0\"}, \"Subtype\": [\"World.Capital\", \"World.Population\"]}, \"ReactToNonExistingEvent\": {\"Name\": \"ReactToNonExistingEvent\", \"Subtype\": \"World.Nothing\"}}";
 }

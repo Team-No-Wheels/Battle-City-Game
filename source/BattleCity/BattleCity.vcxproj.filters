@@ -23,6 +23,9 @@
     <Filter Include="Util">
       <UniqueIdentifier>{7c67a194-f3ce-4bb4-a9ba-e2cd1bae274b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{45316a33-489e-4540-930d-1b79a6bf43d5}</UniqueIdentifier>
+    </Filter>
     <Filter Include="MapEntities">
       <UniqueIdentifier>{74e30e06-1d9e-4f0f-91ec-b151aa199b8a}</UniqueIdentifier>
     </Filter>
@@ -74,8 +77,11 @@
     <ClCompile Include="RandomNumbersGenerator.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>Other</Filter>
+    <ClCompile Include="MainMenuScreen.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIScreen.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>MapEntities</Filter>
@@ -92,7 +98,27 @@
     <ClCompile Include="LevelManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
-    <ClCompile Include="BattleCityAudio.cpp" />
+    <ClCompile Include="BattleCityAudio.cpp">
+	  <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Flag.cpp">
+      <Filter>MapEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="TileBase.cpp">
+      <Filter>MapEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="TankAAI.cpp">
+      <Filter>Entities\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="TankBAI.cpp">
+      <Filter>Entities\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="TankCAI.cpp">
+      <Filter>Entities\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="TankDAI.cpp">
+      <Filter>Entities\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pch.h" />
@@ -140,8 +166,11 @@
     <ClInclude Include="RandomNumbersGenerator.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>Other</Filter>
+    <ClInclude Include="UIScreen.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScreen.h">
+      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
       <Filter>MapEntities</Filter>
@@ -160,6 +189,24 @@
     </ClInclude>
     <ClInclude Include="BattleCityAudio.h">
       <Filter>Managers</Filter>
+	</ClInclude>
+	<ClInclude Include="Flag.h">
+      <Filter>MapEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="TileBase.h">
+      <Filter>MapEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="TankAAI.h">
+      <Filter>Entities\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="TankBAI.h">
+      <Filter>Entities\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="TankCAI.h">
+      <Filter>Entities\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="TankDAI.h">
+      <Filter>Entities\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

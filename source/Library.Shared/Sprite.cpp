@@ -1,8 +1,7 @@
 #include "Pch.h"
 #include "Sprite.h"
 #include "ServiceLocator.h"
-#include "Rectangle.h"
-
+#include "GameObject.h"
 
 //#include "TextureLoader.h"
 
@@ -10,14 +9,9 @@ namespace AnonymousEngine
 {
 	namespace Graphics
 	{
-		ATTRIBUTED_DEFINITIONS(Sprite)
-		ENTITY_FACTORY_DEFINITIONS(Sprite);
-
-		Sprite::Sprite() :
-			Renderable()
-		{
-
-		}
+		Sprite::Sprite(Core::GameObject& pGameObject) : 
+			mGameObject(pGameObject), mUVBounds(0, 0, 1, 0, 0, 1, 1, 1)
+		{}
 
 
 		void Sprite::Init(const std::string& pSpriteFilePath)
@@ -27,7 +21,19 @@ namespace AnonymousEngine
 			mTexture = loader->GetTexture(pSpriteFilePath);
 
 			mHeight = 100;
-			mWidth = 50;
+			mWidth = 100;
+
+			mSpriteBounds.TopLeft.x = 0.0f;
+			mSpriteBounds.TopLeft.y = (float)mHeight;
+
+			mSpriteBounds.TopRight.x = (float)mWidth;
+			mSpriteBounds.TopRight.y = (float)mHeight;
+
+			mSpriteBounds.BottomLeft.x = 0.0f;
+			mSpriteBounds.BottomLeft.y = 0.0f;
+
+			mSpriteBounds.BottomRight.x = (float)mWidth;
+			mSpriteBounds.BottomRight.y = 0.0f;
 
 			//glClearColor(backRed, backGreen, backGreen, 0.0f);			// Background Color
 			glClearDepth(1.0f);											// Depth Buffer Setup
@@ -47,34 +53,36 @@ namespace AnonymousEngine
 
 		void Sprite::Render()
 		{
-			//Geometry::Rectangle uv(0, 0, 1, 0, 0, 1, 1, 1);
-			Geometry::Rectangle uv(0, 1, 1, 1, 0, 0, 1, 0);
-			Geometry::Rectangle position(-100 + 400, 100 + 400,
-				100 + 400, 100 + 400,
-				-100 + 400, -100 + 400,
-				100 + 400, -100 + 400);
-
-			Core::ServiceLocator::GetRenderer()->Render(mTexture, position, uv);
-
+			if (isInitialized)
+			{
+				Core::ServiceLocator::GetRenderer()->Render(*this);
 
 #ifdef _DEBUG
-			DrawDebugBounds();
+				DrawDebugBounds();
 #endif 
-
+			}
 		}
 
 		void Sprite::DrawDebugBounds()
 		{
-			Geometry::Rectangle position(-100 + 400, 100 + 400, 
-				100 + 400, 100 + 400, 
-				-100 + 400, -100 + 400, 
-				100 + 400, -100 + 400);
-			Core::ServiceLocator::GetRenderer()->DrawRectangle(position, 255, 0, 0);
+			Core::ServiceLocator::GetRenderer()->DrawRectangle(GetSpriteBounds(), 255, 0, 0);
 		}
 
-		void Sprite::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
+		Core::GameObject& Sprite::GetOwner() const
 		{
-			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
+			return mGameObject;
+		}
+
+		Geometry::Rectangle Sprite::GetSpriteBounds() const
+		{
+			// translate the bounds to sprite position
+			glm::vec4 translationValue = GetOwner().GetPosition() - glm::vec4(GetWidth() / 2.0f, GetHeight() / 2.0f, 0.0f, 0.0f);
+			return Geometry::Rectangle::Translate(mSpriteBounds, translationValue);
+		}
+
+		const Geometry::Rectangle& Sprite::GetUVBounds() const
+		{
+			return mUVBounds;
 		}
 	}
 }

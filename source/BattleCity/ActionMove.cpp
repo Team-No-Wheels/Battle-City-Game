@@ -4,10 +4,12 @@
 
 namespace AnonymousEngine
 {
+	const float ActionMove::sDefaultSpeed = 1;
+
 	ATTRIBUTED_DEFINITIONS(ActionMove);
 
 	ActionMove::ActionMove() :
-		mDirection(Direction::Up), mSpeed(1), mIsPlayer(false), mCanMove(true)
+		mDirection(Direction::Up), mSpeed(sDefaultSpeed), mIsPlayer(false), mCanMove(true)
 	{
 		if (GetParent()->Is(TankPlayer::TypeIdClass()))
 		{
@@ -19,36 +21,39 @@ namespace AnonymousEngine
 	{
 		worldState.mAction = this;
 
-		// Automatically Move If not player. Enemy AI will change Speed/Direction
+		// In case enemy unit.
 		if (!mIsPlayer && mCanMove)
-			Move();
-
+		{
+			Move(worldState);
+		}
+		
 		worldState.mAction = nullptr;
 	}
 
-	void ActionMove::Move()
+	void ActionMove::Move(WorldState& worldState)
 	{
-		// Get A Reference To Parent As Entity
+		// Get a reference to parent as a game object.
 		GameObject* gameObject = GetParent()->As<GameObject>();
+		 std::int64_t deltaTime = worldState.mGameTime.ElapsedGameTime().count();
 
 		if (gameObject != nullptr)
 		{
 			glm::vec4 position = gameObject->GetPosition();
 
-			// Update Position Based On Direction
+			// Update position.
 			switch (mDirection)
 			{
 				case Direction::Up:
-					position.y += mSpeed;
+					position.y += (mSpeed * deltaTime) / 1000;
 					break;
 				case Direction::Down:
-					position.y -= mSpeed;
+					position.y -= (mSpeed * deltaTime) / 1000;
 					break;
 				case Direction::Left:
-					position.x -= mSpeed;
+					position.x -= (mSpeed * deltaTime) / 1000;
 					break;
 				case Direction::Right:
-					position.x += mSpeed;
+					position.x += (mSpeed * deltaTime) / 1000;
 					break;
 				default:
 					break;
@@ -78,7 +83,7 @@ namespace AnonymousEngine
 		return mCanMove;
 	}
 
-	void ActionMove::SetCanMove(const bool canMove)
+	void ActionMove::SetCanMove(bool canMove /* = true */)
 	{
 		mCanMove = canMove;
 	}
@@ -87,5 +92,4 @@ namespace AnonymousEngine
 	{
 		Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 	}
-
 }

@@ -180,11 +180,17 @@
     <ClInclude Include="ActionShoot.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Flag.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="BattleCityAudio.h" />
+    <ClInclude Include="MainMenuScreen.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="LevelManager.h" />
-    <ClInclude Include="UIManager.h" />
+    <ClInclude Include="TankAAI.h" />
+    <ClInclude Include="TankBAI.h" />
+    <ClInclude Include="TankCAI.h" />
+    <ClInclude Include="TankDAI.h" />
+    <ClInclude Include="TileBase.h" />
     <ClInclude Include="MessageCollision.h" />
     <ClInclude Include="MessageInput.h" />
     <ClInclude Include="BattleCity.h" />
@@ -197,6 +203,7 @@
     <ClInclude Include="TankBase.h" />
     <ClInclude Include="TankPlayer.h" />
     <ClInclude Include="Metal.h" />
+    <ClInclude Include="UIScreen.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>
@@ -206,10 +213,16 @@
     <ClCompile Include="BattleCityAudio.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Flag.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="LevelManager.cpp" />
-    <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="MainMenuScreen.cpp" />
+    <ClCompile Include="TankAAI.cpp" />
+    <ClCompile Include="TankBAI.cpp" />
+    <ClCompile Include="TankCAI.cpp" />
+    <ClCompile Include="TankDAI.cpp" />
+    <ClCompile Include="TileBase.cpp" />
     <ClCompile Include="MessageCollision.cpp" />
     <ClCompile Include="MessageInput.cpp" />
     <ClCompile Include="BattleCity.cpp" />
@@ -227,6 +240,7 @@
     <ClCompile Include="TankBase.cpp" />
     <ClCompile Include="TankPlayer.cpp" />
     <ClCompile Include="Metal.cpp" />
+    <ClCompile Include="UIScreen.cpp" />
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
   <ItemGroup>

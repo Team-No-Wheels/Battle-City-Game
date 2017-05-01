@@ -1,10 +1,16 @@
 #pragma once
 
 #include "Sprite.h"
-#include "Vector.h"
+#include "GameObject.h"
+#include "CollisionManager.h"
+#include "LevelManager.h"
 
 namespace BattleCity
 {
+	/** Forwared declaring World.
+	*/
+	class World;
+
 	/**
 		Entry point for the game BattleCity :)
 	*/
@@ -29,6 +35,15 @@ namespace BattleCity
 		void Update(float pDeltaTime);
 
 	private:
-		AnonymousEngine::Graphics::Sprite* mSprite;
+		AnonymousEngine::Core::GameObject* mGameObject;
+		AnonymousEngine::Core::CollisionManager mCollisionManager;
+
+		/** Declaring LevelManager for BattleCity Game.
+		*/
+		Managers::LevelManager mLevelManager;
+
+		/** Pointer to the World of the game.
+		*/
+		AnonymousEngine::Containers::World* mWorld;
 	};
 }

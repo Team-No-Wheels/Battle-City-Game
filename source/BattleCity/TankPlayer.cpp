@@ -19,7 +19,22 @@ namespace AnonymousEngine
 	void TankPlayer::IncrementStars()
 	{
 		if (mStars < 3)
+		{
 			++mStars;
+			switch (mStars)
+			{
+			case 1:
+				mShootComponent->SetIsFast(true);
+				break;
+			case 2:
+				mShootComponent->SetCapacityToShoot(2);
+				break;
+			case 3:
+				mShootComponent->SetIsStrong(true);
+				break;
+			}
+
+		}
 	}
 
 	void TankPlayer::SetInvincibility(bool state)
@@ -53,58 +68,48 @@ namespace AnonymousEngine
 		if (curEvent != nullptr)
 		{
 			MessageInput* message = &const_cast<MessageInput&>(curEvent->Message());
-			Vector<std::string*>* Keys = &message->GetKeys();
+			Vector<std::string>& Keys = message->GetKeys();
+			WorldState& worldState = message->GetWorldState();
 
 			// React To Certain Key Presses
-			for (std::string* c : *Keys)
+			for (const auto& key : Keys)
 			{
 				// Move Up
-				if (*c == "Up")
+				if (key == "Up")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Up);
-					mMoveComponent->Move();
+					mMoveComponent->Move(worldState);
 					break;
 				}
 
 				// Move Down
-				else if (*c == "Down")
+				else if (key == "Down")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Down);
-					mMoveComponent->Move();
+					mMoveComponent->Move(worldState);
 					break;
 				}
 
 				// Move Left
-				else if (*c == "Left")
+				else if (key == "Left")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Left);
-					mMoveComponent->Move();
+					mMoveComponent->Move(worldState);
 					break;
 				}
 
 				// Move Right
-				else if (*c == "Right")
+				else if (key == "Right")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Right);
-					mMoveComponent->Move();
+					mMoveComponent->Move(worldState);
 					break;
 				}
 
 				// Try Shooting
-				if (*c == "Shoot" && mShootComponent->CanShoot())
+				if (key == "Shoot" && mShootComponent->CanShoot())
 				{
 					mShootComponent->CreateBullet();
-
-					// Delay Creation Of 2nd Bullet For Double Shot
-					if (mShootComponent->IsDouble())
-					{
-						std::async(std::launch::async, [this]()
-						{
-							std::this_thread::sleep_for(std::chrono::milliseconds(10));
-							mShootComponent->CreateBullet();
-						});
-					}
-
 					break;
 				}
 			}

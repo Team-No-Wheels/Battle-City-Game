@@ -38,6 +38,14 @@ namespace AnonymousEngine
 			 */
 			void SetName(const std::string& name);
 
+			/** Initializes the variables to load the game afresh.
+			*/
+			void InitializeWorld();
+
+			/** Resets the variables to load next level.
+			*/
+			void LoadNextLevel();
+
 			/** Return the list of sectors contained within this world
 			 *  @return The list of sectors this world has
 			 */
@@ -75,6 +83,10 @@ namespace AnonymousEngine
 			 *  @return The current world state
 			 */
 			WorldState& GetWorldState();
+
+			/** The name of the sectors prescribed attribute
+			 */
+			static const std::string SectorsAttributeName;
 		private:
 			// The name of this world
 			std::string mName;
@@ -91,9 +103,6 @@ namespace AnonymousEngine
 			Vector<Attributed*> mGarbageQueue;
 			// Mutex for garbage queue
 			std::mutex mGarbageQueueMutex;
-
-			// The name of the sectors prescribed attribute
-			static const std::string SectorsAttributeName;
 
 			ATTRIBUTED_DECLARATIONS(World, Attributed)
 		};

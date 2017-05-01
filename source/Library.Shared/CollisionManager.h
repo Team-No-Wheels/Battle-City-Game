@@ -3,12 +3,13 @@
 #include "Entity.h"
 #include "Vector.h"
 #include "Collider.h"
+#include "Service.h"
 
 namespace AnonymousEngine
 {
 	namespace Core
 	{
-		class CollisionManager : public Containers::Entity
+		class CollisionManager : public Containers::Entity, public Service
 		{
 		public:
 			/**
@@ -20,6 +21,11 @@ namespace AnonymousEngine
 			* @param collider The collider to register to the collision manager.
 			*/
 			void Register(Collider& collider);
+			/**
+			* Unregister a collider from the collision manager.
+			* @param collider The collider to unregister from the collision manager.
+			*/
+			void Unregister(Collider& collider);
 		private:
 			Vector<Collider*> mColliders;
 		};

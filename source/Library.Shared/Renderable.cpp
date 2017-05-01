@@ -5,20 +5,15 @@ namespace AnonymousEngine
 {
 	namespace Graphics
 	{
-		ATTRIBUTED_DEFINITIONS(Renderable)
-		
 		Renderable::Renderable() :
-			mAlpha(1.0f), mTexture(nullptr)
+			mAlpha(1.0f), mTexture(nullptr), isInitialized(false)
 		{
-			AddExternalAttribute("Alpha", &mAlpha, 1);
-			AddExternalAttribute("Width", &mWidth, 1);
-			AddExternalAttribute("Height", &mHeight, 1);
-			AddExternalAttribute("Position", &mPosition, 1);
 		}
 
 		void Renderable::Init(const std::string& pFilePath)
 		{
 			pFilePath;
+			isInitialized = true;
 		}
 
 		void Renderable::Update(float pDeltaTime)
@@ -26,13 +21,20 @@ namespace AnonymousEngine
 			pDeltaTime;
 		}
 
-		void Renderable::AppendPrescribedAttributeNames(Vector<std::string>& prescribedAttributeNames)
+		Texture * Renderable::GetTexture() const
 		{
-			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
-			prescribedAttributeNames.PushBack("Alpha");
-			prescribedAttributeNames.PushBack("Width");
-			prescribedAttributeNames.PushBack("Height");
-			prescribedAttributeNames.PushBack("Position");
+			return mTexture;
 		}
+
+		int Renderable::GetWidth() const
+		{
+			return mWidth;
+		}
+
+		int32_t Renderable::GetHeight() const
+		{
+			return mHeight;
+		}
+
 	}	
 }

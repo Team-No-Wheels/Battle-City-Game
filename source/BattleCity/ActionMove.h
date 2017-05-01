@@ -20,14 +20,14 @@ namespace AnonymousEngine
 
 	public:
 
-		const float DEFAULTSPEED = 1;
+		static const float sDefaultSpeed;
 
 		enum class Direction
 		{
-			Unknown = 0,
-			Up, 
-			Down, 
-			Left, 
+			Unknown,
+			Up,
+			Down,
+			Left,
 			Right,
 			MaxTypes
 		};
@@ -37,13 +37,13 @@ namespace AnonymousEngine
 
 		void Update(WorldState& worldState) override;
 
-		void Move();
+		void Move(WorldState& worldState);
 		void SetSpeed(float speed);
 		void SetDirection(const Direction direction);
 		Direction GetDirection() const;
 
 		bool GetCanMove() const;
-		void SetCanMove(const bool canMove);
+		void SetCanMove(bool canMove = true);
 
 	protected:
 

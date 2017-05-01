@@ -2,8 +2,7 @@
 #include "Program.h"
 #include <fstream>
 #include "ShaderCompiler.h"
-#include "EngineSettings.h"
-#include "ServiceLocator.h"
+
 
 
 namespace AnonymousEngine
@@ -12,22 +11,7 @@ namespace AnonymousEngine
 		: width(width), height(height), title(title), window(nullptr), shaderProgram(0), VAO(0)
 	{
 		// Using code from AnonymousEngine.Desktop
-		list = new SList<int>();
-
-		// setting the engine parameters.
-		AnonymousEngine::Core::EngineSettings::SetPlatform(AnonymousEngine::Core::PlatformType::DirectX);
-		AnonymousEngine::Core::EngineSettings::SetScreenWidth(width);
-		AnonymousEngine::Core::EngineSettings::SetScreenHeight(height);
-
-		// setting up the ServiceLocator
-		// registering TextureLoader
-		mTextureLoader = new Graphics::TextureLoaderOpenGL();
-		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::TextureLoader, *mTextureLoader);
-		// registering Renderer
-		mRenderer = new Graphics::RendererOpenGL();
-		AnonymousEngine::Core::ServiceLocator::AddService(Core::ServiceLocator::ServiceType::Renderer, *mRenderer);
-
-		mBattleCity = new BattleCity::BattleCity();
+		list = new SList<int>();	
 	}
 
 	Program::~Program()
@@ -64,12 +48,13 @@ namespace AnonymousEngine
 		// initialize viewport
 		glfwGetFramebufferSize(window, nullptr, nullptr);
 		glViewport(0, 0, width, height);
-		glOrtho(0.0f, (GLfloat)width, 0.0f, (GLfloat)height, -100.0f, 100.0f);
+		glOrtho(0.0f, (GLfloat)256, (GLfloat)240, 0.0f ,-100.0f, 100.0f);
 
 		// register keyboard handler
 		glfwSetKeyCallback(window, KeyCallback);
 		//InitShaders();
 
+		mBattleCity = new BattleCity::BattleCity();
 		mBattleCity->Init();
 	}
 

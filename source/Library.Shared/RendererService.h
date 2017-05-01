@@ -1,7 +1,7 @@
 #pragma once
 #include "HashMap.h"
 #include "Service.h"
-#include "Rectangle.h"
+#include "Sprite.h"
 #include "TextureLoaderService.h"
 
 namespace AnonymousEngine
@@ -21,12 +21,12 @@ namespace AnonymousEngine
 				@param[in] pSpriteBounds Bounds of the sprite
 				@param[in] pUVBounds UV mapping
 			*/
-			virtual void Render(Texture* pTexture, const Geometry::Rectangle& pSpriteBounds, const Geometry::Rectangle& pUVBounds) = 0;
+			virtual void Render(const Sprite& pSprite) const = 0;
 
 			/**
 				@brief Draw a rectangle with specified color.
 			*/
-			virtual void DrawRectangle(const Geometry::Rectangle& pRectangle, unsigned char pRed, unsigned char pGreen, unsigned char pBlue) = 0;
+			virtual void DrawRectangle(const Geometry::Rectangle& pRectangle, unsigned char pRed, unsigned char pGreen, unsigned char pBlue) const = 0;
 		};
 	}
 }

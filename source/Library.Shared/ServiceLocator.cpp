@@ -5,11 +5,15 @@ namespace AnonymousEngine
 {
 	namespace Core
 	{
-		HashMap<ServiceLocator::ServiceType, Service*> ServiceLocator::sServicesCache;
+		const std::string ServiceLocator::sTextureLoader = "TextureLoader";
+		const std::string ServiceLocator::sRenderer = "Renderer";
+		const std::string ServiceLocator::sCollisionManager = "CollisionManager";
 
-		Service* ServiceLocator::GetService(ServiceType pServiceType)
+		HashMap<std::string, Service*> ServiceLocator::sServicesCache;
+
+		Service* ServiceLocator::GetService(std::string pServiceType)
 		{
-			HashMap<ServiceType, Service*>::Iterator itr = sServicesCache.Find(pServiceType);
+			HashMap<std::string, Service*>::Iterator itr = sServicesCache.Find(pServiceType);
 			if (itr != sServicesCache.end())
 			{
 				return itr->second;
@@ -20,15 +24,20 @@ namespace AnonymousEngine
 
 		Graphics::TextureLoaderService* ServiceLocator::GetTextureLoader()
 		{
-			return static_cast<Graphics::TextureLoaderService*>(GetService(ServiceType::TextureLoader));
+			return static_cast<Graphics::TextureLoaderService*>(GetService(sTextureLoader));
 		}
 
 		Graphics::RendererService* ServiceLocator::GetRenderer()
 		{
-			return static_cast<Graphics::RendererService*>(GetService(ServiceType::Renderer));
+			return static_cast<Graphics::RendererService*>(GetService(sRenderer));
 		}
 
-		void ServiceLocator::AddService(ServiceType pServiceType, Service& pService)
+		CollisionManager* ServiceLocator::GetCollisionManager()
+		{
+			return static_cast<CollisionManager*>(GetService(sCollisionManager));
+		}
+
+		void ServiceLocator::AddService(std::string pServiceType, Service& pService)
 		{
 			sServicesCache[pServiceType] = &pService;
 		}
