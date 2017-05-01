@@ -37,7 +37,8 @@ namespace MapGenerator
         const string    NAME_IDENTIFIER             = "name";
         const string    VALUE_IDENTIFIER            = "value";
         const string    ENTITY_IDENTIFIER           = "entity";
-        const string    SPRITESHEET_INDENTIFIER     = "spritesheet";
+        const string    ENTITIES_IDENTIFIER         = "entities";
+        const string    SPRITESHEET_INDENTIFIER     = "SpriteSheet";
         const string    OUT_TILES_X_IDENTIFIER      = "numtilesX";
         const string    OUT_TILES_Y_IDENTIFIER      = "numtilesY";
         const string    POSITION_X_IDENTIFIER       = "posX";
@@ -310,75 +311,79 @@ namespace MapGenerator
                     Writer.WriteAttributeString(OUT_TILES_Y_IDENTIFIER, MappedData[IN_TILES_Y_IDENTIFIER]);
                 }
                 Writer.WriteEndElement();
-                for (int i = 0; i < Int32.Parse(MappedData[IN_TILES_X_IDENTIFIER]); ++i)
+                Writer.WriteStartElement(ENTITIES_IDENTIFIER);
                 {
-                    for (int j = 0; j < Int32.Parse(MappedData[IN_TILES_Y_IDENTIFIER]); ++j)
+                    for (int i = 0; i < Int32.Parse(MappedData[IN_TILES_X_IDENTIFIER]); ++i)
                     {
-                        string classname = "";
-
-                        // Check which Object this tile "collides" with.
-                        foreach (var Pair in SpriteMappedData)
+                        for (int j = 0; j < Int32.Parse(MappedData[IN_TILES_Y_IDENTIFIER]); ++j)
                         {
-                            float y = (int.Parse(Entities[CurrentPosition]) / int.Parse(MappedData[IN_TILES_X_IDENTIFIER])) * float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]);
-                            float x = (int.Parse(Entities[CurrentPosition]) % int.Parse(MappedData[IN_TILES_X_IDENTIFIER])) * float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]);
-                            float w = int.Parse(MappedData[TILE_WIDTH_IDENTIFIER]);
-                            float h = int.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]);
+                            string classname = "";
 
-                            // Slightly reducing the bounding box, otherwise unwanted collisions occur
-                            x += BOUNDING_BOX_TOLERANCE;
-                            y += BOUNDING_BOX_TOLERANCE;
-                            w -= BOUNDING_BOX_TOLERANCE;
-                            h -= BOUNDING_BOX_TOLERANCE;
-                            
-                            if (Pair.Value.Intersects(x, y, w, h))
+                            // Check which Object this tile "collides" with.
+                            foreach (var Pair in SpriteMappedData)
                             {
-                                // If it's a single tile, you're fine.
-                                // Else output only if it's the top left tile.
+                                float y = (int.Parse(Entities[CurrentPosition]) / int.Parse(MappedData[IN_TILES_X_IDENTIFIER])) * float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]);
+                                float x = (int.Parse(Entities[CurrentPosition]) % int.Parse(MappedData[IN_TILES_X_IDENTIFIER])) * float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]);
+                                float w = int.Parse(MappedData[TILE_WIDTH_IDENTIFIER]);
+                                float h = int.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]);
 
-                                w += BOUNDING_BOX_TOLERANCE;
-                                h += BOUNDING_BOX_TOLERANCE;
+                                // Slightly reducing the bounding box, otherwise unwanted collisions occur
+                                x += BOUNDING_BOX_TOLERANCE;
+                                y += BOUNDING_BOX_TOLERANCE;
+                                w -= BOUNDING_BOX_TOLERANCE;
+                                h -= BOUNDING_BOX_TOLERANCE;
 
-                                if (w == float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]) && h == float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]))
+                                if (Pair.Value.Intersects(x, y, w, h))
                                 {
-                                    classname = Pair.Value.classname;
-                                }
-                                else if (w > float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]) || h > float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]))
-                                {
-                                    if (SpriteData.Intersects(x, y, w, h, Pair.Value.x, Pair.Value.y, float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]), float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER])))
+                                    // If it's a single tile, you're fine.
+                                    // Else output only if it's the top left tile.
+
+                                    w += BOUNDING_BOX_TOLERANCE;
+                                    h += BOUNDING_BOX_TOLERANCE;
+
+                                    if (w == float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]) && h == float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]))
                                     {
                                         classname = Pair.Value.classname;
                                     }
+                                    else if (w > float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]) || h > float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]))
+                                    {
+                                        if (SpriteData.Intersects(x, y, w, h, Pair.Value.x, Pair.Value.y, float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]), float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER])))
+                                        {
+                                            classname = Pair.Value.classname;
+                                        }
+                                    }
+
+                                    break;
                                 }
-
-                                break;
                             }
-                        }
 
-                        if (classname != null && classname != "")
-                        {
-                            Writer.WriteStartElement(ENTITY_IDENTIFIER);
+                            if (classname != null && classname != "")
                             {
-                                Writer.WriteAttributeString(CLASS_IDENTIFIER, classname);
-                                Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                                Writer.WriteStartElement(ENTITY_IDENTIFIER);
                                 {
-                                    Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
-                                    Writer.WriteAttributeString(VALUE_IDENTIFIER, i.ToString());
-                                }
-                                Writer.WriteEndElement();
+                                    Writer.WriteAttributeString(CLASS_IDENTIFIER, classname);
+                                    Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                                    {
+                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
+                                        Writer.WriteAttributeString(VALUE_IDENTIFIER, i.ToString());
+                                    }
+                                    Writer.WriteEndElement();
 
-                                Writer.WriteStartElement(INTEGER_IDENTIFIER);
-                                {
-                                    Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_Y_IDENTIFIER);
-                                    Writer.WriteAttributeString(VALUE_IDENTIFIER, j.ToString());
+                                    Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                                    {
+                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_Y_IDENTIFIER);
+                                        Writer.WriteAttributeString(VALUE_IDENTIFIER, j.ToString());
+                                    }
+                                    Writer.WriteEndElement();
                                 }
                                 Writer.WriteEndElement();
                             }
-                            Writer.WriteEndElement();
+
+                            ++CurrentPosition;
                         }
-                        
-                        ++CurrentPosition;
                     }
                 }
+                Writer.WriteEndElement();
             }
             Writer.WriteEndElement();
         }
