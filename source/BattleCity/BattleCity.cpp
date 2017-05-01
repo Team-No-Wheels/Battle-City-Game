@@ -28,6 +28,7 @@ namespace BattleCity
 	{
 		mGameClock.UpdateGameTime(mWorld->GetWorldState().mGameTime);
 		mWorld->Update();
+		mInputHandler.Update(mWorld->GetWorldState());
 	}
 
 	AnonymousEngine::InputHandler& BattleCity::InputHandler()
