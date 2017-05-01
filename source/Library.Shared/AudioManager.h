@@ -36,7 +36,7 @@ namespace AnonymousEngine
 
 			void Initialize(std::uint32_t numChannels);
 
-			void CreateSound(FMOD::Sound* sound, const std::string& filePath);
+			void CreateSound(FMOD::Sound** sound, const std::string& filePath);
 
 			void PlaySoundBC(FMOD::Sound* sound, bool loop = false);
 

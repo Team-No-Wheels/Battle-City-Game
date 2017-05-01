@@ -104,7 +104,7 @@
     </Link>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\api\lib;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Expat.lib;fmodL_vc.lib;</AdditionalDependencies>
       <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Lib>
@@ -130,7 +130,7 @@
     </Link>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\api\lib;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Expat.lib;fmodL64_vc.lib</AdditionalDependencies>
       <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Lib>
@@ -160,7 +160,7 @@
     </Link>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\api\lib;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Expat.lib;fmod_vc.lib</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
@@ -189,7 +189,7 @@
     </Link>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\api\lib;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\external\fmod\api\lib\$(Configuration)\$(PlatformName)\;$(SolutionDir)\..\external\expat\lib\$(PlatformName)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Expat.lib;fmod64_vc.lib</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>

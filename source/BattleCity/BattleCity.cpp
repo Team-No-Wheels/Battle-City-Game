@@ -45,15 +45,6 @@ namespace BattleCity
 
 	void BattleCity::Update()
 	{
-		//Audio Test
-		if (!mTestAudio)
-		{
-			mTestAudio = true;
-			AnonymousEngine::Audio::MessageAudio message;
-			message.SetAudioType("PowerUpBomb");
-			AnonymousEngine::Core::Event<AnonymousEngine::Audio::MessageAudio> event = message;
-			event.Deliver();
-		}
 		//mGameClock.UpdateGameTime(mWorld->GetWorldState().mGameTime);
 		//mWorld->Update();
 

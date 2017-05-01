@@ -12,7 +12,7 @@ namespace BattleCity
 	const AnonymousEngine::Vector<std::string> BattleCityAudio::mSoundValues = {
 																"BulletCollidesWithWall",
 																"BulletDestroyed",
-																"BulletCreated",
+																"BullletCreated",
 																"EndScoreDisplay",
 																"EnemyTankDestroyed",
 																"EnemyTankMovement",
@@ -23,7 +23,7 @@ namespace BattleCity
 																"PowerUpBomb",
 																"PowerUpClock",
 																"PowerUpExtraLife",
-																"PowerUpSheild",
+																"PowerUpShield",
 																"PowerUpShovel",
 																"Unknown(2)",
 																"Unknown"
@@ -46,7 +46,7 @@ namespace BattleCity
 		{
 			FMOD::Sound* tempSound = nullptr;
 			string tempName = mSoundValues[i];
-			CreateSound(tempSound, tempName.append(".wav"));
+			CreateSound(&tempSound, tempName.append(".wav"));
 			mSoundMap.Insert(std::pair<std::string, FMOD::Sound*>(mSoundValues[i], tempSound));
 		}
 	}
