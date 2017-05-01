@@ -47,7 +47,6 @@ namespace AnonymousEngine
 		void CollisionWithMetalWall(Metal& metal);
 		void CollisionWithBrickWall(Brick& brick);
 		void CollisionWithFlag();
-		WorldState* FindWorldState() const;
 		
 	};
 

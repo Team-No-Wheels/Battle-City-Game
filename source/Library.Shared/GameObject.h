@@ -15,7 +15,6 @@ namespace AnonymousEngine
 
 		public:
 			
-
 			GameObject();
 			virtual ~GameObject() = default;
 			
@@ -54,7 +53,11 @@ namespace AnonymousEngine
 			* Set whether an game object should be deleted or not before next Update call.
 			*/
 			void SetMarkForDelete(bool value = true);
+
 		protected:
+
+			class AnonymousEngine::Containers::WorldState* GetWorldState() const;
+
 			void AddToDeleteQueue(Containers::WorldState& worldState);
 			/**
 			* The position of this game object in the world space.
