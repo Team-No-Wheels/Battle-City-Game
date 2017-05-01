@@ -73,17 +73,12 @@ namespace AnonymousEngine
 			case Collider::ColliderTag::MapBorder:
 			case Collider::ColliderTag::Water:
 
-				mCurrentState = State::Idle;
+				HandleCollisionWithUndestructable();
 				break;
 
 			case Collider::ColliderTag::PlayerBullet:
 
 				DecrementArmor();
-				break;
-
-			case Collider::ColliderTag::EnemyBullet:
-
-				// nothing happens
 				break;
 
 			case Collider::ColliderTag::BrickWall:
@@ -102,12 +97,14 @@ namespace AnonymousEngine
 	void BasicTankAI::Freeze()
 	{
 		mCurrentState = State::Frozen;
+		mMoveComponent->SetCanMove(false);
 	}
 
 	/************************************************************************/
 	void BasicTankAI::Unfreeze()
 	{
 		mCurrentState = State::Idle;
+		mMoveComponent->SetCanMove();
 	}
 
 	/************************************************************************/
@@ -139,6 +136,7 @@ namespace AnonymousEngine
 		{
 			auto millisecs = RandomNumbersGenerator::GetInstance().GetRangedRandom(static_cast<int32_t>(MAX_TIME_IN_SAME_DIRECTION.count()), static_cast<int32_t>(MIN_TIME_IN_SAME_DIRECTION.count()));
 			mMovingInSameDirectionTimer = milliseconds(millisecs);
+			mMoveComponent->SetDirection(ActionMove::Direction::Unknown);
 			mCurrentState = State::Idle;
 			return;
 		}
@@ -169,7 +167,9 @@ namespace AnonymousEngine
 			case 3: dir = ActionMove::Direction::Left; break;
 			default: dir = ActionMove::Direction::Down; break;
 		}
+		
 		mMoveComponent->SetDirection(dir);
+		mMoveComponent->SetCanMove();
 		mCurrentState = State::Moving;
 	}
 
@@ -216,6 +216,14 @@ namespace AnonymousEngine
 	{
 		TryToShoot(DEFAULT_PROB_TO_SHOOT_IN_COL_WALL);
 		mCurrentState = State::Idle;
+		mMoveComponent->SetCanMove(false);
+	}
+
+	/************************************************************************/
+	void BasicTankAI::HandleCollisionWithUndestructable()
+	{
+		mCurrentState = State::Idle;
+		mMoveComponent->SetCanMove(false);
 	}
 
 	/************************************************************************/

@@ -2,6 +2,7 @@
 #include "RendererOpenGL.h"
 #include "GameObject.h"
 #include "TextureLoaderOpenGL.h"
+#include "Color.h"
 
 namespace AnonymousEngine
 {
@@ -17,15 +18,15 @@ namespace AnonymousEngine
 		{
 			TextureOpenGL* openglTex = static_cast<TextureOpenGL*>(pSprite.GetTexture());
 			const Geometry::Rectangle& uvBounds = pSprite.GetUVBounds();
-			Geometry::Rectangle spriteBounds = pSprite.GetSpriteBounds();
+			Geometry::Rectangle spriteBounds = pSprite.GetRenderingBounds();
 
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, openglTex->mTextureID);
 			
 			glBegin((GLenum)GL_QUADS);
-
+				Color tint = pSprite.GetTint();
 				// tint
-				glColor4ub((GLubyte)255, (GLubyte)255, (GLubyte)255, (GLubyte)255);
+				glColor4ub((GLubyte)tint.r, (GLubyte)tint.g, (GLubyte)tint.b, (GLubyte)255);
 
 				// top left
 				glTexCoord2f(uvBounds.TopLeft.x, uvBounds.TopLeft.y);

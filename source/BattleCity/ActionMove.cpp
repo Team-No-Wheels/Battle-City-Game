@@ -35,7 +35,7 @@ namespace AnonymousEngine
 	{
 		// Get a reference to parent as a game object.
 		GameObject* gameObject = GetParent()->As<GameObject>();
-		 std::int64_t deltaTime = worldState.mGameTime.ElapsedGameTime().count();
+		std::int64_t deltaTime = worldState.mGameTime.ElapsedGameTime().count();
 
 		if (gameObject != nullptr)
 		{

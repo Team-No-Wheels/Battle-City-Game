@@ -62,7 +62,7 @@ namespace AnonymousEngine
 			texture;
 
 			const Geometry::Rectangle& uvBounds = pSprite.GetUVBounds();
-			const Geometry::Rectangle& spriteBounds = pSprite.GetSpriteBounds();
+			const Geometry::Rectangle& spriteBounds = pSprite.GetRenderingBounds();
 			uvBounds;
 			spriteBounds;
 

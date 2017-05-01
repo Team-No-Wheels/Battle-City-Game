@@ -60,7 +60,18 @@ namespace AnonymousEngine
 			*/
 			void SetMarkForDelete(bool value = true);
 
+			/**
+				@brief Set rotation
+				@param[in] pAngle Angle in degree.
+			*/
+			void SetRotation(float pAngle);
+			/**
+				@brief get rotation.
+			*/
+			float GetRotation();
 		protected:
+
+			class AnonymousEngine::Containers::WorldState* GetWorldState() const;
 
 			void AddToDeleteQueue(Containers::WorldState& worldState);
 			/**
@@ -70,6 +81,10 @@ namespace AnonymousEngine
 			/** The name of the sprite to query from frame manager
 			*/
 			std::string mSpriteName;
+			/**
+				Rotation of the game object.
+			*/
+			float mRotation;
 			/**
 			* The sprite representing this game object in the world.
 			*/

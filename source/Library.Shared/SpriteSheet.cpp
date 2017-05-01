@@ -62,6 +62,20 @@ namespace AnonymousEngine
 			mFrameData = &pFrame;
 
 			mTexture = Core::ServiceLocator::GetTextureLoader()->GetTexture(mFrameData->mFilePath);
+			mWidth = pFrame.width;
+			mHeight = pFrame.height;
+
+			mSpriteBounds.TopLeft.x = 0.0f;
+			mSpriteBounds.TopLeft.y = (float)mHeight;
+
+			mSpriteBounds.TopRight.x = (float)mWidth;
+			mSpriteBounds.TopRight.y = (float)mHeight;
+
+			mSpriteBounds.BottomLeft.x = 0.0f;
+			mSpriteBounds.BottomLeft.y = 0.0f;
+
+			mSpriteBounds.BottomRight.x = (float)mWidth;
+			mSpriteBounds.BottomRight.y = 0.0f;
 
 			// calculate UV
 			// TODO : get the texture size from FramManager

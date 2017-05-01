@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "World.h"
 #include "SpriteSheet.h"
+#include "WorldState.h"
 
 namespace AnonymousEngine
 {
@@ -12,7 +13,7 @@ namespace AnonymousEngine
 		const std::string GameObject::sHeightAttributeName = "height";
 
 		GameObject::GameObject() : 
-			mPosition(std::move(glm::vec4())), mCollider(*this), mSprite(nullptr)
+			mPosition(std::move(glm::vec4())), mSprite(nullptr), mCollider(*this)
 		{
 			AddExternalAttribute(sPositionAttributeName, &mPosition, 1);
 			AddExternalAttribute("SpriteName", &mSpriteName, 1);
@@ -21,6 +22,8 @@ namespace AnonymousEngine
 		void GameObject::SetPosition(const glm::vec4& position)
 		{
 			mPosition = position;
+
+			mSprite->UpdatePosition();
 		}
 
 		const glm::vec4& GameObject::GetPosition() const
@@ -40,6 +43,8 @@ namespace AnonymousEngine
 
 			if (mSprite)
 			{
+				mSprite->UpdatePosition();
+
 				// sprite render and update.
 				mSprite->Render();
 				//mSprite->Update(worldState.mGameTime.ElapsedGameTime().count());
@@ -68,9 +73,43 @@ namespace AnonymousEngine
 			return *mSprite;
 		}
 
-		void GameObject::SetMarkForDelete(bool value /* = true */)
+		void GameObject::SetMarkForDelete(bool value)
 		{
 			mMarkedForDelete = value;
+		}
+
+		AnonymousEngine::Containers::WorldState* GameObject::GetWorldState() const
+		{
+			static AnonymousEngine::Containers::WorldState* state = nullptr;
+			if (state == nullptr)
+			{
+				// Loop Through Parent To Find World
+				auto parent = GetParent();
+				while (parent != nullptr)
+				{
+					parent = parent->GetParent();
+
+					// If World, Return WorldState
+					if (parent->Is(Containers::World::TypeIdClass()))
+					{
+						state = &parent->As<Containers::World>()->GetWorldState();
+					}
+				}
+			}
+
+			return state;
+		}
+
+		void GameObject::SetRotation(float pAngle)
+		{
+			mRotation = pAngle;
+
+			mSprite->UpdateRotation();
+		}
+
+		float GameObject::GetRotation()
+		{
+			return mRotation;
 		}
 
 		void GameObject::AddToDeleteQueue(Containers::WorldState& worldState)

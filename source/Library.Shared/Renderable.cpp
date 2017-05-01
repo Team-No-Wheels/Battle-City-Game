@@ -36,5 +36,16 @@ namespace AnonymousEngine
 			return mHeight;
 		}
 
+		Color Renderable::GetTint() const
+		{
+			return mTint;
+		}
+
+		void Renderable::SetTint(Color pTint)
+		{
+			mTint = pTint;
+		}
+
+
 	}	
 }
