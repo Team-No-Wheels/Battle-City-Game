@@ -21,6 +21,8 @@ namespace AnonymousEngine
 		void GameObject::SetPosition(const glm::vec4& position)
 		{
 			mPosition = position;
+
+			mSprite->UpdatePosition();
 		}
 
 		const glm::vec4& GameObject::GetPosition() const
@@ -40,6 +42,8 @@ namespace AnonymousEngine
 
 			if (mSprite)
 			{
+				mSprite->UpdatePosition();
+
 				// sprite render and update.
 				mSprite->Render();
 				//mSprite->Update(worldState.mGameTime.ElapsedGameTime().count());
@@ -71,6 +75,18 @@ namespace AnonymousEngine
 		void GameObject::SetMarkForDelete(bool value /* = true */)
 		{
 			mMarkedForDelete = value;
+		}
+
+		void GameObject::SetRotation(float pAngle)
+		{
+			mRotation = pAngle;
+
+			mSprite->UpdateRotation();
+		}
+
+		float GameObject::GetRotation()
+		{
+			return mRotation;
 		}
 
 		void GameObject::AddToDeleteQueue(Containers::WorldState& worldState)

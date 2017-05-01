@@ -132,10 +132,16 @@
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)FrameManager.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)AnimatedSprite.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MessageAudio.cpp">
       <Filter>Audio</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Color.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FrameManager.cpp">
+      <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -312,10 +318,16 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)FrameManager.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnimatedSprite.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MessageAudio.h">
       <Filter>Audio</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Color.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FrameManager.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
