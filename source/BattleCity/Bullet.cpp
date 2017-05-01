@@ -134,6 +134,7 @@ namespace AnonymousEngine
 	/************************************************************************/
 	void Bullet::CollisionWithOtherBullet(Bullet& )
 	{
+		bullet;
 		mShootParent->KillBullet(*this);
 	}
 

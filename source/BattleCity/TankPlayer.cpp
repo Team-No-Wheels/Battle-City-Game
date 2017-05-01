@@ -95,7 +95,9 @@ namespace AnonymousEngine
 		{
 			MessageInput* message = &const_cast<MessageInput&>(curEvent->Message());
 			Vector<std::string>& Keys = message->GetKeys();
-			
+			WorldState& worldState = message->GetWorldState();
+			worldState;
+
 			// React To Certain Key Presses
 			for (const auto& key : Keys)
 			{
