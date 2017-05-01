@@ -7,14 +7,14 @@ namespace BattleCity
 	{
 		/** GameObject class for Grass on the map.
 		*/
-		class Flag :public TileBase
+		class Flag final: public TileBase
 		{
 			ATTRIBUTED_DECLARATIONS(Flag, TileBase)
 
 		public:
 			/** Defaulted constructor.
 			*/
-			Flag() = default;
+			Flag();
 
 			/** Defaulted destructor.
 			*/

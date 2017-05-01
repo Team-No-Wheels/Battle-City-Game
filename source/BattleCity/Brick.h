@@ -14,7 +14,7 @@ namespace BattleCity
 		public:
 			/** Defaulted constructor.
 			*/
-			Brick() = default;
+			Brick();
 
 			/** Defaulted destructor.
 			*/

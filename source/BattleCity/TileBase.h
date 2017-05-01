@@ -27,21 +27,15 @@ namespace BattleCity
 			/** Parameterized constructor.
 			*	@param tileType The enum tile type of the class.
 			*/
-			TileBase() = default;
-
-			/** Sets the Tile Type of the class.
-			*/
-			void SetTileType(TileType tileType);
+			TileBase(TileType tileType);
 
 			/** Defaulted destructor.
 			*/
-			~TileBase() = default;
+			virtual ~TileBase() = default;
 		protected:
 			/** The tile type of the class.
 			*/
 			TileType mTileType;
 		};
-
-		ENTITY_FACTORY_DECLARATIONS(TileBase)
 	}
 }
