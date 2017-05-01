@@ -22,10 +22,25 @@ namespace AnonymousEngine
 			*/
 			Frame* GetFrameEntity(const std::string& name);
 
+			/** Takes in the name of the Frame and returns a pointer to it.
+			*	@returns Returns the pointer to the found frame. Returns nullptr if the name wasn't found.
+			*/
+			const Frame* GetFrameEntity(const std::string& name) const;
+
+			/** Takes in the ID of the Frame and returns a pointer to it.
+			*	@returns Returns the pointer to the found frame. Returns nullptr if the ID wasn't found.
+			*/
+			Frame* GetFrameEntity(const std::int32_t frameID);
+
+			/** Takes in the ID of the Frame and returns a pointer to it.
+			*	@returns Returns the pointer to the found frame. Returns nullptr if the ID wasn't found.
+			*/
+			const Frame* GetFrameEntity(const std::int32_t frameID) const;
+
 			/** Iterates through all the child frames and stores a pointer to them in the Hashmap.
 			*	Note: This must be called once.
 			*/
-			void StoreAllFrames();
+			void StoreAllFrames();			
 
 			/** Defaulted destructor.
 			*/
@@ -37,7 +52,7 @@ namespace AnonymousEngine
 
 			/** Attribute name for the Frame 
 			*/
-			static const std::string sFrameIDAttributeName;
+			static const std::string sFrameIDAttribute;
 
 			/** Attribute name for the name/file of the sprite sheet.
 			*/
