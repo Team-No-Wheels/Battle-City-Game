@@ -1,16 +1,10 @@
 #pragma once
+
 #include "GameObject.h"
 #include "CollisionManager.h"
 #include "LevelManager.h"
 #include "GameClock.h"
-
-//
-#include "WorldState.h"
-#include "TankPlayer.h"
-#include "ActionMove.h"
-#include "ActionShoot.h"
 #include "InputHandler.h"
-
 
 namespace BattleCity
 {
@@ -38,6 +32,7 @@ namespace BattleCity
 		*/
 		void Update();
 
+		AnonymousEngine::InputHandler& InputHandler();
 	private:
 		/** Collision manager
 		 */
@@ -51,15 +46,6 @@ namespace BattleCity
 
 		AnonymousEngine::GameClock mGameClock;
 
-		//AnonymousEngine::Core::GameObject* mGameObject;
-		AnonymousEngine::TankPlayer* mGameObject;
-
-
-		//
-		AnonymousEngine::Containers::WorldState mWorldState;
-		AnonymousEngine::ActionMoveFactory aMoveFactory;
-		AnonymousEngine::ActionShootFactory aShootFactory;
-		AnonymousEngine::InputHandler* mInputHandler;
-
+		AnonymousEngine::InputHandler mInputHandler;
 	};
 }
