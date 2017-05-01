@@ -128,14 +128,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)AudioManager.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)MessageAudio.cpp">
-      <Filter>Audio</Filter>
-	</ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Frame.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)FrameManager.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MessageAudio.cpp">
+      <Filter>Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,14 +308,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AudioManager.h">
       <Filter>Audio</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)MessageAudio.h">
-      <Filter>Audio</Filter>
-	</ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Frame.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)FrameManager.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MessageAudio.h">
+      <Filter>Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
