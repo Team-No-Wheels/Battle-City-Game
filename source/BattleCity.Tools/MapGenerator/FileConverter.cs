@@ -84,9 +84,7 @@ namespace MapGenerator
 
             public bool Intersects(float otherx, float othery, float otherw, float otherh)
             {
-                return
-                       (Math.Abs(x - otherx) * 2 <= (w + otherw))
-                   && (Math.Abs(y - othery) * 2 <= (h + otherh));
+                return Intersects(x, y, w, h, otherx, othery, otherw, otherh);
             }
 
             public static bool Intersects(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2)
