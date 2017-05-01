@@ -1,34 +1,47 @@
 #pragma once
 
-#include "fmod.hpp"
 #include "HashMap.h"
-#include "EventMessageAttributed.h"
+#include "EventSubscriber.h"
+
+namespace FMOD
+{
+	class Sound;
+	class System;
+}
 
 namespace AnonymousEngine
 {
+	class Core::EventPublisher;
 
 	namespace Audio
 	{
-		class AudioManager
+		class AudioManager : public Core::EventSubscriber
 		{
 		public:
 			/**
 			* The default constructor of class.
 			*/
-			AudioManager() = default;
+			AudioManager();
+
+			void Initialize(std::uint32_t numChannels);
 
 			/**
 			* The default destructor of class.
 			*/
-			~AudioManager() = default;
+			virtual ~AudioManager();
 
 			AudioManager(const AudioManager&) = delete;
 			AudioManager(AudioManager&&) = delete;
 
-			void Update(const Containers::EventMessageAttributed& message);
+
+			void CreateSound(FMOD::Sound* sound, const std::string& filePath);
+
+			void PlaySound(FMOD::Sound* sound, bool loop = false);
+
+			void ReleaseSound(FMOD::Sound* sound);
 
 		private:
-			static const HashMap<std::string, std::string> mSoundMap;
+			FMOD::System* mSystem;
 		};
 	}
 }
