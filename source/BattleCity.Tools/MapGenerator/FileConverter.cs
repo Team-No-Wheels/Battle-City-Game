@@ -60,6 +60,7 @@ namespace MapGenerator
         const string    BATTLE_CITY                 = "BattleCity";
         const string    DEFINITIONS_FILE            = "Definitions.tmx";
         const string    ZERO                        = "0";
+        const string    UNDERSCORE                  = "_";
 
         const float     BOUNDING_BOX_TOLERANCE      = 0.5f;
 
@@ -362,6 +363,7 @@ namespace MapGenerator
                                 Writer.WriteStartElement(ENTITY_IDENTIFIER);
                                 {
                                     Writer.WriteAttributeString(CLASS_IDENTIFIER, classname);
+                                    Writer.WriteAttributeString(NAME_IDENTIFIER, OBJECT_IDENTIFIER + UNDERSCORE + CurrentPosition.ToString());
                                     Writer.WriteStartElement(INTEGER_IDENTIFIER);
                                     {
                                         Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
