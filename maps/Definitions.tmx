@@ -147,19 +147,16 @@
   </object>
   <object id="29" name="Water1" x="32" y="16" width="8" height="8">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="Water"/>
    </properties>
   </object>
   <object id="30" name="Water2" x="40" y="16" width="8" height="8">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="Water"/>
    </properties>
   </object>
   <object id="31" name="Water3" x="48" y="16" width="8" height="8">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="Water"/>
    </properties>
   </object>
@@ -170,67 +167,56 @@
   </object>
   <object id="33" name="SmallExplosion_00" x="32" y="24" width="16" height="16">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="SmallExplosion"/>
    </properties>
   </object>
   <object id="34" name="SmallExplosion_01" x="48" y="24" width="16" height="16">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="SmallExplosion"/>
    </properties>
   </object>
   <object id="35" name="SmallExplosion_02" x="64" y="24" width="16" height="16">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="SmallExplosion"/>
    </properties>
   </object>
   <object id="36" name="Shield_00" x="32" y="40" width="16" height="16">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="Shield"/>
    </properties>
   </object>
   <object id="37" name="Shield_01" x="48" y="40" width="16" height="16">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="Shield"/>
    </properties>
   </object>
   <object id="38" name="ExplosionLarge_00" x="32" y="56" width="32" height="32">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="ExplosionLarge"/>
    </properties>
   </object>
   <object id="39" name="ExplosionLarge_01" x="32" y="88" width="32" height="32">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="ExplosionLarge"/>
    </properties>
   </object>
   <object id="40" name="Spawn_00" x="64" y="40" width="16" height="16">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="Spawn"/>
    </properties>
   </object>
   <object id="41" name="Spawn_01" x="64" y="56" width="16" height="16">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="Spawn"/>
    </properties>
   </object>
   <object id="42" name="Spawn_02" x="64" y="72" width="16" height="16">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="Spawn"/>
    </properties>
   </object>
   <object id="43" name="Spawn_03" x="64" y="88" width="16" height="16">
    <properties>
-    <property name="animate" value="true"/>
     <property name="class" value="Spawn"/>
    </properties>
   </object>
