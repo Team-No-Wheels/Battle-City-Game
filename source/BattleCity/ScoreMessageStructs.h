@@ -18,17 +18,17 @@ namespace AnonymousEngine
 	public:
 		/** Construct a tank defined message and fill in it's members
 		*/
-		TankDefinedMessage(std::string name, std::int32_t value);
+		TankDefinedMessage(const std::string& name, const std::int32_t value);
 
 		/** Returns the name of the tank type.
 		*	@return The name of the tank type.
 		*/
-		std::string Name();
+		std::string Name() const;
 
 		/** Returns he value of destroying the tank type.
 		*	@return The value of destroying of the tank type.
 		*/
-		std::int32_t Value();
+		std::int32_t Value() const;
 
 		/** Destruct a tank defined message
 		*/
@@ -51,7 +51,7 @@ namespace AnonymousEngine
 		/** Returns whether the level was a win or loss.
 		*	@return Whether the level was a win or loss.
 		*/
-		bool WasWin();
+		bool WasWin() const;
 
 		/** Returns the map of score type name to final score.
 		*	@return The map of score type name to final score.
