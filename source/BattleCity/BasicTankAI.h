@@ -72,7 +72,7 @@ namespace AnonymousEngine
 
 	private:
 
-		ActionFreeze mActionFreeze;
+		ActionFreeze* mActionFreeze;
 		State mCurrentState;
 
 		std::chrono::milliseconds mShotCooldownTimer;
