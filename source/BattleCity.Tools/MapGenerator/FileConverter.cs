@@ -50,13 +50,16 @@ namespace MapGenerator
         const string    HEIGHT_IDENTIFIER           = "height";
 
         const string    OBJECT_IDENTIFIER           = "object";
-        const string    FRAMEMANAGER_IDENTIFIER    = "FrameManager";
-        const string    FRAME_IDENTIFIER           = "Frame";
+        const string    FRAMEMANAGER_IDENTIFIER     = "FrameManager";
+        const string    FRAME_IDENTIFIER            = "Frame";
         const string    ID_IDENTIFIER               = "id";
         const string    POSITION_IDENTIFIER         = "Position";
 
+        const string    BATTLE_CITY                 = "BattleCity";
         const string    DEFINITIONS_FILE            = "Definitions.tmx";
         const string    ZERO                        = "0";
+
+        Dictionary<string, SpriteData> SpriteMappedData = new Dictionary<string, SpriteData>();
 
         class SpriteData
         {
@@ -76,9 +79,31 @@ namespace MapGenerator
             }
         }
 
+        class BoundingBox
+        {
+            public int x;
+            public int y;
+            public int w;
+            public int h;
+
+            public BoundingBox(int X, int Y, int W, int H)
+            {
+                x = X;
+                y = Y;
+                w = W;
+                h = H;
+            }
+
+            public bool Intersects(BoundingBox other)
+            {
+                return
+                        (Math.Abs(x - other.x) * 2 <= (w + other.w))
+                    &&  (Math.Abs(y - other.y) * 2 <= (h + other.h));
+            }
+        }
+
         private void WriteSpriteData(string DefinitionsFile, XmlWriter Writer)
         {
-            Dictionary<string, SpriteData> MappedData = new Dictionary<string, SpriteData>();
             string SpriteSheetName = "";
 
             XmlReaderSettings Settings = new XmlReaderSettings();
@@ -100,7 +125,7 @@ namespace MapGenerator
 
                         case OBJECT_IDENTIFIER:
                             {
-                                MappedData[Reader[NAME_IDENTIFIER]]
+                                SpriteMappedData[Reader[NAME_IDENTIFIER]]
                                     = new SpriteData(
                                         Reader[ID_IDENTIFIER],
                                         Reader[X_IDENTIFIER],
@@ -126,7 +151,7 @@ namespace MapGenerator
                     Writer.WriteAttributeString(VALUE_IDENTIFIER, SpriteSheetName);
                 }
                 Writer.WriteEndElement();
-                foreach (var Pair in MappedData)
+                foreach (var Pair in SpriteMappedData)
                 {
                     Writer.WriteStartElement(ENTITY_IDENTIFIER);
                     {
@@ -188,7 +213,9 @@ namespace MapGenerator
                 {
                     Writer.WriteStartElement(WORLD_IDENTIFIER);
                     {
+                        Writer.WriteAttributeString(NAME_IDENTIFIER, BATTLE_CITY);
                         WriteSpriteData(DefinitionsFile, Writer);
+
                         Writer.WriteStartElement(SECTORS_IDENTIFIER);
                         {
                             foreach (var File in Files)
@@ -285,6 +312,9 @@ namespace MapGenerator
                     {
                         Writer.WriteStartElement(ENTITY_IDENTIFIER);
                         {
+                            //
+                            
+                            //
                             Writer.WriteAttributeString(CLASS_IDENTIFIER, Entities[CurrentPosition]);
                             Writer.WriteStartElement(INTEGER_IDENTIFIER);
                             {
