@@ -3,6 +3,7 @@
 #include "ServiceLocator.h"
 #include "World.h"
 #include "SpriteSheet.h"
+#include "AnimatedSprite.h"
 #include "MessageAudio.h"
 #include "Event.h"
 
@@ -18,18 +19,29 @@ namespace BattleCity
 		//mSprite = new AnonymousEngine::Graphics::Sprite();
 		//ServiceLocator::GetTextureLoader()->GetTexture("resources\\tank.png");
 		mGameObject = new AnonymousEngine::Core::GameObject();
-		AnonymousEngine::Graphics::SpriteSheet* spritesheet = new AnonymousEngine::Graphics::SpriteSheet(*mGameObject);
+		AnonymousEngine::Graphics::AnimatedSprite* spritesheet = new AnonymousEngine::Graphics::AnimatedSprite(*mGameObject);
 
-		AnonymousEngine::Graphics::Frame* frame = new AnonymousEngine::Graphics::Frame;
-		frame->mFilePath = "resources\\General.png";
-		frame->mFrameID = 1;
-		frame->mFrameName = "";
-		frame->mPosition = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
-		frame->width = 15;
-		frame->height = 15;
+		AnonymousEngine::Graphics::Frame* frame1 = new AnonymousEngine::Graphics::Frame;
+		frame1->mFilePath = "resources\\General.png";
+		frame1->mFrameID = 1;
+		frame1->mFrameName = "";
+		frame1->mPosition = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+		frame1->width = 16;
+		frame1->height = 15;
 
-		spritesheet->SetFrame(*frame);
-		
+		AnonymousEngine::Graphics::Frame* frame2 = new AnonymousEngine::Graphics::Frame;
+		frame2->mFilePath = "resources\\General.png";
+		frame2->mFrameID = 1;
+		frame2->mFrameName = "";
+		frame2->mPosition = glm::vec4(16.0f, 0.0f, 0.0f, 0.0f);
+		frame2->width = 16;
+		frame2->height = 15;
+
+		spritesheet->SetFrame(*frame1);
+		spritesheet->AddFrame(*frame1);
+		spritesheet->AddFrame(*frame2);
+
+		spritesheet->SetFPS(24);
 	}
 
 	void BattleCity::Init()
@@ -42,6 +54,7 @@ namespace BattleCity
 		//mWorld = &mLevelManager.LoadWorld();
 		//mWorld->InitializeWorld();
 		//mLevelManager.LoadLevelTiles(mWorld->GetWorldState().GetCurrentLevel());
+
 		mGameObject->GetSprite().Init("resources\\General.png");
 		mGameObject->SetPosition(glm::vec4(100.0f, 104.0f, 0.0f, 0.0f));
 
@@ -58,11 +71,15 @@ namespace BattleCity
 		//mSprite->Render();
 		//mSprite->Update(pDeltaTime);
 		
-		//mGameObject->SetPosition(mGameObject->GetPosition() + glm::vec4(0.0f, -1.0f, 0.0f, 0.0f) * (1.0f/60.0f));
-		//mGameObject->SetRotation(mGameObject->GetRotation() + 90.0f * (1.0f / 1000.0f));
+		
+		float deltaTime = mWorld->GetWorldState().mGameTime.ElapsedGameTime().count() / 1000.0f;
+
+		//GameObject->SetPosition(mGameObject->GetPosition() + glm::vec4(0.0f, -20.0f, 0.0f, 0.0f) * deltaTime);
+		//mGameObject->SetRotation(mGameObject->GetRotation() + 90.0f * deltaTime);
 		//mGameObject->SetRotation(90.0f);
+
 		mGameObject->GetSprite().Render();
-		mGameObject->GetSprite().Update(1.0f / 60.0f);
+		mGameObject->GetSprite().Update(deltaTime);
 
 		OutputDebugString("BattleCity : Update\n");
 	}

@@ -7,7 +7,7 @@ namespace AnonymousEngine
 	namespace Graphics
 	{
 		SpriteSheet::SpriteSheet(Core::GameObject& pGameObject) :
-			 Sprite(pGameObject), mFrameData(nullptr)
+			 Sprite(pGameObject), mCurrentFrameData(nullptr)
 		{
 
 		}
@@ -26,7 +26,7 @@ namespace AnonymousEngine
 		{
 			Sprite::Update(pDeltaTime);
 
-			if (!mFrameData)
+			if (!mCurrentFrameData)
 			{
 				mUVBounds.TopLeft.x = 0;
 				mUVBounds.TopLeft.y = 0;
@@ -59,9 +59,9 @@ namespace AnonymousEngine
 
 		void SpriteSheet::SetFrame(Frame& pFrame)
 		{
-			mFrameData = &pFrame;
+			mCurrentFrameData = &pFrame;
 
-			mTexture = Core::ServiceLocator::GetTextureLoader()->GetTexture(mFrameData->mFilePath);
+			mTexture = Core::ServiceLocator::GetTextureLoader()->GetTexture(mCurrentFrameData->mFilePath);
 			mWidth = pFrame.width;
 			mHeight = pFrame.height;
 
@@ -79,17 +79,17 @@ namespace AnonymousEngine
 
 			// calculate UV
 			// TODO : get the texture size from FramManager
-			mUVBounds.TopLeft.x = mFrameData->mPosition.x / 128.0f;
-			mUVBounds.TopLeft.y = (128.0f - mFrameData->mPosition.y - mFrameData->height) / 128.0f;
+			mUVBounds.TopLeft.x = mCurrentFrameData->mPosition.x / 128.0f;
+			mUVBounds.TopLeft.y = (128.0f - mCurrentFrameData->mPosition.y - mCurrentFrameData->height) / 128.0f;
 
-			mUVBounds.TopRight.x = (mFrameData->mPosition.x + mFrameData->width) / 128.0f;
-			mUVBounds.TopRight.y = (128.0f - mFrameData->mPosition.y - mFrameData->height) / 128.0f;
+			mUVBounds.TopRight.x = (mCurrentFrameData->mPosition.x + mCurrentFrameData->width) / 128.0f;
+			mUVBounds.TopRight.y = (128.0f - mCurrentFrameData->mPosition.y - mCurrentFrameData->height) / 128.0f;
 
-			mUVBounds.BottomLeft.x = mFrameData->mPosition.x / 128.0f;
-			mUVBounds.BottomLeft.y = (128.0f - mFrameData->mPosition.y) / 128.0f;
+			mUVBounds.BottomLeft.x = mCurrentFrameData->mPosition.x / 128.0f;
+			mUVBounds.BottomLeft.y = (128.0f - mCurrentFrameData->mPosition.y) / 128.0f;
 
-			mUVBounds.BottomRight.x = (mFrameData->mPosition.x + mFrameData->width) / 128.0f;
-			mUVBounds.BottomRight.y = (128.0f - mFrameData->mPosition.y) / 128.0f;
+			mUVBounds.BottomRight.x = (mCurrentFrameData->mPosition.x + mCurrentFrameData->width) / 128.0f;
+			mUVBounds.BottomRight.y = (128.0f - mCurrentFrameData->mPosition.y) / 128.0f;
 		}
 
 
