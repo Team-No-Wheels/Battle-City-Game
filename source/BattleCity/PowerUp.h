@@ -35,7 +35,7 @@ namespace AnonymousEngine
 		};
 
 		PowerUp();
-		~PowerUp();
+		~PowerUp() = default;
 
 		void SetType(PowerUpType newType);
 		void Activate(TankPlayer& player, Containers::WorldState& worldState);
