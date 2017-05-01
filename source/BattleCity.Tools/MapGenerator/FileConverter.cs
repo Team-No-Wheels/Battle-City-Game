@@ -51,7 +51,7 @@ namespace MapGenerator
 
         const string    OBJECT_IDENTIFIER           = "object";
         const string    FRAMEMANAGER_IDENTIFIER    = "FrameManager";
-        const string    FRAME_IDENTIFIER           = "frame";
+        const string    FRAME_IDENTIFIER           = "Frame";
         const string    ID_IDENTIFIER               = "id";
         const string    POSITION_IDENTIFIER         = "Position";
 
@@ -122,7 +122,8 @@ namespace MapGenerator
                 Writer.WriteAttributeString(NAME_IDENTIFIER, FRAMEMANAGER_IDENTIFIER);
                 Writer.WriteStartElement(STRING_IDENTIFIER);
                 {
-                    Writer.WriteAttributeString(SPRITESHEET_INDENTIFIER, SpriteSheetName);
+                    Writer.WriteAttributeString(NAME_IDENTIFIER, SPRITESHEET_INDENTIFIER);
+                    Writer.WriteAttributeString(VALUE_IDENTIFIER, SpriteSheetName);
                 }
                 Writer.WriteEndElement();
                 foreach (var Pair in MappedData)
