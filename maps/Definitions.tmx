@@ -27,82 +27,82 @@
  <objectgroup name="Object Layer 1">
   <object id="1" name="Tank1_00" x="0" y="0" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="2" name="Tank1_01" x="16" y="0" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="3" name="Tank2_00" x="0" y="16" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="4" name="Tank2_01" x="16" y="16" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="5" name="Tank3_00" x="0" y="32" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="10" name="Tank3_01" x="16" y="32" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="11" name="Tank4_00" x="0" y="48" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="12" name="Tank4_01" x="16" y="48" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="13" name="Tank5_00" x="0" y="64" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="14" name="Tank5_01" x="16" y="64" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="15" name="Tank6_00" x="0" y="80" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="16" name="Tank6_01" x="16" y="80" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="17" name="Tank7_00" x="0" y="96" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="18" name="Tank7_01" x="16" y="96" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="19" name="Tank8_00" x="0" y="112" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="20" name="Tank8_01" x="16" y="112" width="16" height="16">
    <properties>
-    <property name="class" value="Tank"/>
+    <property name="class" value="TankPlayer"/>
    </properties>
   </object>
   <object id="21" name="Brick_Full" x="32" y="0" width="8" height="8">
@@ -245,39 +245,39 @@
     <property name="class" value="Bullet"/>
    </properties>
   </object>
-  <object id="49" name="PowerupHelmet" x="80" y="0" width="16" height="16">
+  <object id="49" name="PowerUpHelmet" x="80" y="0" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="50" name="PowerupBomb" x="80" y="16" width="16" height="16">
+  <object id="50" name="PowerUpBomb" x="80" y="16" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="51" name="PowerupSpade" x="80" y="32" width="16" height="16">
+  <object id="51" name="PowerUpSpade" x="80" y="32" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="52" name="PowerupStarfish" x="80" y="48" width="16" height="16">
+  <object id="52" name="PowerUpStarfish" x="80" y="48" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="53" name="PowerupGrenade" x="80" y="64" width="16" height="16">
+  <object id="53" name="PowerUpGrenade" x="80" y="64" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="54" name="PowerupTank" x="80" y="80" width="16" height="16">
+  <object id="54" name="PowerUpTank" x="80" y="80" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
-  <object id="55" name="PowerupGun" x="80" y="96" width="16" height="16">
+  <object id="55" name="PowerUpGun" x="80" y="96" width="16" height="16">
    <properties>
-    <property name="class" value="Powerup"/>
+    <property name="class" value="PowerUp"/>
    </properties>
   </object>
   <object id="56" name="Score100" x="96" y="0" width="16" height="16">
@@ -325,7 +325,7 @@
     <property name="class" value="Bullet"/>
    </properties>
   </object>
-  <object id="65" name="PlayerTankUISymbol" x="56" y="120" width="8" height="8">
+  <object id="65" name="TankPlayerUISymbol" x="56" y="120" width="8" height="8">
    <properties>
     <property name="class" value="UIElement"/>
    </properties>

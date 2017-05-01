@@ -15,11 +15,6 @@ namespace AnonymousEngine
 
 	}
 
-	PowerUp::~PowerUp()
-	{
-
-	}
-
 	void PowerUp::SetType(PowerUpType newType)
 	{
 		mType = newType;
@@ -110,7 +105,7 @@ namespace AnonymousEngine
 
 			for (std::uint32_t i = 0; i < size; ++i)
 			{
-				TankBase* tank = entities.Get<Scope*>(i)->As<TankBase>();
+				TankBase* tank = entities.Get<Scope>(i).As<TankBase>();
 
 				if (tank != nullptr)
 				{

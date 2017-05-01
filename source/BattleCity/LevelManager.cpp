@@ -1,12 +1,15 @@
 #include "Pch.h"
 #include "LevelManager.h"
 #include "Brick.h"
+#include "FrameManager.h"
 #include "Grass.h"
 #include "Metal.h"
 #include "Water.h"
 #include "World.h"
 #include "Sector.h"
 #include "ServiceLocator.h"
+#include "UIElement.h"
+#include "PowerUp.h"
 
 using namespace AnonymousEngine;
 
@@ -14,6 +17,9 @@ namespace BattleCity
 {
 	namespace Managers
 	{
+		const std::string LevelManager::sPosX = "posX";
+		const std::string LevelManager::sPosY = "posY";
+
 		typedef Parsers::XmlParseMaster XmlParseMaster;
 		typedef Parsers::WorldParserHelper WorldParserHelper;
 		typedef Parsers::WorldSharedData WorldSharedData;
@@ -21,14 +27,13 @@ namespace BattleCity
 		typedef MapEntities::GrassFactory GrassFactory;
 		typedef MapEntities::MetalFactory MetalFactory;
 		typedef MapEntities::WaterFactory WaterFactory;
+		typedef Graphics::FrameManagerFactory FrameManagerFactory;
+		typedef Graphics::FrameFactory FrameFactory;
 		typedef Containers::World World;
 		typedef Containers::Sector Sector;
 
 		const std::string LevelManager::sServiceName = "LevelManager";
-		const std::string LevelManager::sLevelXmlFile = "BattleCity.xml";
-
-		const std::string LevelManager::sPosX = "posX";
-		const std::string LevelManager::sPosY = "posY";
+		const std::string LevelManager::sLevelXmlFile = "resources\\BattleCity.xml";
 
 		LevelManager::LevelManager()
 			:mWorld(nullptr)
@@ -64,6 +69,13 @@ namespace BattleCity
 			GrassFactory grassFactory;
 			WaterFactory waterFactory;
 			MetalFactory metalFactory;
+			FrameManagerFactory frameManagerFactory;
+			FrameFactory frameFactory;
+			UIElementFactory uiElementFactory;
+			PowerUpFactory powerUpFactory;
+			TankPlayerFactory tankPlayerFactory;
+			ActionShootFactory actionShootFactory;
+			ActionMoveFactory actionMoveFactory;
 
 			//Start parsing xml file.
 			WorldSharedData worldSharedData;

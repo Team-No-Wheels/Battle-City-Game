@@ -8,9 +8,9 @@ namespace AnonymousEngine
 	{
 		class GameObject;
 	}
+
 	namespace Graphics
 	{
-		
 		class Sprite : public Renderable
 		{
 			friend class GameObject;
@@ -23,7 +23,7 @@ namespace AnonymousEngine
 			/**
 			* Destructor.
 			*/
-			~Sprite() = default;
+			virtual ~Sprite() = default;
 
 			/**
 				@brief Call Init with the file name will initialize this Renderable object with the file.
@@ -58,14 +58,35 @@ namespace AnonymousEngine
 			Geometry::Rectangle GetSpriteBounds() const;
 
 			/**
+				Get the rectangle where sprite is rendered
+			*/
+			Geometry::Rectangle GetRenderingBounds() const;
+
+			/**
 				Return the sprite uv
 			*/
 			const Geometry::Rectangle& GetUVBounds() const;
+
+			/**
+				Translate the sprite bounds based on parent GameObject
+			*/
+			void UpdatePosition();
+
+			/**
+				Rotate sprite based on the rotation of parent GameObject.
+			*/
+			void UpdateRotation();
 		protected:
 			Core::GameObject& mGameObject;
 
 			Geometry::Rectangle mSpriteBounds;
+			Geometry::Rectangle mRenderingBounds;
 			Geometry::Rectangle mUVBounds;
+
+		private:
+			float mRotationBuffer;
+
+			glm::vec2 RotatePoint(glm::vec2 pOriginPoint, glm::vec2 pPoint, float_t pAngle);
 		};
 	}
 }

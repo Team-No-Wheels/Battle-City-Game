@@ -15,11 +15,8 @@ namespace AnonymousEngine
 
 	class ActionMove : public Action
 	{
-
 		ATTRIBUTED_DECLARATIONS(ActionMove, Action);
-
 	public:
-
 		static const float sDefaultSpeed;
 
 		enum class Direction

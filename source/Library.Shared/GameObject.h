@@ -14,8 +14,14 @@ namespace AnonymousEngine
 			friend class Graphics::Sprite;
 
 		public:
-			
+			/**
+			* Initialize a game object
+			*/
 			GameObject();
+
+			/**
+			* Default destructor
+			*/
 			virtual ~GameObject() = default;
 			
 			/**
@@ -54,6 +60,15 @@ namespace AnonymousEngine
 			*/
 			void SetMarkForDelete(bool value = true);
 
+			/**
+				@brief Set rotation
+				@param[in] pAngle Angle in degree.
+			*/
+			void SetRotation(float pAngle);
+			/**
+				@brief get rotation.
+			*/
+			float GetRotation();
 		protected:
 
 			class AnonymousEngine::Containers::WorldState* GetWorldState() const;
@@ -63,6 +78,13 @@ namespace AnonymousEngine
 			* The position of this game object in the world space.
 			*/
 			glm::vec4 mPosition;
+			/** The name of the sprite to query from frame manager
+			*/
+			std::string mSpriteName;
+			/**
+				Rotation of the game object.
+			*/
+			float mRotation;
 			/**
 			* The sprite representing this game object in the world.
 			*/

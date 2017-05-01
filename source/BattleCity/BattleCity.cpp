@@ -4,7 +4,6 @@
 #include "World.h"
 #include "SpriteSheet.h"
 
-
 using namespace AnonymousEngine::Core;
 
 namespace BattleCity
@@ -28,27 +27,36 @@ namespace BattleCity
 		frame->height = 15;
 
 		spritesheet->SetFrame(*frame);
-		mGameObject->SetPosition(glm::vec4(100.0f, 100.0f, 0.0f, 0.0f));
+		
 	}
 
 	void BattleCity::Init()
 	{
+		mWorld = &mLevelManager.LoadWorld();
+		mWorld->InitializeWorld();
+		mLevelManager.LoadLevelTiles(mWorld->GetWorldState().GetCurrentLevel());
 		//mWorld = &mLevelManager.LoadWorld();
 		//mWorld->InitializeWorld();
 		//mLevelManager.LoadLevelTiles(mWorld->GetWorldState().GetCurrentLevel());
 		mGameObject->GetSprite().Init("resources\\General.png");
+		mGameObject->SetPosition(glm::vec4(100.0f, 104.0f, 0.0f, 0.0f));
+
+		//mGameObject->GetSprite().SetTint(AnonymousEngine::Graphics::Color::RED);
 	}
 
 	void BattleCity::Update()
 	{
+		mGameClock.UpdateGameTime(mWorld->GetWorldState().mGameTime);
+		mWorld->Update();
 		//mGameClock.UpdateGameTime(mWorld->GetWorldState().mGameTime);
 		//mWorld->Update();
 
 		//mSprite->Render();
 		//mSprite->Update(pDeltaTime);
 		
-		//mGameObject->SetPosition(mGameObject->GetPosition() + glm::vec4(0.0f, -1.0f, 0.0f, 0.0f) * pDeltaTime);
-
+		//mGameObject->SetPosition(mGameObject->GetPosition() + glm::vec4(0.0f, -1.0f, 0.0f, 0.0f) * (1.0f/60.0f));
+		//mGameObject->SetRotation(mGameObject->GetRotation() + 90.0f * (1.0f / 1000.0f));
+		//mGameObject->SetRotation(90.0f);
 		mGameObject->GetSprite().Render();
 		mGameObject->GetSprite().Update(1.0f / 60.0f);
 

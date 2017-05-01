@@ -30,4 +30,4 @@ namespace BattleCity
 	};
 
 	CONCRETE_FACTORY_DECLARATIONS(UIScreen, UIScreen);
-	}
+}

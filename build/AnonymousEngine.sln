@@ -22,6 +22,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Thirdparty.Glad", "..\external\glad\glad.vcxproj", "{8A34B3C3-C2A1-4A8D-9701-07327E5CB5EA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BattleCity", "..\source\BattleCity\BattleCity.vcxproj", "{D70E43B0-93F0-464E-8C75-49782B6160E3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{23484E06-89CF-48A5-8717-ECEC62E8605A} = {23484E06-89CF-48A5-8717-ECEC62E8605A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapGenerator", "..\source\BattleCity.Tools\MapGenerator\MapGenerator.csproj", "{23484E06-89CF-48A5-8717-ECEC62E8605A}"
 EndProject

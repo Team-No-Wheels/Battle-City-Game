@@ -1,5 +1,6 @@
 #pragma once
 #include "TextureLoaderService.h"
+#include "Color.h"
 
 namespace AnonymousEngine
 {
@@ -12,7 +13,7 @@ namespace AnonymousEngine
 		/**
 			Any object that can be rendered on the screen will extend this class.
 		*/
-		class Renderable abstract
+		class Renderable
 		{
 			friend class Core::GameObject;
 		public:
@@ -20,6 +21,11 @@ namespace AnonymousEngine
 				Default constructor
 			*/
 			Renderable();
+
+			/**
+			    Default destructor
+			*/
+			virtual ~Renderable() = default;
 
 			/**
 				@brief Call Init with the file name will initialize this Renderable object with the file.
@@ -57,6 +63,14 @@ namespace AnonymousEngine
 				@brief Get height
 			*/
 			int32_t GetHeight() const;
+			/**
+				Getter for tint
+			*/
+			Color GetTint() const;
+			/**
+				Setter for tint
+			*/
+			void SetTint(Color pTint);
 		protected:
 			/**
 				Texture ID for this Renderable
@@ -67,6 +81,11 @@ namespace AnonymousEngine
 				Alpha
 			*/
 			float mAlpha;
+
+			/**
+				Tint
+			*/
+			Color mTint;
 
 			std::int32_t mWidth;
 			std::int32_t mHeight;

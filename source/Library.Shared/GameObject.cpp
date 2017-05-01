@@ -16,11 +16,14 @@ namespace AnonymousEngine
 			mPosition(std::move(glm::vec4())), mSprite(nullptr), mCollider(*this)
 		{
 			AddExternalAttribute(sPositionAttributeName, &mPosition, 1);
+			AddExternalAttribute("SpriteName", &mSpriteName, 1);
 		}
 
 		void GameObject::SetPosition(const glm::vec4& position)
 		{
 			mPosition = position;
+
+			mSprite->UpdatePosition();
 		}
 
 		const glm::vec4& GameObject::GetPosition() const
@@ -40,6 +43,8 @@ namespace AnonymousEngine
 
 			if (mSprite)
 			{
+				mSprite->UpdatePosition();
+
 				// sprite render and update.
 				mSprite->Render();
 				//mSprite->Update(worldState.mGameTime.ElapsedGameTime().count());
@@ -95,6 +100,18 @@ namespace AnonymousEngine
 			return state;
 		}
 
+		void GameObject::SetRotation(float pAngle)
+		{
+			mRotation = pAngle;
+
+			mSprite->UpdateRotation();
+		}
+
+		float GameObject::GetRotation()
+		{
+			return mRotation;
+		}
+
 		void GameObject::AddToDeleteQueue(Containers::WorldState& worldState)
 		{
 			worldState.mWorld->MarkForDelete(*this);
@@ -105,9 +122,10 @@ namespace AnonymousEngine
 		{
 			Parent::AppendPrescribedAttributeNames(prescribedAttributeNames);
 
-			prescribedAttributeNames.PushBack(sPositionAttributeName);
-			prescribedAttributeNames.PushBack(sWidthAttributeName);
-			prescribedAttributeNames.PushBack(sHeightAttributeName);
+			prescribedAttributeNames.PushBack("Position");
+			prescribedAttributeNames.PushBack("SpriteName");
+			prescribedAttributeNames.PushBack("width");
+			prescribedAttributeNames.PushBack("height");
 		}
 
 		ATTRIBUTED_DEFINITIONS(GameObject)
