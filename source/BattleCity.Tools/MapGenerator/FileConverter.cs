@@ -70,12 +70,12 @@ namespace MapGenerator
 
         class SpriteData
         {
-            public string id;
-            public string classname;
-            public float x;
-            public float y;
-            public float w;
-            public float h;
+            public string   id;
+            public string   classname;
+            public float    x;
+            public float    y;
+            public float    w;
+            public float    h;
 
             public SpriteData(string ID, float X, float Y, float W, float H)
             {
@@ -273,10 +273,10 @@ namespace MapGenerator
                     {
                         case MAP_IDENTIFIER:
                             {
-                                MappedData[IN_TILES_X_IDENTIFIER] = Reader[IN_TILES_X_IDENTIFIER];
-                                MappedData[IN_TILES_Y_IDENTIFIER] = Reader[IN_TILES_Y_IDENTIFIER];
-                                MappedData[TILE_WIDTH_IDENTIFIER] = Reader[TILE_WIDTH_IDENTIFIER];
-                                MappedData[TILE_HEIGHT_IDENTIFIER] = Reader[TILE_HEIGHT_IDENTIFIER];
+                                MappedData[IN_TILES_X_IDENTIFIER]   = Reader[IN_TILES_X_IDENTIFIER];
+                                MappedData[IN_TILES_Y_IDENTIFIER]   = Reader[IN_TILES_Y_IDENTIFIER];
+                                MappedData[TILE_WIDTH_IDENTIFIER]   = Reader[TILE_WIDTH_IDENTIFIER];
+                                MappedData[TILE_HEIGHT_IDENTIFIER]  = Reader[TILE_HEIGHT_IDENTIFIER];
                             }
                             break;
 
@@ -386,17 +386,13 @@ namespace MapGenerator
                                 {
                                     Writer.WriteAttributeString(CLASS_IDENTIFIER, classname);
                                     Writer.WriteAttributeString(NAME_IDENTIFIER, OBJECT_IDENTIFIER + UNDERSCORE + CurrentPosition.ToString());
-                                    Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                                    Writer.WriteStartElement(VECTOR_IDENTIFIER);
                                     {
-                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
-                                        Writer.WriteAttributeString(VALUE_IDENTIFIER, i.ToString());
-                                    }
-                                    Writer.WriteEndElement();
-
-                                    Writer.WriteStartElement(INTEGER_IDENTIFIER);
-                                    {
-                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_Y_IDENTIFIER);
-                                        Writer.WriteAttributeString(VALUE_IDENTIFIER, j.ToString());
+                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_IDENTIFIER);
+                                        Writer.WriteAttributeString(X_IDENTIFIER, (i * float.Parse(MappedData[TILE_WIDTH_IDENTIFIER])).ToString());
+                                        Writer.WriteAttributeString(Y_IDENTIFIER, (j * float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER])).ToString());
+                                        Writer.WriteAttributeString(Z_IDENTIFIER, ZERO);
+                                        Writer.WriteAttributeString(W_IDENTIFIER, ZERO);
                                     }
                                     Writer.WriteEndElement();
                                 }
