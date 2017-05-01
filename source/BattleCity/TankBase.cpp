@@ -5,9 +5,12 @@ namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(TankBase);
 
+	const std::string TankBase::sMoveComponentName = "MoveComponent";
+	const std::string TankBase::sShootComponentName = "ShootComponent";
+
 	TankBase::TankBase() :
-		mMoveComponent(CreateAction("ActionMove", "ActionMove").As<ActionMove>()),
-		mShootComponent(CreateAction("ActionShoot", "ActionShoot").As<ActionShoot>())
+		mMoveComponent(CreateAction(sMoveComponentName, "ActionMove").As<ActionMove>()),
+		mShootComponent(CreateAction(sShootComponentName, "ActionShoot").As<ActionShoot>())
 	{
 
 	}
@@ -19,6 +22,10 @@ namespace AnonymousEngine
 
 	ActionMove& TankBase::MoveComponent()
 	{
+		if (!mMoveComponent)
+		{
+			std::runtime_error("Tank doesn't have a move component.");
+		}
 		return *mMoveComponent;
 	}
 

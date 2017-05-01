@@ -23,7 +23,7 @@ namespace AnonymousEngine
 		/** Returns the name of the tank type.
 		*	@return The name of the tank type.
 		*/
-		std::string Name() const;
+		const std::string& Name() const;
 
 		/** Returns he value of destroying the tank type.
 		*	@return The value of destroying of the tank type.
@@ -56,7 +56,7 @@ namespace AnonymousEngine
 		/** Returns the map of score type name to final score.
 		*	@return The map of score type name to final score.
 		*/
-		HashMap<std::string, std::int32_t> FinalScores();
+		const HashMap<std::string, std::int32_t>& FinalScores() const;
 
 		/** Destruct a level over message
 		*/
@@ -73,12 +73,12 @@ namespace AnonymousEngine
 	public:
 		/** Construct a score increase message and fill in it's members
 		*/
-		ScoreEventMessage(std::string name, Containers::WorldState& worldState);
+		ScoreEventMessage(const std::string& name, Containers::WorldState& worldState);
 
 		/** Returns the name of the score type.
 		*	@return The name of the score type.
 		*/
-		std::string Name();
+		const std::string& Name() const;
 
 		/** Returns a reference to the world state.
 		*	@return A reference to the world state.
@@ -105,7 +105,7 @@ namespace AnonymousEngine
 		/** Returns a reference to the world state.
 		*	@return A reference to the world state.
 		*/
-		Containers::WorldState& WorldState();
+		Containers::WorldState& WorldState() const;
 
 		/** Destruct a tanks destroyed no score message
 		*/
@@ -122,12 +122,12 @@ namespace AnonymousEngine
 	public:
 		/** Construct a player side damage message and fill in it's members
 		*/
-		PlayerSideDamageMessage(bool wasFlag, Containers::WorldState& worldState);
+		PlayerSideDamageMessage(const bool wasFlag, Containers::WorldState& worldState);
 
 		/** Returns whether the damage was to the flag or not.
 		*	@return Whether the damage was to the flag or not.
 		*/
-		bool WasFlag();
+		bool WasFlag() const;
 
 		/** Returns a reference to the world state.
 		*	@return A reference to the world state.
@@ -148,12 +148,12 @@ namespace AnonymousEngine
 	public:
 		/** Construct a player lives changed message and fill in it's members
 		*/
-		PlayerLivesChangedMessage(std::int32_t numLives);
+		PlayerLivesChangedMessage(const std::int32_t numLives);
 
 		/** Returns the number of player lives.
 		*	@return The number of player lives.
 		*/
-		std::int32_t NumLives();
+		std::int32_t NumLives() const;
 
 		/** Destruct a player lives changed message
 		*/
@@ -165,28 +165,22 @@ namespace AnonymousEngine
 	struct LevelStartMessage
 	{
 	private:
-		std::int32_t mPlayerLives;
 		std::int32_t mNumberTanks;
 		std::int32_t mLevelNumber;
 	public:
 		/** Construct a player lives changed message and fill in it's members
 		*/
-		LevelStartMessage(std::int32_t playerLives, std::int32_t numberTanks, std::int32_t levelNumber);
-
-		/** Returns the number of player lives.
-		*	@return The number of player lives.
-		*/
-		std::int32_t PlayerLives();
+		LevelStartMessage(const std::int32_t numberTanks, const std::int32_t levelNumber);
 
 		/** Returns the number of tanks.
 		*	@return The number of tanks.
 		*/
-		std::int32_t NumTanks();
+		std::int32_t NumTanks() const;
 
 		/** Returns the level number.
 		*	@return The level number.
 		*/
-		std::int32_t LevelNumber();
+		std::int32_t LevelNumber() const;
 
 		/** Destruct a player lives changed message
 		*/

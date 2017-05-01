@@ -37,7 +37,8 @@ namespace MapGenerator
         const string    NAME_IDENTIFIER             = "name";
         const string    VALUE_IDENTIFIER            = "value";
         const string    ENTITY_IDENTIFIER           = "entity";
-        const string    SPRITESHEET_INDENTIFIER     = "spritesheet";
+        const string    ENTITIES_IDENTIFIER         = "entities";
+        const string    SPRITESHEET_INDENTIFIER     = "SpriteSheet";
         const string    OUT_TILES_X_IDENTIFIER      = "numtilesX";
         const string    OUT_TILES_Y_IDENTIFIER      = "numtilesY";
         const string    POSITION_X_IDENTIFIER       = "posX";
@@ -50,6 +51,7 @@ namespace MapGenerator
         const string    HEIGHT_IDENTIFIER           = "height";
 
         const string    OBJECT_IDENTIFIER           = "object";
+        const string    PROPERTY_IDENTIFIER         = "property";
         const string    FRAMEMANAGER_IDENTIFIER     = "FrameManager";
         const string    FRAME_IDENTIFIER            = "Frame";
         const string    ID_IDENTIFIER               = "id";
@@ -58,47 +60,40 @@ namespace MapGenerator
         const string    BATTLE_CITY                 = "BattleCity";
         const string    DEFINITIONS_FILE            = "Definitions.tmx";
         const string    ZERO                        = "0";
+        const string    UNDERSCORE                  = "_";
+
+        const float     BOUNDING_BOX_TOLERANCE      = 0.5f;
 
         Dictionary<string, SpriteData> SpriteMappedData = new Dictionary<string, SpriteData>();
 
         class SpriteData
         {
             public string id;
-            public string x;
-            public string y;
-            public string w;
-            public string h;
+            public string classname;
+            public float x;
+            public float y;
+            public float w;
+            public float h;
 
-            public SpriteData(string ID, string X, string Y, string W, string H)
+            public SpriteData(string ID, float X, float Y, float W, float H)
             {
-                id      = ID;
-                x       = X;
-                y       = Y;
-                w       = W;
-                h       = H;
-            }
-        }
-
-        class BoundingBox
-        {
-            public int x;
-            public int y;
-            public int w;
-            public int h;
-
-            public BoundingBox(int X, int Y, int W, int H)
-            {
-                x = X;
-                y = Y;
-                w = W;
-                h = H;
+                id  = ID;
+                x   = X;
+                y   = Y;
+                w   = W;
+                h   = H;
             }
 
-            public bool Intersects(BoundingBox other)
+            public bool Intersects(float otherx, float othery, float otherw, float otherh)
+            {
+                return Intersects(x, y, w, h, otherx, othery, otherw, otherh);
+            }
+
+            public static bool Intersects(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2)
             {
                 return
-                        (Math.Abs(x - other.x) * 2 <= (w + other.w))
-                    &&  (Math.Abs(y - other.y) * 2 <= (h + other.h));
+                       (Math.Abs(x1 - x2) * 2 <= (w1 + w2))
+                   && (Math.Abs(y1 - y2) * 2 <= (h1 + h2));
             }
         }
 
@@ -111,6 +106,7 @@ namespace MapGenerator
             Settings.MaxCharactersFromEntities = MAX_CHARS_FROM_ENTITIES;
             XmlReader Reader = XmlReader.Create(DefinitionsFile, Settings);
 
+            string CurrentElement = "";
             while (Reader.Read())
             {
                 if (Reader.IsStartElement())
@@ -125,14 +121,24 @@ namespace MapGenerator
 
                         case OBJECT_IDENTIFIER:
                             {
-                                SpriteMappedData[Reader[NAME_IDENTIFIER]]
+                                CurrentElement = Reader[NAME_IDENTIFIER];
+                                SpriteMappedData[CurrentElement]
                                     = new SpriteData(
                                         Reader[ID_IDENTIFIER],
-                                        Reader[X_IDENTIFIER],
-                                        Reader[Y_IDENTIFIER],
-                                        Reader[WIDTH_IDENTIFIER],
-                                        Reader[HEIGHT_IDENTIFIER]
+                                        float.Parse(Reader[X_IDENTIFIER]),
+                                        float.Parse(Reader[Y_IDENTIFIER]),
+                                        float.Parse(Reader[WIDTH_IDENTIFIER]),
+                                        float.Parse(Reader[HEIGHT_IDENTIFIER])
                                       );
+                            }
+                            break;
+
+                        case PROPERTY_IDENTIFIER:
+                            {
+                                if (Reader[NAME_IDENTIFIER] == CLASS_IDENTIFIER)
+                                {
+                                    SpriteMappedData[CurrentElement].classname = Reader[VALUE_IDENTIFIER];
+                                }
                             }
                             break;
                     }
@@ -166,8 +172,8 @@ namespace MapGenerator
                         Writer.WriteStartElement(VECTOR_IDENTIFIER);
                         {
                             Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_IDENTIFIER);
-                            Writer.WriteAttributeString(X_IDENTIFIER, Pair.Value.x);
-                            Writer.WriteAttributeString(Y_IDENTIFIER, Pair.Value.y);
+                            Writer.WriteAttributeString(X_IDENTIFIER, Pair.Value.x.ToString());
+                            Writer.WriteAttributeString(Y_IDENTIFIER, Pair.Value.y.ToString());
                             Writer.WriteAttributeString(Z_IDENTIFIER, ZERO);
                             Writer.WriteAttributeString(W_IDENTIFIER, ZERO);
                         }
@@ -175,13 +181,13 @@ namespace MapGenerator
                         Writer.WriteStartElement(INTEGER_IDENTIFIER);
                         {
                             Writer.WriteAttributeString(NAME_IDENTIFIER, WIDTH_IDENTIFIER);
-                            Writer.WriteAttributeString(VALUE_IDENTIFIER, Pair.Value.w);
+                            Writer.WriteAttributeString(VALUE_IDENTIFIER, Pair.Value.w.ToString());
                         }
                         Writer.WriteEndElement();
                         Writer.WriteStartElement(INTEGER_IDENTIFIER);
                         {
                             Writer.WriteAttributeString(NAME_IDENTIFIER, HEIGHT_IDENTIFIER);
-                            Writer.WriteAttributeString(VALUE_IDENTIFIER, Pair.Value.h);
+                            Writer.WriteAttributeString(VALUE_IDENTIFIER, Pair.Value.h.ToString());
                         }
                         Writer.WriteEndElement();
                     }
@@ -306,34 +312,80 @@ namespace MapGenerator
                     Writer.WriteAttributeString(OUT_TILES_Y_IDENTIFIER, MappedData[IN_TILES_Y_IDENTIFIER]);
                 }
                 Writer.WriteEndElement();
-                for (int i = 0; i < Int32.Parse(MappedData[IN_TILES_X_IDENTIFIER]); ++i)
+                Writer.WriteStartElement(ENTITIES_IDENTIFIER);
                 {
-                    for (int j = 0; j < Int32.Parse(MappedData[IN_TILES_Y_IDENTIFIER]); ++j)
+                    for (int i = 0; i < Int32.Parse(MappedData[IN_TILES_X_IDENTIFIER]); ++i)
                     {
-                        Writer.WriteStartElement(ENTITY_IDENTIFIER);
+                        for (int j = 0; j < Int32.Parse(MappedData[IN_TILES_Y_IDENTIFIER]); ++j)
                         {
-                            //
-                            
-                            //
-                            Writer.WriteAttributeString(CLASS_IDENTIFIER, Entities[CurrentPosition]);
-                            Writer.WriteStartElement(INTEGER_IDENTIFIER);
-                            {
-                                Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
-                                Writer.WriteAttributeString(VALUE_IDENTIFIER, i.ToString());
-                            }
-                            Writer.WriteEndElement();
+                            string classname = "";
 
-                            Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                            // Check which Object this tile "collides" with.
+                            foreach (var Pair in SpriteMappedData)
                             {
-                                Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_Y_IDENTIFIER);
-                                Writer.WriteAttributeString(VALUE_IDENTIFIER, j.ToString());
+                                float y = (int.Parse(Entities[CurrentPosition]) / int.Parse(MappedData[IN_TILES_X_IDENTIFIER])) * float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]);
+                                float x = (int.Parse(Entities[CurrentPosition]) % int.Parse(MappedData[IN_TILES_X_IDENTIFIER])) * float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]);
+                                float w = int.Parse(MappedData[TILE_WIDTH_IDENTIFIER]);
+                                float h = int.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]);
+
+                                // Slightly reducing the bounding box, otherwise unwanted collisions occur
+                                x += BOUNDING_BOX_TOLERANCE;
+                                y += BOUNDING_BOX_TOLERANCE;
+                                w -= BOUNDING_BOX_TOLERANCE;
+                                h -= BOUNDING_BOX_TOLERANCE;
+
+                                if (Pair.Value.Intersects(x, y, w, h))
+                                {
+                                    // If it's a single tile, you're fine.
+                                    // Else output only if it's the top left tile.
+
+                                    w += BOUNDING_BOX_TOLERANCE;
+                                    h += BOUNDING_BOX_TOLERANCE;
+
+                                    if (w == float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]) && h == float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]))
+                                    {
+                                        classname = Pair.Value.classname;
+                                    }
+                                    else if (w > float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]) || h > float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER]))
+                                    {
+                                        if (SpriteData.Intersects(x, y, w, h, Pair.Value.x, Pair.Value.y, float.Parse(MappedData[TILE_WIDTH_IDENTIFIER]), float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER])))
+                                        {
+                                            classname = Pair.Value.classname;
+                                        }
+                                    }
+
+                                    break;
+                                }
                             }
-                            Writer.WriteEndElement();
+
+                            if (classname != null && classname != "")
+                            {
+                                Writer.WriteStartElement(ENTITY_IDENTIFIER);
+                                {
+                                    Writer.WriteAttributeString(CLASS_IDENTIFIER, classname);
+                                    Writer.WriteAttributeString(NAME_IDENTIFIER, OBJECT_IDENTIFIER + UNDERSCORE + CurrentPosition.ToString());
+                                    Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                                    {
+                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
+                                        Writer.WriteAttributeString(VALUE_IDENTIFIER, i.ToString());
+                                    }
+                                    Writer.WriteEndElement();
+
+                                    Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                                    {
+                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_Y_IDENTIFIER);
+                                        Writer.WriteAttributeString(VALUE_IDENTIFIER, j.ToString());
+                                    }
+                                    Writer.WriteEndElement();
+                                }
+                                Writer.WriteEndElement();
+                            }
+
+                            ++CurrentPosition;
                         }
-                        Writer.WriteEndElement();
-                        ++CurrentPosition;
                     }
                 }
+                Writer.WriteEndElement();
             }
             Writer.WriteEndElement();
         }

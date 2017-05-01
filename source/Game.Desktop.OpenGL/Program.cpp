@@ -48,7 +48,7 @@ namespace AnonymousEngine
 		// initialize viewport
 		glfwGetFramebufferSize(window, nullptr, nullptr);
 		glViewport(0, 0, width, height);
-		glOrtho(0.0f, (GLfloat)width, 0.0f, (GLfloat)height, -100.0f, 100.0f);
+		glOrtho(0.0f, (GLfloat)256, (GLfloat)240, 0.0f ,-100.0f, 100.0f);
 
 		// register keyboard handler
 		glfwSetKeyCallback(window, KeyCallback);
@@ -67,8 +67,7 @@ namespace AnonymousEngine
 			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 			
-			//Draw();
-			mBattleCity->Update(1.0f / 60.0f);
+			mBattleCity->Update();
 
 			glfwSwapBuffers(window);
 		}

@@ -10,7 +10,7 @@ namespace AnonymousEngine
 	{
 	}
 
-	std::string TankDefinedMessage::Name() const
+	const std::string& TankDefinedMessage::Name() const
 	{
 		return mName;
 	}
@@ -31,18 +31,18 @@ namespace AnonymousEngine
 		return mWasWin;
 	}
 
-	HashMap<std::string, std::int32_t> LevelOverMessage::FinalScores()
+	const HashMap<std::string, std::int32_t>& LevelOverMessage::FinalScores() const
 	{
 		return mFinalScores;
 	}
 
 	//ScoreEventMessage functions
 
-	ScoreEventMessage::ScoreEventMessage(std::string name, Containers::WorldState& worldState):mName(name), mWorldState(worldState)
+	ScoreEventMessage::ScoreEventMessage(const std::string& name, Containers::WorldState& worldState):mName(name), mWorldState(worldState)
 	{
 	}
 
-	std::string ScoreEventMessage::Name()
+	const std::string& ScoreEventMessage::Name() const
 	{
 		return mName;
 	}
@@ -57,18 +57,18 @@ namespace AnonymousEngine
 	{
 	}
 
-	Containers::WorldState& TankDestroyedNoScoreMessage::WorldState()
+	Containers::WorldState& TankDestroyedNoScoreMessage::WorldState() const
 	{
 		return mWorldState;
 	}
 
 	//PlayerSideDamageMessage functions
 
-	PlayerSideDamageMessage::PlayerSideDamageMessage(bool wasFlag, Containers::WorldState& worldState) :mWasFlag(wasFlag), mWorldState(worldState)
+	PlayerSideDamageMessage::PlayerSideDamageMessage(const bool wasFlag, Containers::WorldState& worldState) :mWasFlag(wasFlag), mWorldState(worldState)
 	{
 	}
 
-	bool PlayerSideDamageMessage::WasFlag()
+	bool PlayerSideDamageMessage::WasFlag() const
 	{
 		return mWasFlag;
 	}
@@ -80,32 +80,27 @@ namespace AnonymousEngine
 
 	//PlayerLivesChangedMessage functions
 
-	PlayerLivesChangedMessage::PlayerLivesChangedMessage(std::int32_t numLives) :mNumLives(numLives)
+	PlayerLivesChangedMessage::PlayerLivesChangedMessage(const std::int32_t numLives) :mNumLives(numLives)
 	{
 	}
 
-	std::int32_t PlayerLivesChangedMessage::NumLives()
+	std::int32_t PlayerLivesChangedMessage::NumLives() const
 	{
 		return mNumLives;
 	}
 
 	//LevelStartMessage functions
 
-	LevelStartMessage::LevelStartMessage(std::int32_t playerLives, std::int32_t numberTanks, std::int32_t levelNumber):mPlayerLives(playerLives), mNumberTanks(numberTanks), mLevelNumber(levelNumber)
+	LevelStartMessage::LevelStartMessage(const std::int32_t numberTanks, const std::int32_t levelNumber):mNumberTanks(numberTanks), mLevelNumber(levelNumber)
 	{
 	}
 
-	std::int32_t LevelStartMessage::PlayerLives()
-	{
-		return mPlayerLives;
-	}
-
-	std::int32_t LevelStartMessage::NumTanks()
+	std::int32_t LevelStartMessage::NumTanks() const
 	{
 		return mNumberTanks;
 	}
 
-	int32_t LevelStartMessage::LevelNumber()
+	int32_t LevelStartMessage::LevelNumber() const
 	{
 		return mLevelNumber;
 	}

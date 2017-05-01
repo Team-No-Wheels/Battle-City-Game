@@ -34,6 +34,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EventQueue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EventSubscriber.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FrameManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameClock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameTime.h" />
@@ -42,6 +43,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)HashMap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InfixParser.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MessageAudio.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Reaction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h" />
@@ -90,6 +92,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EventMessageAttributed.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EventPublisher.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EventQueue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FrameManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp">
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -98,6 +101,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)HashFunctors.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IXmlParseHelper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MessageAudio.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

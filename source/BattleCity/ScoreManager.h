@@ -32,25 +32,25 @@ namespace AnonymousEngine
 			@param name The name of the tank type.
 			@value value The points recieved when destroying that type of tank.
 		*/
-		void AddTankType(std::string name, std::int32_t value);
+		void AddTankType(const std::string& name, const std::int32_t value);
 
 		/** Increase the correct field in the total score map. Also if a tank was destroyed
 			decrease the number of tanks and handle level over if there are no more tanks.
 			@param scoreType The key for the total score map.
 		*/
-		void HandleScore(std::string scoreType, Containers::WorldState& worldState);
+		void HandleScore(const std::string& scoreType, Containers::WorldState& worldState);
 
 		/** Do the final score calculation and trigger an end of level event.
 			@param wasWin true if the player beat the level.
 		*/
-		void LevelOver(bool wasWin, Containers::WorldState& worldState);
+		void LevelOver(const bool wasWin, Containers::WorldState& worldState);
 
 		/** Either subtract lives from the player or end the level imediately if the damage was
 		*	to the flag.
 		*	@param wasFlag True if the damage was to the flag.
 			@param worldState The current state of the world
 		*/
-		void DamagePlayer(bool wasFlag, Containers::WorldState& worldState);
+		void DamagePlayer(const bool wasFlag, Containers::WorldState& worldState);
 
 		/** Add a life to the player
 		*	@param worldState The current state of the world
@@ -62,7 +62,7 @@ namespace AnonymousEngine
 		*	@param numberTakes The number of tanks in the level.
 		*	@param levelNumber	The current level number.
 		*/
-		void HandleLevelStart(std::int32_t playerLives, std::int32_t numberTanks, std::int32_t levelNumber);
+		void HandleLevelStart(const std::int32_t numberTanks, const std::int32_t levelNumber);
 
 		/** Decrease the number of tanks and handle level over if there are no more.
 		*/

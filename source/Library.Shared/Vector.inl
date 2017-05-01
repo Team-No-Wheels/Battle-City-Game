@@ -81,7 +81,7 @@ namespace AnonymousEngine
 
 	template <typename T>
 	Vector<T>::Vector(const std::initializer_list<T>& items) :
-		Vector(std::max(static_cast<std::uint32_t>(items.size()), DefaultCapacity))
+		Vector((std::max)(static_cast<std::uint32_t>(items.size()), DefaultCapacity))
 	{
 		for (const auto& item : items)
 		{

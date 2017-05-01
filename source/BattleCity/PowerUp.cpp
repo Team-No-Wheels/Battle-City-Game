@@ -20,7 +20,7 @@ namespace AnonymousEngine
 
 	}
 
-	void PowerUp::setType(PowerUpType newType)
+	void PowerUp::SetType(PowerUpType newType)
 	{
 		mType = newType;
 	}
@@ -134,7 +134,7 @@ namespace AnonymousEngine
 
 	void PowerUp::ActivateShovel()
 	{
-
+		// TODO Implement
 	}
 
 	void PowerUp::ActivateStar(TankPlayer& player)

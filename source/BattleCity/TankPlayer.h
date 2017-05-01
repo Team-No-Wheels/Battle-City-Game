@@ -28,8 +28,10 @@ namespace AnonymousEngine
 
 	private:
 		std::uint32_t mStars;
-		std::chrono::milliseconds mTimeInvincible, mInvincbleLimit = std::chrono::milliseconds(2);
+		std::chrono::milliseconds mTimeInvincible;
 		bool mIsInvincible;
+
+		static const std::chrono::milliseconds sInvincbleLimit;
 	};
 
 	ENTITY_FACTORY_DECLARATIONS(TankPlayer);

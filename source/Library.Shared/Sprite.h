@@ -13,6 +13,8 @@ namespace AnonymousEngine
 		
 		class Sprite : public Renderable
 		{
+			friend class GameObject;
+
 		public:
 			/**
 				@brief Default constructor.
@@ -38,18 +40,27 @@ namespace AnonymousEngine
 			/**
 				@brief Called every frame.
 			*/
-			virtual void Render() override;
+			virtual void Render() const override;
 
 			/**
 				@brief If debug is enabled this is called every frame.
 			*/
-			virtual void DrawDebugBounds() override;
+			virtual void DrawDebugBounds() const override;
 
 			/**
 			* Get the game object which owns this sprite.
 			*/
-			Core::GameObject& GetOwner();
+			Core::GameObject& GetOwner() const;
 
+			/**
+				Return the sprite bounds
+			*/
+			Geometry::Rectangle GetSpriteBounds() const;
+
+			/**
+				Return the sprite uv
+			*/
+			const Geometry::Rectangle& GetUVBounds() const;
 		protected:
 			Core::GameObject& mGameObject;
 
