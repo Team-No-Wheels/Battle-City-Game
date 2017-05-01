@@ -45,7 +45,8 @@ namespace BattleCity
 		for (uint32_t i = 0; i < mChannelCount; ++i)
 		{
 			FMOD::Sound* tempSound = nullptr;
-			string tempName = mSoundValues[i];
+			string tempName = "sounds\\";
+			tempName.append(mSoundValues[i]);
 			CreateSound(&tempSound, tempName.append(".wav"));
 			mSoundMap.Insert(std::pair<std::string, FMOD::Sound*>(mSoundValues[i], tempSound));
 		}

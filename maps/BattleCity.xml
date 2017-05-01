@@ -364,7 +364,7 @@
       <integer name="width" value="8" />
       <integer name="height" value="16" />
     </entity>
-    <entity class="Frame" name="PlayerTankUISymbol">
+    <entity class="Frame" name="TankPlayerUISymbol">
       <integer name="id" value="65" />
       <vector name="Position" x="56" y="120" z="0" w="0" />
       <integer name="width" value="8" />
@@ -903,10 +903,10 @@
         <entity class="UIElement" name="object_124">
           <vector name="Position" x="32" y="32" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_125">
+        <entity class="TankPlayer" name="object_125">
           <vector name="Position" x="32" y="40" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_126">
+        <entity class="TankPlayer" name="object_126">
           <vector name="Position" x="32" y="48" z="0" w="0" />
         </entity>
         <entity class="UIElement" name="object_127">
@@ -999,10 +999,10 @@
         <entity class="UIElement" name="object_156">
           <vector name="Position" x="40" y="48" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_157">
+        <entity class="TankPlayer" name="object_157">
           <vector name="Position" x="40" y="56" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_158">
+        <entity class="TankPlayer" name="object_158">
           <vector name="Position" x="40" y="64" z="0" w="0" />
         </entity>
         <entity class="UIElement" name="object_159">
@@ -1095,10 +1095,10 @@
         <entity class="UIElement" name="object_188">
           <vector name="Position" x="48" y="64" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_189">
+        <entity class="TankPlayer" name="object_189">
           <vector name="Position" x="48" y="72" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_190">
+        <entity class="TankPlayer" name="object_190">
           <vector name="Position" x="48" y="80" z="0" w="0" />
         </entity>
         <entity class="UIElement" name="object_191">
@@ -1191,10 +1191,10 @@
         <entity class="UIElement" name="object_220">
           <vector name="Position" x="56" y="80" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_221">
+        <entity class="TankPlayer" name="object_221">
           <vector name="Position" x="56" y="88" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_222">
+        <entity class="TankPlayer" name="object_222">
           <vector name="Position" x="56" y="96" z="0" w="0" />
         </entity>
         <entity class="UIElement" name="object_223">
@@ -1281,10 +1281,10 @@
         <entity class="UIElement" name="object_252">
           <vector name="Position" x="64" y="96" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_253">
+        <entity class="TankPlayer" name="object_253">
           <vector name="Position" x="64" y="104" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_254">
+        <entity class="TankPlayer" name="object_254">
           <vector name="Position" x="64" y="112" z="0" w="0" />
         </entity>
         <entity class="UIElement" name="object_255">
@@ -1371,10 +1371,10 @@
         <entity class="UIElement" name="object_284">
           <vector name="Position" x="72" y="112" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_285">
+        <entity class="TankPlayer" name="object_285">
           <vector name="Position" x="72" y="120" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_286">
+        <entity class="TankPlayer" name="object_286">
           <vector name="Position" x="72" y="128" z="0" w="0" />
         </entity>
         <entity class="UIElement" name="object_287">
@@ -1467,10 +1467,10 @@
         <entity class="UIElement" name="object_316">
           <vector name="Position" x="80" y="128" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_317">
+        <entity class="TankPlayer" name="object_317">
           <vector name="Position" x="80" y="136" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_318">
+        <entity class="TankPlayer" name="object_318">
           <vector name="Position" x="80" y="144" z="0" w="0" />
         </entity>
         <entity class="UIElement" name="object_319">
@@ -1563,10 +1563,10 @@
         <entity class="UIElement" name="object_348">
           <vector name="Position" x="88" y="144" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_349">
+        <entity class="TankPlayer" name="object_349">
           <vector name="Position" x="88" y="152" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_350">
+        <entity class="TankPlayer" name="object_350">
           <vector name="Position" x="88" y="160" z="0" w="0" />
         </entity>
         <entity class="UIElement" name="object_351">
@@ -1659,10 +1659,10 @@
         <entity class="UIElement" name="object_380">
           <vector name="Position" x="96" y="160" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_381">
+        <entity class="TankPlayer" name="object_381">
           <vector name="Position" x="96" y="168" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_382">
+        <entity class="TankPlayer" name="object_382">
           <vector name="Position" x="96" y="176" z="0" w="0" />
         </entity>
         <entity class="UIElement" name="object_383">
@@ -1755,10 +1755,10 @@
         <entity class="UIElement" name="object_412">
           <vector name="Position" x="104" y="176" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_413">
+        <entity class="TankPlayer" name="object_413">
           <vector name="Position" x="104" y="184" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_414">
+        <entity class="TankPlayer" name="object_414">
           <vector name="Position" x="104" y="192" z="0" w="0" />
         </entity>
         <entity class="UIElement" name="object_415">
@@ -2313,7 +2313,7 @@
         <entity class="UIElement" name="object_604">
           <vector name="Position" x="160" y="32" z="0" w="0" />
         </entity>
-        <entity class="Tank" name="object_606">
+        <entity class="TankPlayer" name="object_606">
           <vector name="Position" x="160" y="48" z="0" w="0" />
         </entity>
         <entity class="UIElement" name="object_607">
