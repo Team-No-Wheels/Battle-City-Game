@@ -25,8 +25,7 @@ namespace AnonymousEngine
 
 		/** BasicTankAI constructor.
 		*/
-		BasicTankAI(const float speed = DEFAULT_SPEED, const int32_t bulletsNum = DEFAULT_BULLETS_NUM, 
-					const int32_t armor = DEFAULT_ARMOR, const uint32_t probToShootInMov = DEFAULT_PROB_TO_SHOOT_IN_MOV);
+		BasicTankAI(const float speed, const int32_t bulletsNum, const int32_t armor, const uint32_t probToShootInMov);
 
 		/** BasicTankAI destructor.
 		*/
@@ -45,6 +44,8 @@ namespace AnonymousEngine
 		/** Handles collision event for the TankAI.
 		*/
 		virtual void OnCollision(GameObject& otherGameObject) override;
+
+		virtual std::string GetTankType() = 0;
 
 		/** Freezes the TankAI and stops it from doing anything.
 		*/
@@ -71,10 +72,6 @@ namespace AnonymousEngine
 		std::chrono::milliseconds mShotCooldownTimer;
 		std::chrono::milliseconds mMovingInSameDirectionTimer;
 
-		static const float DEFAULT_SPEED;
-		static const int32_t DEFAULT_BULLETS_NUM;
-		static const int32_t DEFAULT_ARMOR;
-		static const uint32_t DEFAULT_PROB_TO_SHOOT_IN_MOV;
 		static const uint32_t DEFAULT_PROB_TO_SHOOT_IN_COL_PLAYER;
 		static const uint32_t DEFAULT_PROB_TO_SHOOT_IN_COL_WALL;
 		static const int32_t MAX_PROB;
@@ -95,6 +92,4 @@ namespace AnonymousEngine
 		void TryToShoot(const uint32_t probability) const;
 
 	};
-
-	ENTITY_FACTORY_DECLARATIONS(BasicTankAI);
 }

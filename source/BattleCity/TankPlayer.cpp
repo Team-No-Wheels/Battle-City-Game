@@ -21,8 +21,19 @@ namespace AnonymousEngine
 		if (mStars < 3)
 		{
 			++mStars;
-			if (mStars == 2)
+			switch (mStars)
+			{
+			case 1:
+				mShootComponent->SetIsFast(true);
+				break;
+			case 2:
 				mShootComponent->SetCapacityToShoot(2);
+				break;
+			case 3:
+				mShootComponent->SetIsStrong(true);
+				break;
+			}
+
 		}
 	}
 
@@ -58,8 +69,8 @@ namespace AnonymousEngine
 		{
 			MessageInput* message = &const_cast<MessageInput&>(curEvent->Message());
 			Vector<std::string>& Keys = message->GetKeys();
+			WorldState& worldState = message->GetWorldState();
 
-			// TODO Handle Move(), acquire world state to pass as a paramenter to it.
 			// React To Certain Key Presses
 			for (const auto& key : Keys)
 			{
@@ -67,7 +78,7 @@ namespace AnonymousEngine
 				if (key == "Up")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Up);
-					//mMoveComponent->Move();
+					mMoveComponent->Move(worldState);
 					break;
 				}
 
@@ -75,7 +86,7 @@ namespace AnonymousEngine
 				else if (key == "Down")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Down);
-					//mMoveComponent->Move();
+					mMoveComponent->Move(worldState);
 					break;
 				}
 
@@ -83,7 +94,7 @@ namespace AnonymousEngine
 				else if (key == "Left")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Left);
-					//mMoveComponent->Move();
+					mMoveComponent->Move(worldState);
 					break;
 				}
 
@@ -91,7 +102,7 @@ namespace AnonymousEngine
 				else if (key == "Right")
 				{
 					mMoveComponent->SetDirection(ActionMove::Direction::Right);
-					//mMoveComponent->Move();
+					mMoveComponent->Move(worldState);
 					break;
 				}
 

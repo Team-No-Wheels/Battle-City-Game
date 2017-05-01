@@ -9,13 +9,8 @@ using namespace chrono;
 namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(BasicTankAI);
-	ENTITY_FACTORY_DEFINITIONS(BasicTankAI);
 
 	/************************************************************************/
-	const float BasicTankAI::DEFAULT_SPEED = 1.0f;
-	const int32_t BasicTankAI::DEFAULT_BULLETS_NUM = 1;
-	const int32_t BasicTankAI::DEFAULT_ARMOR = 1;
-	const uint32_t BasicTankAI::DEFAULT_PROB_TO_SHOOT_IN_MOV = 10;
 	const uint32_t BasicTankAI::DEFAULT_PROB_TO_SHOOT_IN_COL_PLAYER = 70;
 	const uint32_t BasicTankAI::DEFAULT_PROB_TO_SHOOT_IN_COL_WALL = 50;
 	const int32_t BasicTankAI::MAX_PROB = 100;

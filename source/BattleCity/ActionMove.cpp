@@ -83,7 +83,7 @@ namespace AnonymousEngine
 		return mCanMove;
 	}
 
-	void ActionMove::SetCanMove(const bool canMove /* = true */)
+	void ActionMove::SetCanMove(bool canMove /* = true */)
 	{
 		mCanMove = canMove;
 	}

@@ -74,6 +74,7 @@ namespace AnonymousEngine
 			// Send MessageInput if not empty
 			if (!input.GetKeys().IsEmpty())
 			{
+				input.SetWorldState(worldState);
 				mEventQueue->Enqueue(std::make_shared<Event<MessageInput>>(Event<MessageInput>(input)), worldState.mGameTime, 0U);
 			}
 
