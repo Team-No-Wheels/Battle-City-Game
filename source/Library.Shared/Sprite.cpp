@@ -1,7 +1,6 @@
 #include "Pch.h"
 #include "Sprite.h"
 #include "ServiceLocator.h"
-#include "Rectangle.h"
 #include "GameObject.h"
 
 //#include "TextureLoader.h"
@@ -25,7 +24,19 @@ namespace AnonymousEngine
 			mTexture = loader->GetTexture(pSpriteFilePath);
 
 			mHeight = 100;
-			mWidth = 50;
+			mWidth = 100;
+
+			mSpriteBounds.TopLeft.x = 0.0f;
+			mSpriteBounds.TopLeft.y = (float)mHeight;
+
+			mSpriteBounds.TopRight.x = (float)mWidth;
+			mSpriteBounds.TopRight.y = (float)mHeight;
+
+			mSpriteBounds.BottomLeft.x = 0.0f;
+			mSpriteBounds.BottomLeft.y = 0.0f;
+
+			mSpriteBounds.BottomRight.x = (float)mWidth;
+			mSpriteBounds.BottomRight.y = 0.0f;
 
 			//glClearColor(backRed, backGreen, backGreen, 0.0f);			// Background Color
 			glClearDepth(1.0f);											// Depth Buffer Setup
@@ -48,13 +59,7 @@ namespace AnonymousEngine
 			if (isInitialized)
 			{
 				Geometry::Rectangle uv(0, 1, 1, 1, 0, 0, 1, 0);
-				Geometry::Rectangle position(-100 + 400, 100 + 400,
-					100 + 400, 100 + 400,
-					-100 + 400, -100 + 400,
-					100 + 400, -100 + 400);
-
-				Core::ServiceLocator::GetRenderer()->Render(mTexture, position, uv);
-
+				Core::ServiceLocator::GetRenderer()->Render(mTexture, Geometry::Rectangle::Translate(mSpriteBounds, mGameObject.GetPosition()), uv);
 
 #ifdef _DEBUG
 				DrawDebugBounds();
@@ -64,11 +69,7 @@ namespace AnonymousEngine
 
 		void Sprite::DrawDebugBounds()
 		{
-			Geometry::Rectangle position(-100 + 400, 100 + 400, 
-				100 + 400, 100 + 400, 
-				-100 + 400, -100 + 400, 
-				100 + 400, -100 + 400);
-			Core::ServiceLocator::GetRenderer()->DrawRectangle(position, 255, 0, 0);
+			Core::ServiceLocator::GetRenderer()->DrawRectangle(Geometry::Rectangle::Translate(mSpriteBounds, mGameObject.GetPosition()), 255, 0, 0);
 		}
 
 		Core::GameObject& Sprite::GetOwner()

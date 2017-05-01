@@ -62,6 +62,10 @@ namespace AnonymousEngine
 			 */
 			virtual void Update(WorldState& worldState);
 
+			/** The name of the actions list attribute
+			 */
+			static const std::string ActionsAttributeName;
+
 		protected:
 			/** The name of this entity
 			 */
@@ -69,8 +73,6 @@ namespace AnonymousEngine
 			/** The list of actions contained by this instance
 			 */
 			Datum* mActions;
-
-			static const std::string ActionsAttributeName;
 
 			ATTRIBUTED_DECLARATIONS(Entity, Attributed)
 		};

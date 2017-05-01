@@ -1,4 +1,17 @@
 <world name="Skyrim">
+	<entities>
+		<entity name="TestManager" class="Entity">
+			<entity name="Object1" class="Entity">
+				<string name="Id" value="1"/>
+			</entity>
+			<entity name="Object2" class="Entity">
+				<string name="Id" value="2"/>
+			</entity>
+		</entity>
+	</entities>
+	<entity name="RandomObject" class="Entity">
+		<string name="Greeting" value="Hello Traveller!"/>
+	</entity>
 	<integer name="Population" value="1000000"/>
 	<integer name="GDP" value="50000000"/>
 	<integer name="PerCapita" value="50"/>
