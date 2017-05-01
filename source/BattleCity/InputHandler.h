@@ -12,6 +12,23 @@ namespace AnonymousEngine
 	using namespace Containers;
 	using namespace Core;
 
+	enum class InputType
+	{
+		Esc,
+		Up,
+		Down,
+		Left,
+		Right,
+		Shoot
+	};
+
+	enum class KeyState
+	{
+		Pressed,
+		Released,
+		Repeat
+	};
+
 	class InputHandler final : public Action
 	{
 		ATTRIBUTED_DECLARATIONS(InputHandler, Action);
@@ -19,24 +36,6 @@ namespace AnonymousEngine
 	public:
 		InputHandler();
 		~InputHandler() = default;
-
-		enum class InputType
-		{
-			Esc,
-			Up,
-			Down,
-			Left,
-			Right,
-			Shoot
-		};
-
-		enum class KeyState
-		{
-			Invalid,
-			Pressed,
-			Released,
-			Repeat
-		};
 
 		void Update(WorldState& worldState) override;
 

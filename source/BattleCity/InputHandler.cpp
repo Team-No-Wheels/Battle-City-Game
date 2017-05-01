@@ -10,7 +10,7 @@ namespace AnonymousEngine
 {
 	ATTRIBUTED_DEFINITIONS(InputHandler);
 
-	HashMap<InputHandler::InputType, std::string> InputHandler::KeyEnumStringMap = {
+	HashMap<InputType, std::string> InputHandler::KeyEnumStringMap = {
 		{ InputType::Esc, "Escape"},
 		{ InputType::Up, "Up"},
 		{ InputType::Down, "Down"},
@@ -39,9 +39,13 @@ namespace AnonymousEngine
 			MessageInput input;
 
 			// Read Keys
+			for (auto& entry: mKeyStates)
+			{
+				input.AddKey(entry.first, entry.second);
+			}
 
 			// Send MessageInput if not empty
-			if (!input.GetKeys().IsEmpty())
+			if (input.GetKeys().Size() != 0)
 			{
 				input.SetWorldState(worldState);
 				mEventQueue->Enqueue(std::make_shared<Event<MessageInput>>(Event<MessageInput>(input)), worldState.mGameTime, 0U);

@@ -5,19 +5,19 @@
 
 namespace AnonymousEngine
 {
-	const HashMap<int, InputHandler::InputType> Program::KeyCodeToInputMap = {
-		{GLFW_KEY_ESCAPE, InputHandler::InputType::Esc},
-		{GLFW_KEY_LEFT, InputHandler::InputType::Left},
-		{GLFW_KEY_RIGHT, InputHandler::InputType::Right},
-		{GLFW_KEY_UP, InputHandler::InputType::Up},
-		{GLFW_KEY_DOWN, InputHandler::InputType::Down},
-		{GLFW_KEY_Z, InputHandler::InputType::Shoot}
+	const HashMap<int, InputType> Program::KeyCodeToInputMap = {
+		{GLFW_KEY_ESCAPE, InputType::Esc},
+		{GLFW_KEY_LEFT, InputType::Left},
+		{GLFW_KEY_RIGHT, InputType::Right},
+		{GLFW_KEY_UP, InputType::Up},
+		{GLFW_KEY_DOWN, InputType::Down},
+		{GLFW_KEY_Z, InputType::Shoot}
 	};
 
-	const HashMap<int, InputHandler::KeyState> Program::KeyActionToKeyStateMap = {
-		{GLFW_PRESS, InputHandler::KeyState::Pressed},
-		{GLFW_RELEASE, InputHandler::KeyState::Released},
-		{GLFW_REPEAT, InputHandler::KeyState::Repeat}
+	const HashMap<int, KeyState> Program::KeyActionToKeyStateMap = {
+		{GLFW_PRESS, KeyState::Pressed},
+		{GLFW_RELEASE, KeyState::Released},
+		{GLFW_REPEAT, KeyState::Repeat}
 	};
 
 	Program* Program::thisProgram = nullptr;
