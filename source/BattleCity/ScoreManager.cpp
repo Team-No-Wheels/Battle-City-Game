@@ -24,12 +24,12 @@ namespace AnonymousEngine
 		Core::Event<TankDestroyedNoScoreMessage>::Subscribe(*this);
 	}
 
-	void ScoreManager::AddTankType(std::string name, std::int32_t value)
+	void ScoreManager::AddTankType(const std::string& name, const std::int32_t value)
 	{
 		mScoreValues.Insert(std::pair<std::string, std::int32_t>(name, value));
 	}
 
-	void ScoreManager::HandleScore(std::string scoreType, Containers::WorldState& worldState)
+	void ScoreManager::HandleScore(const std::string& scoreType, Containers::WorldState& worldState)
 	{
 		HashMap<std::string, std::int32_t>::Iterator valueIterator = mScoreValues.Find(scoreType);
 		assert(valueIterator != mScoreValues.end());
@@ -53,7 +53,7 @@ namespace AnonymousEngine
 		}
 	}
 
-	void ScoreManager::LevelOver(bool wasWin, Containers::WorldState& worldState)
+	void ScoreManager::LevelOver(const bool wasWin, Containers::WorldState& worldState)
 	{
 		std::int32_t total = 0;
 		for(std::pair<std::string, std::int32_t> pair: mCurrentScores)
@@ -70,7 +70,7 @@ namespace AnonymousEngine
 
 	}
 
-	void ScoreManager::DamagePlayer(bool wasFlag, Containers::WorldState& worldState)
+	void ScoreManager::DamagePlayer(const bool wasFlag, Containers::WorldState& worldState)
 	{
 		if (wasFlag)
 		{
@@ -101,9 +101,8 @@ namespace AnonymousEngine
 		worldState.mWorld->EventQueue().Enqueue(eventptr, worldState.mGameTime, 0u);
 	}
 
-	void ScoreManager::HandleLevelStart(std::int32_t playerLives, std::int32_t numberTanks, std::int32_t levelNumber)
+	void ScoreManager::HandleLevelStart(const std::int32_t numberTanks, const std::int32_t levelNumber)
 	{
-		mPlayerLives = playerLives;
 		mNumberTanks = numberTanks;
 		mLevelNumber = levelNumber;
 		
@@ -141,7 +140,7 @@ namespace AnonymousEngine
 		else if (publisher.Is(Core::Event<LevelStartMessage>::TypeIdClass()))
 		{
 			LevelStartMessage message = publisher.As<Core::Event<LevelStartMessage>>()->Message();
-			HandleLevelStart(message.PlayerLives(), message.NumTanks(), message.LevelNumber());
+			HandleLevelStart(message.NumTanks(), message.LevelNumber());
 		}
 		else if (publisher.Is(Core::Event<TankDestroyedNoScoreMessage>::TypeIdClass()))
 		{

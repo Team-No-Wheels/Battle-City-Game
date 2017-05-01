@@ -98,6 +98,9 @@
     <ClCompile Include="LevelManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="BattleCityAudio.cpp">
+	  <Filter>Managers</Filter>
+    </ClCompile>
     <ClCompile Include="Flag.cpp">
       <Filter>MapEntities</Filter>
     </ClCompile>
@@ -184,7 +187,10 @@
     <ClInclude Include="LevelManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Flag.h">
+    <ClInclude Include="BattleCityAudio.h">
+      <Filter>Managers</Filter>
+	</ClInclude>
+	<ClInclude Include="Flag.h">
       <Filter>MapEntities</Filter>
     </ClInclude>
     <ClInclude Include="TileBase.h">

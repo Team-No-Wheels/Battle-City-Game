@@ -43,6 +43,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)HashMap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InfixParser.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MessageAudio.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Reaction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Rectangle.h" />
@@ -100,6 +101,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)HashFunctors.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)InfixParser.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IXmlParseHelper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MessageAudio.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
