@@ -386,17 +386,13 @@ namespace MapGenerator
                                 {
                                     Writer.WriteAttributeString(CLASS_IDENTIFIER, classname);
                                     Writer.WriteAttributeString(NAME_IDENTIFIER, OBJECT_IDENTIFIER + UNDERSCORE + CurrentPosition.ToString());
-                                    Writer.WriteStartElement(INTEGER_IDENTIFIER);
+                                    Writer.WriteStartElement(VECTOR_IDENTIFIER);
                                     {
-                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_X_IDENTIFIER);
-                                        Writer.WriteAttributeString(VALUE_IDENTIFIER, i.ToString());
-                                    }
-                                    Writer.WriteEndElement();
-
-                                    Writer.WriteStartElement(INTEGER_IDENTIFIER);
-                                    {
-                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_Y_IDENTIFIER);
-                                        Writer.WriteAttributeString(VALUE_IDENTIFIER, j.ToString());
+                                        Writer.WriteAttributeString(NAME_IDENTIFIER, POSITION_IDENTIFIER);
+                                        Writer.WriteAttributeString(X_IDENTIFIER, (i * float.Parse(MappedData[TILE_WIDTH_IDENTIFIER])).ToString());
+                                        Writer.WriteAttributeString(Y_IDENTIFIER, (j * float.Parse(MappedData[TILE_HEIGHT_IDENTIFIER])).ToString());
+                                        Writer.WriteAttributeString(Z_IDENTIFIER, ZERO);
+                                        Writer.WriteAttributeString(W_IDENTIFIER, ZERO);
                                     }
                                     Writer.WriteEndElement();
                                 }
