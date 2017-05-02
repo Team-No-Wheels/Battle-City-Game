@@ -1,0 +1,1195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<world name="BattleCity">
+	<entity class="FrameManager" name="FrameManager">
+		<string name="SpriteSheet" value="resources\\General.png" />
+		<string name="SpriteSheetWidth" value="128" />
+		<string name="SpriteSheetHeight" value="128" />
+		<entity class="Frame" name="Tank1_00">
+			<integer name="id" value="1" />
+			<vector name="Position" x="0" y="0" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank1_01">
+			<integer name="id" value="2" />
+			<vector name="Position" x="16" y="0" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank2_00">
+			<integer name="id" value="3" />
+			<vector name="Position" x="0" y="16" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank2_01">
+			<integer name="id" value="4" />
+			<vector name="Position" x="16" y="16" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank3_00">
+			<integer name="id" value="5" />
+			<vector name="Position" x="0" y="32" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank3_01">
+			<integer name="id" value="10" />
+			<vector name="Position" x="16" y="32" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank4_00">
+			<integer name="id" value="11" />
+			<vector name="Position" x="0" y="48" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank4_01">
+			<integer name="id" value="12" />
+			<vector name="Position" x="16" y="48" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank5_00">
+			<integer name="id" value="13" />
+			<vector name="Position" x="0" y="64" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank5_01">
+			<integer name="id" value="14" />
+			<vector name="Position" x="16" y="64" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank6_00">
+			<integer name="id" value="15" />
+			<vector name="Position" x="0" y="80" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank6_01">
+			<integer name="id" value="16" />
+			<vector name="Position" x="16" y="80" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank7_00">
+			<integer name="id" value="17" />
+			<vector name="Position" x="0" y="96" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank7_01">
+			<integer name="id" value="18" />
+			<vector name="Position" x="16" y="96" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank8_00">
+			<integer name="id" value="19" />
+			<vector name="Position" x="0" y="112" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Tank8_01">
+			<integer name="id" value="20" />
+			<vector name="Position" x="16" y="112" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Brick_Full">
+			<integer name="id" value="21" />
+			<vector name="Position" x="32" y="0" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="Brick_RightHalf">
+			<integer name="id" value="22" />
+			<vector name="Position" x="40" y="0" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="Brick_BottomHalf">
+			<integer name="id" value="23" />
+			<vector name="Position" x="48" y="0" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="Brick_LeftHalf">
+			<integer name="id" value="24" />
+			<vector name="Position" x="56" y="0" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="Brick_TopHalf">
+			<integer name="id" value="25" />
+			<vector name="Position" x="64" y="0" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="Metal">
+			<integer name="id" value="26" />
+			<vector name="Position" x="32" y="8" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="Grass">
+			<integer name="id" value="27" />
+			<vector name="Position" x="40" y="8" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="Concrete">
+			<integer name="id" value="28" />
+			<vector name="Position" x="48" y="8" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="Water1">
+			<integer name="id" value="29" />
+			<vector name="Position" x="32" y="16" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="Water2">
+			<integer name="id" value="30" />
+			<vector name="Position" x="40" y="16" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="Water3">
+			<integer name="id" value="31" />
+			<vector name="Position" x="48" y="16" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="OilDrop">
+			<integer name="id" value="32" />
+			<vector name="Position" x="56" y="8" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="SmallExplosion_00">
+			<integer name="id" value="33" />
+			<vector name="Position" x="32" y="24" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="SmallExplosion_01">
+			<integer name="id" value="34" />
+			<vector name="Position" x="48" y="24" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="SmallExplosion_02">
+			<integer name="id" value="35" />
+			<vector name="Position" x="64" y="24" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Shield_00">
+			<integer name="id" value="36" />
+			<vector name="Position" x="32" y="40" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Shield_01">
+			<integer name="id" value="37" />
+			<vector name="Position" x="48" y="40" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="ExplosionLarge_00">
+			<integer name="id" value="38" />
+			<vector name="Position" x="32" y="56" z="0" w="0" />
+			<integer name="width" value="32" />
+			<integer name="height" value="32" />
+		</entity>
+		<entity class="Frame" name="ExplosionLarge_01">
+			<integer name="id" value="39" />
+			<vector name="Position" x="32" y="88" z="0" w="0" />
+			<integer name="width" value="32" />
+			<integer name="height" value="32" />
+		</entity>
+		<entity class="Frame" name="Spawn_00">
+			<integer name="id" value="40" />
+			<vector name="Position" x="64" y="40" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Spawn_01">
+			<integer name="id" value="41" />
+			<vector name="Position" x="64" y="56" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Spawn_02">
+			<integer name="id" value="42" />
+			<vector name="Position" x="64" y="72" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Spawn_03">
+			<integer name="id" value="43" />
+			<vector name="Position" x="64" y="88" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Flag">
+			<integer name="id" value="44" />
+			<vector name="Position" x="64" y="104" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="RomanOne">
+			<integer name="id" value="45" />
+			<vector name="Position" x="32" y="120" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="RomanTwo">
+			<integer name="id" value="46" />
+			<vector name="Position" x="40" y="120" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="LetterP">
+			<integer name="id" value="47" />
+			<vector name="Position" x="48" y="120" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BulletUp">
+			<integer name="id" value="48" />
+			<vector name="Position" x="72" y="0" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="PowerUpHelmet">
+			<integer name="id" value="49" />
+			<vector name="Position" x="80" y="0" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="PowerUpBomb">
+			<integer name="id" value="50" />
+			<vector name="Position" x="80" y="16" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="PowerUpSpade">
+			<integer name="id" value="51" />
+			<vector name="Position" x="80" y="32" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="PowerUpStarfish">
+			<integer name="id" value="52" />
+			<vector name="Position" x="80" y="48" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="PowerUpGrenade">
+			<integer name="id" value="53" />
+			<vector name="Position" x="80" y="64" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="PowerUpTank">
+			<integer name="id" value="54" />
+			<vector name="Position" x="80" y="80" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="PowerUpGun">
+			<integer name="id" value="55" />
+			<vector name="Position" x="80" y="96" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Score100">
+			<integer name="id" value="56" />
+			<vector name="Position" x="96" y="0" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Score200">
+			<integer name="id" value="57" />
+			<vector name="Position" x="96" y="16" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Score300">
+			<integer name="id" value="58" />
+			<vector name="Position" x="96" y="32" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Score400">
+			<integer name="id" value="59" />
+			<vector name="Position" x="96" y="48" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Score500">
+			<integer name="id" value="60" />
+			<vector name="Position" x="96" y="64" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="Eagle">
+			<integer name="id" value="61" />
+			<vector name="Position" x="96" y="80" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="WiltedFlag">
+			<integer name="id" value="62" />
+			<vector name="Position" x="96" y="96" z="0" w="0" />
+			<integer name="width" value="16" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="GameOver">
+			<integer name="id" value="63" />
+			<vector name="Position" x="80" y="112" z="0" w="0" />
+			<integer name="width" value="32" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="BulletLeft">
+			<integer name="id" value="64" />
+			<vector name="Position" x="112" y="96" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="16" />
+		</entity>
+		<entity class="Frame" name="PlayerTankUISymbol">
+			<integer name="id" value="65" />
+			<vector name="Position" x="56" y="120" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="ColorRed">
+			<integer name="id" value="66" />
+			<vector name="Position" x="64" y="120" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="ColorOrange">
+			<integer name="id" value="67" />
+			<vector name="Position" x="72" y="120" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="ColorBlack">
+			<integer name="id" value="69" />
+			<vector name="Position" x="72" y="16" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackLetterS">
+			<integer name="id" value="70" />
+			<vector name="Position" x="112" y="0" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackLetterT">
+			<integer name="id" value="71" />
+			<vector name="Position" x="120" y="0" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackLetterA">
+			<integer name="id" value="74" />
+			<vector name="Position" x="112" y="8" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackLetterG">
+			<integer name="id" value="75" />
+			<vector name="Position" x="120" y="8" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackLetterE">
+			<integer name="id" value="76" />
+			<vector name="Position" x="112" y="16" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackNumber0">
+			<integer name="id" value="77" />
+			<vector name="Position" x="120" y="16" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackNumber1">
+			<integer name="id" value="78" />
+			<vector name="Position" x="112" y="24" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackNumber2">
+			<integer name="id" value="79" />
+			<vector name="Position" x="120" y="24" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackNumber3">
+			<integer name="id" value="80" />
+			<vector name="Position" x="112" y="32" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackNumber4">
+			<integer name="id" value="83" />
+			<vector name="Position" x="120" y="32" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackNumber5">
+			<integer name="id" value="84" />
+			<vector name="Position" x="112" y="40" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackNumber6">
+			<integer name="id" value="85" />
+			<vector name="Position" x="120" y="40" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackNumber7">
+			<integer name="id" value="86" />
+			<vector name="Position" x="112" y="48" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackNumber8">
+			<integer name="id" value="87" />
+			<vector name="Position" x="120" y="48" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="BlackNumber9">
+			<integer name="id" value="88" />
+			<vector name="Position" x="112" y="56" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="AITankUISymbol">
+			<integer name="id" value="89" />
+			<vector name="Position" x="120" y="56" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="ColorGrey">
+			<integer name="id" value="90" />
+			<vector name="Position" x="112" y="64" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="RedLetterP">
+			<integer name="id" value="91" />
+			<vector name="Position" x="112" y="72" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="RedLetterA">
+			<integer name="id" value="92" />
+			<vector name="Position" x="120" y="72" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="RedLetterU">
+			<integer name="id" value="96" />
+			<vector name="Position" x="112" y="80" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="RedLetterS">
+			<integer name="id" value="97" />
+			<vector name="Position" x="120" y="80" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+		<entity class="Frame" name="RedLetterE">
+			<integer name="id" value="98" />
+			<vector name="Position" x="112" y="88" z="0" w="0" />
+			<integer name="width" value="8" />
+			<integer name="height" value="8" />
+		</entity>
+	</entity>
+	<sectors>
+		<sector name="Level1">
+			<integer name="tilewidth" value="8" />
+			<integer name="tileheight" value="8" />
+			<integer name="numtilesX" value="32" />
+			<integer name="numtilesY" value="30" />
+			<entities>
+
+				<entity class="Brick" name="object_124">
+					<vector name="Position" x="36" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_125">
+					<vector name="Position" x="44" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_128">
+					<vector name="Position" x="68" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_129">
+					<vector name="Position" x="76" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_132">
+					<vector name="Position" x="100" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_133">
+					<vector name="Position" x="108" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_136">
+					<vector name="Position" x="132" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_137">
+					<vector name="Position" x="140" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_140">
+					<vector name="Position" x="164" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_141">
+					<vector name="Position" x="172" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_144">
+					<vector name="Position" x="196" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_145">
+					<vector name="Position" x="204" y="36" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_154">
+					<vector name="Position" x="36" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_155">
+					<vector name="Position" x="44" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_158">
+					<vector name="Position" x="68" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_159">
+					<vector name="Position" x="76" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_162">
+					<vector name="Position" x="100" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_163">
+					<vector name="Position" x="108" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_166">
+					<vector name="Position" x="132" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_167">
+					<vector name="Position" x="140" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_170">
+					<vector name="Position" x="164" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_171">
+					<vector name="Position" x="172" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_174">
+					<vector name="Position" x="196" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_175">
+					<vector name="Position" x="204" y="44" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_184">
+					<vector name="Position" x="36" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_185">
+					<vector name="Position" x="44" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_188">
+					<vector name="Position" x="68" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_189">
+					<vector name="Position" x="76" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_192">
+					<vector name="Position" x="100" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_193">
+					<vector name="Position" x="108" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_196">
+					<vector name="Position" x="132" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_197">
+					<vector name="Position" x="140" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_200">
+					<vector name="Position" x="164" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_201">
+					<vector name="Position" x="172" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_204">
+					<vector name="Position" x="196" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_205">
+					<vector name="Position" x="204" y="52" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_214">
+					<vector name="Position" x="36" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_215">
+					<vector name="Position" x="44" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_218">
+					<vector name="Position" x="68" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_219">
+					<vector name="Position" x="76" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_222">
+					<vector name="Position" x="100" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_223">
+					<vector name="Position" x="108" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_226">
+					<vector name="Position" x="132" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_227">
+					<vector name="Position" x="140" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_230">
+					<vector name="Position" x="164" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_231">
+					<vector name="Position" x="172" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_234">
+					<vector name="Position" x="196" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_235">
+					<vector name="Position" x="204" y="60" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_244">
+					<vector name="Position" x="36" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_245">
+					<vector name="Position" x="44" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_248">
+					<vector name="Position" x="68" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_249">
+					<vector name="Position" x="76" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_252">
+					<vector name="Position" x="100" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_253">
+					<vector name="Position" x="108" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_256">
+					<vector name="Position" x="132" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_257">
+					<vector name="Position" x="140" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_260">
+					<vector name="Position" x="164" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_261">
+					<vector name="Position" x="172" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_264">
+					<vector name="Position" x="196" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_265">
+					<vector name="Position" x="204" y="68" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_274">
+					<vector name="Position" x="36" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_275">
+					<vector name="Position" x="44" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_278">
+					<vector name="Position" x="68" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_279">
+					<vector name="Position" x="76" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_282">
+					<vector name="Position" x="100" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_283">
+					<vector name="Position" x="108" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_286">
+					<vector name="Position" x="132" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_287">
+					<vector name="Position" x="140" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_290">
+					<vector name="Position" x="164" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_291">
+					<vector name="Position" x="172" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_294">
+					<vector name="Position" x="196" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_295">
+					<vector name="Position" x="204" y="76" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_304">
+					<vector name="Position" x="36" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_305">
+					<vector name="Position" x="44" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_308">
+					<vector name="Position" x="68" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_309">
+					<vector name="Position" x="76" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_312">
+					<vector name="Position" x="100" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_313">
+					<vector name="Position" x="108" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_316">
+					<vector name="Position" x="132" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_317">
+					<vector name="Position" x="140" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_320">
+					<vector name="Position" x="164" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_321">
+					<vector name="Position" x="172" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_324">
+					<vector name="Position" x="196" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_325">
+					<vector name="Position" x="204" y="84" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_334">
+					<vector name="Position" x="36" y="92" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_335">
+					<vector name="Position" x="44" y="92" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_338">
+					<vector name="Position" x="68" y="92" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_339">
+					<vector name="Position" x="76" y="92" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_350">
+					<vector name="Position" x="164" y="92" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_351">
+					<vector name="Position" x="172" y="92" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_354">
+					<vector name="Position" x="196" y="92" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_355">
+					<vector name="Position" x="204" y="92" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_364">
+					<vector name="Position" x="36" y="100" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_365">
+					<vector name="Position" x="44" y="100" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_368">
+					<vector name="Position" x="68" y="100" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_369">
+					<vector name="Position" x="76" y="100" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_380">
+					<vector name="Position" x="164" y="100" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_381">
+					<vector name="Position" x="172" y="100" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_384">
+					<vector name="Position" x="196" y="100" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_385">
+					<vector name="Position" x="204" y="100" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_402">
+					<vector name="Position" x="100" y="108" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_403">
+					<vector name="Position" x="108" y="108" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_406">
+					<vector name="Position" x="132" y="108" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_407">
+					<vector name="Position" x="140" y="108" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_432">
+					<vector name="Position" x="100" y="116" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_433">
+					<vector name="Position" x="108" y="116" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_436">
+					<vector name="Position" x="132" y="116" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_437">
+					<vector name="Position" x="140" y="116" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_456">
+					<vector name="Position" x="52" y="124" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_457">
+					<vector name="Position" x="60" y="124" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_458">
+					<vector name="Position" x="68" y="124" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_459">
+					<vector name="Position" x="76" y="124" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_470">
+					<vector name="Position" x="164" y="124" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_471">
+					<vector name="Position" x="172" y="124" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_472">
+					<vector name="Position" x="180" y="124" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_473">
+					<vector name="Position" x="188" y="124" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_486">
+					<vector name="Position" x="52" y="132" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_487">
+					<vector name="Position" x="60" y="132" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_488">
+					<vector name="Position" x="68" y="132" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_489">
+					<vector name="Position" x="76" y="132" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_500">
+					<vector name="Position" x="164" y="132" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_501">
+					<vector name="Position" x="172" y="132" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_502">
+					<vector name="Position" x="180" y="132" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_503">
+					<vector name="Position" x="188" y="132" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_522">
+					<vector name="Position" x="100" y="140" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_523">
+					<vector name="Position" x="108" y="140" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_526">
+					<vector name="Position" x="132" y="140" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_527">
+					<vector name="Position" x="140" y="140" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_552">
+					<vector name="Position" x="100" y="148" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_553">
+					<vector name="Position" x="108" y="148" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_554">
+					<vector name="Position" x="116" y="148" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_555">
+					<vector name="Position" x="124" y="148" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_556">
+					<vector name="Position" x="132" y="148" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_557">
+					<vector name="Position" x="140" y="148" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_574">
+					<vector name="Position" x="36" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_575">
+					<vector name="Position" x="44" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_578">
+					<vector name="Position" x="68" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_579">
+					<vector name="Position" x="76" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_582">
+					<vector name="Position" x="100" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_583">
+					<vector name="Position" x="108" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_584">
+					<vector name="Position" x="116" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_585">
+					<vector name="Position" x="124" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_586">
+					<vector name="Position" x="132" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_587">
+					<vector name="Position" x="140" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_590">
+					<vector name="Position" x="164" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_591">
+					<vector name="Position" x="172" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_594">
+					<vector name="Position" x="196" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_595">
+					<vector name="Position" x="204" y="156" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_604">
+					<vector name="Position" x="36" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_605">
+					<vector name="Position" x="44" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_608">
+					<vector name="Position" x="68" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_609">
+					<vector name="Position" x="76" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_612">
+					<vector name="Position" x="100" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_613">
+					<vector name="Position" x="108" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_616">
+					<vector name="Position" x="132" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_617">
+					<vector name="Position" x="140" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_620">
+					<vector name="Position" x="164" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_621">
+					<vector name="Position" x="172" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_624">
+					<vector name="Position" x="196" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_625">
+					<vector name="Position" x="204" y="164" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_634">
+					<vector name="Position" x="36" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_635">
+					<vector name="Position" x="44" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_638">
+					<vector name="Position" x="68" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_639">
+					<vector name="Position" x="76" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_642">
+					<vector name="Position" x="100" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_643">
+					<vector name="Position" x="108" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_646">
+					<vector name="Position" x="132" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_647">
+					<vector name="Position" x="140" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_650">
+					<vector name="Position" x="164" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_651">
+					<vector name="Position" x="172" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_654">
+					<vector name="Position" x="196" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_655">
+					<vector name="Position" x="204" y="172" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_664">
+					<vector name="Position" x="36" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_665">
+					<vector name="Position" x="44" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_668">
+					<vector name="Position" x="68" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_669">
+					<vector name="Position" x="76" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_672">
+					<vector name="Position" x="100" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_673">
+					<vector name="Position" x="108" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_676">
+					<vector name="Position" x="132" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_677">
+					<vector name="Position" x="140" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_680">
+					<vector name="Position" x="164" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_681">
+					<vector name="Position" x="172" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_684">
+					<vector name="Position" x="196" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_685">
+					<vector name="Position" x="204" y="180" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_694">
+					<vector name="Position" x="36" y="188" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_695">
+					<vector name="Position" x="44" y="188" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_698">
+					<vector name="Position" x="68" y="188" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_699">
+					<vector name="Position" x="76" y="188" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_710">
+					<vector name="Position" x="164" y="188" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_711">
+					<vector name="Position" x="172" y="188" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_714">
+					<vector name="Position" x="196" y="188" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_715">
+					<vector name="Position" x="204" y="188" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_724">
+					<vector name="Position" x="36" y="196" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_725">
+					<vector name="Position" x="44" y="196" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_728">
+					<vector name="Position" x="68" y="196" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_729">
+					<vector name="Position" x="76" y="196" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_740">
+					<vector name="Position" x="164" y="196" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_741">
+					<vector name="Position" x="172" y="196" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_744">
+					<vector name="Position" x="196" y="196" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_745">
+					<vector name="Position" x="204" y="196" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_754">
+					<vector name="Position" x="36" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_755">
+					<vector name="Position" x="44" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_758">
+					<vector name="Position" x="68" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_759">
+					<vector name="Position" x="76" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_763">
+					<vector name="Position" x="108" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_764">
+					<vector name="Position" x="116" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_765">
+					<vector name="Position" x="124" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_766">
+					<vector name="Position" x="132" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_770">
+					<vector name="Position" x="164" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_771">
+					<vector name="Position" x="172" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_774">
+					<vector name="Position" x="196" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_775">
+					<vector name="Position" x="204" y="204" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_793">
+					<vector name="Position" x="108" y="212" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_796">
+					<vector name="Position" x="132" y="212" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_823">
+					<vector name="Position" x="108" y="220" z="0" w="0"/>
+				</entity>
+				<entity class="Brick" name="object_826">
+					<vector name="Position" x="132" y="220" z="0" w="0"/>
+				</entity>
+				<entity class="TankAAI" name="FirstTank">
+					<vector name="Position" x="12" y="12" z="0" w="0"/>
+				</entity>
+				<entity class="TankBAI" name="SecondTank">
+					<vector name="Position" x="122" y="12" z="0" w="0"/>
+				</entity>
+				<entity class="TankCAI" name="ThirdTank">
+					<vector name="Position" x="246" y="12" z="0" w="0"/>
+				</entity>
+				<entity class="TankPlayer" name="PlayerTank">
+					<vector name="Position" x="92" y="214" z="0" w="0"/>
+				</entity>
+			</entities>
+		</sector>
+	</sectors>
+</world>
