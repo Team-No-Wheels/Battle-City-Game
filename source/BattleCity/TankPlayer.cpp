@@ -114,6 +114,7 @@ namespace AnonymousEngine
 						case KeyState::Pressed:
 							mMoveComponent->SetCanMove();
 							mMoveComponent->SetDirection(ActionMove::Direction::Up);
+							mMoveComponent->Move(worldState);
 							break;
 
 						case KeyState::Released:
@@ -137,6 +138,7 @@ namespace AnonymousEngine
 						case KeyState::Pressed:
 							mMoveComponent->SetCanMove();
 							mMoveComponent->SetDirection(ActionMove::Direction::Down);
+							mMoveComponent->Move(worldState);
 							break;
 
 						case KeyState::Released:
@@ -160,6 +162,7 @@ namespace AnonymousEngine
 						case KeyState::Pressed:
 							mMoveComponent->SetCanMove();
 							mMoveComponent->SetDirection(ActionMove::Direction::Left);
+							mMoveComponent->Move(worldState);
 							break;
 
 						case KeyState::Released:
@@ -183,6 +186,7 @@ namespace AnonymousEngine
 						case KeyState::Pressed:
 							mMoveComponent->SetCanMove();
 							mMoveComponent->SetDirection(ActionMove::Direction::Right);
+							mMoveComponent->Move(worldState);
 							break;
 
 						case KeyState::Released:
